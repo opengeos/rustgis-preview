@@ -2,7 +2,8 @@
 
 Pull request previews of [RustGIS](https://github.com/opengeos/RustGIS): its docs and web app, built
 by the `docs-preview` workflow and served by GitHub Pages at
-`https://opengeos.github.io/rustgis-preview/pr-<number>/` (the app under `app/`).
+`https://preview.rustgis.app/pr-<number>/` (the app under `app/`).
 
 The `gh-pages` branch is rewritten by that workflow on every deploy (one commit holding the open pull
-requests' previews); a preview is removed when its pull request closes. Nothing here is edited by hand.
+requests' previews and the `CNAME` file naming `preview.rustgis.app`); a preview is removed when its
+pull request closes. Nothing here is edited by hand.
