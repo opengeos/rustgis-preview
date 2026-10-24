@@ -1,0 +1,1581 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A fast, free and open-source GIS in pure Rust for mapping, analyzing and sharing geospatial data, on the desktop and in the browser">
+      
+      
+        <meta name="author" content="opengeos">
+      
+      
+        <link rel="canonical" href="https://rustgis.app/user-guide/layouts/">
+      
+      
+      
+        <link rel="prev" href="../analysis/">
+      
+      
+        <link rel="next" href="../sharing/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="https://assets.rustgis.app/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.71">
+    
+    
+      
+        <title>Layouts and Reports - RustGIS</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../assets/stylesheets/modern/main.e442bf79.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/modern/palette.b60ce83d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
+    <div data-md-component="skip">
+      <a href="#__skip" class="md-skip">
+        Skip to content
+      </a>
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="RustGIS" class="md-header__button md-logo" aria-label="RustGIS" data-md-component="logo">
+      
+  <img src="https://assets.rustgis.app/images/logo.svg" alt="RustGIS">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RustGIS
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Layouts and Reports
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/opengeos/RustGIS" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/RustGIS
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="RustGIS" class="md-nav__button md-logo" aria-label="RustGIS" data-md-component="logo">
+      
+  <img src="https://assets.rustgis.app/images/logo.svg" alt="RustGIS">
+
+    </a>
+    RustGIS
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/opengeos/RustGIS" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/RustGIS
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Installation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Getting Started
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://web.rustgis.app" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Web App
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  User Guide
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  User Guide
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Web Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-formats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Supported Data Formats
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../maps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Maps and Basemaps
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cartography/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Cartography
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../editing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Editing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Analysis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Layouts and Reports
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Layouts and Reports
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#layouts" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Layouts
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reports" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Reports
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#presentations-and-notebooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Presentations and notebooks
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sharing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sharing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workspace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Workspace
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../assistant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AI Assistant
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../comparison/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Comparison
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_6">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Comparison
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comparison/geolibre/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  RustGIS and GeoLibre
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comparison/qgis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  RustGIS and QGIS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Command Line
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MCP Server
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Plugins
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../i18n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Languages
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Architecture
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Contributing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sponsor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sponsor
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../privacy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Privacy
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/opengeos/RustGIS/issues" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Report Issues
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#layouts" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Layouts
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reports" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Reports
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#presentations-and-notebooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Presentations and notebooks
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                <a id="__skip" tabindex="-1"></a>
+                
+                  
+
+  
+  
+
+
+<h1 id="layouts-and-reports">Layouts and Reports<a class="headerlink" href="#layouts-and-reports" title="Permanent link">&para;</a></h1>
+<h2 id="layouts">Layouts<a class="headerlink" href="#layouts" title="Permanent link">&para;</a></h2>
+<figure>
+  <img alt="A landscape A4 page layout with a map frame, title, legend, north arrow and scale bar, and the Publish tab open" src="https://assets.rustgis.app/images/layout.webp" />
+<br />
+<figcaption>A page layout with a map frame, title, legend, north arrow and scale bar.</figcaption>
+</figure>
+<p>Home › New Layout adds a page layout (Letter to A0, landscape or portrait) with a map frame,
+title, legend, north arrow, scale bar and a dynamic credits line. Layouts open as tabs next to
+the maps; while one is open, its groups lead the Publish tab:</p>
+<ul>
+<li><strong>Map frames</strong>: rectangle, circle and ellipse frames, or polygon and lasso frames drawn on the
+  page. Each frame shows a map of the project at its own centre and scale. Turn on <strong>Pan/Zoom
+  Map</strong> (Map Frames group, or a frame's properties) to drag inside frames to pan their maps and
+  turn the wheel to zoom them about the pointer; Esc turns it off. Without it, Shift-drag a frame
+  to pan its map. Double-click a frame to match the map view, or set the scale in its properties.
+  A frame can be turned and tilted like the map view: a new frame, or one matched to the view,
+  takes the view's bearing and pitch, and <strong>Bearing</strong> and <strong>Pitch</strong> in its properties (or
+  <code>layout.update</code> with <code>bearing</code> and <code>pitch</code>) set them. Its north arrows turn with it. <strong>Grid</strong> draws a labelled graticule over a frame; <strong>Extent Indicator</strong> outlines another frame's
+  extent (an overview map).</li>
+<li><strong>Extent indicators</strong>: the <strong>Extent Indicator</strong> section of an overview frame's properties sets
+  the outline's <strong>Color</strong> and <strong>Line width</strong> (red and 2 pt to begin with), so it can sit quietly on a
+  muted page, and <strong>Remove Extent Indicator</strong> takes it away. Scripts set the same with <code>color</code>
+  and <code>width</code> on <code>layout.addElement</code> (<code>kind</code> <code>extentIndicator</code>), or <code>layout.update</code> with
+  <code>"extentIndicator": {"color": "#555555", "width": 1}</code> (<code>false</code> removes it).</li>
+<li><strong>Grids</strong>: the <strong>Grid</strong> section of a frame's properties turns the grid on and sets its
+  <strong>Interval</strong> in degrees (<strong>Auto</strong> picks one from the frame's extent), its <strong>Style</strong> (full lines
+  across the frame, ticks along its neatline only, or both, with the <strong>Tick length</strong>), its colour
+  and <strong>Line width</strong>, and its labels: decimal degrees (<code>112.5°W</code>, as many decimals as the
+  interval needs) or degrees, minutes and seconds (<code>112°30′W</code>), with a hemisphere letter or a
+  sign (<code>-112.5°</code>), on any of the four edges (longitudes along the top and bottom, latitudes along
+  the left and right; the bottom and left to start with), and the side labels horizontal or
+  running along the edge. From a command:
+  <code>layout.addElement={"kind":"grid","step":0.5,"style":"ticks","format":"dms","edges":["top","bottom","left","right"],"labelOrientation":"vertical"}</code>
+  (given again, it changes only the options it names), or <code>layout.update</code> with
+  <code>"grid": {…}</code> (<code>false</code> removes the grid).</li>
+<li><strong>Map surrounds</strong>: north arrow, scale bar, legend, colorbar, table frame (a layer's attribute table) and
+  chart frame (a bar chart of a numeric field), plus a neatline or backdrop. A north arrow's
+  properties pick its <strong>Style</strong> (classic arrow, compass rose, triangle or star) and its <strong>Fill</strong>
+  and <strong>Outline</strong> colours (<code>"style":"compass","fill":"#B91C1C"</code>). A scale bar's pick its
+  <strong>Style</strong> (alternating bar, stepped line or single line), its <strong>Units</strong> (metres or kilometres
+  to suit the scale, or kilometres, metres, miles or feet) and its <strong>Divisions</strong> (1 to 10), each
+  labelled where there is room (<code>"style":"line","units":"miles","divisions":2</code>). A legend shows what
+  its frame draws: only layers with a feature at the frame's scale (through their definition
+  query, display filters and scale range) and, for Unique Values, only the classes those features
+  have, with <code>&lt;all other values&gt;</code> only when some feature falls in it and its symbol is not fully
+  transparent. Graduated Colors and
+  Proportional Symbols list their classes as they are (they are taken from the kept features when
+  the symbology is applied). A layer that draws
+  nothing there, such as an empty one, is left out, in layouts saved before this too. Tick <strong>All
+  classes</strong> in its properties (<code>"allClasses": true</code>) to list every class of every visible layer
+  instead, and <strong>Hide other values</strong> (<code>"hideOther": true</code>) to leave <code>&lt;all other values&gt;</code> out of
+  the legend in either mode (the features it stands for are still drawn). Its <strong>Layers</strong> section
+  has a checkbox for each layer of the frame's map: untick one to leave it out of the legend
+  while the map still draws it (a mask, a highlight, a basemap-like layer). Scripts give the same
+  with <code>"exclude": ["Graticule"]</code> on <code>layout.addElement</code> or <code>layout.update</code> (<code>[]</code> lists every
+  layer again); a renamed layer stays left out.</li>
+<li><strong>Colorbar</strong>: the colour scale of a raster layer in the frame's map, as the map draws it (its
+  stretch, colour ramp and enhancement): a gradient bar for a stretch or a tinted hillshade,
+  steps labelled at their breaks for Classify, and a block per value for Unique Values and colour
+  tables. Its properties pick the <strong>Layer</strong> (the top visible raster unless one is picked), the
+  <strong>Title</strong> (the units, such as <code>Elevation (m)</code>; the layer's name to start with), the
+  <strong>Orientation</strong>, which side the <strong>Labels</strong> go on, how many <strong>Ticks</strong> a gradient labels (2 to
+  21, the ends included) and <strong>Reverse</strong> (high values first). An RGB raster or a hillshade
+  without a tint has no colour scale and shows a placeholder, as does a picked layer that was
+  renamed or removed (it is kept by name, like a table or chart frame's layer) until another is
+  picked. From a command:
+  <code>layout.addElement={"kind":"colorbar","layer":"DEM","title":"Elevation (m)","orientation":"vertical","ticks":3}</code>.</li>
+<li><strong>Shapes</strong>: <strong>Rectangle</strong>, <strong>Circle</strong>, <strong>Ellipse</strong> and <strong>Line</strong> (horizontal, vertical or
+  either diagonal) add a shape in the middle of the page, to frame, highlight or divide parts of
+  it. A circle is an ellipse in a square box. The properties set a shape's fill, outline and
+  outline width (0 for none; a fill with no opacity leaves only the outline), and a line's colour,
+  width, arrowheads and angle. From a command:
+  <code>layout.addElement={"kind":"line","dir":"falling","color":"#C0392B","width":2}</code>.</li>
+<li><strong>Arrows</strong>: <strong>Arrow</strong> adds an arrow pointing right. Drag the round handle above a selected arrow
+  or line to turn it about its centre: it snaps to level, upright and diagonal within 3°, and
+  <strong>Shift</strong> turns it in 15° steps. <strong>Angle</strong> in its properties sets it exactly (0° points right,
+  90° up), and <strong>Arrowheads</strong> puts heads at its end, its start, both or neither, so any line can
+  be an arrow. From a command:
+  <code>layout.addElement={"kind":"arrow","angle":30,"length":60}</code>, or
+  <code>layout.update={"element":7,"angle":-90}</code> to turn one.</li>
+<li><strong>Text</strong> and <strong>Dynamic Text</strong>: <code>{date}</code>, <code>{time}</code>, <code>{scale}</code>, <code>{map}</code>, <code>{crs}</code>, <code>{page}</code>,
+  <code>{pages}</code>, <code>{pageName}</code> and <code>{layout}</code> fill in when the page is drawn; the Format pane's
+  <strong>Insert Dynamic Text</strong> menu, under the text, lists each with what it shows. The text, its
+  size (2 to 400 points, as text graphics on the map), colour, bold, <strong>Italic</strong> (slanted, as water
+  and ocean names are; the built-in fonts have no italic face, so the letters are slanted 12°),
+  <strong>Alignment</strong> (left, center or right within the element) and <strong>Letter spacing</strong> in points
+  (spaced-out names such as O C E A N O, or a negative value to tighten) are the same form a text
+  on the map has in the pane; Enter ends the text and Shift+Enter starts a new line. Scripts set them with <code>italic</code>, <code>align</code> and
+  <code>letterSpacing</code> on <code>layout.addElement</code> and <code>layout.update</code>. <strong>Picture</strong> places a PNG or JPEG.</li>
+<li><strong>Map Series</strong>: one page per feature of an index layer, with the frame zoomed to each feature;
+  step through pages, refresh, and export every page into one PDF.</li>
+<li>Click an element to select it, drag to move, drag its handles to resize, and edit it in the
+  <strong>Format</strong> pane, which opens as a tab beside the other right-hand panes. Closing the pane keeps
+  the element selected; selecting an element, or clicking the selected one, opens it again. The
+  wheel zooms the page. <strong>Delete</strong> (or <strong>Backspace</strong>, the delete key on a
+  Mac) deletes the selected element, and <strong>Ctrl+D</strong> (<strong>⌘D</strong> on a Mac) duplicates it: the copy is
+  placed 5 mm down and to the right, on top, and selected. The <strong>arrow keys</strong> nudge it 1 mm, or
+  10 mm with <strong>Shift</strong>, and keep it moving while held; a run of nudges is one step to undo.</li>
+<li><strong>Locked</strong>, at the top of the Format pane, keeps a finished element from being changed by
+  mistake: it can still be selected (a lock marks its corner, and it has no handles), but not
+  moved, resized, deleted or edited, and a locked map frame's map isn't panned or zoomed. A map
+  series still turns its pages. <strong>Duplicate</strong> makes an unlocked copy, and a map frame isn't
+  deleted while one of its surrounds is locked. Scripts lock and unlock with <code>layout.update</code>
+  <code>{"locked": true}</code> or <code>{"locked": false}</code>.</li>
+<li><strong>Rulers and guides</strong>: rulers along the top and left show millimetres from the page's corner.
+  Drag out of a ruler to add a guide, drag a guide to move it, and drag it back onto a ruler to
+  remove it. Guides are saved with the layout but never printed or exported. <strong>Clear Guides</strong>
+  removes them all, and <strong>Rulers</strong> in the Page group hides the rulers.</li>
+<li><strong>Snap</strong>: a dragged or resized element snaps to the guides, the page's edges and centre, and
+  the other elements' edges and centres, and the line it snapped to is highlighted. Hold Alt to
+  place an element freely, or turn <strong>Snap</strong> off in the Page group.</li>
+<li><strong>Export</strong> writes PDF (every map series page) or PNG; <strong>Print</strong> opens the PDF in the system
+  viewer; <strong>Save Layout File</strong> and <strong>Import Layout</strong> move layouts between projects
+  (<code>.rgislayout</code>).</li>
+</ul>
+<h2 id="reports">Reports<a class="headerlink" href="#reports" title="Permanent link">&para;</a></h2>
+<p><strong>Publish › New Report</strong> lists the selected layer's records page after page; the <strong>Report</strong> pane
+previews it and sets it up.</p>
+<ul>
+<li><strong>Data</strong>: pick the detail <strong>Fields</strong> (or <strong>Autofill Fields</strong>), <strong>Group</strong> records by up to four
+  fields (each group gets a heading and its own statistics), add <strong>Statistics</strong> (count, sum,
+  mean, minimum, maximum), a <strong>Dynamic Picture</strong> per record (a field holding a PNG/JPEG path relative to the saved
+  project's folder, or base64 image data), <strong>Attachments</strong> (a field listing each record's files,
+  separated by <code>;</code>; image files show when they're inside the project's folder), and a <strong>Chart Frame</strong>
+  (records, or a field's sum, per category).</li>
+<li><strong>Report Section</strong>: <strong>Supplemental Pages</strong> of text before or after the records, <strong>New
+  Template</strong> and <strong>Existing Template</strong> (a page layout drawn as a report page), a <strong>Related
+  Report</strong> appended after this one, and <strong>Subreports</strong> (each record's related records through a
+  relationship, listed beneath it).</li>
+<li>A where clause or the layer's selection limits the records; a sort field orders them within
+  their groups.</li>
+<li><strong>Publish › Report</strong>: <strong>Export Report</strong> writes a PDF (or the first page as PNG); <strong>Save As Report
+  File</strong> keeps the report, and <strong>Report Template</strong> its design without the data source, to start
+  reports on other layers (<strong>Publish › Import Report</strong>).</li>
+</ul>
+<h2 id="presentations-and-notebooks">Presentations and notebooks<a class="headerlink" href="#presentations-and-notebooks" title="Permanent link">&para;</a></h2>
+<p><strong>Publish › New Presentation</strong> starts a presentation with a title page; the <strong>Presentation</strong> pane
+previews, edits and plays it.</p>
+<ul>
+<li><strong>Page</strong>: a <strong>Map</strong> page shows the map view as it is now, a <strong>Blank</strong> page shows text on a
+  coloured page, an <strong>Image</strong> page a picture with a caption, and a <strong>Video</strong> page a video file or
+  URL with an optional poster picture.</li>
+<li>Each page has a title, speaker notes and a duration (for <strong>Play</strong>), and can move up or down.</li>
+<li><strong>Publish › Presentation › Export Presentation</strong> writes a self-contained HTML slideshow (arrow
+  keys, <code>N</code> for notes, <code>P</code> to play; videos play in place), a PDF, or the first page as PNG.
+  <strong>Save As Presentation File</strong> keeps it to import into other projects.</li>
+</ul>
+<p><strong>Analyze › New Notebook</strong> starts a notebook of text and command cells; <strong>Add and Open</strong> opens a
+RustGIS (<code>.rgisnb</code>) or Jupyter (<code>.ipynb</code>) notebook. A command cell runs one command per line
+(<code>id {json}</code>, as in scripts) and shows each command's result beneath it. Notebooks save in
+either format.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../analysis/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Analysis">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Analysis
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../sharing/" class="md-footer__link md-footer__link--next" aria-label="Next: Sharing">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Sharing
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Qiusheng Wu
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/opengeos/RustGIS" target="_blank" rel="noopener" title="RustGIS on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/sponsors/giswqs" target="_blank" rel="noopener" title="Sponsor RustGIS on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="m241 87.1 15 20.7 15-20.7C296 52.5 336.2 32 378.9 32 452.4 32 512 91.6 512 165.1v2.6c0 112.2-139.9 242.5-212.9 298.2-12.4 9.4-27.6 14.1-43.1 14.1s-30.8-4.6-43.1-14.1C139.9 410.2 0 279.9 0 167.7v-2.6C0 91.6 59.6 32 133.1 32 175.8 32 216 52.5 241 87.1"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://buymeacoffee.com/giswqs" target="_blank" rel="noopener" title="Buy the maintainer a coffee" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M152-16c-13.3 0-24 10.7-24 24 0 38.9 23.4 59.4 39.1 73.1l1.1 1C184.5 96.4 192 103.9 192 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C183.5 31.7 176 24.1 176 8c0-13.3-10.7-24-24-24M96 192c-17.7 0-32 14.3-32 32v192c0 53 43 96 96 96h192c41.8 0 77.4-26.7 90.5-64h5.5c70.7 0 128-57.3 128-128s-57.3-128-128-128zm352 192V256c35.3 0 64 28.7 64 64s-28.7 64-64 64M288 8c0-13.3-10.7-24-24-24S240-5.3 240 8c0 38.9 23.4 59.4 39.1 73.1l1.1 1C296.5 96.4 304 103.9 304 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C295.5 31.7 288 24.1 288 8"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"../..","features":["content.code.copy","navigation.indexes","navigation.footer","navigation.instant","navigation.top","navigation.tracking","search.highlight","search.share"],"redirect":null,"search":"../../assets/javascripts/workers/search.c47bb847.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a2388154.min.js"></script>
+      
+    
+  </body>
+</html>
