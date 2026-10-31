@@ -1,0 +1,2761 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A fast, free and open-source GIS in pure Rust for mapping, analyzing and sharing geospatial data, on the desktop and in the browser">
+      
+      
+        <meta name="author" content="opengeos">
+      
+      
+        <link rel="canonical" href="https://rustgis.app/user-guide/web-data/">
+      
+      
+      
+        <link rel="prev" href="../data/">
+      
+      
+        <link rel="next" href="../data-formats/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="https://assets.rustgis.app/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.73">
+    
+    
+      
+        <title>Web Data - RustGIS</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../assets/stylesheets/modern/main.4ab2de0c.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/modern/palette.b60ce83d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
+    <div data-md-component="skip">
+      <a href="#__skip" class="md-skip">
+        Skip to content
+      </a>
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="RustGIS" class="md-header__button md-logo" aria-label="RustGIS" data-md-component="logo">
+      
+  <img src="https://assets.rustgis.app/images/logo.svg" alt="RustGIS">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+      <span class="md-visually-hidden">Navigation</span>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RustGIS
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Web Data
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+          <span class="md-visually-hidden">Search</span>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/opengeos/RustGIS" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/RustGIS
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="RustGIS" class="md-nav__button md-logo" aria-label="RustGIS" data-md-component="logo">
+      
+  <img src="https://assets.rustgis.app/images/logo.svg" alt="RustGIS">
+
+    </a>
+    RustGIS
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/opengeos/RustGIS" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/RustGIS
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Installation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Getting Started
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://web.rustgis.app" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Web App
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  User Guide
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  User Guide
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Web Data
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Web Data
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#stac-catalogs" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        STAC catalogs
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="STAC catalogs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-cubes-on-the-time-slider" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Data cubes on the time slider
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-catalog-of-data-cubes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        A catalog of data cubes
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saved-connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Saved connections
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-catalogs" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Static catalogs
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#planet-open-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Planet Open Data
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#portolan" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Portolan
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sentinel-2-explorer" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Sentinel-2 Explorer
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vantor" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Vantor
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usgs-lidar" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        USGS LiDAR
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overture-maps" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Overture Maps
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#source-cooperative" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Source Cooperative
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#natural-earth" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Natural Earth
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fields-of-the-world" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Fields of the World
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#openstreetmap-and-administrative-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        OpenStreetMap and administrative boundaries
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nasa" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        NASA
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NASA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nasa-earthdata" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        NASA Earthdata
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nasa-earthaccess" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        NASA Earthaccess
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#open-data-portals" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Open-data portals
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Open-data portals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#web-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Web services
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#layers-that-change-with-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Layers that change with time
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#united-states" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        United States
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="United States">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enviroatlas-fema-nfhl-and-the-national-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        EnviroAtlas, FEMA NFHL and The National Map
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usgs-nldi" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        USGS NLDI
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#satellite-embeddings" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Satellite embeddings
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-formats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Supported Data Formats
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shapefile-encoding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Shapefile DBF language drivers
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../maps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Maps and Basemaps
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cartography/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Cartography
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../editing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Editing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Analysis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layouts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Layouts and Reports
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sharing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sharing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workspace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Workspace
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../assistant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AI Assistant
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../comparison/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Comparison
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_6">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Comparison
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comparison/geolibre/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  RustGIS and GeoLibre
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comparison/qgis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  RustGIS and QGIS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Command Line
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MCP Server
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Plugins
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../i18n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Languages
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Architecture
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Contributing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../acknowledgements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Acknowledgements
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../citation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  How to Cite
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sponsor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sponsor
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../privacy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Privacy
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/opengeos/RustGIS/issues" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Report Issues
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#stac-catalogs" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        STAC catalogs
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="STAC catalogs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-cubes-on-the-time-slider" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Data cubes on the time slider
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-catalog-of-data-cubes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        A catalog of data cubes
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saved-connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Saved connections
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-catalogs" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Static catalogs
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#planet-open-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Planet Open Data
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#portolan" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Portolan
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sentinel-2-explorer" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Sentinel-2 Explorer
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vantor" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Vantor
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usgs-lidar" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        USGS LiDAR
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overture-maps" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Overture Maps
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#source-cooperative" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Source Cooperative
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#natural-earth" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Natural Earth
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fields-of-the-world" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Fields of the World
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#openstreetmap-and-administrative-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        OpenStreetMap and administrative boundaries
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nasa" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        NASA
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NASA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nasa-earthdata" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        NASA Earthdata
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nasa-earthaccess" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        NASA Earthaccess
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#open-data-portals" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Open-data portals
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Open-data portals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#web-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Web services
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#layers-that-change-with-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Layers that change with time
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#united-states" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        United States
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="United States">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enviroatlas-fema-nfhl-and-the-national-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        EnviroAtlas, FEMA NFHL and The National Map
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usgs-nldi" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        USGS NLDI
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#satellite-embeddings" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Satellite embeddings
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                <a id="__skip" tabindex="-1"></a>
+                
+                  
+
+  
+  
+
+
+<h1 id="web-data">Web Data<a class="headerlink" href="#web-data" title="Permanent link">&para;</a></h1>
+<p><strong>Home › Add › Web Data</strong> gathers public web services and catalogs: the ones that cover the whole world
+in one alphabetical list, and those that cover one country in a submenu named after it. Each
+opens in the Web Data pane on the right, beside the map it searches. Unless a section says
+otherwise, the panes work in the web app too, provided the servers allow browser requests
+(CORS). The command-line examples below are for the desktop CLI; many network commands cannot
+fetch synchronously in the browser, where the panes fetch in the background instead.
+Commands that reach the network need the <a href="../assistant/">AI Assistant</a>'s approval when it runs
+them, and the network permission when a plugin does. <code>ui.dialog</code> opens a panel on a search with <code>"search"</code>
+(<code>{"name": "nasaEarthdata", "search": "sea surface temperature"}</code>).</p>
+<table>
+<thead>
+<tr>
+<th>Entry</th>
+<th>What it gives</th>
+<th>Section</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ArcGIS Portal…</td>
+<td>Public items on ArcGIS Online or another portal</td>
+<td><a href="#web-services">Web services</a></td>
+</tr>
+<tr>
+<td>Boundaries…</td>
+<td>A country's administrative boundaries (geoBoundaries)</td>
+<td><a href="#openstreetmap-and-administrative-boundaries">OpenStreetMap and administrative boundaries</a></td>
+</tr>
+<tr>
+<td>Dynamical…</td>
+<td>Weather and climate Zarr stores</td>
+<td><a href="#web-services">Web services</a></td>
+</tr>
+<tr>
+<td>Earthdata GIS…</td>
+<td>NASA's Earth science imagery, maps and features</td>
+<td><a href="#web-services">Web services</a></td>
+</tr>
+<tr>
+<td>Fields of the World…</td>
+<td>Agricultural field boundaries, worldwide</td>
+<td><a href="#fields-of-the-world">Fields of the World</a></td>
+</tr>
+<tr>
+<td>GeoLens…</td>
+<td>A GeoLens server's vector datasets</td>
+<td><a href="#web-services">Web services</a></td>
+</tr>
+<tr>
+<td>Hugging Face…</td>
+<td>Geospatial files in Hugging Face datasets</td>
+<td><a href="#web-services">Web services</a></td>
+</tr>
+<tr>
+<td>NASA Earthaccess…</td>
+<td>NASA Earthdata granules (ICESat-2, GEDI, HLS…)</td>
+<td><a href="#nasa-earthaccess">NASA Earthaccess</a></td>
+</tr>
+<tr>
+<td>NASA Earthdata…</td>
+<td>NASA GIBS imagery, day by day</td>
+<td><a href="#nasa-earthdata">NASA Earthdata</a></td>
+</tr>
+<tr>
+<td>Natural Earth…</td>
+<td>Natural Earth map data</td>
+<td><a href="#natural-earth">Natural Earth</a></td>
+</tr>
+<tr>
+<td>Ocean Data Platform…</td>
+<td>HUB Ocean's marine datasets</td>
+<td><a href="#web-services">Web services</a></td>
+</tr>
+<tr>
+<td>OpenAerialMap…</td>
+<td>Drone and aerial images</td>
+<td><a href="#web-services">Web services</a></td>
+</tr>
+<tr>
+<td>OpenStreetMap…</td>
+<td>OpenStreetMap features where the map is</td>
+<td><a href="#openstreetmap-and-administrative-boundaries">OpenStreetMap and administrative boundaries</a></td>
+</tr>
+<tr>
+<td>Overture Maps…</td>
+<td>Buildings, places, transportation and more</td>
+<td><a href="#overture-maps">Overture Maps</a></td>
+</tr>
+<tr>
+<td>Planet Open Data…</td>
+<td>Planet's disaster imagery</td>
+<td><a href="#planet-open-data">Planet Open Data</a></td>
+</tr>
+<tr>
+<td>Portolan…</td>
+<td>Open data catalogs published with Portolan</td>
+<td><a href="#portolan">Portolan</a></td>
+</tr>
+<tr>
+<td>Satellite Embeddings…</td>
+<td>AlphaEarth, Earth Index and Tessera embeddings</td>
+<td><a href="#satellite-embeddings">Satellite embeddings</a></td>
+</tr>
+<tr>
+<td>Search Open Data…</td>
+<td>data.gov, CKAN, Socrata and ArcGIS Hub datasets</td>
+<td><a href="#open-data-portals">Open-data portals</a></td>
+</tr>
+<tr>
+<td>Sentinel-2 Explorer…</td>
+<td>Recent, clear Sentinel-2 scenes</td>
+<td><a href="#sentinel-2-explorer">Sentinel-2 Explorer</a></td>
+</tr>
+<tr>
+<td>Source Cooperative…</td>
+<td>Files on Source Cooperative</td>
+<td><a href="#source-cooperative">Source Cooperative</a></td>
+</tr>
+<tr>
+<td>STAC Search…</td>
+<td>Any STAC API or static catalog</td>
+<td><a href="#stac-catalogs">STAC catalogs</a></td>
+</tr>
+<tr>
+<td>Vantor…</td>
+<td>Vantor's (formerly Maxar's) disaster imagery</td>
+<td><a href="#vantor">Vantor</a></td>
+</tr>
+<tr>
+<td>France › IGN LiDAR HD…</td>
+<td>IGN's LiDAR HD point clouds</td>
+<td><a href="#web-services">Web services</a></td>
+</tr>
+<tr>
+<td>United States › …</td>
+<td>EnviroAtlas, FEMA NFHL, Tennessee GIS, The National Map, US Federal/State/Local GIS, USGS 3DEP DEM, USGS LiDAR, USGS NLDI</td>
+<td><a href="#united-states">United States</a></td>
+</tr>
+</tbody>
+</table>
+<p>Data added by its address, from a web server or an S3 bucket, is described in
+<a href="../data/#s3-buckets">Data</a> and <a href="../data-formats/#files-on-the-web">Files on the web</a>.</p>
+<h2 id="stac-catalogs">STAC catalogs<a class="headerlink" href="#stac-catalogs" title="Permanent link">&para;</a></h2>
+<p><strong>Home › Add › Web Data › STAC Search…</strong> searches a <a href="https://stacspec.org">STAC</a> API for imagery and
+other assets: by collection, dates, the most cloud cover and (by default) where the map is. The
+default API is Element 84's <a href="https://earth-search.aws.element84.com/v1">Earth Search</a>;
+Microsoft's <a href="https://planetarycomputer.microsoft.com/api/stac/v1">Planetary Computer</a> is offered
+beside it, and other APIs with GET item search work. <strong>Collections</strong> lists what the API offers,
+and <strong>Find Items</strong> shows up to 50 items as cards
+(with "Showing 50 of 1234 items" when the API says how many match) and draws their footprints as
+a layer. Each card has the item's preview picture when it has one, its id, a collection · date ·
+cloud cover line, and <strong>Zoom</strong> (to the item), the asset to add, <strong>Add</strong> and <strong>Details</strong> (the item's
+properties). The asset chosen at first is <code>visual</code> (true colour) when there is one, else the first
+GeoTIFF, else the first point cloud, else the first data asset, preferring HTTP(S) assets.
+Cloud-optimised GeoTIFF, GeoParquet and FlatGeobuf assets are read in place, and PMTiles a tile
+at a time; other assets download whole (see <a href="../data-formats/#files-on-the-web">Files on the web</a>).</p>
+<p>The commands do the same: <code>stac.collections</code> (<code>"url"</code>), <code>stac.search</code> (<code>"collections"</code>,
+<code>"bbox"</code> as <code>[west, south, east, north]</code> or <code>"view"</code>, <code>"datetime"</code> such as
+<code>2024-06-01/2024-06-30</code>, <code>"limit"</code> from 1 to 200, default 10, <code>"maxCloud"</code>, <code>"footprints"</code>, and
+<code>"properties": true</code> for the scalar item properties rather than just date and cloud cover),
+and <code>stac.addAsset</code> with an item returned by <code>stac.search</code> (<code>"item"</code>) or an item's address
+(<code>"url"</code>) and <code>"asset"</code>. API searches return one page and a <code>"next"</code> address when there is another:</p>
+<div class="highlight"><pre><span></span><code>rustgis-cli<span class="w"> </span>run<span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'stac.search={"collections":"sentinel-2-c1-l2a","bbox":[7.4,46.9,7.5,47],"datetime":"2024-07-01/2024-07-31","maxCloud":20}'</span><span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'stac.addAsset={"url":"https://earth-search.aws.element84.com/v1/collections/sentinel-2-c1-l2a/items/S2B_T32TLS_20240727T103439_L2A","asset":"scl"}'</span>
+</code></pre></div>
+<p>Assets can use HTTP(S) or <code>s3://</code> addresses. S3 assets use the saved connection serving their
+bucket, or anonymous AWS access when none matches; see <a href="../data/#s3-buckets">S3 buckets</a>.
+An item on the web can't point into the local network. A Planetary
+Computer asset (in Azure Blob Storage) is signed first: RustGIS asks the Planetary Computer's
+token service for its storage container's token and reuses it for half an hour. The token is part
+of the layer's address, so a project saved with one reads it again only while the token lasts
+(about an hour): add the asset again after that. A <code>?stac=</code> link opens the web app on an item or a
+collection (<a href="../../installation/">web app links</a>). Searches reach the network, so the <a href="../assistant/">AI
+Assistant</a> asks before it runs them, and plugins need the network permission.</p>
+<h3 id="data-cubes-on-the-time-slider">Data cubes on the time slider<a class="headerlink" href="#data-cubes-on-the-time-slider" title="Permanent link">&para;</a></h3>
+<p>When the items found span several dates, <strong>Add as Time Series</strong> (desktop; <code>stac.addCube</code>) adds a
+band of them as a data cube: a collection's cloud-optimised GeoTIFFs, with one file per tile, date
+and band, such as INPE's <a href="https://data.inpe.br/bdc/">Brazil Data Cube</a> or Sentinel-2 on Earth Search.</p>
+<ul>
+<li><strong>Search:</strong> the collection is searched over the area (the map's, or <code>"bbox"</code>) and the period
+  (<code>"start"</code>, <code>"end"</code>), page after page, up to 2,000 items.</li>
+<li><strong>Grouping:</strong> items go by the grid tile they cover (<code>grid:code</code>, <code>s2:mgrs_tile</code>, Landsat's WRS
+  path and row, the Brazil Data Cube's <code>bdc:tiles</code>, else their bounding box), and by day.</li>
+<li><strong>Layers:</strong> each tile becomes a tile layer read in place, a file per date. The time slider shows
+  the last date in its window, and a tile with no date in it draws nothing. The slider turns on
+  over the dates when it is off.</li>
+<li><strong>Range:</strong> a fixed <code>"range"</code> (<code>[0, 0.9]</code> for NDVI) is the same for every date and tile, so a grey
+  means one value throughout. It is in the band's own units: its <code>raster:bands</code> (or <code>eo:bands</code>)
+  scale and offset turn it into the files' stored values. Without one, each file is stretched on
+  its own, between its 2nd and 98th percentiles.</li>
+<li><strong>Saved with the project:</strong> each tile's dates and addresses.</li>
+<li><strong>Files in public buckets:</strong> a collection whose items give their files as <code>s3://</code> addresses
+  (Digital Earth Australia, Digital Earth Africa, the Copernicus DEM on Earth Search) is read
+  from AWS at the files' web addresses. Reads are anonymous unless an S3 connection explicitly
+  names the bucket, in which case its credentials are used, as for other S3 reads. A
+  bucket in a region AWS's global endpoint doesn't reach (Digital Earth Africa's, in Cape Town) is
+  read at its own region's, found by reading one byte of its first file. Without a matching
+  connection, a bucket that refuses anonymous reads (a private one, or one that charges the
+  reader, as Landsat's does) is refused, naming it.</li>
+<li><strong>Web app:</strong> creating a cube with <strong>Add as Time Series</strong> is desktop-only. Saved cube tile
+  layers can draw in the web app when their servers allow browser requests (CORS).</li>
+<li><strong>Its trend:</strong> the same search, given to Trend Analysis (<code>cube.trend</code> with <code>collection</code>,
+  <code>asset</code>, <code>bbox</code>, <code>start</code> and <code>end</code>), reads the values over the area and works out each cell's
+  trend: see <a href="../analysis/#trend-analysis">Trend analysis</a>.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>rustgis-cli<span class="w"> </span>run<span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'stac.addCube={"url":"https://data.inpe.br/bdc/stac/v1","collection":"S2-16D-2","asset":"NDVI","bbox":[-55.9,-12.6,-55.5,-12.35],"start":"2024-08-01","end":"2025-06-30","range":[0,0.9]}'</span><span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'time.export={"path":"ndvi.gif"}'</span>
+</code></pre></div>
+<h3 id="a-catalog-of-data-cubes">A catalog of data cubes<a class="headerlink" href="#a-catalog-of-data-cubes" title="Permanent link">&para;</a></h3>
+<p>A data cube needs more than an API's address: the right collection and band, and often a range
+to show it with and a cell size to read it at. The catalog of data cubes lists cubes ready to
+open, each with those filled in, so none of them has to be looked up in a provider's catalog.</p>
+<p><strong>Home › Add › Web Data › Data Cubes</strong> lists them, filtered by theme, by words, and (ticked to
+begin with) to those with data where the map is. Each shows its provider, period, step,
+resolution, source and licence, with a link to the provider's page, and two buttons:</p>
+<ul>
+<li><strong>Add to Time Slider</strong> (desktop) adds it as <code>cube.open</code> does (below): a STAC cube where the map
+  is, a Zarr cube whole. It is added over the period typed in <strong>From</strong> and <strong>To</strong>, or its last
+  full calendar year when both are empty.</li>
+<li><strong>Trend Analysis…</strong> (desktop) opens Trend Analysis on it, with the period typed: a STAC cube is
+  read where the map is, a Zarr cube whole, and <strong>Use layers instead</strong> goes back to the map's
+  layers. A trend over a cube needs its period.</li>
+</ul>
+<p>The list is kept up to date between releases with the app's other assets, so a cube can be added,
+or an address fixed, without a new version: the app reads it the first time the pane opens, and
+uses the copy built into it until then, offline, or when the list doesn't read whole. Commands,
+scripts and the assistant use the same list.</p>
+<ul>
+<li><strong>Finding a cube</strong> (<code>cube.catalog</code>): by <code>"theme"</code> (vegetation, land cover, water, climate, ocean,
+  atmosphere or elevation), by area (<code>"bbox"</code>, or <code>"view"</code>: the entries with data there; with
+  neither, anywhere) and by words in the name, provider or id (<code>"query"</code>). Each entry gives its
+  provider, themes, area, period, step, resolution, source and licence, with a link to the
+  provider's page.</li>
+<li><strong>Opening one</strong> (desktop; <code>cube.open</code> with the entry's <code>"id"</code>): a STAC entry is added as
+  <code>stac.addCube</code> adds a cube, over the map's extent (or <code>"bbox"</code>), with the entry's collection,
+  band, range and cloud cover cap (<code>"range"</code> and <code>"maxCloud"</code> override the last two). A Zarr entry
+  is added as <code>layer.addZarr</code> adds a variable that follows the time slider; its variable is read
+  whole, but an area given must meet the entry's. The period is <code>"start"</code> and <code>"end"</code>, given together; with neither, it
+  is the entry's last full calendar year (the year before this one while the cube is kept up to
+  date). An end given as a day, a month or a year takes all of it, so an hourly variable's last day
+  is read whole. An area the entry has no data in, or a period outside its dates, is refused,
+  naming them. <strong>Undo</strong> takes the whole cube away.</li>
+<li><strong>Its trend or summary:</strong> Trend Analysis and the summary over time take an entry too
+  (<code>cube.trend</code> or <code>cube.reduce</code> with <code>"cube"</code>), filling in the collection's API, band, cell size
+  and cloud cap (a <code>"cellSize"</code> or <code>"maxCloud"</code> given is kept), or the Zarr store and variable.
+  Data named alongside it (<code>layer</code>, <code>url</code>, <code>collection</code>…) is refused, since the entry would take its
+  place.</li>
+</ul>
+<p>The entries, all public and read in place:</p>
+<table>
+<thead>
+<tr>
+<th>Provider</th>
+<th>Cubes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://data.inpe.br/bdc/">Brazil Data Cube</a> (INPE)</td>
+<td>MODIS NDVI and EVI (MOD13Q1 v6.1, 232 m, from 2000); the 16-day NDVI cubes of Sentinel-2 (10 m, from 2017), Landsat (30 m) and CBERS-4 WFI (64 m, from 2016)</td>
+</tr>
+<tr>
+<td><a href="https://element84.com/earth-search/">Earth Search</a> (Element 84)</td>
+<td>Sentinel-2 L2A Collection 1 scenes' red and near-infrared bands (10 m, from 2015), searched with at most 20% cloud cover; the Copernicus DEM GLO-30 (one date)</td>
+</tr>
+<tr>
+<td><a href="https://www.dea.ga.gov.au/">Digital Earth Australia</a> and <a href="https://www.digitalearthafrica.org/">Digital Earth Africa</a></td>
+<td>the yearly frequency of water seen by Landsat (30 m, from 1986 and 1984)</td>
+</tr>
+<tr>
+<td><a href="https://cloud.google.com/storage/docs/public-datasets/era5">ARCO-ERA5</a> (Google Cloud, ECMWF)</td>
+<td>hourly air temperature at 2 m, total precipitation and top-layer soil moisture (0.25°, from 1940), as a Zarr store the desktop reads</td>
+</tr>
+</tbody>
+</table>
+<p>Only cubes RustGIS reads today are listed. Collections whose files sit behind signed addresses
+(Planetary Computer), need a sign-in (Copernicus Data Space, NASA Earthdata) or charge the reader
+(Landsat Collection 2 on Earth Search) are left out. Digital Earth Australia's catalog sits behind
+a firewall that may ask a program making many requests in a row for a browser check for a while;
+its searches then fail until it lets them through again.</p>
+<p>An entry, as the list holds it (built in from <code>crates/tiles/src/cubes.json</code>, and kept with the app's
+assets); a cube is proposed by adding one:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bdc-mod13q1-ndvi"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MODIS NDVI, 16-day composites (MOD13Q1 v6.1)"</span><span class="p">,</span>
+<span class="w"> </span><span class="nt">"provider"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Brazil Data Cube (INPE)"</span><span class="p">,</span><span class="w"> </span><span class="nt">"theme"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"vegetation"</span><span class="p">],</span><span class="w"> </span><span class="nt">"bbox"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">-100</span><span class="p">,</span><span class="w"> </span><span class="mi">-60</span><span class="p">,</span><span class="w"> </span><span class="mf">-21.3</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">],</span>
+<span class="w"> </span><span class="nt">"start"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2000-02-18"</span><span class="p">,</span><span class="w"> </span><span class="nt">"end"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="nt">"step"</span><span class="p">:</span><span class="w"> </span><span class="s2">"16 days"</span><span class="p">,</span><span class="w"> </span><span class="nt">"resolution"</span><span class="p">:</span><span class="w"> </span><span class="s2">"232 m"</span><span class="p">,</span>
+<span class="w"> </span><span class="nt">"format"</span><span class="p">:</span><span class="w"> </span><span class="s2">"stac"</span><span class="p">,</span><span class="w"> </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://data.inpe.br/bdc/stac/v1/"</span><span class="p">,</span><span class="w"> </span><span class="nt">"collection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mod13q1-6.1"</span><span class="p">,</span>
+<span class="w"> </span><span class="nt">"asset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NDVI"</span><span class="p">,</span><span class="w"> </span><span class="nt">"range"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.9</span><span class="p">],</span><span class="w"> </span><span class="nt">"cellSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">232</span><span class="p">,</span>
+<span class="w"> </span><span class="nt">"license"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NASA LP DAAC: no restrictions on use"</span><span class="p">,</span><span class="w"> </span><span class="nt">"about"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://data.inpe.br/bdc/"</span><span class="p">}</span>
+</code></pre></div>
+<p>A Zarr entry has <code>"format": "zarr"</code> and <code>"variable"</code> in place of <code>"collection"</code> and <code>"asset"</code>, and
+no <code>"range"</code>, <code>"cellSize"</code> or <code>"maxCloud"</code>. <code>"end"</code> is <code>null</code> while a cube is kept up to date. Every
+address is a web address (https or http), the dates are <code>YYYY-MM-DD</code>, and each id is in the list
+once; the list is checked when it is read.</p>
+<div class="highlight"><pre><span></span><code>rustgis-cli<span class="w"> </span>run<span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'cube.catalog={"theme":"vegetation","bbox":[-43,-6,-42.5,-5.5]}'</span><span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'cube.open={"id":"bdc-mod13q1-ndvi","bbox":[-43,-6,-42.5,-5.5]}'</span>
+</code></pre></div>
+<h3 id="saved-connections">Saved connections<a class="headerlink" href="#saved-connections" title="Permanent link">&para;</a></h3>
+<p>Once you have a STAC connection (Data Sources › Connections), its name appears in the API list at the top of STAC Search below the built-in APIs: picking it fills in the address and clears the collections and items of the previous one. Add From Service, Add From Database and S3 Buckets have the same <strong>Saved connection</strong> list for their kinds. An API you typed in by hand stays usable; once its collections are listed, <strong>Save as Connection</strong> keeps it under Data Sources › Connections (nothing is saved unless you click it, and never a password or key). Editing the address by hand drops the collections and items listed for the old one.</p>
+<h3 id="static-catalogs">Static catalogs<a class="headerlink" href="#static-catalogs" title="Permanent link">&para;</a></h3>
+<p>Many catalogs are plain files rather than an API: a <code>catalog.json</code> linking to child catalogs and
+<code>collection.json</code> files, which link to their items. Give STAC Search the address of one (or pick
+Planet Open Data, Portolan or Vantor Open Data from its list) and the <strong>Collection</strong> row becomes
+<strong>Catalog</strong>: its child catalogs and collections are listed, and picking one shows its own children
+(an <strong>↑</strong> entry goes back up; <strong>Browse</strong> reads the list again). <strong>Find Items</strong> walks the catalog from
+the one picked, several documents at a time, and keeps the items that match the dates, the most
+cloud cover and, with <strong>Only where the map is</strong> ticked, the map's extent. It lists the first 50 items it finds that match, sorted by date (the walk goes in the catalog's
+order, so in a large catalog these aren't the earliest or latest: pick a catalog further down for
+others). Undated items, and items without a footprint, are kept. A collection whose data
+are its own assets (as many Portolan collections' GeoParquet and PMTiles files are) is listed as
+an item of its own. A walk reads at most 400 documents and goes at most 8 catalogs deep; when it
+stops early, it says so: pick a catalog further down. Items are added as from an API: a
+cloud-optimised GeoTIFF is read in place, GeoParquet and FlatGeobuf by range, PMTiles a tile at a
+time.</p>
+<p><code>stac.collections</code> with a static catalog's <code>"url"</code> lists its children (<code>"id"</code> is each one's
+address), and <code>stac.search</code> walks one, with <code>"phase"</code> (<code>"pre"</code> or <code>"post"</code>) for catalogs of events:</p>
+<div class="highlight"><pre><span></span><code>rustgis-cli<span class="w"> </span>run<span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'stac.search={"url":"https://vantor-opendata.s3.amazonaws.com/events/catalog.json","phase":"post"}'</span>
+</code></pre></div>
+<p>The services below are STAC Search opened on one API or catalog, with the dialog titled after
+the service. Their commands (<code>ui.stac.planet</code>, <code>ui.stac.portolan</code>, <code>ui.stac.sentinel2</code>,
+<code>ui.stac.vantor</code>, <code>ui.stac.usgsLidar</code>) take <code>"catalog"</code> (a catalog's or collection's address to
+start from), <code>"phase"</code> and <code>"search": true</code> (find items at once).</p>
+<h3 id="planet-open-data">Planet Open Data<a class="headerlink" href="#planet-open-data" title="Permanent link">&para;</a></h3>
+<p><strong>Home › Add › Web Data › Planet Open Data…</strong> browses Planet's <a href="https://source.coop/planet/disasterdata">disaster data
+releases</a> on Source Cooperative: imagery of earthquakes,
+floods, fires and storms from PlanetScope, SkySat and Pelican, before and after the event, licensed
+CC BY-NC 4.0. Pick an event (and, below it, its pre-event or post-event imagery or one collection),
+then <strong>Find Items</strong>; <strong>Add</strong> adds a scene's <code>visual</code> image.</p>
+<h3 id="portolan">Portolan<a class="headerlink" href="#portolan" title="Permanent link">&para;</a></h3>
+<p><strong>Home › Add › Web Data › Portolan…</strong> opens the <a href="https://github.com/portolan-sdi/portolan-registry">Portolan
+registry</a>, a catalog of the open data catalogs
+published with Portolan (cities, regions and agencies, most in Europe). Pick a publisher's catalog,
+then a theme or collection, then <strong>Find Items</strong>: each collection's files (GeoParquet, PMTiles and
+others) are listed, and <strong>Add</strong> adds the one chosen (<code>visual</code> first, often a PMTiles archive).</p>
+<h3 id="sentinel-2-explorer">Sentinel-2 Explorer<a class="headerlink" href="#sentinel-2-explorer" title="Permanent link">&para;</a></h3>
+<figure>
+  <img alt="The Sentinel-2 Explorer in the Web Data pane over Bern: the clearest recent scenes as cards with previews, and their footprints drawn on the map" src="https://assets.rustgis.app/images/web-data.webp" />
+<br />
+<figcaption>The Sentinel-2 Explorer: the clearest recent scenes where the map is, with their footprints.</figcaption>
+</figure>
+<p><strong>Home › Add › Web Data › Sentinel-2 Explorer…</strong> searches Earth Search's Sentinel-2 Collection 1 Level-2A
+scenes (<code>sentinel-2-c1-l2a</code>) where the map is, over the last 90 days and with at most 20 % cloud
+cover, clearest first (sorted by cloud cover). <strong>Add</strong> adds the true colour image (<code>visual</code>);
+the asset list beside each scene offers its bands (<code>red</code>, <code>nir</code>, <code>swir16</code>, <code>scl</code>…), each a
+cloud-optimised GeoTIFF read in place. <code>stac.search</code> sorts with <code>"sortby"</code>
+(<code>"eo:cloud_cover"</code>, <code>"-datetime"</code> for newest first) on APIs that sort.</p>
+<h3 id="vantor">Vantor<a class="headerlink" href="#vantor" title="Permanent link">&para;</a></h3>
+<p><strong>Home › Add › Web Data › Vantor…</strong> browses <a href="https://vantor.com">Vantor</a>'s open data (formerly Maxar's
+Open Data program): very high resolution imagery of disasters, one collection per event. Pick an
+event and a phase (before or after the event), then <strong>Find Items</strong>; <strong>Add</strong> adds a scene's
+<code>visual</code> cloud-optimised GeoTIFF.</p>
+<h3 id="usgs-lidar">USGS LiDAR<a class="headerlink" href="#usgs-lidar" title="Permanent link">&para;</a></h3>
+<p><strong>Home › Add › Web Data › United States › USGS LiDAR…</strong> searches the USGS 3D Elevation Program's LiDAR
+point clouds on the Planetary Computer (<code>3dep-lidar-copc</code>) where the map is: zoom to a town first.
+Each tile's <code>data</code> asset is a COPC file, signed with the Planetary Computer's token and added as a
+LiDAR point cloud (an evenly spread sample of its points, see <a href="../data/#formats">Formats</a>). A tile is
+downloaded whole, often tens of megabytes, so adding one takes a while.</p>
+<h2 id="overture-maps">Overture Maps<a class="headerlink" href="#overture-maps" title="Permanent link">&para;</a></h2>
+<p><strong>Home › Add › Web Data › Overture Maps…</strong> adds <a href="https://overturemaps.org">Overture Maps</a>' open data:
+buildings, places, transportation (segments and connectors), administrative divisions, base
+layers (land use, land, land cover, water, infrastructure, bathymetry) and addresses, from the
+latest release (or one named with <code>"release"</code>). Two ways:</p>
+<ul>
+<li><strong>The features where the map is.</strong> A theme's type is a few hundred GeoParquet files, each
+  covering an area; Overture's <a href="https://stac.overturemaps.org">STAC catalog</a> gives every file's
+  extent, so only the files that cover the map's view are read, in place by range like any
+  GeoParquet by address (see <a href="../data-formats/#files-on-the-web">Files on the web</a>), and each
+  becomes a layer read a view at a time. Zoom to a city or smaller: a view that takes more than six
+  files is refused (a country takes dozens).</li>
+<li><strong>Map tiles of the whole world</strong>, from the theme's PMTiles archive, drawn a layer per type.
+  Some themes' tiles hold their features only when zoomed in (places from zoom 14).</li>
+</ul>
+<p><code>overture.add</code> does the same (<code>"theme"</code>, <code>"type"</code>, <code>"bbox"</code> or the view, <code>"tiles": true</code> for the
+tiles):</p>
+<div class="highlight"><pre><span></span><code>rustgis-cli<span class="w"> </span>run<span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'map.zoomToExtent={"extent":[7.40,46.93,7.47,46.97]}'</span><span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'overture.add={"theme":"buildings"}'</span><span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'overture.add={"theme":"transportation"}'</span><span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'share.exportMap={"path":"bern.png"}'</span>
+</code></pre></div>
+<p>The data's licences differ by theme (OpenStreetMap's ODbL for most, CDLA Permissive 2.0 for
+places); the layer says which.</p>
+<h2 id="source-cooperative">Source Cooperative<a class="headerlink" href="#source-cooperative" title="Permanent link">&para;</a></h2>
+<p><strong>Home › Add › Web Data › Source Cooperative…</strong> lists <a href="https://source.coop">Source Cooperative</a>'s
+featured products (or an account's), browses a product's folders and adds a file by its address on
+the data proxy (<code>https://data.source.coop/&lt;account&gt;/&lt;product&gt;/…</code>): GeoParquet, FlatGeobuf,
+cloud-optimised GeoTIFFs and PMTiles are read in place, other files downloaded.
+<code>sourcecoop.products</code> (<code>"account"</code>) and <code>sourcecoop.list</code> (<code>"account"</code>, <code>"product"</code>, <code>"path"</code>,
+and <code>"token"</code> for the next page returned by a listing) list them; a listed file's <code>"url"</code> is
+added with <code>layer.addUrl</code>. These commands reach the network: the AI Assistant asks first and
+plugins need the network permission.</p>
+<h2 id="natural-earth">Natural Earth<a class="headerlink" href="#natural-earth" title="Permanent link">&para;</a></h2>
+<p><strong>Home › Add › Web Data › Natural Earth…</strong> is the Source Cooperative browser locked to
+<a href="https://www.naturalearthdata.com">Natural Earth</a>'s public domain map data as Source Cooperative
+holds it (<code>opengeos/natural-earth</code>): countries, states, coastlines, land, ocean, rivers, lakes,
+glaciers, urban areas, airports, railways and more. It opens on the <code>pmtiles/</code> folder, whose
+archives are added as tile layers read in place; the <code>geoparquet/</code>, <code>geojson/</code>, <code>gpkg/</code> and
+<code>shapefiles/</code> folders hold the same themes as files, added as layers. With commands:
+<code>sourcecoop.list</code> (<code>{"account": "opengeos", "product": "natural-earth", "path": "pmtiles/"}</code>), then
+<code>layer.addUrl</code> with a file's <code>"url"</code>.</p>
+<h2 id="fields-of-the-world">Fields of the World<a class="headerlink" href="#fields-of-the-world" title="Permanent link">&para;</a></h2>
+<p><strong>Home › Add › Web Data › Fields of the World…</strong> adds the agricultural field boundaries the
+<a href="https://fieldsofthe.world">Fields of the World</a> model found in Sentinel-2 imagery, worldwide, one
+year at a time (2017 to 2025; 2nd Edition, CC BY 4.0). Each year is a PMTiles archive on Source
+Cooperative read in place. Fields are drawn from zoom 9, filled and outlined by the model's score
+(0 to 100: red below 45, through orange and yellow, to green from 80); zoomed out, field density
+cells are drawn instead, coloured by the share of each cell covered by fields: <strong>Add field
+boundaries</strong> and <strong>Add field density</strong> add each. <strong>Score threshold</strong> hides the fields scoring below
+it. <code>fieldsOfTheWorld.add</code> does the same (<code>"year"</code>, <code>"draw"</code>:
+<code>both</code>, <code>fields</code> or <code>density</code>, <code>"minScore"</code>):</p>
+<div class="highlight"><pre><span></span><code>rustgis-cli<span class="w"> </span>run<span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'map.goToXY={"lon":-93.6,"lat":42.03,"scale":40000}'</span><span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'fieldsOfTheWorld.add={"year":2024,"minScore":40}'</span><span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'share.exportMap={"path":"fields.png"}'</span>
+</code></pre></div>
+<p>The look is the tile layer's own style layers (<code>map.addTiles</code> takes MapLibre style layers as
+<code>"styleLayers"</code>, drawing vector tiles in place of their default colours).</p>
+<h2 id="openstreetmap-and-administrative-boundaries">OpenStreetMap and administrative boundaries<a class="headerlink" href="#openstreetmap-and-administrative-boundaries" title="Permanent link">&para;</a></h2>
+<p><strong>Home › Add › Web Data › OpenStreetMap…</strong> (<code>osm.download</code>) downloads OpenStreetMap data where the map
+is from an <a href="https://overpass-api.de">Overpass</a> server: a preset (buildings, roads, railways, water,
+land use, parks, points of interest or administrative boundaries) or tag filters such as
+<code>amenity=cafe, shop</code>. The answer becomes up to three layers, points, lines and polygons: closed
+ways that are areas (buildings, land use and the like, as OSM reads their tags) are polygons, and
+multipolygon and boundary relations are assembled from their members. A layer's fields are its 25
+most common tags, the rest in <code>other_tags</code> as GDAL writes them. The area can be up to 0.25 square
+degrees (about 50 × 50 km), and an answer up to 50,000 elements: the public servers are shared, so
+a larger area is better read from an extract (<code>.osm.pbf</code>). <code>"url"</code> names another Overpass server
+when the public one is busy.</p>
+<p><strong>Home › Add › Web Data › Boundaries…</strong> (<code>boundaries.add</code>) adds a country's administrative boundaries from
+<a href="https://www.geoboundaries.org">geoBoundaries</a> (CC BY 4.0): the country itself (<code>ADM0</code>), its states
+or provinces (<code>ADM1</code>) and finer divisions down to <code>ADM5</code> where they exist, simplified for the map.
+<code>boundaries.countries</code> lists the countries.</p>
+<div class="highlight"><pre><span></span><code>rustgis-cli<span class="w"> </span>run<span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'osm.download={"bbox":[7.44,46.944,7.456,46.952],"preset":"buildings"}'</span><span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'boundaries.add={"country":"KEN","level":"ADM1"}'</span>
+</code></pre></div>
+<p>Both reach the network: the <a href="../assistant/">AI Assistant</a> asks before it runs them, and plugins need
+the network permission. OpenStreetMap data is © OpenStreetMap contributors (ODbL).</p>
+<h2 id="nasa">NASA<a class="headerlink" href="#nasa" title="Permanent link">&para;</a></h2>
+<p>NASA's data comes two ways: <strong>NASA Earthdata…</strong> adds imagery that NASA serves as map tiles, and
+<strong>NASA Earthaccess…</strong> finds the data files themselves. <strong>Earthdata GIS…</strong> (see
+<a href="#web-services">Web services</a>) searches NASA's portal of map and feature services.</p>
+<h3 id="nasa-earthdata">NASA Earthdata<a class="headerlink" href="#nasa-earthdata" title="Permanent link">&para;</a></h3>
+<p><strong>Home › Add › Web Data › NASA Earthdata…</strong> lists the layers of NASA's
+<a href="https://www.earthdata.nasa.gov/engage/open-data-services-software/earthdata-developer-portal/gibs-api">Global Imagery Browse Services</a>
+(GIBS) in Web Mercator: more than a thousand layers of satellite imagery and science data (MODIS,
+VIIRS, Landsat, sea surface temperature, aerosols, fires…), grouped by mission or instrument (the
+first part of their names) and searched by words. Most of them change day by day: they go on the
+time slider, as every layer with a time dimension does (see
+<a href="#layers-that-change-with-time">Layers that change with time</a>).</p>
+<h3 id="nasa-earthaccess">NASA Earthaccess<a class="headerlink" href="#nasa-earthaccess" title="Permanent link">&para;</a></h3>
+<p><strong>Home › Add › Web Data › NASA Earthaccess…</strong> searches <a href="https://www.earthdata.nasa.gov">NASA Earthdata</a>
+as GeoLibre's Earthaccess panel does, through NASA's Common Metadata Repository (CMR):</p>
+<ol>
+<li><strong>Dataset</strong>: pick one of the <strong>Popular datasets</strong> (ICESat-2 ATL03/ATL06/ATL08, GEDI L2A/L2B/L4A,
+   HLS Landsat and Sentinel-2, NASADEM), or search by keyword (<code>earthdata.collections</code>), keeping
+   to <strong>Earthdata Cloud only</strong> if you like, and pick one of the results. A popular dataset is its
+   cloud-hosted, newest version.</li>
+<li><strong>Granules</strong>: set the start and end dates (the last 30 days at first) and press <strong>Search this
+   view</strong> (<code>earthdata.granules</code>): the granules where the map is, newest first, 25 at a time
+   (<strong>Load more</strong>). Their footprints are drawn as a layer.</li>
+<li>Each granule is a card with its preview, date, size, cloud cover and number of files, and
+   <strong>Add</strong> (its first GeoTIFF, desktop only, read in place when tiled), <strong>Download</strong> (a link to
+   its first file), <strong>Zoom</strong> and <strong>Details</strong> (its page on Earthdata Search). <strong>Files</strong> lists every
+   file, each GeoTIFF with its own desktop <strong>Add</strong>.</li>
+</ol>
+<p>Searching needs no account, but NASA's data servers ask for an
+<a href="https://urs.earthdata.nasa.gov">Earthdata Login</a> token to read most files. Paste one in the pane's
+<strong>Earthdata Login</strong> section (or run <code>earthdata.login</code>). It is never put in the project, and is sent
+only over HTTPS to NASA's Earthdata data servers (<code>*.earthdatacloud.nasa.gov</code> and
+<code>*.earthdata.nasa.gov</code>), never to the login server itself; a redirect away from them (to the
+presigned address the file is served from) goes without it. A file the token doesn't open says
+so (an expired token, or a dataset whose EULA you haven't accepted on Earthdata Login).</p>
+<p>The token is kept until RustGIS closes, unless you tick <strong>Remember on this computer</strong> (off by
+default; <code>earthdata.login</code> with <code>"remember": true</code>). The desktop app then keeps it in the system's
+credential store (macOS Keychain, Windows Credential Manager, or the Secret Service on Linux) and
+reads it back the next time it is needed: when the pane opens or a file is read from a data
+server. A token saved without the box ticked deletes the one remembered before. An expired token
+is forgotten, here and in the credential store, and the pane asks for a new one.
+<code>earthdata.status</code> reports whether a token is kept, its expiry, whether it is remembered and
+whether an expired one was forgotten; <code>earthdata.logout</code> (<strong>Remove token</strong>) forgets it and deletes
+the remembered one. The command line (<code>--use-saved-secrets</code>) and Python (<code>use_saved_secrets=True</code>)
+use the remembered token too; without them, and in the web app, a token lasts for the session.</p>
+<p>In the web app, searching and footprints work, but NASA's data servers don't let web pages read
+their files (they send no CORS headers), so GeoTIFFs are added in the desktop app; <strong>Download</strong>
+still opens a file in a new tab, where Earthdata Login asks you to sign in.</p>
+<div class="highlight"><pre><span></span><code>rustgis-cli<span class="w"> </span>run<span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'earthdata.collections={"keyword":"GEDI biomass","cloudHosted":true}'</span>
+rustgis-cli<span class="w"> </span>run<span class="w"> </span>--sample<span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'earthdata.granules={"shortName":"HLSL30","bbox":[-90,42.5,-89,43.5],"start":"2024-06-01","end":"2024-06-30"}'</span><span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'share.exportMap={"path":"hls.png"}'</span>
+rustgis-cli<span class="w"> </span>run<span class="w"> </span>--sample<span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'earthdata.login={"token":"…"}'</span><span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'layer.addUrl={"url":"https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/HLSL30.020/…/….B04.tif"}'</span>
+rustgis-cli<span class="w"> </span>run<span class="w"> </span>--sample<span class="w"> </span>--use-saved-secrets<span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'layer.addUrl={"url":"https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/HLSL30.020/…/….B04.tif"}'</span>
+</code></pre></div>
+<h2 id="open-data-portals">Open-data portals<a class="headerlink" href="#open-data-portals" title="Permanent link">&para;</a></h2>
+<p><strong>Home › Add › Web Data › Search Open Data…</strong> (<code>portal.search</code>) finds datasets by text in an open-data
+portal and lists, for each, the resources RustGIS can add, the best format first:</p>
+<ul>
+<li><strong>data.gov and CKAN catalogues</strong>: <a href="https://catalog.data.gov">catalog.data.gov</a> by default,
+  using data.gov's own DCAT search, or a CKAN site by its address
+  (<code>https://open.canada.ca/data</code>, <code>https://data.gov.uk</code>…). GeoJSON, FlatGeobuf, GeoParquet,
+  GeoPackage, KML/KMZ, zipped Shapefiles, GeoTIFF, CSV, WMS, WFS and ArcGIS REST resources are
+  offered; web pages, PDFs and the like are left out.</li>
+<li><strong>Socrata</strong>: every Socrata site through its discovery API, or one site such as
+  <code>data.cityofnewyork.us</code>. Datasets with a location column are added as their GeoJSON export (up
+  to 50,000 rows).</li>
+<li><strong>ArcGIS Hub</strong>: <a href="https://hub.arcgis.com">hub.arcgis.com</a> or an organisation's Hub site; its
+  feature services.</li>
+</ul>
+<p><strong>Only where the map is</strong> keeps to datasets covering the map's view. A file is added by its address
+(<code>portal.add</code>, read in place when it can be, as <strong>Add Data From URL…</strong> does); a service opens
+<strong>Add From Service…</strong> connected to it, to pick its layer (<code>portal.add</code> takes the first layer with
+features unless <code>"layer"</code> names one, or an ArcGIS map or image service's whole map). A search
+lists up to 50 datasets.</p>
+<div class="highlight"><pre><span></span><code>rustgis-cli<span class="w"> </span>run<span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'portal.search={"portal":"socrata","url":"data.cityofnewyork.us","query":"parks"}'</span>
+rustgis-cli<span class="w"> </span>run<span class="w"> </span>--sample<span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'portal.add={"url":"https://data.cityofnewyork.us/resource/enfh-gkve.geojson?$limit=50000","name":"Parks","portal":"https://api.us.socrata.com"}'</span>
+</code></pre></div>
+<p>An address a portal lists is judged as one found in a document on the web: it may not point into
+the local network. Both commands reach the network, so the AI Assistant asks before it runs them,
+and plugins need the network permission. A dataset's licence is the portal's: its page (the
+<strong>Page</strong> link) says what it is.</p>
+<h3 id="web-services">Web services<a class="headerlink" href="#web-services" title="Permanent link">&para;</a></h3>
+<p>Several <strong>Home › Add › Web Data</strong> entries open the same search on one service, with its own choices
+(<code>portal.search</code> with the <code>"portal"</code> in brackets):</p>
+<table>
+<thead>
+<tr>
+<th>Entry</th>
+<th>What it finds</th>
+<th>Added as</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ArcGIS Portal…</strong> (<code>arcgis-portal</code>)</td>
+<td>Public items on <a href="https://www.arcgis.com">ArcGIS Online</a>, or on the portal whose address is given: feature, map, image and vector tile services, and GeoJSON files</td>
+<td>The service (Add From Service), or the file</td>
+</tr>
+<tr>
+<td><strong>Dynamical…</strong> (<code>dynamical</code>)</td>
+<td>Weather and climate datasets from <a href="https://dynamical.org">dynamical.org</a> (NOAA GFS, GEFS and HRRR, ECMWF, DWD ICON…); <strong>Add</strong> opens the dataset's Zarr store in the pane to pick a variable and its time steps (a dataset published only as Icechunk says so)</td>
+<td>A Zarr variable's map</td>
+</tr>
+<tr>
+<td><strong>Earthdata GIS…</strong> (<code>earthdata-gis</code>)</td>
+<td>NASA's <a href="https://gis.earthdata.nasa.gov/portal">Earthdata GIS</a> portal: Earth science imagery, maps and features</td>
+<td>The service</td>
+</tr>
+<tr>
+<td><strong>GeoLens…</strong> (<code>geolens</code>)</td>
+<td>A <a href="https://getgeolens.com">GeoLens</a> server's vector datasets (<code>https://datasets.geolibre.app</code> by default)</td>
+<td>Features, the first 1,000</td>
+</tr>
+<tr>
+<td><strong>Hugging Face…</strong> (<code>huggingface</code>)</td>
+<td>Datasets on <a href="https://huggingface.co/datasets">Hugging Face</a> by name, or one by <code>owner/name</code>; <strong>Browse Files</strong> (<code>portal.files</code>) lists its GeoTIFFs, GeoParquet, GeoJSON, FlatGeobuf, GeoPackage, PMTiles, LiDAR and other files (public, not gated)</td>
+<td>The file</td>
+</tr>
+<tr>
+<td><strong>Ocean Data Platform…</strong> (<code>ocean-data</code>)</td>
+<td><a href="https://app.hubocean.earth">HUB Ocean</a>'s marine datasets, searched by words</td>
+<td>Features, up to 10,000</td>
+</tr>
+<tr>
+<td><strong>OpenAerialMap…</strong> (<code>openaerialmap</code>)</td>
+<td>Drone and aerial images on <a href="https://openaerialmap.org">OpenAerialMap</a> where the map is, newest first</td>
+<td>A COG, read in place</td>
+</tr>
+<tr>
+<td><strong>France › IGN LiDAR HD…</strong> (<code>ign-lidar</code>)</td>
+<td><a href="https://geoservices.ign.fr/lidarhd">IGN</a>'s 1 km LiDAR HD tiles where the map is (a view of at most 2 square degrees)</td>
+<td>A COPC point cloud downloaded whole and sampled, like <a href="#usgs-lidar">USGS LiDAR</a></td>
+</tr>
+<tr>
+<td><strong>United States › Tennessee GIS…</strong></td>
+<td>Tennessee's own portal, <a href="https://geodata.tn.gov">Tennessee GeoData</a>: its public items, newest first, as it opens</td>
+<td>The service, or the file</td>
+</tr>
+<tr>
+<td><strong>United States › US Federal GIS…</strong>, <strong>US State GIS…</strong>, <strong>US Local GIS…</strong></td>
+<td>Curated public GIS portals of federal agencies (by department), states and the District of Columbia, and counties and cities (by state): pick a group and a portal; an ArcGIS organisation's public items (<code>arcgis-portal</code> with <code>"org"</code>), or a Socrata site</td>
+<td>The service, or the file</td>
+</tr>
+<tr>
+<td><strong>United States › USGS 3DEP DEM…</strong> (<code>usgs-dem</code>)</td>
+<td>USGS elevation models from <a href="https://apps.nationalmap.gov">The National Map</a> where the map is: 1 m, 1/9, 1/3 (the default) or 1 arc-second, or Alaska's 5 m (<code>"dataset"</code>), each tile's newest current edition</td>
+<td>A GeoTIFF, read in place</td>
+</tr>
+</tbody>
+</table>
+<p>Results are cards, as in GeoLibre: a picture when the service has one, what the item is, who
+shared it and when, and <strong>Details</strong> (its description, id and extent), <strong>Portal</strong> (its page),
+<strong>Zoom</strong> (to its extent) and <strong>Add</strong>. A web map's <strong>Add</strong> lists its layers to add one by one. ArcGIS
+portals keep a search to <strong>All</strong>, <strong>Imagery</strong>, <strong>Maps</strong>, <strong>Features</strong> or <strong>Web maps</strong>, list their
+newest items when opened, and page with <strong>Load more</strong>.</p>
+<p>The search by place (OpenAerialMap, LiDAR HD, 3DEP) is always where the map is, and its words, when
+given, keep to the images or tiles that have them: OpenAerialMap's to 200 images where the map is
+at a time (<strong>Load more</strong> looks at older ones), LiDAR HD's to the first 50 tiles. A Hugging Face
+dataset lists its first 1,000 files, and the Ocean Data Platform's catalogue is read whole (a few
+hundred datasets) and searched in RustGIS. In the web app, the Ocean Data Platform's features are
+read through GeoLibre's relay (<code>tiles.geolibre.app</code>), the platform answering only its own site, so
+those requests pass through it.</p>
+<div class="highlight"><pre><span></span><code>rustgis-cli<span class="w"> </span>run<span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'portal.search={"portal":"usgs-dem","bbox":[-122.25,46.15,-122.15,46.25]}'</span>
+rustgis-cli<span class="w"> </span>run<span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'portal.files={"dataset":"giswqs/geospatial"}'</span>
+rustgis-cli<span class="w"> </span>run<span class="w"> </span>--sample<span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'portal.add={"url":"https://data.geopf.fr/telechargement/download/LiDARHD-NUALID/NUALHD_1-0__LAZ_LAMB93_KE_2025-06-06/LHD_FXX_0652_6864_PTS_LAMB93_IGN69.copc.laz","name":"LiDAR HD 0652-6864"}'</span>
+</code></pre></div>
+<h3 id="layers-that-change-with-time">Layers that change with time<a class="headerlink" href="#layers-that-change-with-time" title="Permanent link">&para;</a></h3>
+<p>A WMS or WMTS layer with a time dimension, from any service, goes on the
+<a href="../workspace/">time slider</a> by default: <strong>Follow the time slider</strong>, which the dialogs tick, and
+adding it from the Connections tree. Its requests then take the time of the slider's step, written
+as the layer writes its times (<code>1995</code>, <code>19951231</code>, <code>2024-06-01</code>, <code>2026-08-31T23:59:59Z</code>), its
+GetFeatureInfo requests too, so identify answers for that time; <code>time.export</code> animates it.</p>
+<ul>
+<li><strong>A slider that is off</strong> is turned on with the layer's times: every step of a period it lists
+  (<code>2000-02-24/2026-10-28/P1D</code>, a day at a time; when it lists only a period longer than the
+  slider's 20,000 steps, every second, fourth… step), or the times it lists, at the layer's default
+  (or its latest, when its default is no date). A slider already on keeps its steps; a service
+  that lists other times may draw nothing at some of them, and a notice says so.</li>
+<li><strong>At one time instead</strong>: untick <strong>Follow the time slider</strong>. <strong>Date</strong> then takes one of the times
+  the layer lists (hover over its "map by date" to see them, and its default), and empty adds it
+  at the service's default. The same layer can be added at several times, each a layer named
+  with its time.</li>
+<li><strong>A WMS layer</strong> (WMS 1.3.0 Annex C, 1.1.1) asks with <code>TIME</code>. Its default may be an interval;
+  where the service lets a layer take several times at once (<code>multipleValues</code>), a list
+  (<code>1990,2000</code>) or an interval (<code>1990/2020</code>, <code>1990/2020/P10Y</code>) can be asked for too, otherwise one
+  time.</li>
+<li><strong>One time only</strong>: a layer whose dimension lists a single time, a name (OGC's <code>current</code>, as most
+  of swisstopo's WMTS layers list) or one date (<code>1946</code>), has no other to show: it is listed as a
+  plain "map", without the dialogs' <strong>Follow the time slider</strong>, and added at its service's default
+  (usually that time).</li>
+<li><strong>A time named, not dated</strong>: a layer whose times are only names (<code>current</code>, <code>default</code>), whose
+  times are one period finer than the slider's hour (<code>…/PT30M</code>), or whose list of times would take
+  more than the slider's 20,000 steps, isn't stepped through: it is added at its default.</li>
+</ul>
+<p>With commands, <code>service.add</code> follows the slider when <code>"time"</code> is left out (or is <code>"slider"</code>, or
+<code>true</code>); a time of the layer's draws it at that time, and <code>"default"</code> (or <code>false</code>) at the service's
+default. For example, a daily layer at one day, a yearly map on the slider exported as an
+animation, and a layer whose only time is <code>current</code>:</p>
+<div class="highlight"><pre><span></span><code>rustgis-cli<span class="w"> </span>run<span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'service.add={"url":"https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/1.0.0/WMTSCapabilities.xml","layer":"MODIS_Terra_CorrectedReflectance_TrueColor","time":"2024-06-01"}'</span><span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'share.exportMap={"path":"gibs.png"}'</span>
+rustgis-cli<span class="w"> </span>run<span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'service.add={"url":"https://wms.geo.admin.ch/?SERVICE=WMS&amp;REQUEST=GetCapabilities&amp;VERSION=1.3.0","layer":"ch.swisstopo.pixelkarte-farbe-pk25.noscale"}'</span><span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'map.goToXY={"lon":7.4474,"lat":46.948,"scale":25000}'</span><span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'time.set={"interval":15}'</span><span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'time.export={"path":"bern.gif"}'</span>
+rustgis-cli<span class="w"> </span>run<span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'service.add={"url":"https://wmts.geo.admin.ch/EPSG/3857/1.0.0/WMTSCapabilities.xml","layer":"ch.swisstopo.pixelkarte-farbe"}'</span><span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'share.exportMap={"path":"map.png"}'</span>
+</code></pre></div>
+<h2 id="united-states">United States<a class="headerlink" href="#united-states" title="Permanent link">&para;</a></h2>
+<p><strong>Home › Add › Web Data › United States</strong> holds services covering the United States: the
+portals in the <a href="#web-services">Web services</a> table (Tennessee GIS, US Federal, State and Local GIS,
+USGS 3DEP DEM), <a href="#usgs-lidar">USGS LiDAR</a>, and the panels below.</p>
+<h3 id="enviroatlas-fema-nfhl-and-the-national-map">EnviroAtlas, FEMA NFHL and The National Map<a class="headerlink" href="#enviroatlas-fema-nfhl-and-the-national-map" title="Permanent link">&para;</a></h3>
+<p><strong>EnviroAtlas…</strong> shows the US EPA's <a href="https://www.epa.gov/enviroatlas">EnviroAtlas</a> services
+(<code>https://enviroatlas.epa.gov/arcgis/rest/services</code>) as a tree: folders, their services (<strong>Add</strong>
+adds a service's whole map or image), and each service's layers, each with an <strong>Add</strong> of its own
+(drawn alone). A search looks through the services of every folder and of the folders in them, a few folders at a time. <strong>Add From Service</strong> also browses
+any ArcGIS services directory: its folders and the map, feature, image and vector tile services in them are listed
+with <strong>Open</strong>, which lists that folder or service (<strong>Back</strong> returns). A map service offers its
+whole map, each of its layers drawn alone (<code>… (map)</code>) and its layers' features. With commands,
+<code>service.layers</code> on a directory lists its folders and services, each with the <code>url</code> to list next.</p>
+<p><strong>FEMA NFHL…</strong> lists the layers of FEMA's
+<a href="https://www.fema.gov/flood-maps/national-flood-hazard-layer">National Flood Hazard Layer</a> map
+service (<code>https://hazards.fema.gov/arcgis/rest/services/public/NFHL/MapServer</code>), searched by
+words: <strong>Add</strong> draws the whole map or one layer such as Flood Hazard Zones alone, and
+<strong>Features</strong> downloads a layer's features in the view (up to the server's limit). Its flood layers are drawn only from zoom 15 (closer than about 1:36,000),
+and FEMA's server can be slow to answer.</p>
+<p><strong>The National Map…</strong> lists 31 map services of the USGS
+<a href="https://www.usgs.gov/programs/national-geospatial-program/national-map">The National Map</a> and
+partners by category (basemaps, hydrography, elevation, imagery, cartography, hazards, other data,
+indexes), searched by words; <strong>Add</strong> adds one as a tile layer (the basemaps from their tile caches,
+the others as images the server draws). <code>nationalMap.services</code> lists them and <code>nationalMap.add</code>
+(<code>"service"</code>: an id or title) adds one:</p>
+<div class="highlight"><pre><span></span><code>rustgis-cli<span class="w"> </span>run<span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'nationalMap.add={"service":"basemap/USGSTopo"}'</span><span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'nationalMap.add={"service":"hydro/wbd"}'</span><span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'map.goToXY={"lon":-105.27,"lat":40.0,"scale":300000}'</span><span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'share.exportMap={"path":"topo.png"}'</span>
+</code></pre></div>
+<h3 id="usgs-nldi">USGS NLDI<a class="headerlink" href="#usgs-nldi" title="Permanent link">&para;</a></h3>
+<p><strong>Home › Add › Web Data › United States › USGS NLDI…</strong> uses the USGS
+<a href="https://api.water.usgs.gov/nldi">Network-Linked Data Index</a> on the NHDPlus river network, as
+GeoLibre's NLDI panel does. Each result is a layer:</p>
+<ul>
+<li><strong>Flowline</strong>: choose the whole flowline, or its part upstream or downstream of the point, and
+  click the map (or type a longitude and latitude and press <strong>Trace</strong>, or <strong>Map centre</strong>). The
+  flowline a raindrop falling there would reach is added, with the raindrop's path to it
+  (<code>nldi.flowline</code>, the NLDI's flowtrace; when that fails, the nearest flowline and the way to it).</li>
+<li><strong>Basin from hydrolocation</strong>: the basin draining to the flowline (<code>nldi.basin</code>).</li>
+<li><strong>Navigation</strong>: pick upstream or downstream, main stem, tributaries or diversions, and a
+  distance (1–9,999 km), and press <strong>Load sources &amp; plot</strong>: the sources the navigation can list are
+  loaded (<code>nldi.sources</code>) and the NHDPlus flowlines along it plotted (<code>nldi.navigate</code>). Pick another
+  source (stream gages, water quality sites, wells, HUC12 pour points…) and press <strong>Plot another
+  navigation layer</strong> to add it too.</li>
+<li><strong>Clear NLDI result</strong> removes the layers the pane added.</li>
+</ul>
+<p>The NLDI's server is sometimes slow or fails for a point it hasn't seen before: try again a little
+later, or another point.</p>
+<div class="highlight"><pre><span></span><code>rustgis-cli<span class="w"> </span>run<span class="w"> </span>--sample<span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'nldi.flowline={"lon":-89.36083,"lat":43.08944}'</span><span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'nldi.basin={"comid":13293750}'</span><span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'nldi.navigate={"comid":13293750,"mode":"UM","distance":100}'</span><span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'nldi.navigate={"comid":13293750,"mode":"DM","distance":50,"source":"nwissite"}'</span><span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'share.exportMap={"path":"nldi.png"}'</span>
+</code></pre></div>
+<h2 id="satellite-embeddings">Satellite embeddings<a class="headerlink" href="#satellite-embeddings" title="Permanent link">&para;</a></h2>
+<p><strong>Home › Add › Web Data › Satellite Embeddings…</strong> shows pre-computed satellite embeddings: vectors a
+geospatial foundation model made for every pixel or image patch, so that places alike have values
+alike. Pick a dataset (its provider, model, resolution, years, coverage, licence and links are
+shown), a year, and <strong>Search where the map is</strong>; the results are cards with <strong>Zoom</strong> and <strong>Add</strong>,
+their footprints drawn as a layer.</p>
+<table>
+<thead>
+<tr>
+<th>Dataset</th>
+<th>What RustGIS does with it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AlphaEarth Foundations</strong> (Google's Satellite Embedding; 64 values a 10 m pixel, 2017–2025)</td>
+<td>Finds the year's UTM tiles where the map is in the dataset's GeoParquet index on <a href="https://source.coop/tge-labs/aef">Source Cooperative</a>, read in place (its bounding boxes, then the rows that meet the map). <strong>Add</strong> shows a tile as a cloud-optimised GeoTIFF read in place: three bands (<strong>Bands</strong>, from 1; A01, A16 and A09 by default) as red, green and blue, dequantised (<code>sign(v)·(v/127.5)²</code>) and stretched over ±<strong>Stretch</strong> (0.3). Only the three bands shown are read, a band at a time. <strong>Apply to layers</strong> shows other bands or another stretch on the tiles already added.</td>
+</tr>
+<tr>
+<td><strong>Earth Index</strong> (Earth Genome; 384 values every ~320 m, 2024)</td>
+<td>Names the Sentinel-2 (MGRS) tiles where the map is and keeps those with a file. <strong>Add points</strong> reads the file's points in the view in place (every point's position, then the vectors of those in view: zoom to a few kilometres) and colours them by their vectors' first three principal components (64 colours); <strong>Keep value</strong> keeps one of each vector's values as the points' <code>value</code> field.</td>
+</tr>
+<tr>
+<td><strong>Tessera</strong> (Cambridge; 128 values a 10 m pixel, 2017–2025)</td>
+<td><strong>Add view</strong> reads three bands (1, 2 and 3 by default) of the view from Tessera's <a href="https://data.source.coop/tessera/tessera/zarr/v1.1-dclimate">Zarr store</a> in place (the shard's index, then the chunks the view needs: at most about 6 km a side, its centre when the view is larger), as a 32-bit raster in UTM.</td>
+</tr>
+<tr>
+<td><strong>Clay</strong>, <strong>Major TOM</strong>, <strong>Copernicus-Embed</strong></td>
+<td>Listed with links to their data and papers; RustGIS doesn't read them.</td>
+</tr>
+</tbody>
+</table>
+<p>AlphaEarth's tiles keep their look in their layer's address (<code>#bands=2,17,10&amp;range=-0.3,0.3&amp;dequantize=aef</code>),
+which <code>map.setTiles</code> changes for any cloud-optimised GeoTIFF read in place (<code>"bands"</code>, <code>"range"</code>,
+<code>"dequantize"</code>); GeoTIFFs with their bands stored apart (planar), signed bytes and bottom-up images
+are read in place too. The commands: <code>embeddings.datasets</code>, <code>embeddings.search</code> (<code>"dataset"</code>,
+<code>"year"</code>, <code>"bbox"</code> or the view, <code>"footprints"</code>) and <code>embeddings.add</code> (<code>"dataset"</code>, <code>"url"</code>,
+<code>"bands"</code>, <code>"stretch"</code>, <code>"dimension"</code>, <code>"bbox"</code>, <code>"year"</code>):</p>
+<div class="highlight"><pre><span></span><code>rustgis-cli<span class="w"> </span>run<span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'map.zoomToExtent={"extent":[-122.55,37.7,-122.3,37.85]}'</span><span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'embeddings.search={"dataset":"alphaearth","year":2024}'</span><span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'embeddings.add={"dataset":"alphaearth","url":"https://data.source.coop/tge-labs/aef/v1/annual/2024/10N/xcyo46pot2fg6a61t-0000008192-0000000000.tiff"}'</span><span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'share.exportMap={"path":"aef.png"}'</span>
+rustgis-cli<span class="w"> </span>run<span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'map.zoomToExtent={"extent":[-83.96,35.94,-83.9,35.98]}'</span><span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'embeddings.add={"dataset":"tessera","year":2024}'</span><span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'share.exportMap={"path":"tessera.png"}'</span>
+</code></pre></div>
+<p>These reach the network: the AI Assistant asks first and plugins need the network permission.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../data/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Data">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Data
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../data-formats/" class="md-footer__link md-footer__link--next" aria-label="Next: Supported Data Formats">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Supported Data Formats
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Qiusheng Wu
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/opengeos/RustGIS" target="_blank" rel="noopener" title="RustGIS on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/sponsors/giswqs" target="_blank" rel="noopener" title="Sponsor RustGIS on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="m241 87.1 15 20.7 15-20.7C296 52.5 336.2 32 378.9 32 452.4 32 512 91.6 512 165.1v2.6c0 112.2-139.9 242.5-212.9 298.2-12.4 9.4-27.6 14.1-43.1 14.1s-30.8-4.6-43.1-14.1C139.9 410.2 0 279.9 0 167.7v-2.6C0 91.6 59.6 32 133.1 32 175.8 32 216 52.5 241 87.1"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://buymeacoffee.com/giswqs" target="_blank" rel="noopener" title="Buy the maintainer a coffee" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M152-16c-13.3 0-24 10.7-24 24 0 38.9 23.4 59.4 39.1 73.1l1.1 1C184.5 96.4 192 103.9 192 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C183.5 31.7 176 24.1 176 8c0-13.3-10.7-24-24-24M96 192c-17.7 0-32 14.3-32 32v192c0 53 43 96 96 96h192c41.8 0 77.4-26.7 90.5-64h5.5c70.7 0 128-57.3 128-128s-57.3-128-128-128zm352 192V256c35.3 0 64 28.7 64 64s-28.7 64-64 64M288 8c0-13.3-10.7-24-24-24S240-5.3 240 8c0 38.9 23.4 59.4 39.1 73.1l1.1 1C296.5 96.4 304 103.9 304 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C295.5 31.7 288 24.1 288 8"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"../..","features":["content.code.copy","navigation.indexes","navigation.footer","navigation.instant","navigation.top","navigation.tracking","search.highlight","search.share"],"redirect":null,"search":"../../assets/javascripts/workers/search.c47bb847.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.77dd0ce9.min.js"></script>
+      
+    
+  </body>
+</html>

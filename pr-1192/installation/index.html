@@ -1,0 +1,2170 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A fast, free and open-source GIS in pure Rust for mapping, analyzing and sharing geospatial data, on the desktop and in the browser">
+      
+      
+        <meta name="author" content="opengeos">
+      
+      
+        <link rel="canonical" href="https://rustgis.app/installation/">
+      
+      
+      
+        <link rel="prev" href="./..">
+      
+      
+        <link rel="next" href="../getting-started/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="https://assets.rustgis.app/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.74">
+    
+    
+      
+        <title>Installation - RustGIS</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ab2de0c.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.b60ce83d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
+    <div data-md-component="skip">
+      <a href="#__skip" class="md-skip">
+        Skip to content
+      </a>
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="RustGIS" class="md-header__button md-logo" aria-label="RustGIS" data-md-component="logo">
+      
+  <img src="https://assets.rustgis.app/images/logo.svg" alt="RustGIS">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+      <span class="md-visually-hidden">Navigation</span>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RustGIS
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Installation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+          <span class="md-visually-hidden">Search</span>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/opengeos/RustGIS" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/RustGIS
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="RustGIS" class="md-nav__button md-logo" aria-label="RustGIS" data-md-component="logo">
+      
+  <img src="https://assets.rustgis.app/images/logo.svg" alt="RustGIS">
+
+    </a>
+    RustGIS
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/opengeos/RustGIS" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/RustGIS
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Installation
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Installation
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#install-with-an-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Install with an agent
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#microsoft-store" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Microsoft Store
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Download
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#package-managers" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Package managers
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#from-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        From source
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#platforms" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Platforms
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#web-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Web app
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Web app">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-the-web-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Install the web app
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#self-host-the-web-app-with-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Self-host the web app with Docker
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-command-line-in-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The command line in Docker
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fonts" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Fonts
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#settings-data-and-cache-folders" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Settings, data and cache folders
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#if-rustgis-closes-unexpectedly" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        If RustGIS closes unexpectedly
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#if-the-app-doesnt-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        If the app doesn't start
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Getting Started
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://web.rustgis.app" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Web App
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../user-guide/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  User Guide
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  User Guide
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/web-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Web Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/data-formats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Supported Data Formats
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/shapefile-encoding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Shapefile DBF language drivers
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/maps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Maps and Basemaps
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/cartography/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Cartography
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/editing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Editing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Analysis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Expressions
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/layouts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Layouts and Reports
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/sharing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sharing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/workspace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Workspace
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/assistant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AI Assistant
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../comparison/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Comparison
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_6">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Comparison
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparison/geolibre/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  RustGIS and GeoLibre
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparison/qgis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  RustGIS and QGIS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Command Line
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MCP Server
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Plugins
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../i18n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Languages
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Architecture
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Contributing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../acknowledgements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Acknowledgements
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../citation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  How to Cite
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sponsor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sponsor
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../privacy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Privacy
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/opengeos/RustGIS/issues" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Report Issues
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#install-with-an-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Install with an agent
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#microsoft-store" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Microsoft Store
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Download
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#package-managers" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Package managers
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#from-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        From source
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#platforms" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Platforms
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#web-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Web app
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Web app">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-the-web-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Install the web app
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#self-host-the-web-app-with-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Self-host the web app with Docker
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-command-line-in-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The command line in Docker
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fonts" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Fonts
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#settings-data-and-cache-folders" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Settings, data and cache folders
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#if-rustgis-closes-unexpectedly" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        If RustGIS closes unexpectedly
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#if-the-app-doesnt-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        If the app doesn't start
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                <a id="__skip" tabindex="-1"></a>
+                
+                  
+
+  
+  
+
+
+<h1 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h1>
+<h2 id="install-with-an-agent">Install with an agent<a class="headerlink" href="#install-with-an-agent" title="Permanent link">&para;</a></h2>
+<p>Point your agent at the <a href="https://github.com/opengeos/RustGIS/blob/main/skills/rustgis/SKILL.md">RustGIS skill</a>
+and ask it to install RustGIS. The skill picks the platform, installs the app and <code>rustgis-cli</code>,
+checks the release checksum, and registers the MCP server. The same skill is how an agent manages
+the desktop app that is already open.</p>
+<h2 id="microsoft-store">Microsoft Store<a class="headerlink" href="#microsoft-store" title="Permanent link">&para;</a></h2>
+<p>On Windows 10 and 11, the easiest way to install RustGIS is from the Microsoft Store, which
+signs the app and keeps it up to date:</p>
+<p><a href="https://apps.microsoft.com/detail/9ppjw8h561lq?mode=direct"><img alt="Get it from Microsoft" src="https://get.microsoft.com/images/en-us%20dark.svg" width="200" /></a></p>
+<h2 id="download">Download<a class="headerlink" href="#download" title="Permanent link">&para;</a></h2>
+<p>Each <a href="https://github.com/opengeos/RustGIS/releases/latest">GitHub release</a> carries ready-to-run
+builds of the desktop app and <code>rustgis-cli</code>. The same files, grouped by platform, are mirrored at
+<strong><a href="https://downloads.rustgis.app">downloads.rustgis.app</a></strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Platform</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Windows x64 / arm64 (installer, no admin rights)</td>
+<td><code>RustGIS-&lt;version&gt;-windows-x86_64-setup.exe</code> / <code>RustGIS-&lt;version&gt;-windows-aarch64-setup.exe</code></td>
+</tr>
+<tr>
+<td>Windows x64 / arm64 (installer for all users)</td>
+<td><code>RustGIS-&lt;version&gt;-windows-x86_64.msi</code> / <code>RustGIS-&lt;version&gt;-windows-aarch64.msi</code></td>
+</tr>
+<tr>
+<td>Windows x64 / arm64 (no install)</td>
+<td><code>RustGIS-&lt;version&gt;-windows-x86_64-portable.zip</code> / <code>RustGIS-&lt;version&gt;-windows-aarch64-portable.zip</code> (unzip and run <code>rustgis.exe</code>)</td>
+</tr>
+<tr>
+<td>Windows x64 / arm64 (Microsoft Store package)</td>
+<td><code>RustGIS-&lt;version&gt;-windows-x86_64.msix</code> / <code>RustGIS-&lt;version&gt;-windows-aarch64.msix</code></td>
+</tr>
+<tr>
+<td>macOS Apple Silicon</td>
+<td><code>RustGIS-&lt;version&gt;-macos-aarch64.dmg</code></td>
+</tr>
+<tr>
+<td>macOS Intel</td>
+<td><code>RustGIS-&lt;version&gt;-macos-x86_64.dmg</code></td>
+</tr>
+<tr>
+<td>Linux x64 / arm64 (Debian, Ubuntu)</td>
+<td><code>rustgis_&lt;version&gt;_amd64.deb</code> / <code>rustgis_&lt;version&gt;_arm64.deb</code></td>
+</tr>
+<tr>
+<td>Linux x64 / arm64 (Fedora, RHEL, openSUSE)</td>
+<td><code>rustgis-&lt;version&gt;-1.x86_64.rpm</code> / <code>rustgis-&lt;version&gt;-1.aarch64.rpm</code></td>
+</tr>
+<tr>
+<td>Linux x64 / arm64 (any distribution, no install)</td>
+<td><code>RustGIS-&lt;version&gt;-linux-x86_64.AppImage</code> / <code>RustGIS-&lt;version&gt;-linux-aarch64.AppImage</code></td>
+</tr>
+<tr>
+<td>Linux x64 / arm64 (other)</td>
+<td><code>RustGIS-&lt;version&gt;-linux-x86_64.tar.gz</code> / <code>RustGIS-&lt;version&gt;-linux-aarch64.tar.gz</code></td>
+</tr>
+</tbody>
+</table>
+<p>On macOS the command-line tool is a separate <code>rustgis-cli-&lt;version&gt;-macos-&lt;arch&gt;.tar.gz</code>;
+the other packages include it (the Windows installers and the MSIX add <code>rustgis-cli</code> to every
+new terminal). <code>SHA256SUMS</code> lists the checksum of every file.</p>
+<p>The AppImages carry update information, so tools such as Gear Lever can update them to the
+latest release. AppImageUpdate, and AppImageLauncher through the AppImageUpdate library, download
+only the parts that changed, with the <code>.zsync</code> file published beside each AppImage.</p>
+<p>On Windows, <code>setup.exe</code> installs for your account in <code>%LOCALAPPDATA%\Programs\RustGIS</code> and needs
+no admin rights; the <code>.msi</code> installs for every user in <code>Program Files</code> and suits managed
+deployment (<code>msiexec /i RustGIS-&lt;version&gt;-windows-&lt;arch&gt;.msi /qn</code>, where <code>&lt;arch&gt;</code> is <code>x86_64</code> or
+<code>aarch64</code>). Both add a Start menu
+entry, open <code>.rgis</code> projects, list RustGIS under <strong>Open with</strong> for <code>.geojson</code>, and
+uninstall from <strong>Settings › Apps</strong>.</p>
+<p>The <code>.msix</code> is the package submitted to the Microsoft Store, which signs it. It is unsigned
+on the release page, so Windows only installs it from the
+<a href="https://apps.microsoft.com/detail/9ppjw8h561lq">Store</a>; outside the Store, download an installer
+or the portable zip instead.</p>
+<p>The macOS app needs macOS 11 or later. It is signed and notarized by Apple, so it opens without a
+warning; the command-line tool is too, but macOS checks it online the first time it runs. The
+<code>setup.exe</code>, <code>.msi</code> and portable zip are not signed: if SmartScreen warns about an unknown
+publisher, choose <strong>More info › Run anyway</strong>.</p>
+<h2 id="package-managers">Package managers<a class="headerlink" href="#package-managers" title="Permanent link">&para;</a></h2>
+<p>RustGIS is also published to these package managers, which keep it up to date:</p>
+<table>
+<thead>
+<tr>
+<th>Platform</th>
+<th>Command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Windows x64 (<a href="https://learn.microsoft.com/windows/package-manager/">winget</a>)</td>
+<td><code>winget install OpenGeos.RustGIS</code> (x64 only for now: on ARM64, use the ARM64 setup.exe or .msi above)</td>
+</tr>
+<tr>
+<td>macOS (<a href="https://brew.sh">Homebrew</a>)</td>
+<td><code>brew install --cask opengeos/rustgis/rustgis</code></td>
+</tr>
+<tr>
+<td>macOS and Linux, command-line tool only (Homebrew)</td>
+<td><code>brew install opengeos/rustgis/rustgis-cli</code></td>
+</tr>
+<tr>
+<td>Arch Linux (<a href="https://aur.archlinux.org/packages/rustgis-bin">AUR</a>)</td>
+<td><code>yay -S rustgis-bin</code> (or any AUR helper)</td>
+</tr>
+<tr>
+<td>Fedora (<a href="https://copr.fedorainfracloud.org/coprs/giswqs/rustgis/">COPR</a>)</td>
+<td><code>sudo dnf copr enable giswqs/rustgis &amp;&amp; sudo dnf install rustgis</code></td>
+</tr>
+</tbody>
+</table>
+<p>winget installs for your account with the setup.exe; add <code>--scope machine</code> for the <code>.msi</code>. On
+Homebrew 5.1 and later, run <code>brew trust opengeos/rustgis</code> once before installing from the tap.
+Each package is the same build as the release page, and a new release reaches the package
+managers shortly after it is published (winget after Microsoft's review).</p>
+<h2 id="from-source">From source<a class="headerlink" href="#from-source" title="Permanent link">&para;</a></h2>
+<p>RustGIS builds from source with a recent stable Rust toolchain (1.90 or later), a C compiler (for
+the C code some dependencies bundle; see <a href="../architecture/#pure-rust">Architecture</a>) and <code>curl</code>
+(to download the sample data).</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/opengeos/RustGIS.git
+<span class="nb">cd</span><span class="w"> </span>RustGIS
+cargo<span class="w"> </span>run<span class="w"> </span>--release<span class="w"> </span>-p<span class="w"> </span>rustgis<span class="w">            </span><span class="c1"># the desktop app</span>
+cargo<span class="w"> </span>build<span class="w"> </span>--release<span class="w"> </span>-p<span class="w"> </span>rustgis-cli<span class="w">      </span><span class="c1"># the command-line tool</span>
+</code></pre></div>
+<p>The build downloads the Natural Earth sample data from
+<a href="https://github.com/opengeos/rustgis-assets">rustgis-assets</a>. To build offline, download
+<code>countries.geojson</code>, <code>countries_chn.geojson</code>, <code>cities.geojson</code>, <code>rivers.geojson</code> and
+<code>lakes.geojson</code> from <code>https://assets.rustgis.app/data/</code> once and point the build at them:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">RUSTGIS_DATA_DIR</span><span class="o">=</span>/path/to/data<span class="w"> </span>cargo<span class="w"> </span>build<span class="w"> </span>--release
+</code></pre></div>
+<h2 id="platforms">Platforms<a class="headerlink" href="#platforms" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Platform</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Linux (X11 and Wayland)</td>
+<td>Supported</td>
+</tr>
+<tr>
+<td>macOS</td>
+<td>Supported</td>
+</tr>
+<tr>
+<td>Windows</td>
+<td>Supported</td>
+</tr>
+<tr>
+<td>Web browser</td>
+<td>Supported: <a href="https://web.rustgis.app">web.rustgis.app</a> (WebGPU or WebGL2), installable as an app on iOS, Android and desktops (<a href="#install-the-web-app">how</a>)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="web-app">Web app<a class="headerlink" href="#web-app" title="Permanent link">&para;</a></h2>
+<p>RustGIS also runs in the browser, compiled to WebAssembly: open
+<strong><a href="https://web.rustgis.app">web.rustgis.app</a></strong>. It is the same app, with these differences:</p>
+<ul>
+<li><strong>Open</strong> and <strong>Add Data</strong> use the browser's file picker, and you can drop files on the page.
+  GeoJSON, CSV, GeoTIFF, ASCII grids, <code>.rgis</code> projects and the other formats in
+  <a href="../user-guide/data-formats/">Data formats</a> work; pick or drop a Shapefile's <code>.shp</code> and <code>.dbf</code>
+  together (with its <code>.shx</code> and <code>.prj</code> if it has them), or its zip.</li>
+<li><strong>Save</strong> and <strong>Export</strong> download the file. <strong>Save As</strong>, and the first <strong>Save</strong> of a project,
+  ask for the file name first; the browser decides which folder downloads go to (Firefox, for
+  one, saves to its Downloads folder unless told to ask). A project opened from a file is named
+  after it, and <strong>Save</strong> downloads it under that name again.</li>
+<li>The interface uses the built-in font, because a web page can't read installed fonts. Choosing
+  Chinese, Japanese, Korean or Persian downloads a font for that script.</li>
+<li>Process plugins (including Python plugins), and the formats read through GDAL or DuckDB,
+  need the desktop app or <code>rustgis-cli</code>.</li>
+</ul>
+<p>The web app opens the way <strong>Settings › Start-up</strong> says (remembered in the browser). The URL can
+override that for one visit: add <code>?blank</code> to start with an empty project,
+<code>?projection=EPSG:3010</code> (a supported projected EPSG or ESRI code, a preset id such as <code>robinson</code>, or <code>globe</code>) to
+start in another projection, <code>?extent=10.5,55,24.5,69.5</code> (west, south, east, north in degrees) to
+open on an area, <code>?lang=de</code> (or any language code) to pick the interface language, <code>?gpu</code> (or
+<code>?gpu=0</code>) to turn GPU Rendering on (off) for the visit, or <code>?webgl</code> to force
+WebGL2. Combine them with <code>&amp;</code>, so a self-hosted build can link to
+<code>?blank&amp;projection=EPSG:3010&amp;extent=10.5,55,24.5,69.5</code>.</p>
+<p><code>?registry=&lt;address&gt;</code> opens the Plugin Manager's Browse tab on another plugin registry for the
+visit; installing still asks first.</p>
+<p>Links can carry data too: <code>?data=&lt;address&gt;</code> adds a file by its web address (any format Add Data
+reads, downloaded in the background; repeat it for up to 16, and the map zooms to the first that
+lands with something to show), <code>?style=&lt;address&gt;</code> adds a MapLibre style (opening at the style's
+own place, zoom, bearing and pitch unless the link places the map), <code>?tiles=&lt;template&gt;</code>
+a tile layer, and <code>?zarr=&lt;address&gt;</code> opens Add Zarr Variable on a Zarr store. Percent-encode an address holding <code>&amp;</code>, <code>#</code> or spaces (<code>encodeURIComponent</code>); a <code>+</code>
+stays a <code>+</code>. The server must allow the browser to fetch the file (CORS); a file that can't be
+added is said in a notice. For example,
+<code>?blank&amp;data=https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojson</code> opens
+the past week's earthquakes.</p>
+<p>A MapLibre-style position after a <code>#</code> places the map: <code>#zoom/latitude/longitude/bearing/pitch</code>,
+the last two optional, so <code>?style=&lt;address&gt;#15.5/40.7484/-73.9857/30/60</code> opens a style tilted over
+Midtown Manhattan.</p>
+<p><code>?project=&lt;address&gt;</code> opens a whole project by its web address: a <code>.rgis</code> file (or a
+<code>.rgispkg</code> package), or any address that answers with a project's JSON, such as an API that
+builds the project on the fly. Its maps, layers, symbology and view open as saved, so one link
+shares a styled map. The project replaces the start-up one, so <code>?data=</code>, <code>?stac=</code>, <code>?style=</code>,
+<code>?tiles=</code> and <code>?zarr=</code> are left out beside it (a notice says so). The data the project points to
+is read as it would be from a saved file, and its servers must allow the browser to fetch it
+(CORS), as must the project's.</p>
+<p><code>?stac=&lt;address&gt;</code> opens STAC Search on a <a href="https://stacspec.org">STAC</a> item or collection: an
+item's footprint is drawn and its default asset (its true-colour <code>visual</code> image, else its first
+GeoTIFF) added, signed first when it is a Microsoft Planetary Computer one; a collection is chosen
+in the dialog, with its API, ready to search. For example,
+<code>?stac=https://planetarycomputer.microsoft.com/api/stac/v1/collections/sentinel-2-l2a/items/S2B_MSIL2A_20240727T102559_R108_T32TLS_20240727T131405</code>
+opens a Sentinel-2 scene of Lake Geneva.</p>
+<p><code>?embed</code> runs the app inside another page, as the <a href="../python/">Python package's notebook widget</a>
+does: it starts blank, keeps its settings in memory rather than in the browser, and exchanges
+the project with the page that frames it through <code>postMessage</code> (the messages are described in
+<code>apps/rustgis-web/src/embed.rs</code>).</p>
+<h3 id="install-the-web-app">Install the web app<a class="headerlink" href="#install-the-web-app" title="Permanent link">&para;</a></h3>
+<p>The web app installs like an app on phones, tablets and computers, with its own icon and a window
+without the browser's toolbars, and starts without a network connection once it has been opened
+online. Nothing is downloaded from an app store, and it updates itself from web.rustgis.app.</p>
+<table>
+<thead>
+<tr>
+<th>Platform</th>
+<th>How</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>iPhone and iPad</td>
+<td>Open web.rustgis.app in Safari, tap <strong>Share</strong>, then <strong>Add to Home Screen</strong></td>
+</tr>
+<tr>
+<td>Android</td>
+<td>Open it in Chrome, tap the <strong>⋮</strong> menu, then <strong>Install app</strong> (or <strong>Add to Home screen</strong>)</td>
+</tr>
+<tr>
+<td>Windows, macOS, Linux, ChromeOS</td>
+<td>In Chrome or Edge, click the install icon at the right of the address bar (or <strong>⋮ › Cast, save and share › Install page as app</strong>)</td>
+</tr>
+<tr>
+<td>Mac (Safari 17 or later)</td>
+<td><strong>File › Add to Dock</strong></td>
+</tr>
+</tbody>
+</table>
+<p>To remove it, delete it like any other app: long-press the icon on a phone or tablet, or use
+<strong>Uninstall</strong> in the app window's menu on a computer.</p>
+<p>Offline, the installed app opens the World Atlas sample and the files you open, but not basemap
+tiles, web data, plugins or the AI Assistant, which need the network. When a new version has been
+published while the app is open, a notice offers to reload into it; otherwise the next launch
+picks it up. Two things to know on iPhone and iPad: iOS gives a web page less memory than a
+desktop browser, so very large rasters may not open, and it can clear the offline copy when the
+device runs short of storage, so the next launch then needs a connection.</p>
+<p>To build it yourself, install <a href="https://trunkrs.dev">Trunk</a>, the <code>wasm32-unknown-unknown</code> target
+and clang (it compiles the Zstandard decoder used for GeoTIFFs to WebAssembly). Linux
+distributions' clang can; on macOS, Apple's can't, so install <code>llvm</code> with Homebrew and put its
+<code>bin</code> first on your <code>PATH</code>. Then:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>apps/rustgis-web
+trunk<span class="w"> </span>serve<span class="w">          </span><span class="c1"># http://127.0.0.1:8772</span>
+trunk<span class="w"> </span>build<span class="w"> </span>--release<span class="w">   </span><span class="c1"># output in dist/web</span>
+cargo<span class="w"> </span>xtask<span class="w"> </span>web-pwa<span class="w"> </span>../../dist/web<span class="w">   </span><span class="c1"># add the service worker (offline start), as the deploy does</span>
+</code></pre></div>
+<p>The service worker is left out of <code>trunk serve</code>, so a development build is never served from a
+stale cache.</p>
+<h3 id="self-host-the-web-app-with-docker">Self-host the web app with Docker<a class="headerlink" href="#self-host-the-web-app-with-docker" title="Permanent link">&para;</a></h3>
+<p>A ready-made image of the web app, served by nginx, is published to the GitHub Container
+Registry for x86-64 and arm64, so you need only <a href="https://docs.docker.com/get-docker/">Docker</a>:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span>ghcr.io/opengeos/rustgis<span class="w">   </span><span class="c1"># http://localhost:8080</span>
+</code></pre></div>
+<p><code>latest</code> (also tagged <code>edge</code>) is the newest build of <code>main</code>; <code>0.5.0</code> or <code>0.5</code> is a given
+release (releases have images from 0.5.0 on).</p>
+<p>To build the image yourself, the <code>Dockerfile</code> at the root of the repository builds the web app
+the way the deploy does:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>rustgis<span class="w"> </span>.
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span>rustgis
+</code></pre></div>
+<p>The image holds only the built files and runs nginx as a non-root user on port 8080. Its pages
+check for a newer build on every load, so the app's new-version notice offers the next image you
+deploy. Unlike web.rustgis.app, it carries no analytics. Put it behind a reverse proxy that
+serves HTTPS: browsers install the app and start its service worker only over HTTPS (or on
+<code>localhost</code>). The app's addresses are relative, so the proxy can also serve it under a path,
+such as <code>https://example.com/rustgis/</code>, passing requests on without the path. Signing in to
+ArcGIS from your copy needs an OAuth app of your own whose redirect URLs list the copy's
+<code>oauth-callback.html</code>, as RustGIS's own app accepts only web.rustgis.app's (see
+<a href="../user-guide/data-formats/#secured-arcgis-services">Secured ArcGIS services</a>).</p>
+<p>The image is for the platform of the machine that builds it. To build it for another, such as
+on an Apple silicon Mac for an x86-64 server, add <code>--platform linux/amd64</code> to <code>docker build</code>.
+With a builder that can build several platforms (one made by <code>docker buildx create --use</code>, or
+Docker Desktop's containerd image store),
+<code>docker buildx build --platform linux/amd64,linux/arm64 -t &lt;registry&gt;/rustgis --push .</code>
+publishes one image for both. The app itself is WebAssembly, so it is compiled once, on the
+machine that builds it, whichever platforms the image is for.</p>
+<h3 id="the-command-line-in-docker">The command line in Docker<a class="headerlink" href="#the-command-line-in-docker" title="Permanent link">&para;</a></h3>
+<p><code>ghcr.io/opengeos/rustgis-cli</code> holds the <a href="../cli/">command line</a>, <code>rustgis-cli</code>, on a slim Debian,
+for x86-64 and arm64, with the same tags. It runs in <code>/data</code>, so mount the folder to work on
+there:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-v<span class="w"> </span><span class="s2">"</span><span class="nv">$PWD</span><span class="s2">:/data"</span><span class="w"> </span>ghcr.io/opengeos/rustgis-cli<span class="w"> </span>info<span class="w"> </span>cities.geojson
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-v<span class="w"> </span><span class="s2">"</span><span class="nv">$PWD</span><span class="s2">:/data"</span><span class="w"> </span>ghcr.io/opengeos/rustgis-cli<span class="w"> </span>render<span class="w"> </span>cities.geojson<span class="w"> </span>map.png<span class="w"> </span>--basemap<span class="w"> </span>ocean
+</code></pre></div>
+<p>It runs as a user with ID 1000, the first user on most Linux systems, so the files it writes are
+yours; elsewhere, add <code>--user "$(id -u):$(id -g)" -e HOME=/tmp</code>. The optional GDAL, DuckDB and
+GeoLibre programs aren't in the image. To build it yourself:
+<code>docker build -f packaging/docker/cli.Dockerfile -t rustgis-cli .</code></p>
+<h2 id="fonts">Fonts<a class="headerlink" href="#fonts" title="Permanent link">&para;</a></h2>
+<p>RustGIS uses an installed sans-serif when it finds one (Segoe UI, San Francisco, Arial, Inter,
+Noto Sans, Open Sans or DejaVu Sans) and falls back to a built-in face. Set
+<code>RUSTGIS_BUILTIN_FONTS=1</code> to always use the built-in face.</p>
+<h2 id="settings-data-and-cache-folders">Settings, data and cache folders<a class="headerlink" href="#settings-data-and-cache-folders" title="Permanent link">&para;</a></h2>
+<p>The desktop app and the command line keep their files in three folders:</p>
+<table>
+<thead>
+<tr>
+<th>Folder</th>
+<th>Holds</th>
+<th>Windows</th>
+<th>macOS</th>
+<th>Linux</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Settings</td>
+<td>preferences (<code>prefs.json</code>), the crash log, AI Assistant sign-ins and skills</td>
+<td><code>%APPDATA%\RustGIS</code></td>
+<td><code>~/Library/Application Support/RustGIS</code></td>
+<td><code>$XDG_CONFIG_HOME/rustgis</code> (<code>~/.config/rustgis</code>)</td>
+</tr>
+<tr>
+<td>Data</td>
+<td>installed plugins, the GeoLibre runner and recovery copies of unsaved work</td>
+<td><code>%LOCALAPPDATA%\RustGIS</code></td>
+<td><code>~/Library/Application Support/RustGIS</code></td>
+<td><code>$XDG_DATA_HOME/rustgis</code> (<code>~/.local/share/rustgis</code>)</td>
+</tr>
+<tr>
+<td>Cache</td>
+<td>GDAL and DuckDB conversions</td>
+<td><code>%LOCALAPPDATA%\RustGIS\cache</code></td>
+<td><code>~/Library/Caches/RustGIS</code></td>
+<td><code>$XDG_CACHE_HOME/rustgis</code> (<code>~/.cache/rustgis</code>)</td>
+</tr>
+</tbody>
+</table>
+<p>Set <code>RUSTGIS_CONFIG_DIR</code>, <code>RUSTGIS_APP_DATA_DIR</code> or <code>RUSTGIS_CACHE_DIR</code> to use another folder
+instead, for a portable install on a USB drive, for example. The folder is used as is, and RustGIS
+keeps the same files in it (<code>plugins/</code>, <code>geolibre/</code> and <code>recovery/</code> in the data folder, <code>gdal/</code> and <code>duckdb/</code>
+in the cache folder). <code>RUSTGIS_PLUGINS_DIR</code>, <code>RUSTGIS_GDAL_CACHE</code> and <code>RUSTGIS_DUCKDB_CACHE</code> name
+the plugins folder and the GDAL and DuckDB caches themselves, ahead of these.</p>
+<h2 id="if-rustgis-closes-unexpectedly">If RustGIS closes unexpectedly<a class="headerlink" href="#if-rustgis-closes-unexpectedly" title="Permanent link">&para;</a></h2>
+<p>The desktop app writes its internal errors to <code>crash.log</code> in its
+<a href="#settings-data-and-cache-folders">settings folder</a>: one that closed the app, and also one it
+recovered from (an error in the AI Assistant, for example, stops the request and says so in the
+chat instead of closing the app). The next launch moves the log to <code>crash-last.log</code> and names the
+file in a notice.</p>
+<p>Attach it to a <a href="https://github.com/opengeos/RustGIS/issues/new?template=bug_report.yml">bug report</a>.
+It holds the version, the operating system, the error message and where in RustGIS it happened.
+An error message can quote what RustGIS was working on, such as a file path or a layer name, so
+read the log first and remove anything you don't want to share.</p>
+<p>Unsaved work isn't lost with it: the next launch offers the copy autosave kept (see
+<a href="../user-guide/workspace/#autosave-and-recovery">Autosave and recovery</a>).</p>
+<h2 id="if-the-app-doesnt-start">If the app doesn't start<a class="headerlink" href="#if-the-app-doesnt-start" title="Permanent link">&para;</a></h2>
+<p>The desktop app draws its window with the graphics card through Direct3D 12 on Windows, Metal on
+macOS and Vulkan on Linux, with OpenGL as a fallback. A graphics driver that crashes there closes
+the app before it can open a window or write <code>crash.log</code>. Choose another graphics interface with
+<code>--backend</code> (<code>dx12</code>, <code>vulkan</code>, <code>gl</code> or <code>metal</code>, or several separated by commas), from a terminal
+or in the target of a shortcut to <code>rustgis.exe</code>:</p>
+<div class="highlight"><pre><span></span><code>rustgis<span class="w"> </span>--backend<span class="w"> </span>gl<span class="w">       </span><span class="c1"># OpenGL</span>
+rustgis<span class="w"> </span>--backend<span class="w"> </span>dx12<span class="w">     </span><span class="c1"># Direct3D 12 (Windows)</span>
+rustgis<span class="w"> </span>--backend<span class="w"> </span>vulkan<span class="w">   </span><span class="c1"># Vulkan</span>
+rustgis<span class="w"> </span>--backend<span class="w"> </span>metal<span class="w">    </span><span class="c1"># Metal (macOS)</span>
+</code></pre></div>
+<p>The <code>WGPU_BACKEND</code> environment variable takes the same names, for every launch. On Windows,
+RustGIS uses Vulkan only when asked like this: some Vulkan drivers, such as Intel's for UHD 600
+series graphics, crash as the app starts. Updating the graphics driver may also help.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="./.." class="md-footer__link md-footer__link--prev" aria-label="Previous: Home">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Home
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../getting-started/" class="md-footer__link md-footer__link--next" aria-label="Next: Getting Started">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Getting Started
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Qiusheng Wu
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/opengeos/RustGIS" target="_blank" rel="noopener" title="RustGIS on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/sponsors/giswqs" target="_blank" rel="noopener" title="Sponsor RustGIS on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="m241 87.1 15 20.7 15-20.7C296 52.5 336.2 32 378.9 32 452.4 32 512 91.6 512 165.1v2.6c0 112.2-139.9 242.5-212.9 298.2-12.4 9.4-27.6 14.1-43.1 14.1s-30.8-4.6-43.1-14.1C139.9 410.2 0 279.9 0 167.7v-2.6C0 91.6 59.6 32 133.1 32 175.8 32 216 52.5 241 87.1"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://buymeacoffee.com/giswqs" target="_blank" rel="noopener" title="Buy the maintainer a coffee" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M152-16c-13.3 0-24 10.7-24 24 0 38.9 23.4 59.4 39.1 73.1l1.1 1C184.5 96.4 192 103.9 192 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C183.5 31.7 176 24.1 176 8c0-13.3-10.7-24-24-24M96 192c-17.7 0-32 14.3-32 32v192c0 53 43 96 96 96h192c41.8 0 77.4-26.7 90.5-64h5.5c70.7 0 128-57.3 128-128s-57.3-128-128-128zm352 192V256c35.3 0 64 28.7 64 64s-28.7 64-64 64M288 8c0-13.3-10.7-24-24-24S240-5.3 240 8c0 38.9 23.4 59.4 39.1 73.1l1.1 1C296.5 96.4 304 103.9 304 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C295.5 31.7 288 24.1 288 8"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["content.code.copy","navigation.indexes","navigation.footer","navigation.instant","navigation.top","navigation.tracking","search.highlight","search.share"],"redirect":null,"search":"../assets/javascripts/workers/search.719e0d91.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d31f0ffa.min.js"></script>
+      
+    
+  </body>
+</html>

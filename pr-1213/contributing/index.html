@@ -1,0 +1,1980 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A fast, free and open-source GIS in pure Rust for mapping, analyzing and sharing geospatial data, on the desktop and in the browser">
+      
+      
+        <meta name="author" content="opengeos">
+      
+      
+        <link rel="canonical" href="https://rustgis.app/contributing/">
+      
+      
+      
+        <link rel="prev" href="../architecture/">
+      
+      
+        <link rel="next" href="../acknowledgements/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="https://assets.rustgis.app/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.74">
+    
+    
+      
+        <title>Contributing - RustGIS</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ab2de0c.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.b60ce83d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
+    <div data-md-component="skip">
+      <a href="#__skip" class="md-skip">
+        Skip to content
+      </a>
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="RustGIS" class="md-header__button md-logo" aria-label="RustGIS" data-md-component="logo">
+      
+  <img src="https://assets.rustgis.app/images/logo.svg" alt="RustGIS">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+      <span class="md-visually-hidden">Navigation</span>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RustGIS
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Contributing
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+          <span class="md-visually-hidden">Search</span>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/opengeos/RustGIS" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/RustGIS
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="RustGIS" class="md-nav__button md-logo" aria-label="RustGIS" data-md-component="logo">
+      
+  <img src="https://assets.rustgis.app/images/logo.svg" alt="RustGIS">
+
+    </a>
+    RustGIS
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/opengeos/RustGIS" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/RustGIS
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Installation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Getting Started
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://web.rustgis.app" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Web App
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../user-guide/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  User Guide
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  User Guide
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/web-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Web Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/data-formats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Supported Data Formats
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/shapefile-encoding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Shapefile DBF language drivers
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/maps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Maps and Basemaps
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/cartography/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Cartography
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/editing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Editing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Analysis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Expressions
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/layouts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Layouts and Reports
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/sharing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sharing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/workspace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Workspace
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/assistant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AI Assistant
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../comparison/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Comparison
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_6">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Comparison
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparison/geolibre/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  RustGIS and GeoLibre
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparison/qgis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  RustGIS and QGIS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Command Line
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MCP Server
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Plugins
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../i18n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Languages
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Architecture
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Contributing
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Contributing
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#developer-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Developer checks
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Developer checks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#faster-local-builds-and-test-runs" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Faster local builds and test runs
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ribbon-guidelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Ribbon guidelines
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ribbon guidelines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#start-with-the-task-and-the-tabs-purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Start with the task and the tab's purpose
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keep-useful-shortcuts-not-duplicate-destinations" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Keep useful shortcuts, not duplicate destinations
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#choose-controls-for-the-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Choose controls for the workflow
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-workflows-before-shipping" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Check workflows before shipping
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Test data
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Documentation
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#releases" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Releases
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../acknowledgements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Acknowledgements
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../citation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  How to Cite
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sponsor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sponsor
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../privacy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Privacy
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/opengeos/RustGIS/issues" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Report Issues
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#developer-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Developer checks
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Developer checks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#faster-local-builds-and-test-runs" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Faster local builds and test runs
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ribbon-guidelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Ribbon guidelines
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ribbon guidelines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#start-with-the-task-and-the-tabs-purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Start with the task and the tab's purpose
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keep-useful-shortcuts-not-duplicate-destinations" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Keep useful shortcuts, not duplicate destinations
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#choose-controls-for-the-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Choose controls for the workflow
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-workflows-before-shipping" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Check workflows before shipping
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Test data
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Documentation
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#releases" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Releases
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                <a id="__skip" tabindex="-1"></a>
+                
+                  
+
+  
+  
+
+
+<h1 id="contributing">Contributing<a class="headerlink" href="#contributing" title="Permanent link">&para;</a></h1>
+<p>Contributions are welcome. See <a href="https://github.com/opengeos/RustGIS/blob/main/AGENTS.md">AGENTS.md</a>
+for the conventions.</p>
+<ol>
+<li>Fork the repository and create a branch.</li>
+<li>Make your change with tests. Engine behaviour is a command in <code>crates/engine/src/cmd/</code>;
+   UI-only commands (<code>ui.*</code>) live in <code>crates/ui-egui/src/lib.rs</code>.</li>
+<li>Run <code>cargo xtask ci</code> and <code>pre-commit run --all-files</code>.</li>
+<li>Open a pull request. Rust CI runs on Linux by default. A maintainer can label it <code>ci:windows</code>,
+   <code>ci:macos</code> or <code>ci:full</code> to test those platforms before merging; pushes to <code>main</code> test all three.
+   <code>ci:full</code> also builds the release apps. The nightly workflow tests and release-builds all three
+   when there are new commits, and opens an issue on failure.</li>
+<li>The docs workflow builds a site and web-app preview. A first-time fork contributor's preview
+   needs a maintainer to add <code>preview</code> or re-run the workflow; returning contributors' previews
+   publish automatically.</li>
+</ol>
+<p>A maintainer's <code>automerge</code> label approves and squash-merges a pull request after its required
+checks pass. Pushing again removes the label and disables auto-merge; removing the label also
+disables it.</p>
+<p>A maintainer's <code>claude-autofix</code> label has Claude bring a pull request up to date: it merges the base
+branch and resolves any conflicts, then fixes the open review comments it agrees with, replies to
+each and resolves the ones it fixed or found already fixed, and pushes the commits to the branch (a
+fork's too, when edits by maintainers are allowed). The label comes off when it's done; add it again
+for another round.</p>
+<h2 id="developer-checks">Developer checks<a class="headerlink" href="#developer-checks" title="Permanent link">&para;</a></h2>
+<p><code>cargo xtask ci</code> runs <code>cargo fmt --all --check</code>,
+<code>cargo clippy --workspace --all-targets -- -D warnings</code>, <code>cargo test --workspace -q</code> and
+<code>cargo xtask layers</code>. The pre-commit hooks also check TOML, YAML, JSON, whitespace and large files.
+CI separately builds <code>rustgis-web</code> for <code>wasm32-unknown-unknown</code> and runs
+<code>cargo deny --locked check licenses</code> against <code>deny.toml</code>.</p>
+<p>Other workspace tasks:</p>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cargo xtask layers</code></td>
+<td>Check crate dependency direction and keep UI dependencies out of lower layers</td>
+</tr>
+<tr>
+<td><code>cargo xtask notices</code></td>
+<td>Regenerate the shipped <code>THIRD-PARTY-LICENSES.txt</code> files after changing dependencies, or after adding code or data from another project to <code>INCLUDED</code> in <code>xtask/src/notices.rs</code> (with its licence text in <code>third-party/</code>); requires <code>cargo-about</code></td>
+</tr>
+<tr>
+<td><code>cargo xtask notices --check</code></td>
+<td>Check the notices without writing them; stale notices warn in CI but block releases</td>
+</tr>
+<tr>
+<td><code>cargo xtask web-pwa &lt;dir&gt;</code></td>
+<td>Generate the service worker in a Trunk build output directory, such as <code>dist/web</code></td>
+</tr>
+</tbody>
+</table>
+<p>Interface strings must be translatable: use <code>tl!("…")</code> for literals and
+<code>i18n::fmt("… {name} …", &amp;[("name", value)])</code> for messages with values. New strings can fall back
+to English until the catalogs are updated; see <a href="../i18n/">Languages</a>.</p>
+<h3 id="faster-local-builds-and-test-runs">Faster local builds and test runs<a class="headerlink" href="#faster-local-builds-and-test-runs" title="Permanent link">&para;</a></h3>
+<p>All of this is optional and on your side: the repository's profiles stay as they are, and
+<code>cargo xtask ci</code> is still the check before each commit and pull request.</p>
+<p><strong>Less debug information.</strong> Much of a debug build's size and link time is debug information,
+most of it the dependencies'. In your user-level <code>~/.cargo/config.toml</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[profile.dev]</span>
+<span class="n">debug</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"line-tables-only"</span><span class="w">   </span><span class="c1"># backtraces keep file:line</span>
+
+<span class="k">[profile.dev.package.</span><span class="s2">"*"</span><span class="k">]</span>
+<span class="n">debug</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+</code></pre></div>
+<p>On Linux, <code>split-debuginfo = "unpacked"</code> under <code>[profile.dev]</code> also keeps the linker from copying
+what is left of it, and <a href="https://github.com/rui314/mold">mold</a> links faster still than the
+<code>rust-lld</code> Rust already uses on x86-64 Linux. Install mold first (the link fails without it), then:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[target.x86_64-unknown-linux-gnu]</span>
+<span class="n">rustflags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"-C"</span><span class="p">,</span><span class="w"> </span><span class="s2">"link-arg=-fuse-ld=mold"</span><span class="p">]</span>
+</code></pre></div>
+<p>The settings change every build's fingerprint, so the next build is a full one.</p>
+<p><strong>Build only what you're testing.</strong> <code>cargo test --workspace</code> builds every crate's library, test
+binaries and examples; a change in <code>ui-egui</code> alone means its library twice (plain and for its unit
+tests), fifteen integration test binaries and the examples. While you work, name what you need:
+<code>cargo test -p rustgis-ui-egui --lib</code>, <code>cargo test -p rustgis-engine --test project_save</code>, or
+<code>cargo clippy -p rustgis-ui-egui --all-targets</code> to check without linking.</p>
+<p><strong>cargo-nextest.</strong> <a href="https://nexte.st">cargo-nextest</a> (<code>cargo install cargo-nextest --locked</code>) runs
+the test binaries side by side, each test in its own process, and filters tests by expression:</p>
+<div class="highlight"><pre><span></span><code>cargo<span class="w"> </span>nextest<span class="w"> </span>run<span class="w"> </span>--workspace<span class="w"> </span>--no-fail-fast<span class="w"> </span>-E<span class="w"> </span><span class="s1">'not (package(rustgis-engine) and test(hostile_params_never_panic))'</span>
+cargo<span class="w"> </span><span class="nb">test</span><span class="w"> </span>--workspace<span class="w"> </span>--doc<span class="w">   </span><span class="c1"># nextest doesn't run doctests</span>
+</code></pre></div>
+<p>The engine's <code>hostile_params_never_panic</code>, which runs every command with junk parameters, is by far
+its slowest test; leaving it out while you iterate keeps a run short. Run it before you push, with
+<code>cargo nextest run -p rustgis-engine -E 'test(hostile_params_never_panic)'</code> or <code>cargo xtask ci</code>.
+A test that fails now and then can be retried with <code>--retries 1</code>.</p>
+<p><strong><code>opt-level</code> 0 for UI work.</strong> The workspace crates build at <code>opt-level = 1</code>. With
+<code>CARGO_PROFILE_DEV_OPT_LEVEL=0</code>, <code>ui-egui</code> rebuilds after an edit about five times faster, but the
+engine's tests run about six times slower (rasters, geometry and the hostile-parameter test), so
+it suits iterating on the interface only. Switching the level rebuilds the workspace crates.</p>
+<p><strong><code>cargo clean</code> now and then.</strong> <code>target/</code> keeps the artifacts of every branch and setting you have
+built, and can grow past a hundred gigabytes.</p>
+<h2 id="ribbon-guidelines">Ribbon guidelines<a class="headerlink" href="#ribbon-guidelines" title="Permanent link">&para;</a></h2>
+<p>These guidelines decide where a ribbon control goes and what kind of control it is. They guide
+new features and small, tab-by-tab improvements; they are not a claim that the current ribbon
+already follows every rule. Decisions about particular controls live in their issues.</p>
+<h3 id="start-with-the-task-and-the-tabs-purpose">Start with the task and the tab's purpose<a class="headerlink" href="#start-with-the-task-and-the-tabs-purpose" title="Permanent link">&para;</a></h3>
+<p>Use the tab's purpose to decide where a feature belongs, rather than putting it wherever there
+is space. Agree on that purpose before reorganising a tab.</p>
+<table>
+<thead>
+<tr>
+<th>Tab</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Home</td>
+<td>The basics of working with a map: starting a map or layout, adding data, moving around, and selecting and inspecting features.</td>
+</tr>
+<tr>
+<td>Data</td>
+<td>Working with the content and structure of data: looking at records, changing fields and values, connecting tables, and bringing data in and out. Exports here produce data, such as features and rasters.</td>
+</tr>
+<tr>
+<td>Style</td>
+<td>Deciding how a layer looks on the map: how its features are drawn and shown at different scales.</td>
+</tr>
+<tr>
+<td>Labeling</td>
+<td>How the map is labelled: what gets a label, with which text, where, and at which scales, plus the label settings for the whole map.</td>
+</tr>
+<tr>
+<td>Edit</td>
+<td>Creating and changing features and graphics on the map, and managing those edits.</td>
+</tr>
+<tr>
+<td>Analyze</td>
+<td>Turning existing data into new results, from single tools to repeatable workflows, scripts and automation.</td>
+</tr>
+<tr>
+<td>View</td>
+<td>How the map and workspace are displayed: map appearance and view configuration, and which panes and windows are open. Basic navigation stays on Home.</td>
+</tr>
+<tr>
+<td>Publish</td>
+<td>Getting work out to others: printing, exporting or sharing products such as maps, layouts, reports and packages, including on the web.</td>
+</tr>
+<tr>
+<td>Plugins</td>
+<td>Finding, installing and using plugins that extend RustGIS.</td>
+</tr>
+<tr>
+<td>Settings</td>
+<td>Preferences that apply to every project, such as language, appearance and start-up.</td>
+</tr>
+<tr>
+<td>Help</td>
+<td>Learning RustGIS, finding commands and shortcuts, and getting information about the app.</td>
+</tr>
+</tbody>
+</table>
+<p>Keep Data, Style and Labeling fixed, rather than making the tab strip change with the selected
+layer. Their target should be explicit: a layer chooser at the left of each layer-dependent tab
+(for example, “Styling: Countries ▾”) is planned, with a useful hint when no suitable layer is
+selected. Where a class chooser is needed, the layer comes first, then the class.</p>
+<p>If a control seems to fit two tabs, or none, clarify its task and destination before placing
+it. Home is not a catch-all for anything described as “frequently used”. Data exports data;
+Publish exports products. A control kept on a tab its purpose doesn't cover, until another tab
+is reorganised, is an interim exception: record it in the issue that tracks the move.</p>
+<h3 id="keep-useful-shortcuts-not-duplicate-destinations">Keep useful shortcuts, not duplicate destinations<a class="headerlink" href="#keep-useful-shortcuts-not-duplicate-destinations" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>One button per destination, not per pane.</strong> Buttons that open the same pane at different
+  sections are useful task shortcuts. Merge controls that land in the same place with the same
+  context.</li>
+<li><strong>Keep View › Windows complete.</strong> Every pane must be reachable there. Working tabs may repeat
+  the panes their tasks need; do not replace those shortcuts with a generic Panes dropdown just
+  to reduce the button count.</li>
+<li><strong>Keep modes with their tools.</strong> Measurement units belong with Measure because they are chosen
+  while measuring. Application-wide preferences such as Dark Mode belong in Settings.</li>
+<li><strong>One name and icon per thing.</strong> Use the same label and icon for the same command wherever it
+  appears: ribbon, panes and Command Search. Do not give one tool different names, or expose
+  one setting as two differently named toggles.</li>
+<li><strong>Labels say what happens.</strong> Name a control for what it does, not for a similar feature
+  elsewhere. A coordinates-only action should say “By Coordinates”; the “Locate” menu covers
+  both coordinates and place/address search. End a label with “…” when it opens a dialog or
+  file picker that asks for input.</li>
+<li><strong>Keep a route to every feature.</strong> Removing a ribbon control must not remove access to its
+  action. Name and check the remaining route, including for UI-only actions.</li>
+</ul>
+<h3 id="choose-controls-for-the-workflow">Choose controls for the workflow<a class="headerlink" href="#choose-controls-for-the-workflow" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Put everyday actions and quick adjustments on the ribbon; keep deeper, less frequent options
+  in a pane. A pane holds the full set of settings; its ribbon controls are shortcuts to the
+  same settings and selected layer or class, not separate state.</li>
+<li>Use a split button only when there is a clear everyday default. The main action stays fixed;
+  choosing an alternative never changes it to “last used”. The arrow opens related alternatives.
+  Without an obvious default, use a plain dropdown. For example, Select's main action is click
+  or box selection; Polygon, Lasso and Radius are in its arrow menu.</li>
+</ul>
+<p>For split-button implementation and enabled-state handling, see
+<a href="../architecture/#everything-is-a-command">Architecture</a>.</p>
+<h3 id="check-workflows-before-shipping">Check workflows before shipping<a class="headerlink" href="#check-workflows-before-shipping" title="Permanent link">&para;</a></h3>
+<p>Improve the ribbon in small pull requests, tab by tab, rather than replacing the whole layout
+at once. Clear naming and duplicate-destination fixes can land independently of a larger
+reorganisation.</p>
+<p>Check everyday workflows such as adding data, selecting by location, buffering, symbolising
+and exporting a map. When moving, removing or regrouping controls, record clicks and tab
+switches for these before and after; fewer controls is not an improvement if those tasks become
+harder. Check the tab at 1366 px wide with the <a href="#documentation"><code>ui_shot</code> example</a> and look at
+the image. Keep everyday controls reachable without horizontal scrolling; move deeper options to
+their pane rather than packing more controls into the strip.</p>
+<p>A pull request that adds a ribbon control should state:</p>
+<ul>
+<li>the task it serves, its tab and group, and how it fits the tab's purpose;</li>
+<li>whether it runs immediately, selects a tool, opens a dialog or opens a pane, including the
+  pane section and layer/class context;</li>
+<li>the fixed default and alternatives if it uses a split button;</li>
+<li>a screenshot of the tab at 1366 px wide.</li>
+</ul>
+<p>A pull request that moves, removes or regroups controls should also state:</p>
+<ul>
+<li>where each removed control's action remains reachable, and any Command Search location or
+  label updates;</li>
+<li>why any repeated destination is useful in its workflow;</li>
+<li>the workflows checked, with their click and tab-switch counts before and after.</li>
+</ul>
+<p>Changing ribbon placement does not require changing command ids or parameters: keep CLI,
+shortcuts and scripts working.</p>
+<h2 id="test-data">Test data<a class="headerlink" href="#test-data" title="Permanent link">&para;</a></h2>
+<p>Generate small datasets during tests instead of committing fixture files. The shared generator
+in <code>tests/support/ogc.rs</code> builds OGC landing pages, collection lists and GeoJSON in memory;
+<code>tests/support/ogc_server.rs</code> serves them locally for engine and UI tests. The sorting smoke
+test similarly generates its KML, KMZ, CSV and GeoJSON inputs. These run automatically with
+<code>cargo test --workspace --locked</code> and <code>cargo xtask ci</code>, without a separate setup step or a
+public service. Extend these generators when adding cases.</p>
+<h2 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">&para;</a></h2>
+<p>The site is built with <a href="https://zensical.org">Zensical</a>:</p>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements_docs.txt
+zensical<span class="w"> </span>serve<span class="w">        </span><span class="c1"># http://localhost:8000</span>
+</code></pre></div>
+<p>Images live in <a href="https://github.com/opengeos/rustgis-assets">rustgis-assets</a> and are linked by
+URL; don't commit images to this repository.</p>
+<p>For PR screenshots, GitHub web attachments are fine. The optional
+<a href="https://github.com/drogers0/gh-image"><code>gh image</code> extension</a> can automate uploads and return
+image links; <code>gh</code> itself has no native standalone attachment-upload command.</p>
+<p>The screenshots are rendered by the app itself. From the repository root, run
+<code>crates/ui-egui/examples/shots/render.sh</code>; it needs ImageMagick (<code>magick</code>) and network access for
+tiles, plugins and the sample DEM. It runs the <code>ui_shot</code> scripts beside it and writes WebP files
+to <code>target/shots/</code>; copy them to <code>images/</code> in rustgis-assets. The <code>assistant</code> shot asks a real
+model, so set <code>RUSTGIS_ASSISTANT_PROVIDER</code> and the provider's key first, or it shows an empty
+pane (see <a href="../user-guide/assistant/#choosing-a-model">AI Assistant</a>).</p>
+<h2 id="releases">Releases<a class="headerlink" href="#releases" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Bump <code>version</code> in the workspace <code>Cargo.toml</code> and merge it.</li>
+<li>Refresh third-party notices if dependencies changed (<code>cargo xtask notices</code>).</li>
+<li>Run the <strong>Release dry run</strong> workflow, which checks the version and builds the desktop/CLI
+   packages without publishing anything:
+   <code>gh workflow run release-dry-run.yml -R opengeos/RustGIS --ref main -f version=&lt;version&gt;</code></li>
+<li>When it passes, publish a GitHub release tagged <code>v&lt;version&gt;</code> (the tag must match <code>Cargo.toml</code>).</li>
+</ol>
+<p>The <strong>Release</strong> workflow then builds and attaches the Windows installers, zip and MSIX, the
+macOS DMGs, the Linux tarballs, <code>.deb</code> and <code>.rpm</code> packages and AppImages, and <code>SHA256SUMS</code>. To try the packaging locally:</p>
+<div class="highlight"><pre><span></span><code>cargo<span class="w"> </span>build<span class="w"> </span>--release<span class="w"> </span>--locked<span class="w"> </span>-p<span class="w"> </span>rustgis<span class="w"> </span>-p<span class="w"> </span>rustgis-cli
+packaging/package.sh<span class="w"> </span>&lt;version&gt;<span class="w">  </span><span class="c1"># writes dist/ for the host platform</span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../architecture/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Architecture">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Architecture
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../acknowledgements/" class="md-footer__link md-footer__link--next" aria-label="Next: Acknowledgements">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Acknowledgements
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Qiusheng Wu
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/opengeos/RustGIS" target="_blank" rel="noopener" title="RustGIS on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/sponsors/giswqs" target="_blank" rel="noopener" title="Sponsor RustGIS on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="m241 87.1 15 20.7 15-20.7C296 52.5 336.2 32 378.9 32 452.4 32 512 91.6 512 165.1v2.6c0 112.2-139.9 242.5-212.9 298.2-12.4 9.4-27.6 14.1-43.1 14.1s-30.8-4.6-43.1-14.1C139.9 410.2 0 279.9 0 167.7v-2.6C0 91.6 59.6 32 133.1 32 175.8 32 216 52.5 241 87.1"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://buymeacoffee.com/giswqs" target="_blank" rel="noopener" title="Buy the maintainer a coffee" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M152-16c-13.3 0-24 10.7-24 24 0 38.9 23.4 59.4 39.1 73.1l1.1 1C184.5 96.4 192 103.9 192 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C183.5 31.7 176 24.1 176 8c0-13.3-10.7-24-24-24M96 192c-17.7 0-32 14.3-32 32v192c0 53 43 96 96 96h192c41.8 0 77.4-26.7 90.5-64h5.5c70.7 0 128-57.3 128-128s-57.3-128-128-128zm352 192V256c35.3 0 64 28.7 64 64s-28.7 64-64 64M288 8c0-13.3-10.7-24-24-24S240-5.3 240 8c0 38.9 23.4 59.4 39.1 73.1l1.1 1C296.5 96.4 304 103.9 304 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C295.5 31.7 288 24.1 288 8"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["content.code.copy","navigation.indexes","navigation.footer","navigation.instant","navigation.top","navigation.tracking","search.highlight","search.share"],"redirect":null,"search":"../assets/javascripts/workers/search.719e0d91.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d31f0ffa.min.js"></script>
+      
+    
+  </body>
+</html>

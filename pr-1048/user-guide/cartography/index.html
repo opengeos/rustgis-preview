@@ -1,0 +1,2132 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A fast, free and open-source GIS in pure Rust for mapping, analyzing and sharing geospatial data, on the desktop and in the browser">
+      
+      
+        <meta name="author" content="opengeos">
+      
+      
+        <link rel="canonical" href="https://rustgis.app/user-guide/cartography/">
+      
+      
+      
+        <link rel="prev" href="../maps/">
+      
+      
+        <link rel="next" href="../editing/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="https://assets.rustgis.app/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.73">
+    
+    
+      
+        <title>Cartography - RustGIS</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../assets/stylesheets/modern/main.4ab2de0c.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/modern/palette.b60ce83d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
+    <div data-md-component="skip">
+      <a href="#__skip" class="md-skip">
+        Skip to content
+      </a>
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="RustGIS" class="md-header__button md-logo" aria-label="RustGIS" data-md-component="logo">
+      
+  <img src="https://assets.rustgis.app/images/logo.svg" alt="RustGIS">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+      <span class="md-visually-hidden">Navigation</span>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RustGIS
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Cartography
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+          <span class="md-visually-hidden">Search</span>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/opengeos/RustGIS" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/RustGIS
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="RustGIS" class="md-nav__button md-logo" aria-label="RustGIS" data-md-component="logo">
+      
+  <img src="https://assets.rustgis.app/images/logo.svg" alt="RustGIS">
+
+    </a>
+    RustGIS
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/opengeos/RustGIS" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/RustGIS
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Installation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Getting Started
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://web.rustgis.app" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Web App
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  User Guide
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  User Guide
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Web Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-formats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Supported Data Formats
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../maps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Maps and Basemaps
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Cartography
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Cartography
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#symbology" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Symbology
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Symbology">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#edit-a-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Edit a class
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#line-strokes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Line strokes
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fills" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Fills
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reference-scale" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Reference scale
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-color-ramps" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Custom color ramps
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#color-ramps-from-other-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Color ramps from other tools
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diagrams" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Diagrams
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#labeling" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Labeling
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#layer-effects" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Layer effects
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#graphics" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Graphics
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../editing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Editing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Analysis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layouts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Layouts and Reports
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sharing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sharing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workspace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Workspace
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../assistant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AI Assistant
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../comparison/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Comparison
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_6">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Comparison
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comparison/geolibre/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  RustGIS and GeoLibre
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comparison/qgis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  RustGIS and QGIS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Command Line
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MCP Server
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Plugins
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../i18n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Languages
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Architecture
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Contributing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../acknowledgements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Acknowledgements
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../citation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  How to Cite
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sponsor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sponsor
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../privacy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Privacy
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/opengeos/RustGIS/issues" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Report Issues
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#symbology" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Symbology
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Symbology">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#edit-a-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Edit a class
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#line-strokes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Line strokes
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fills" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Fills
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reference-scale" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Reference scale
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-color-ramps" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Custom color ramps
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#color-ramps-from-other-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Color ramps from other tools
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diagrams" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Diagrams
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#labeling" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Labeling
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#layer-effects" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Layer effects
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#graphics" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Graphics
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                <a id="__skip" tabindex="-1"></a>
+                
+                  
+
+  
+  
+
+
+<h1 id="cartography">Cartography<a class="headerlink" href="#cartography" title="Permanent link">&para;</a></h1>
+<h2 id="symbology">Symbology<a class="headerlink" href="#symbology" title="Permanent link">&para;</a></h2>
+<figure>
+  <img alt="The Style tab and the Symbology pane with graduated colours; the larger African countries are selected on the map and in the attribute table" src="https://assets.rustgis.app/images/symbology-table.webp" />
+<br />
+<figcaption>Graduated colours in the Symbology pane, with a selection synced between map and table.</figcaption>
+</figure>
+<p>Select a layer in Layers and open <strong>Style › Symbology</strong> (or the Symbology pane):</p>
+<ul>
+<li><strong>Single Symbol</strong>: one fill, outline and marker for every feature.</li>
+<li><strong>Unique Values</strong>: one colour per distinct value of a field. If no field is chosen, the current
+  renderer's field is kept when available; otherwise the first available field is used, including
+  text fields. The Layers pane and layout legends list only the
+  classes that drawn features use (after the definition query and display filters);
+  <code>&lt;all other values&gt;</code> appears only when a drawn feature falls outside the classes and its symbol
+  is not fully transparent. A layout legend can leave it out with <strong>Hide other values</strong> (see
+  <a href="../layouts/">Layouts</a>).</li>
+<li><strong>Graduated Colors</strong>: 1 to 12 classes of a numeric field by natural breaks (Jenks), equal
+  interval, quantile, geometric interval, standard deviation, arithmetic progression or head/tail
+  breaks (the Method list is in alphabetical order). Geometric interval makes class
+  widths grow by one ratio, for values piled up at the low end; for a field that reaches zero or
+  below, the minimum is taken as if it sat at a hundredth of the range, so the widths grow by
+  101^(1/classes). Standard deviation makes classes one deviation wide about the mean, and leaves
+  out a class no value falls in, so a skewed field can get fewer classes than asked. Arithmetic
+  progression makes class widths grow by one step (1, 2, 3… units), for more detail among the low
+  values. Head/tail breaks splits at the mean, then at the mean of the values above it, and so on
+  while those stay under 40% of the values they were taken from: for a few very large values among
+  many small ones (city sizes, incomes). It sets its own number of classes, at most the number
+  asked. Manual keeps the bounds you type: each class's upper bound is a number to edit or take out, <strong>Split the widest
+  class</strong> adds one, and the field's largest value closes the last class. If no field is
+  chosen, the current renderer's field is kept when it is numeric; otherwise the first numeric
+  field is used. If the layer has no numeric field, or the
+  switch fails for another reason, the pane shows why and keeps the current renderer. When numeric
+  fields exist, a field picker lets you try another one; the error stays visible if a retry fails.
+  A problem no field can fix, such as a definition query that keeps no features, needs fixing
+  first. Closing the pane or selecting another layer drops the retry.</li>
+<li><strong>Proportional Symbols</strong>: point size grows with a numeric field, chosen as for Graduated Colors.</li>
+</ul>
+<p>A point's <strong>Shape</strong> is a circle, square, triangle, diamond or star, or a <strong>Character</strong>: any
+character of an installed font, picked under <strong>Font</strong>, as map signs often are (a symbol font's
+church, tree or mine). Its <strong>Size</strong> is the font's size, and the character sits as QGIS draws a
+font marker: centred across the point, its baseline half the font's ascent below it. A font the
+machine lacks draws the character in the label font, and a character no font here has
+draws a circle, so the point still shows. By command:</p>
+<div class="highlight"><pre><span></span><code>layer.marker={"layer":"Peaks","char":"▲","font":"DejaVu Sans","size":12}
+</code></pre></div>
+<p><strong>Rotation</strong> turns each point's marker by the angle in a number field, in degrees clockwise
+(<strong>Counterclockwise</strong> for angles as mathematics counts them), as wind arrows or the signs of a
+topographic map turn. <strong>Marks</strong> stack several markers at a point, bottom first, in place of the
+symbol's: a white disc under a sign, say, so it reads on any background. Each mark has its own
+colour, outline, shape, size and angle, and is shifted right (<strong>Offset right</strong>) and down
+(<strong>Offset down</strong>); its offset turns with its angle, as QGIS turns it. <strong>With the field</strong> turns a
+mark by the rotation field too, or keeps it still. A layer with classes can have marks for one
+class of its own, as line strokes can. By command, <code>layer.markerRotation</code> and the point layer's
+strokes of markers:</p>
+<div class="highlight"><pre><span></span><code>layer.markerRotation={"layer":"Signs","field":"angle","counterclockwise":true}
+layer.lineStrokes={"layer":"Signs","strokes":[{"color":"#FFFFFF","markers":{"mark":"circle","size":14}},{"color":"#000000","markers":{"mark":"character","char":"▲","size":10,"offsetAlong":0}}]}
+</code></pre></div>
+<p>Pick a colour scheme from the pane's swatches, listed in groups: <strong>Perceptually Uniform</strong> (Viridis,
+Plasma, Inferno, Magma, Cividis, Batlow and Aurora: even steps in lightness, so they read in
+greyscale and for colour-blind viewers), <strong>Sequential</strong>, <strong>Diverging</strong> (Red–Blue, Vik, Roma,
+Balance), <strong>Topographic and Bathymetric</strong> (Terrain, Oleron, Topo and Deep; Oleron and Topo change
+colour sharply at the middle of the range, sea level for data centred on 0), <strong>Qualitative</strong>,
+<strong>Matplotlib</strong> (the whole matplotlib colour map library as GeoLibre lists it, cmocean's maps
+included, by name from Accent to YlOrRd) and the project's own <strong>Custom</strong> ramps. Commands take a
+scheme by name; matplotlib's names are case-sensitive where they meet ours (<code>terrain</code> is
+matplotlib's, <code>Terrain</code> ours). A project's own ramp named like a built-in one (an older
+project's <code>jet</code>, say) is renamed with <code>(custom)</code> when the project opens; layers drawn with it
+keep their colours, as each holds its own copy. Click a group's name to show or hide it. The Style tab sets the fill <strong>Color</strong>, the
+<strong>Outline</strong> width, <strong>Transparency</strong> and a <strong>Visibility Range</strong> (the scales between which the layer
+draws; a large file read in place is not read at all outside them); points can be circles, squares,
+triangles, diamonds or stars. <strong>Data › Definition Query</strong> draws only the features matching a SQL
+clause; Unique Values, Graduated Colors and Proportional Symbols take their values, classes and
+sizes from those features when you apply them (apply the symbology again after changing the query),
+and <strong>Full Extent</strong> zooms to them. A layer with <a href="../editing/#data-design">subtypes</a> can be symbolized
+by them. <strong>Style › Styles</strong> saves symbology as styles to reuse on other layers and in other
+projects.</p>
+<p>For polygons, <strong>No Fill</strong> in the Symbology pane or <strong>Style › Drawing</strong> draws only the outlines.
+It keeps each symbol's outline colour and width, including in Unique Values and Graduated Colors,
+without changing the classes. Change the outline with <strong>Outline color</strong> and <strong>Outline width</strong> in
+the Single Symbol editor, or <code>layer.outline</code> for all classes. Undo restores the previous fills;
+the colour picker's opacity control can also make a fill visible again. By command:</p>
+<div class="highlight"><pre><span></span><code>layer.noFill={"layer":"Countries"}
+</code></pre></div>
+<p>The ribbon's <strong>Color</strong> control changes Unique Values or Graduated Colors back to Single Symbol.
+To keep the classification, edit a class's colour in the Symbology pane instead. A polygon's
+fill and outline are independent: changing its fill leaves its outline intact.
+For raster renderers and band stretches, see <a href="../data/#rasters">Rasters</a>.</p>
+<h3 id="edit-a-class">Edit a class<a class="headerlink" href="#edit-a-class" title="Permanent link">&para;</a></h3>
+<p>With Unique Values or Graduated Colors, each class in the Symbology pane's list has a colour button
+and a legend label. Pick a colour and opacity to give that class its own. Type a label to show in the Layers
+pane and in layout legends instead of the value or range (for example <code>High income</code> for
+<code>1. High income: OECD</code>); clear it to show the value again. <code>&lt;all other values&gt;</code> can be edited the
+same way. Applying the symbology again on the same field keeps the colours, outlines and labels
+you set by hand on the classes that are still there (the others take the scheme's colours again);
+picking another colour scheme recolours every class but keeps the labels. A Graduated Colors
+class keeps its colour and label while its range stays the same. By command:</p>
+<div class="highlight"><pre><span></span><code>layer.classStyle={"layer":"Countries","value":"1. High income: OECD","color":"#2E6B4F","label":"High income"}
+layer.classStyle={"layer":"Countries","index":0,"label":"Under 1 million"}
+layer.classStyle={"layer":"Countries","index":0,"color":"#2E6B4FFF"}
+layer.classStyle={"layer":"Countries","other":true,"label":"No data"}
+</code></pre></div>
+<p><code>value</code> names a Unique Values class, <code>index</code> a Graduated Colors class (0 is the lowest) and
+<code>other</code> the <code>&lt;all other values&gt;</code> class; <code>outline</code> sets a class's outline colour.
+<code>#RRGGBBAA</code> sets the fill opacity exactly for every geometry type: <code>FF</code> is fully opaque for
+print choropleths, <code>00</code> fully transparent, and intermediate values partly transparent. The class
+colour picker includes opacity and sends all eight digits, including <code>FF</code>. Changing opacity
+keeps the class's RGB colour, even when making a fully transparent class visible again.
+For fully transparent fills, the numeric controls temporarily use linear 0–1 values so you can
+edit the hidden RGB colour without losing it. Other colour pickers keep their numeric settings.</p>
+<p>For polygons, six-digit <code>#RRGGBB</code> retains the existing translucency, with the legacy minimum
+alpha of 150; new polygon layers still default to 170. Colour schemes preserve a polygon's
+fill opacity when classes are first created or recoloured with <code>layer.ramp</code>. Reapplying the
+same field, ranges and scheme also preserves opacity, including edits that change only alpha.
+As with other class colour edits, changing the field or graduated ranges starts fresh; choosing
+a different scheme through <code>layer.symbology</code> resets polygon opacity to its default.
+Layer/group transparency still applies on top of the symbol's opacity in maps and exports.</p>
+<h3 id="line-strokes">Line strokes<a class="headerlink" href="#line-strokes" title="Permanent link">&para;</a></h3>
+<p>A line layer draws one stroke by default. The <strong>Strokes</strong> section of the Symbology pane stacks
+up to 16 in one symbol, for road casings, parallel lines and offsets: <strong>Add Stroke</strong> puts one on
+top, and each stroke has its own <strong>Color</strong>, <strong>Width</strong>, <strong>Offset</strong>, <strong>Cap</strong> (round, flat or square)
+and <strong>Join</strong> (round, miter or bevel), with buttons to move it up or down or remove it. The list
+shows the top stroke first, and the preview above it shows the symbol along a line drawn left to
+right. A colour or width set to <strong>From symbol</strong> follows the renderer, so the strokes take each
+Unique Values or Graduated Colors class's colour. <strong>Use a Single Stroke</strong> goes back to one.</p>
+<p>Widths and offsets are in points: they keep their size on screen at every scale, and the features
+keep their coordinates. A positive offset shifts the stroke to the right of the line's direction
+(the order of its vertices) and a negative one to the left, so two copies of an edge drawn in
+opposite directions land on opposite sides of it. Strokes are saved with the project and drawn in
+exports. By command, bottom stroke first (<code>[]</code> goes back to the single stroke):</p>
+<div class="highlight"><pre><span></span><code>layer.lineStrokes={"layer":"Rivers","strokes":[{"color":"#000000","width":11.5,"offset":8.5},{"color":"#FF8C00","width":7,"offset":8.5,"cap":"round","join":"round"}]}
+</code></pre></div>
+<p>A stroke without <code>color</code> or <code>width</code> takes the renderer's.</p>
+<p>A Unique Values or Graduated Colors class can stack strokes of its own, so a motorway gets a
+casing and a centre line while a path stays a single thin line on the same layer. Pick the class
+under <strong>Strokes for</strong> at the top of the Strokes section (<strong>All classes</strong> edits the layer's
+strokes); a class with strokes of its own is marked with •. A class without its own is drawn with
+the layer's strokes, and changing them while it is picked gives it its own copy. <strong>Use the
+Layer's Strokes</strong> gives the class back to the layer's. A class keeps its strokes when the same
+symbology is applied again on the same field (a Graduated Colors class, while its range stays the
+same). By command, name the class as <code>layer.classStyle</code> does, with <code>value</code>, <code>index</code> or
+<code>"other": true</code>:</p>
+<div class="highlight"><pre><span></span><code>layer.lineStrokes={"layer":"Roads","value":"Motorway","strokes":[{"color":"#5A3A1E","width":7},{"color":"#F28C28","width":5},{"color":"#FFFFFF","width":0.6}]}
+</code></pre></div>
+<p>A stroke can be dashed: <strong>Dash</strong> takes the lengths in points, dash and gap in turn (<code>4 2</code>, or
+<code>4 2 1 2</code> for dash-dot; an odd list is repeated, as in SVG), and its menu offers dashed,
+dotted, dash-dot and long-dash patterns sized to the stroke's width. Empty is a solid line. With
+flat caps the dashes are as long as given; round and square caps add half the width at each end.
+By command, <code>"dash"</code> on a stroke (<code>null</code> for solid):</p>
+<div class="highlight"><pre><span></span><code>layer.lineStrokes={"layer":"Paths","strokes":[{"color":"#000000","width":1.2,"cap":"flat","dash":[6,3]}]}
+</code></pre></div>
+<p>By default, each feature draws its whole stack in turn, so where two roads meet, the second one's
+casing cuts across the first one's core. <strong>Draw strokes in levels</strong> (symbol levels) draws all
+stacked strokes at a lower level before those at a higher one, so the casings join underneath
+and the cores run through. A stroke's level is its place in the stack (the bottom one 0) unless
+it is given one: a <strong>Level</strong> row shows on each stroke while levels are on; turn off <strong>Auto</strong> to
+set it from 0 to 255. Strokes of different classes that share a level go down together, such as
+the casings of all road classes before any core. A layer read in place from its file draws
+its levels a batch of features at a time. By command (<code>"level"</code> on a stroke, <code>null</code> for its
+place in the stack):</p>
+<div class="highlight"><pre><span></span><code>layer.lineStrokes={"layer":"Roads","value":"Motorway","strokes":[{"color":"#5A3A1E","width":7,"level":0},{"color":"#F28C28","width":5,"level":1}]}
+layer.strokeLevels={"layer":"Roads","on":true}
+</code></pre></div>
+<p>A stroke can draw markers or hash marks along the line instead of a line, as railways, boundaries
+and directions of flow are drawn: its <strong>Draw</strong> menu picks <strong>Line</strong>, <strong>Markers</strong> or <strong>Hash marks</strong>.
+Markers take a <strong>Shape</strong> (a character of a font too, as for points) and a <strong>Size</strong>; hash marks a <strong>Length</strong>, crossing the line square at an
+<strong>Angle</strong> of 0°. <strong>Place</strong> puts them at intervals along the line (<strong>Interval</strong> apart, counted from
+its start), at its vertices or its inner ones, at either end or both, or in its middle. <strong>With the
+line</strong> turns each mark with the line's direction; the <strong>Angle</strong> turns it further, clockwise. Marks
+take the stroke's colour, its width as a hash mark's line (or a marker's outline, by command), and
+its offset to either side. Stack them with line strokes: a casing, a core and ticks across it. By
+command, <code>"markers"</code> on a stroke:</p>
+<div class="highlight"><pre><span></span><code>layer.lineStrokes={"layer":"Railways","strokes":[{"color":"#333333","width":1.5},{"color":"#333333","width":1,"markers":{"mark":"hash","size":6,"interval":10}}]}
+layer.lineStrokes={"layer":"Rivers","strokes":[{"width":1},{"markers":{"mark":"triangle","size":7,"at":"middle"}}]}
+layer.lineStrokes={"layer":"Trails","strokes":[{"markers":{"mark":"character","char":"»","font":"DejaVu Sans","size":8,"interval":16}}]}
+</code></pre></div>
+<p><code>"at"</code> takes <code>"interval"</code>, <code>"vertices"</code>, <code>"innerVertices"</code>, <code>"first"</code>, <code>"last"</code>, <code>"middle"</code> and
+<code>"segmentMiddles"</code>, or a list of them; <code>"offsetAlong"</code> moves the marks along the line (from its
+start, back from its end, on from its middle), <code>"averageAngle"</code> turns a mark at an interval with
+the line over that stretch of it (smoother on a line of many short bends), <code>"rotate": false</code>
+keeps marks upright, and <code>"outline"</code> gives markers an outline as wide as the stroke.</p>
+<h3 id="fills">Fills<a class="headerlink" href="#fills" title="Permanent link">&para;</a></h3>
+<p>A polygon layer fills with one colour by default. The <strong>Fills</strong> section of the Symbology pane
+stacks fills inside the outline, as a wetland gets a pale green under blue hatch lines: <strong>Add
+Fill</strong> puts one on top (the first is the symbol's colour, the next hatch lines over it), the
+arrows move one up or down and the cross removes it; the top fill is listed first. <strong>Draw</strong> picks
+<strong>Solid</strong>, <strong>Hatch lines</strong> (parallel lines at an <strong>Angle</strong>, anticlockwise from east, <strong>Spacing</strong>
+apart, of a <strong>Line width</strong>, shifted across by an <strong>Offset</strong>) or <strong>Markers</strong> (a <strong>Marker</strong> shape
+of a <strong>Size</strong> on a grid <strong>Spacing across</strong> and <strong>Spacing down</strong> apart, <strong>Rows shifted</strong> to
+stagger them). A colour set to <strong>From symbol</strong> follows the renderer, so the fills take each
+class's colour. The polygon's outline is drawn over the fills. Patterns are fixed to the map, so
+neighbouring polygons' hatch lines meet, and keep their size in points as the map zooms. A Unique
+Values or Graduated Colors class can stack fills of its own, picked under <strong>Fills for</strong> as for
+strokes. By command, <code>layer.fillLayers</code>:</p>
+<div class="highlight"><pre><span></span><code>layer.fillLayers={"layer":"Wetlands","fills":[{"color":"#DDEEDD"},{"color":"#3366CC","pattern":"hatch","angle":0,"spacing":6,"width":0.8}]}
+layer.fillLayers={"layer":"Orchards","fills":[{"color":"#F2F5E6"},{"color":"#4E7A2E","pattern":"dots","marker":"circle","size":3,"spacing":[8,8],"displacement":[4,0]}]}
+layer.fillLayers={"layer":"Land use","value":"Forest","fills":[{"color":null},{"color":"#2D5A27","pattern":"hatch","angle":45}]}
+</code></pre></div>
+<p><code>[]</code> goes back to the single fill (for a class, to the layer's fills). Fills draw on the CPU (on the
+globe, patterns keep to the screen rather than the map as it turns); the
+legend shows the symbol's colour.</p>
+<h3 id="reference-scale">Reference scale<a class="headerlink" href="#reference-scale" title="Permanent link">&para;</a></h3>
+<p>Symbol and label sizes are set in points, and normally keep that size on screen at every scale.
+A layer with a <strong>Reference scale</strong> (Symbology pane, under <strong>Layer</strong>) has its sizes set for that scale
+instead, as on a printed map: zoomed in to half of it, its lines, markers and labels are drawn
+twice as large; zoomed out to twice it, half as large (within 1/100 and 32 times). Pick a scale,
+<strong>Current scale</strong> to keep the sizes as they are now, or <strong>None</strong>. A topographic map designed for
+1:25,000 then keeps its proportions as you zoom. By command (a scale, <code>"current"</code> or <code>null</code>):</p>
+<div class="highlight"><pre><span></span><code>layer.referenceScale={"layer":"Roads","scale":25000}
+</code></pre></div>
+<p>Scales in RustGIS take a screen pixel to be 0.28 mm (the OGC standard pixel). Programs that take
+96 pixels to the inch (0.2646 mm) call the same view a larger scale; to match their sizes,
+multiply their reference scale by 0.2646 / 0.28 (about 0.945).</p>
+<h3 id="custom-color-ramps">Custom color ramps<a class="headerlink" href="#custom-color-ramps" title="Permanent link">&para;</a></h3>
+<p>Besides the built-in color schemes, a project can hold your own color ramps: an organization's
+palette, a published scheme such as a ColorBrewer or cmocean ramp not built in, or one designed in a
+tool like <a href="https://www.joshuastevens.net/phosphor/">Phosphor</a>. Add them from a color ramp file
+with <strong>Style › Styles › Add Color Ramp File</strong> (or <strong>Add Color Ramp File</strong> under the swatches in
+the Symbology pane). They appear under <strong>Custom</strong> in the Symbology pane, for feature layers and
+rasters (Stretch, Classify, Unique Values and Shaded Relief) alike, and under <strong>Color Ramps</strong> in
+the Browser, where right-click deletes one. <strong>Publish › Save As › Color Ramps</strong> saves the
+project's custom ramps to a file.</p>
+<p>A color ramp file (<code>.rgisramp</code>) is JSON: a list of ramps (or one ramp on its own), each with a
+<code>name</code>, a <code>kind</code> (<code>sequential</code>, the default, <code>diverging</code> or <code>qualitative</code>) and its <code>stops</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="p">[{</span>
+<span class="w">  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Phosphor Frostfire"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"diverging"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"stops"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"#eff6ff"</span><span class="p">,</span><span class="w"> </span><span class="s2">"#abc5e8"</span><span class="p">,</span><span class="w"> </span><span class="s2">"#87a0d7"</span><span class="p">,</span><span class="w"> </span><span class="s2">"#7b5ca6"</span><span class="p">,</span><span class="w"> </span><span class="s2">"#ca7482"</span><span class="p">,</span><span class="w"> </span><span class="s2">"#f5b88e"</span><span class="p">,</span><span class="w"> </span><span class="s2">"#fff5da"</span><span class="p">]</span>
+<span class="p">}]</span>
+</code></pre></div>
+<p>Stops are <code>#RRGGBB</code> or <code>#RRGGBBAA</code> colors, evenly spaced from the first to the last. For uneven
+spacing, give a stop as <code>{"pos": 0.25, "color": "#87a0d7"}</code>, with <code>pos</code> from 0 to 1; plain
+stops between two positioned ones are spaced evenly between them. A ramp has 2 to 256 stops (a
+qualitative one can have 1), and can't take the name of a built-in scheme; adding a ramp with
+the name of one already in the project replaces it. Scripts, the CLI and the AI Assistant add
+ramps with the <code>ramp.add</code> command (<code>{"path": "ramps.rgisramp"}</code>, or the JSON itself as
+<code>{"text": …}</code>), and then name them like built-in schemes, for example
+<code>layer.ramp={"ramp":"Phosphor Frostfire"}</code>.</p>
+<h3 id="color-ramps-from-other-tools">Color ramps from other tools<a class="headerlink" href="#color-ramps-from-other-tools" title="Permanent link">&para;</a></h3>
+<p><strong>Add Color Ramp File</strong> also reads the color ramp files other tools write, so a palette from
+QGIS, GDAL, GMT or a tool like Phosphor can be added without converting it first:</p>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>Extension</th>
+<th>What RustGIS reads</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>QGIS style</td>
+<td><code>.xml</code></td>
+<td>Every gradient ramp (discrete ones as steps) and preset ramp (as a qualitative ramp) in a Style Manager export, with its name. ColorBrewer, cpt-city and random ramps hold no colors and are skipped.</td>
+</tr>
+<tr>
+<td>QGIS layer style</td>
+<td><code>.qml</code></td>
+<td>The layer's color ramp, or a raster's color map.</td>
+</tr>
+<tr>
+<td>GDAL color-relief text</td>
+<td><code>.txt</code></td>
+<td><code>value R G B [A]</code> lines (as <code>gdaldem color-relief</code> takes them), separated by spaces, tabs, commas or colons; values may be percentages and colors may be names; <code>nv</code> lines are skipped. A QGIS color map export reads the same way.</td>
+</tr>
+<tr>
+<td>GMT palette</td>
+<td><code>.cpt</code></td>
+<td><code>z0 color0 z1 color1</code> lines, with colors as <code>r/g/b</code>, <code>r g b</code>, <code>#RRGGBB</code>, grey levels, names or HSV; <code>B</code>, <code>F</code> and <code>N</code> lines are skipped.</td>
+</tr>
+</tbody>
+</table>
+<p>These formats tie colors to data values; the ramp keeps their spacing, from the lowest value
+to the highest, and a sharp change between two colors stays sharp. A ramp from a GDAL or GMT
+file is named after the file and is sequential; the <code>ramp.add</code> command takes a <code>name</code> and a
+<code>kind</code> to change that (<code>{"path": "relief.cpt", "kind": "diverging"}</code>), and a <code>format</code>
+(<code>rgisramp</code>, <code>qgis</code>, <code>gdal</code> or <code>cpt</code>) for text without a file name. A file with more than 256
+colors is resampled to 256 evenly spaced stops.</p>
+<p>Sequential and diverging ramps blend between their stops; when there are as many classes as
+stops, each class takes a stop's color exactly, so a stepped palette keeps its colors. A
+qualitative ramp gives each class the next stop, starting again after the last. A layer keeps
+its own copy of the ramp it uses, so layer files, map files and packages keep their colors in
+projects that don't have the ramp, and deleting a ramp from the project leaves layers that use
+it unchanged.</p>
+<h2 id="diagrams">Diagrams<a class="headerlink" href="#diagrams" title="Permanent link">&para;</a></h2>
+<p>A diagram draws a small chart on each feature from <strong>several numeric fields</strong>, over the renderer's
+own symbol, as ArcGIS Pro's Chart symbology and QGIS's Diagrams draw: a polygon layer of
+administrative units can keep a Graduated Colors fill underneath while a pie on each feature shows
+its split of, say, male and female population. The categories take colours in turn from the palette
+new layers take; a feature where every category is null or zero draws nothing. A pie's slice
+angles are each category's share of the total; a bar chart's bars rise from a baseline, one per
+category. The size is a fixed radius or height in points, the same for every feature, or one grown
+with the categories' sum (square-root scaled, as Proportional Symbols grow) so a feature with twice
+the total draws a chart of twice the area. By command:</p>
+<div class="highlight"><pre><span></span><code>layer.diagram={"layer":"Regions","kind":"pie","fields":["pop_male","pop_female"]}
+layer.diagram={"kind":"bar","fields":[{"field":"under18","color":"#4A90D9"},{"field":"over65","color":"#E07B39"}],"size":{"from":6,"to":40},"startAngle":90,"labels":"both","background":"#FFFFFFCC","outline":{"color":"#4D4D4D","width":0.75}}
+layer.diagramInfo={"layer":"Regions"}
+layer.clearDiagram={"layer":"Regions"}
+</code></pre></div>
+<p>Each slice or bar can say something beside it (<code>"labels"</code>): <code>"none"</code> (the default), <code>"value"</code> (the
+feature's number, in the legend's number format — 52K, 1.2M), <code>"percent"</code> (its share of the
+feature's total, a whole percent or one decimal below ten), or <code>"both"</code> (<code>52K (52%)</code>). The label
+draws just past a pie's crust on the slice's mid-angle, or above a bar's top, in a small haloed
+dark text; culling makes room for it, so labelled charts stay visible to their last letter.</p>
+<p>The categories list under the layer's classes in layout legends — the printed map's legend lists
+them the same way. Clearing the diagram leaves the renderer as it is.</p>
+<h2 id="labeling">Labeling<a class="headerlink" href="#labeling" title="Permanent link">&para;</a></h2>
+<p>The <strong>Labeling pane</strong> brings together the label classes and the chosen class's field, SQL
+clause, text symbol, placement and visibility limits. Under its header (the layer, labels on or
+off, and the class chosen), a tab per topic shows one part at a time: <strong>Content</strong> (the label field,
+with a search in its list, above the SQL query), <strong>Symbol</strong>, <strong>Position</strong> and
+<strong>Range</strong>. Open it for a feature layer with Layers › right-click › <strong>Labeling Properties…</strong>,
+<strong>View › Windows › Labeling</strong>, or <strong>Labeling › Labels › Properties</strong>. It runs the same commands as
+the ribbon, so each setting change undoes on its own (a dragged size or a colour pick is one step).
+Label classes are described below.</p>
+<p>Turn labels on per layer (Labeling › Labels › <strong>Label</strong>), then:</p>
+<ul>
+<li><strong>Label field and text</strong>: the field the labels show
+  (<code>labels.field={"layer": "Cities", "field": "name"}</code>), and the text symbol's size (4–72 points),
+  colour, halo, bold and italic (<code>labels.style={"layer": "Cities", "size": 12, "color": "#5A1E0A", "halo": true}</code>).</li>
+<li><strong>Halo and letter spacing</strong>: a halo is white behind dark text and dark behind light, and thin,
+  unless it is given a colour and a width of its own (Labeling pane › Symbol › <strong>Halo color</strong>,
+  <strong>Halo width</strong>: how far it reaches beyond the letters, 0–10 points). The letters can be set
+  apart, or closer with a negative spacing (<strong>Letter spacing</strong>, −5 to 50 points), along lines
+  too. The width and the spacing grow with the labels at a reference scale
+  (<code>labels.style={"layer": "Rivers", "haloColor": "#FFFFFF", "haloWidth": 1.4, "spacing": 0.5}</code>;
+  <code>"haloColor": ""</code> and <code>"haloWidth": null</code> go back to the automatic colour and the thin halo).</li>
+<li><strong>Background</strong>: a rectangle behind the text (Labeling pane › Symbol › <strong>Background</strong>), white
+  with a thin dark outline when turned on: its <strong>Fill</strong> and <strong>Outline</strong> (each can be none), the
+  outline's width, its padding across and up and down (how far it reaches past the text, 0–50
+  points) and its <strong>Corner radius</strong>. Other labels keep off it as they keep off a halo, and it
+  turns with a label along a line; a label curved along a line, character by character, has
+  none. Its sizes grow with the labels at a reference scale
+  (<code>labels.style={"layer": "Roads", "background": {"fill": "#FFFFFF", "stroke": "#262626", "strokeWidth": 0.3, "padding": [1.2, 0.3], "radius": 0.7}}</code>;
+  <code>"background": true</code> turns on the default one, <code>false</code> takes it away, and what an object leaves
+  out is kept).</li>
+<li><strong>Offset</strong>: a label moved from where its position puts it, right and down in points
+  (Labeling pane › Position › <strong>Offset right</strong>, <strong>Offset down</strong>, −200 to 200; negative moves it
+  left or up), growing with the labels at a reference scale. A label along a line isn't moved
+  (<code>labels.placement={"layer": "Cities", "position": "aboveRight", "offset": [5.7, -2.8]}</code>; an
+  offset can be given without a position).</li>
+<li><strong>Wrapping</strong>: a label's text broken into lines (Labeling pane › Symbol): <strong>Wrap at</strong> a
+  character (or a few, up to 8), a line break wherever it occurs, left out (a space puts each
+  word on its own line, <code>/</code> breaks <code>Zürich/Winterthur</code>), and <strong>Wrap length</strong>, the longest line in characters, broken
+  between words (a longer word keeps a line of its own). <strong>Line alignment</strong> lines the lines up
+  left (as labels always have), centred or right. A label curved along a line, character by
+  character, isn't wrapped
+  (<code>labels.style={"layer": "Cities", "wrapChar": " ", "wrapLength": 12, "lineAlign": "center"}</code>;
+  <code>""</code> and <code>0</code> wrap none).</li>
+<li><strong>Repeat along lines</strong>: a label placed along a line (Parallel or Curved) repeated every so many
+  points (Labeling pane › Position › <strong>Repeat</strong>, 10 to 10,000): the one at the line's middle where
+  it always is, and more either side of it, nearest first, at most 32 a line. Each is a label of
+  its own: it collides like any other (one that doesn't fit is left out, the others stay), and
+  Lock keeps the ones placed. The distance grows with the labels at a reference scale
+  (<code>labels.placement={"layer": "Rivers", "position": "curved", "repeat": 144}</code>; <code>null</code> or <code>0</code> is
+  the one at the middle).</li>
+<li><strong>Font</strong>: the labels' font family, any installed on the computer (Labeling pane › Symbol
+  › <strong>Font</strong>; type part of a name to find it), or the label font the interface uses. Bold and
+  italic take the family's own bold and italic faces where it has them. The family is saved by
+  its name, so a project keeps it on a computer that lacks it, drawing its labels in the label
+  font there (the pane shows it as not installed), and in the browser, which reads no installed
+  fonts (<code>labels.style={"layer": "Rivers", "font": "Liberation Serif"}</code>; <code>labels.fonts</code> lists the
+  installed families, <code>{"font": ""}</code> goes back to the label font).</li>
+<li><strong>SQL</strong>: label only the features that match a SQL clause (the language of definition
+  queries), such as <code>pop_max &gt; 5000000</code>. In the Labeling pane, Class › <strong>SQL</strong> › <strong>New
+  expression</strong>: write the clause (the field and operator buttons add to it), <strong>Check</strong> says
+  whether it reads and how many of the features the layer draws at the map's scale match
+  (after its definition query, display filters and time window), and <strong>Apply</strong> sets it in one
+  undo step; <strong>Clear</strong> removes the chosen class's clause, leaving other classes unchanged
+  (<code>labels.class.update={"layer": "Cities", "where": "pop_max &gt; 5000000"}</code>).</li>
+<li><strong>Visibility Range</strong>: draw labels only between two scales (Out Beyond / In Beyond), or between
+  two viewing distances (Closest / Farthest). Clear Limits removes all four.</li>
+<li><strong>Placement</strong>: automatic (above points, centred on lines and polygons), centred, or one of
+  eight positions around the feature (<code>labels.placement={"layer": "Cities", "position":
+  "aboveRight"}</code>). Lines can be labelled <strong>along</strong> them (Position › Along lines): <strong>Parallel</strong>
+  sets the text straight, turned to the line's direction across it; <strong>Curved</strong> turns each
+  character with the line where it bends. Both sit at the middle of the line's longest stretch
+  in view, centred on the line and kept upright, and may run past its ends by about a letter; a
+  line too short for its text, or (curved) one bending more than 25° from one character to the
+  next, is left unlabelled. A text over 200 characters long is set straight rather than
+  curved. Points and polygons with these placements are labelled as automatic
+  (<code>labels.placement={"layer": "Rivers", "position": "curved"}</code>).</li>
+<li><strong>Lock</strong> keeps the labelled features fixed while you pan and zoom; <strong>Pause</strong> stops drawing
+  labels for faster navigation; <strong>View Unplaced</strong> draws the labels that didn't fit in red. They
+  apply to the whole map, so they are on the ribbon (Labeling › Map Labeling), not in the pane.</li>
+<li><strong>Convert</strong> (Labeling › Map Labeling, or Layers › right-click › <strong>Convert To Annotation</strong>) turns a
+  layer's labels into an annotation layer: one point per label, carrying its
+  text in a <code>TEXT</code> field, which you can then edit, move or delete like any other features.</li>
+<li><strong>Label classes</strong> label different features differently, such as large cities in larger text.
+  Each class has a SQL clause choosing its features, and its own field, text symbol, placement
+  and visibility range. Each class labels every feature its clause matches, the <strong>Default</strong>
+  class too (with no clause, every feature). A feature matched by two classes produces a label
+  candidate for each; collision rules still determine which labels fit. To avoid duplicate
+  labels, use clauses that do not overlap: <code>pop_max &gt; 5000000</code> for Large cities and
+  <code>pop_max &lt;= 5000000</code> for Default. Classes are placed in list order, Default last; a hidden
+  class or one outside its visibility range labels nothing without excluding features from
+  other classes. There can be up to 64 classes besides Default. In the Labeling pane, the
+  <strong>Class</strong> list at the top, in a card with the class's actions, chooses the class every tab
+  shows and edits, and <strong>Visible</strong> under it hides or shows that class. The row under the list has <strong>New</strong>, which adds a class
+  with the chosen class's field, text symbol, placement and range, listed before Default;
+  <strong>Rename</strong> and <strong>Move Up</strong> / <strong>Move Down</strong> (the arrows) for the chosen class; and, at its far
+  end, <strong>Remove</strong> (Default can be renamed or hidden, not moved or removed). The ribbon's label groups edit the
+  same chosen class, and <strong>Labeling › Label Class › Class</strong> chooses it as the pane's list does. By
+  command, make them with
+  <code>labels.class.add</code> (a new class copies Default's field, text symbol, placement and range, or
+  those of the class named by <code>from</code>), then <code>labels.class.rename</code>, <code>labels.class.update</code> (<code>where</code> or <code>visible</code>),
+  <code>labels.class.move</code> (<code>to</code>: 0 first), <code>labels.class.remove</code> and <code>labels.class.clear</code> (removes
+  every class but Default, even when it has been renamed; no error when there are none).
+  Field, text symbol, placement and range commands take a <code>class</code>; without one they change
+  Default, whatever its name. For example:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>labels.class.add={"layer":"Cities","name":"Large cities","where":"pop_max &gt; 5000000"}
+labels.class.update={"layer":"Cities","where":"pop_max &lt;= 5000000"}
+labels.style={"layer":"Cities","class":"Large cities","size":14,"bold":true}
+</code></pre></div>
+<p>Convert keeps the classes, with a point for each matching class and a <code>CLASS</code> field identifying
+  it. Web Style and Web Layer exports (<strong>Publish › Share As</strong>) use Default only, and have no labels
+  when Default is hidden.</p>
+<figure>
+  <img alt="Europe with the Countries and Cities labelled; the city names sit above and to the right of their points" src="https://assets.rustgis.app/images/labels.webp" />
+<br />
+<figcaption>City labels placed above and to the right of their points, beside the country labels.</figcaption>
+</figure>
+<h2 id="layer-effects">Layer effects<a class="headerlink" href="#layer-effects" title="Permanent link">&para;</a></h2>
+<p>On the <strong>Style</strong> tab, <strong>Masking</strong> shows a layer only inside another layer's polygons;
+<strong>Display Filters</strong> show different features at different scales (a SQL condition per scale
+range); <strong>Aggregation</strong> draws points as hexagon or square bins coloured by count.
+<strong>Extrusion</strong> raises polygons by a constant height or numeric field (in metres), multiplied by
+<strong>Factor</strong>, with <strong>Face Culling</strong>, <strong>Lighting</strong> and <strong>Cast Shadow</strong> controls. It draws in an
+oblique view on an untilted flat map and in perspective on a tilted map; the globe draws the
+polygons flat. See <a href="../maps/#navigating">Rotating and tilting the map</a>.</p>
+<p>For a raster layer, the <strong>Style</strong> tab also has <strong>Layer Blend</strong> (multiply, screen, overlay,
+darken, lighten, difference), <strong>Swipe</strong> (the layer shows only left of a divider you slide, to
+compare it with what's beneath), <strong>Masking</strong> and <strong>Rotation</strong>.</p>
+<h2 id="graphics">Graphics<a class="headerlink" href="#graphics" title="Permanent link">&para;</a></h2>
+<p><strong>Edit › Graphics</strong> draws shapes in a graphics layer (<strong>Home › Add › Add Data › Graphics Layer</strong>, or
+one is made with the first graphic). Click once for a Point. Line, Curve and Polygon are clicked
+vertex by vertex (double-click to finish); Freehand, Lasso, Rectangle, Circle and Ellipse are
+dragged. <strong>Edit › Graphics and Text › Text</strong> places a text where you click, as a layout's text
+is placed: it says "Text", is selected, and opens in the <strong>Format</strong> pane (beside the other
+right-hand panes) with its text selected, so you type over
+it. Shift+Enter starts a new line, and Enter ends the text. Dynamic Text is a menu of values that
+update as the map changes (map name, scale, date, time, coordinate system, number of layers, map
+centre): pick one, then click the map, and the text starts with its token (<code>{map}</code>, <code>{scale}</code>,
+<code>{date}</code>, <code>{time}</code>, <code>{crs}</code>, <code>{layers}</code> or <code>{center}</code>); the pane's <strong>Insert Dynamic Text</strong> menu adds
+more. Picture: drag a rectangle, then pick a PNG or JPEG image to stretch over it. Tools return
+to Explore after each graphic unless Keep Tool is on. Each graphic keeps its own fill, outline,
+width, text size, bold, italic, alignment and letter spacing in the layer's attributes, so you can
+edit them in the attribute table or with <code>graphics.style</code>. To change a text later, click anywhere
+on it (with Explore or Select): selected alone, it opens in the Format pane, with the same form a
+layout's text has there: text, size, colour, bold, <strong>Italic</strong> (slanted), <strong>Alignment</strong> (how the
+lines of a text of several lines line up; the text stays centred on its point) and <strong>Letter
+spacing</strong> in points (spaced-out names such as O C E A N O, or a negative value to tighten). A text
+looks the same on the map and in an exported map. Each change is one undo step on that text only
+(<code>graphics.edit</code> does the same by layer and row, with <code>text</code>, <code>fontSize</code>, <code>fill</code> for the colour,
+<code>bold</code>, <code>italic</code>, <code>align</code> and <code>letterSpacing</code>). Once a text is selected, drag it by
+its text to move it, as one undo step (<code>points</code> on <code>graphics.edit</code>); a drag anywhere else, or on a
+text that isn't selected, pans the map as usual. A graphics layer that isn't <strong>Selectable</strong> keeps
+its texts from being picked, moved or edited. Closing the
+pane keeps the text selected; double-clicking it or right-clicking it › <strong>Edit Text…</strong> opens the
+pane again. Text sizes go from 2 to 400 points, on the map as on a layout page.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../maps/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Maps and Basemaps">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Maps and Basemaps
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../editing/" class="md-footer__link md-footer__link--next" aria-label="Next: Editing">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Editing
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Qiusheng Wu
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/opengeos/RustGIS" target="_blank" rel="noopener" title="RustGIS on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/sponsors/giswqs" target="_blank" rel="noopener" title="Sponsor RustGIS on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="m241 87.1 15 20.7 15-20.7C296 52.5 336.2 32 378.9 32 452.4 32 512 91.6 512 165.1v2.6c0 112.2-139.9 242.5-212.9 298.2-12.4 9.4-27.6 14.1-43.1 14.1s-30.8-4.6-43.1-14.1C139.9 410.2 0 279.9 0 167.7v-2.6C0 91.6 59.6 32 133.1 32 175.8 32 216 52.5 241 87.1"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://buymeacoffee.com/giswqs" target="_blank" rel="noopener" title="Buy the maintainer a coffee" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M152-16c-13.3 0-24 10.7-24 24 0 38.9 23.4 59.4 39.1 73.1l1.1 1C184.5 96.4 192 103.9 192 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C183.5 31.7 176 24.1 176 8c0-13.3-10.7-24-24-24M96 192c-17.7 0-32 14.3-32 32v192c0 53 43 96 96 96h192c41.8 0 77.4-26.7 90.5-64h5.5c70.7 0 128-57.3 128-128s-57.3-128-128-128zm352 192V256c35.3 0 64 28.7 64 64s-28.7 64-64 64M288 8c0-13.3-10.7-24-24-24S240-5.3 240 8c0 38.9 23.4 59.4 39.1 73.1l1.1 1C296.5 96.4 304 103.9 304 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C295.5 31.7 288 24.1 288 8"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"../..","features":["content.code.copy","navigation.indexes","navigation.footer","navigation.instant","navigation.top","navigation.tracking","search.highlight","search.share"],"redirect":null,"search":"../../assets/javascripts/workers/search.c47bb847.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.77dd0ce9.min.js"></script>
+      
+    
+  </body>
+</html>
