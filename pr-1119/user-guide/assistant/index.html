@@ -1,0 +1,2042 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A fast, free and open-source GIS in pure Rust for mapping, analyzing and sharing geospatial data, on the desktop and in the browser">
+      
+      
+        <meta name="author" content="opengeos">
+      
+      
+        <link rel="canonical" href="https://rustgis.app/user-guide/assistant/">
+      
+      
+      
+        <link rel="prev" href="../workspace/">
+      
+      
+        <link rel="next" href="../../comparison/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="https://assets.rustgis.app/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.73">
+    
+    
+      
+        <title>AI Assistant - RustGIS</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../assets/stylesheets/modern/main.4ab2de0c.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/modern/palette.b60ce83d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
+    <div data-md-component="skip">
+      <a href="#__skip" class="md-skip">
+        Skip to content
+      </a>
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="RustGIS" class="md-header__button md-logo" aria-label="RustGIS" data-md-component="logo">
+      
+  <img src="https://assets.rustgis.app/images/logo.svg" alt="RustGIS">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+      <span class="md-visually-hidden">Navigation</span>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RustGIS
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              AI Assistant
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+          <span class="md-visually-hidden">Search</span>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/opengeos/RustGIS" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/RustGIS
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="RustGIS" class="md-nav__button md-logo" aria-label="RustGIS" data-md-component="logo">
+      
+  <img src="https://assets.rustgis.app/images/logo.svg" alt="RustGIS">
+
+    </a>
+    RustGIS
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/opengeos/RustGIS" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/RustGIS
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Installation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Getting Started
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://web.rustgis.app" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Web App
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  User Guide
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  User Guide
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Web Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-formats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Supported Data Formats
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shapefile-encoding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Shapefile DBF language drivers
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../maps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Maps and Basemaps
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cartography/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Cartography
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../editing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Editing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Analysis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layouts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Layouts and Reports
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sharing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sharing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workspace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Workspace
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AI Assistant
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AI Assistant
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#choosing-a-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Choosing a model
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Choosing a model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#signing-in-with-chatgpt" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Signing in with ChatGPT
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tool-output-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Tool output limits
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#skills" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Skills
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Skills">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#skill-folders-and-zip-names" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Skill folders and ZIP names
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#subagents" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Subagents
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agents-on-this-computer" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Agents on this computer
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#privacy" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Privacy
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#retries-and-long-conversations" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Retries and long conversations
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../comparison/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Comparison
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_6">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Comparison
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comparison/geolibre/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  RustGIS and GeoLibre
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comparison/qgis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  RustGIS and QGIS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Command Line
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MCP Server
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Plugins
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../i18n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Languages
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Architecture
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Contributing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../acknowledgements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Acknowledgements
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../citation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  How to Cite
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sponsor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sponsor
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../privacy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Privacy
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/opengeos/RustGIS/issues" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Report Issues
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#choosing-a-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Choosing a model
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Choosing a model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#signing-in-with-chatgpt" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Signing in with ChatGPT
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tool-output-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Tool output limits
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#skills" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Skills
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Skills">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#skill-folders-and-zip-names" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Skill folders and ZIP names
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#subagents" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Subagents
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agents-on-this-computer" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Agents on this computer
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#privacy" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Privacy
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#retries-and-long-conversations" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Retries and long conversations
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                <a id="__skip" tabindex="-1"></a>
+                
+                  
+
+  
+  
+
+
+<h1 id="ai-assistant">AI Assistant<a class="headerlink" href="#ai-assistant" title="Permanent link">&para;</a></h1>
+<figure>
+  <img alt="The AI Assistant pane: asked for the five most populous African countries, it read the Countries table, selected them and zoomed to them" src="https://assets.rustgis.app/images/assistant.webp" />
+<br />
+<figcaption>The AI Assistant selects the five most populous African countries and zooms to them.</figcaption>
+</figure>
+<p><strong>Analyze › AI Assistant</strong> (also View › Windows, or Command Search) opens a chat pane. Ask a
+question about your data or say what to do with the map, and the assistant answers by running
+RustGIS commands and geoprocessing tools for you:</p>
+<ul>
+<li>"Which 5 countries have the largest GDP?" reads the Countries table and answers.</li>
+<li>"Label the cities with their names, and zoom to Tokyo."</li>
+<li>"Buffer the cities by 200 km and colour the result by population."</li>
+<li>"Switch to a dark basemap and hide the rivers."</li>
+</ul>
+<p>Each step it takes shows in the conversation (click one to see its parameters and result).
+Project edits use the usual undo history, so Ctrl+Z takes them back; undo does not remove
+exported files or reverse actions outside the project. Check the tool results and map rather
+than relying only on the model's reply. Commands that would read or write files, connect to
+an address on the internet, run a plugin, script, task or model, or replace the project wait
+for you: <strong>Allow</strong> or <strong>Decline</strong>. SQL queries also ask, because SQL can access files and the
+network. <strong>Allow such actions for this conversation</strong> remembers the exact command and all
+its parameters, not general access to a file or server. Plugin commands, user automation and
+project replacement ask every time.</p>
+<p>Enter sends, Shift+Enter starts a new line, and Up and Down recall earlier messages when the
+message box is empty or showing a recalled message. Drag the grip above it to resize it.
+<strong>Stop</strong> ends the current assistant run; background local-agent threads have their own Stop
+controls.</p>
+<p>From the command line, <code>rustgis-cli ask</code> sends one request (see
+<a href="../../cli/#asking-the-ai-assistant">Command Line</a>).</p>
+<h2 id="choosing-a-model">Choosing a model<a class="headerlink" href="#choosing-a-model" title="Permanent link">&para;</a></h2>
+<p>Click the model name or the gear to open the settings. The assistant works with:</p>
+<table>
+<thead>
+<tr>
+<th>Provider</th>
+<th>Default model</th>
+<th>Key</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Anthropic</td>
+<td><code>claude-opus-5-5</code></td>
+<td><a href="https://console.anthropic.com/settings/keys">console.anthropic.com</a>, or <code>ANTHROPIC_API_KEY</code></td>
+</tr>
+<tr>
+<td>OpenAI</td>
+<td><code>gpt-5.5</code></td>
+<td><a href="https://platform.openai.com/api-keys">platform.openai.com</a>, or <code>OPENAI_API_KEY</code></td>
+</tr>
+<tr>
+<td>ChatGPT (sign in)</td>
+<td>the first model in your account’s current catalog</td>
+<td>none: <strong>Continue with ChatGPT</strong> to use your ChatGPT plan (desktop app and command line)</td>
+</tr>
+<tr>
+<td>Google Gemini</td>
+<td><code>gemini-3.8-flash</code></td>
+<td><a href="https://aistudio.google.com/apikey">aistudio.google.com</a>, or <code>GEMINI_API_KEY</code> / <code>GOOGLE_API_KEY</code></td>
+</tr>
+<tr>
+<td>OpenRouter</td>
+<td><code>openrouter/auto</code></td>
+<td><a href="https://openrouter.ai/keys">openrouter.ai</a>, or <code>OPENROUTER_API_KEY</code></td>
+</tr>
+<tr>
+<td>Ollama (local)</td>
+<td><code>qwen3</code></td>
+<td>none; the server from <code>OLLAMA_BASE_URL</code> (default <code>http://localhost:11434</code>)</td>
+</tr>
+<tr>
+<td>OpenAI-compatible</td>
+<td>—</td>
+<td>LM Studio, vLLM, llama.cpp…: <code>OPENAI_COMPATIBLE_BASE_URL</code> (default <code>http://localhost:1234/v1</code>), with an optional <code>OPENAI_COMPATIBLE_API_KEY</code></td>
+</tr>
+</tbody>
+</table>
+<p>The ↻ button lists the provider's models. The provider and model you last chose in the settings
+are used at start. Until you choose one, <code>RUSTGIS_ASSISTANT_PROVIDER</code> and
+<code>RUSTGIS_ASSISTANT_MODEL</code> pick them, and otherwise the desktop uses the first provider with a key
+in the environment, falling back to Anthropic when none has a key. ChatGPT sign-in is used
+only when you choose that provider. Saved settings win over the environment. The <strong>Address</strong>
+field changes the endpoint for providers other than ChatGPT; use the OpenAI-compatible API
+path (usually <code>/v1</code>) for local servers. Models that call tools well give the best results;
+small local models may stop early or skip steps.</p>
+<h3 id="signing-in-with-chatgpt">Signing in with ChatGPT<a class="headerlink" href="#signing-in-with-chatgpt" title="Permanent link">&para;</a></h3>
+<p>With a ChatGPT plan you can use the assistant without an API key, through OpenAI's
+<a href="https://developers.openai.com/siwc/token-sharing-open-source">Sign in with ChatGPT for open-source apps</a>.
+Choose <strong>ChatGPT (sign in)</strong> and click <strong>Continue with ChatGPT</strong>: your browser opens OpenAI's
+sign-in page, where you approve RustGIS using your plan (the first time, OpenAI registers RustGIS
+as an app of your account; you can rename it there). Afterwards the settings show the account's
+email, <strong>Using ChatGPT plan</strong>, and a <strong>Weekly usage</strong> link to
+<a href="https://chatgpt.com/settings/usage?tab=overview">your ChatGPT usage settings</a>, where you can see and limit
+what RustGIS uses or disconnect it. <strong>Sign out</strong> clears local tokens and attempts to revoke the
+remote session. If OpenAI does not confirm revocation, RustGIS says so; disconnect RustGIS in
+ChatGPT settings to ensure that remote access ends. The registration remains for signing in again.
+The account picker retains separate registrations, even when their emails match. <strong>Use another
+account</strong> adds a registration; choose an existing one to reuse its issued client ID. <strong>Remove
+account</strong> signs the selected one out and forgets it. From the command line:</p>
+<div class="highlight"><pre><span></span><code>rustgis-cli<span class="w"> </span>ask<span class="w"> </span>--login<span class="w">                 </span><span class="c1"># continue with ChatGPT in the browser</span>
+rustgis-cli<span class="w"> </span>ask<span class="w"> </span>--login<span class="w"> </span>--another-account<span class="w">  </span><span class="c1"># or register RustGIS for another account</span>
+rustgis-cli<span class="w"> </span>ask<span class="w"> </span>--sample<span class="w"> </span>--provider<span class="w"> </span>chatgpt<span class="w"> </span><span class="s2">"Zoom to Tokyo"</span>
+rustgis-cli<span class="w"> </span>ask<span class="w"> </span>--accounts<span class="w">              </span><span class="c1"># list saved registrations</span>
+rustgis-cli<span class="w"> </span>ask<span class="w"> </span>--account<span class="w"> </span>oaiapp_...<span class="w">      </span><span class="c1"># select one by its issued client id</span>
+rustgis-cli<span class="w"> </span>ask<span class="w"> </span>--login<span class="w"> </span>--account<span class="w"> </span>oaiapp_...<span class="w"> </span><span class="c1"># reauthorize that registration</span>
+rustgis-cli<span class="w"> </span>ask<span class="w"> </span>--remove-account<span class="w"> </span>oaiapp_...<span class="w">  </span><span class="c1"># sign out and forget it</span>
+rustgis-cli<span class="w"> </span>ask<span class="w"> </span>--logout
+</code></pre></div>
+<p>The model catalog loads after sign-in, on startup when signed in, and when switching to this
+provider or another account. The first model is chosen when the current one is not offered.
+The ↻ button reloads the catalog. The CLI uses the catalog's first model unless <code>--model</code> or
+<code>RUSTGIS_ASSISTANT_MODEL</code> is set. While waiting for sign-in, <strong>Open browser again</strong> and
+<strong>Copy sign-in link</strong> let you recover a closed tab or failed browser launch. Requests go to the OpenAI API (<code>https://api.openai.com/v1/responses</code>) and use
+your plan's usage; when a limit is reached, the assistant says so and points to the usage settings.
+Signing in needs the desktop app or the command line (it runs a short-lived server on
+<code>127.0.0.1</code>, port 1455 when it's free, for the browser to return to); the web app doesn't offer it.</p>
+<p>Live testing of this integration was limited to a <strong>ChatGPT Pro account on Windows 11</strong>.
+Plus, Team/Business, Enterprise and Edu accounts, macOS and Linux have not been live-verified.
+Plan usage limits and model catalogs depend on the selected account and workspace.
+Team/Business, Enterprise and Edu workspace policy may block plan usage.</p>
+<p>Weekly usage opens ChatGPT's settings page. RustGIS does not show a live percentage: there is
+no documented usage endpoint, and the tested live responses supplied no rate-limit headers.</p>
+<h2 id="tool-output-limits">Tool output limits<a class="headerlink" href="#tool-output-limits" title="Permanent link">&para;</a></h2>
+<p>The assistant can <code>search_docs</code> and <code>read_doc</code> to look up RustGIS features and commands.
+Each tool result defaults to an estimated <strong>10,000 tokens</strong>, following
+<a href="https://github.com/openai/codex/blob/main/codex-rs/core/src/tools/handlers/shell_spec.rs">Codex's default output budget</a>.
+A result is capped at an absolute <strong>24,000 tokens</strong>. Like
+<a href="https://github.com/openai/codex/blob/main/codex-rs/utils/output-truncation/src/lib.rs">Codex's truncation utilities</a>,
+the budget uses a byte-based estimate (four UTF-8 bytes per token), rather than an exact tokenizer.
+It includes JSON escaping and truncation metadata. This bounds individual results, not the
+entire conversation or all results from a batch.</p>
+<p><code>RUSTGIS_ASSISTANT_TOOL_OUTPUT_TOKEN_LIMIT</code> changes the requested per-tool budget; it cannot
+bypass the 24,000-token ceiling. Embedding callers can set <code>Config::tool_output_token_limit</code>.
+MCP uses the 10,000-token default.</p>
+<p>Oversized successful results return an explicit, bounded text preview inside valid JSON, preserving the
+beginning and end; ask for fewer rows or a narrower search to get complete structured data.
+Documentation reads preserve complete lines and return <code>next_offset</code> when more remain: call
+<code>read_doc</code> again with the same page/section and that <code>offset</code>. <code>limit</code> defaults to 2000 lines,
+following <a href="https://github.com/badlogic/pi-mono/blob/main/packages/coding-agent/src/core/tools/read.ts">Pi's line-oriented read convention</a>.
+Invalid offsets (including zero, negative numbers, fractions and strings) return an error.
+Tiny output budgets use minimal truncation metadata or a diagnostic string prefix rather than
+returning bare <code>null</code>; extremely small budgets can only retain an abbreviated marker.
+Reading a section avoids loading an entire page. A single line that cannot fit produces an
+explicit error rather than silently skipping text.</p>
+<h2 id="skills">Skills<a class="headerlink" href="#skills" title="Permanent link">&para;</a></h2>
+<p>Skills are instructions for a kind of task. The assistant sees only each skill's name and a
+line on when to use it, and reads its instructions on demand, so skills cost little until used.
+Loaded instructions share the configured tool-output budget; oversized results are explicitly
+marked as truncated. Split long skills or raise that limit (up to its existing ceiling) when
+complete instructions do not fit. RustGIS comes with these:</p>
+<table>
+<thead>
+<tr>
+<th>Skill</th>
+<th>For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>thematic-map</code></td>
+<td>Styling a layer by its data (graduated colours, categories, proportional symbols), labelling it and exporting the map</td>
+</tr>
+<tr>
+<td><code>explore-data</code></td>
+<td>What's in a layer: fields, value ranges, top records, counts, filters and summary statistics</td>
+</tr>
+<tr>
+<td><code>print-layout</code></td>
+<td>A page layout with a map frame, title, legend, north arrow and scale bar, exported to PDF or PNG</td>
+</tr>
+<tr>
+<td><code>geoprocessing</code></td>
+<td>Running and chaining tools: buffer, clip, erase, dissolve, select by location, summarize within</td>
+</tr>
+<tr>
+<td><code>add-data</code></td>
+<td>Adding files, web addresses, DuckDB SQL queries, STAC catalogs and Overture Maps</td>
+</tr>
+<tr>
+<td><code>share-web-map</code></td>
+<td>Sharing the map or a layer as files that work without a server: a web map, a web layer, a style, an image</td>
+</tr>
+</tbody>
+</table>
+<p>On the desktop, the settings' <strong>Skills</strong> list shows every skill and where it comes from,
+with a switch to turn each one on or off:</p>
+<ul>
+<li><strong>Built in</strong>: the skills above.</li>
+<li><strong>Plugins</strong>: skills a plugin carries, named <code>&lt;plugin&gt;:&lt;skill&gt;</code>, while the plugin is enabled
+  (see <a href="../../plugins/#skills">Plugins</a>).</li>
+<li><strong>Yours</strong>: on the desktop, <strong>Add skill…</strong> adds a <code>SKILL.md</code>, a skill's folder, a folder of
+  skills or a <code>.zip</code> of them. They are kept in the <code>skills</code> folder of the app's settings folder
+  (<strong>Open folder</strong>), and <strong>Remove</strong> deletes one's <code>SKILL.md</code> (files you keep beside it stay). A skill of yours replaces a built-in one of the
+  same name.</li>
+<li><strong>Shared</strong>: skills in <code>~/.agents/skills</code>, where other AI agents keep theirs. They are listed
+  but off until you turn them on, since they were written for other tools.</li>
+</ul>
+<p>A skill's description and instructions reach the model as instructions you trust, like a message
+of your own, so turn on only skills you trust. Whatever a skill says, the commands that need your
+approval (files, the network, plugins) still ask.</p>
+<p>A skill is a folder holding <code>SKILL.md</code> in the <a href="https://agentskills.io">Agent Skills</a> format: front
+matter giving its <code>name</code> (lower-case letters, digits and hyphens) and a <code>description</code> that says
+when to use it, then the instructions in Markdown. Each <code>SKILL.md</code> is at most 64 KiB; the
+assistant reads only that file, and importing a folder or ZIP does not copy its other files.
+Descriptions can be single-line values or indented blocks introduced by <code>&gt;</code> or <code>|</code>.
+For a description spanning several lines, use a block; plain multiline YAML values are not supported.</p>
+<div class="highlight"><pre><span></span><code>---
+name: flood-map
+<span class="gu">description: Map flood depth and extent from a depth raster and the river network.</span>
+<span class="gu">---</span>
+
+<span class="gh"># Flood map</span>
+
+<span class="k">1.</span> ...
+</code></pre></div>
+<p>From the command line:</p>
+<div class="highlight"><pre><span></span><code>rustgis-cli<span class="w"> </span>skills<span class="w">                      </span><span class="c1"># every skill, where it comes from, and whether it's on</span>
+rustgis-cli<span class="w"> </span>skills<span class="w"> </span>add<span class="w"> </span>./flood-map<span class="w">      </span><span class="c1"># a SKILL.md, a folder or a .zip</span>
+rustgis-cli<span class="w"> </span>skills<span class="w"> </span>disable<span class="w"> </span>explore-data<span class="w"> </span><span class="c1"># enable / disable / remove &lt;name&gt;</span>
+</code></pre></div>
+<h3 id="skill-folders-and-zip-names">Skill folders and ZIP names<a class="headerlink" href="#skill-folders-and-zip-names" title="Permanent link">&para;</a></h3>
+<p>Skill folders may be symbolic links, including shared <code>~/.agents/skills</code> folders. Enabling a
+shared skill trusts the instructions at that linked location; shared skills are off by default.
+The <code>SKILL.md</code> file itself must be a regular file, not a symbolic link. Removing one of your
+skills removes its <code>SKILL.md</code>, including from a linked folder's target; it does not remove the
+folder link or other files.</p>
+<p>ZIP imports recognize <code>SKILL.md</code> regardless of letter case and accept slash or backslash path
+separators. Paths that collide after separator/case normalization are refused. Nested skills
+remain part of their containing skill. Entries are read in memory, never extracted as paths.
+The ZIP dependency is native-only; browser builds do not include the installer.</p>
+<p>Skill front matter supports top-level <code>name</code> and <code>description</code> fields, plain or single/double-
+quoted one-line values, and indented <code>&gt;</code>/<code>|</code> description blocks (joined into one line). This
+reader implements those forms rather than full YAML: trailing inline comments, multiline
+quoted scalars, escapes, anchors and advanced block modifiers are not interpreted. Keep
+comments on their own lines and put literal <code>#</code> text inside the intended value. Descriptions
+are collapsed to one whitespace-separated line before catalog insertion. On Windows, reserved
+device names such as <code>con</code>, <code>nul</code>, <code>com1</code> and <code>lpt1</code> cannot be installed; rename the skill.
+Unknown-name errors show up to 20 names; Settings shows the full available list.</p>
+<p>An archive with <code>SKILL.md</code> at its root represents that one outermost skill: nested <code>SKILL.md</code>
+files belong to its examples/references and are not installed separately. To import several
+skills, put each in a sibling folder and omit a root <code>SKILL.md</code>. A failure during the final
+rename phase can leave earlier skills installed; the error names those completed installs.</p>
+<h2 id="subagents">Subagents<a class="headerlink" href="#subagents" title="Permanent link">&para;</a></h2>
+<p>For a self-contained task, the assistant can use <code>delegate</code> to start a fresh conversation
+with the same provider and model, acting on the same project. The subagent receives the task,
+not the whole conversation, and returns a short report. Its tool calls appear in the main
+transcript, and file, network and other gated actions still need approval. It inherits the
+conversation's exact-command approvals. This works without installing a local coding agent;
+it is distinct from the background threads below.</p>
+<h2 id="agents-on-this-computer">Agents on this computer<a class="headerlink" href="#agents-on-this-computer" title="Permanent link">&para;</a></h2>
+<p>On the desktop, the assistant can hand a task to a coding agent you already have, such as Claude
+Code, Codex, Gemini CLI, GitHub Copilot CLI, Cursor, OpenCode or goose. RustGIS talks to it through the
+<a href="https://agentclientprotocol.com">Agent Client Protocol</a> (ACP), as code editors do. The agent
+works on the map open here through RustGIS's tools, and with its own: calling a web API RustGIS
+doesn't have, running a script, writing files. It suits tasks RustGIS's own tools can't do.</p>
+<p>It is off until you turn it on: in the settings, tick <strong>Let the assistant hand tasks to agents on
+this computer</strong>. The settings list the agents found. Starting a task or sending a follow-up waits for your approval in the assistant, unless automatic approval is enabled. Then ask, for example: "Have Claude Code
+fetch the USGS stream gauges in Texas and add them to the map."</p>
+<ul>
+<li><strong>It works in the background.</strong> The assistant hands over the task and carries on talking with
+  you. A small window shows what the agent says and does until it finishes; its report then
+  comes back into the conversation, and the assistant tells you what came of it. Several agents
+  can work at once, each in a thread of its own (<code>codex-1</code>, <code>claude-code-2</code>…), listed above the
+  message box with <strong>Show</strong>, <strong>Hide</strong> and <strong>×</strong> to close one.</li>
+<li><strong>Threads take follow-ups.</strong> A thread that has finished waits for more, with what it did in its
+  context: "Now colour the gauges by flow" goes to the same agent. Threads end with <strong>New
+  conversation</strong>, when you close them, or after half an hour of waiting.</li>
+<li><strong>You approve what it does.</strong> Each action the agent asks to take (a command, a web request, a
+  file it writes) waits for <strong>Allow</strong>, <strong>Always allow</strong> (when the agent offers it) or
+  <strong>Decline</strong> in its window. <strong>Allow</strong> never becomes a persistent approval: if no once-only
+  option exists, use the explicitly labelled <strong>Always allow</strong> or decline. <strong>Approve agents' actions without asking</strong> lets them through
+  instead. Turn it on only if you trust the agent with your computer.</li>
+<li><strong>RustGIS checks its own tools.</strong> File, network, plugin-command and project-replacement
+  requests from a local agent wait for a separate <strong>Allow</strong> or <strong>Decline</strong> in its window.
+  Approval applies only to that exact MCP message and that agent's run; a batch is approved or
+  declined as a whole. The agent's <code>--yes</code> and the general relay checkbox cannot bypass this
+  queue. Requests that expire, or whose agent ends, never run. Plugin management, scripts and
+  other user-only commands remain unavailable through MCP.
+  <strong>Approve agents' actions without asking</strong> explicitly bypasses this queue for these local
+  agents and allows subsequent delegations without confirmation; turn it on only if you trust
+  the agent and its inputs. It also selects the agent's own full-access mode where available.</li>
+<li><strong>Its work is kept.</strong> Each task gets a folder in <code>Documents/RustGIS/Agent work</code>, and what the
+  agent adds to the map comes from there. The assistant's reply names the folder.</li>
+<li><strong>On the map, it has its thread's permission only.</strong> It reaches the map through the MCP relay
+  with a token of its own, which RustGIS revokes when the thread ends. <strong>Stop</strong> in its window, or
+  <strong>×</strong> in the list, revokes its token immediately and terminates its live process tree on a
+  background thread. A reaped leader's old process ID is never signalled.</li>
+<li><strong>No console windows.</strong> On Windows, agents start without a terminal window; their window in
+  RustGIS shows what they do.</li>
+<li><strong>Signing in is the agent's.</strong> The agent uses its own account and sign-in. If it isn't
+  signed in, sign in with it once (for example, <code>codex login</code>).</li>
+<li><strong>Claude Code and Codex need Node.js.</strong> They speak ACP through an adapter
+  (<code>@agentclientprotocol/claude-agent-acp</code>, <code>@agentclientprotocol/codex-acp</code>), which <code>npx</code>
+  downloads from npm the first time, at the version RustGIS names. Agents with ACP built in
+  need nothing more. The web app doesn't offer agents.</li>
+</ul>
+<h2 id="privacy">Privacy<a class="headerlink" href="#privacy" title="Permanent link">&para;</a></h2>
+<p>Assistant requests go directly to the provider and address you chose, using your API key or
+ChatGPT sign-in. They carry your messages, the map's layer names, fields and extent, and tool
+results such as rows the assistant reads. Local agents use their own providers and tools,
+with their own data handling. A key typed in the settings is used for the session only unless
+you tick <strong>Remember the key on this computer</strong>. On the desktop, this saves it in the system
+keychain (macOS Keychain, Windows Credential Manager, or the Secret Service on Linux). Clearing
+the key or unticking <strong>Remember</strong> deletes the saved key; a failed deletion is shown in settings.
+Keys from the environment are never saved. If the keychain is unavailable, locked, or access
+is refused, a new key stays in memory for this session and the settings explain why it was not
+remembered. On upgrade, an existing keychain key takes precedence over an old key in the
+preferences; otherwise the app moves the old key into the keychain. The plaintext preference
+is cleared only after the keychain key is read or the old key is saved successfully. If either
+operation fails, the old preference is retained and the unencrypted-storage
+warning stays visible. In the web app, <strong>Remember</strong> still saves the key unencrypted in the
+browser's storage, with a note in settings.
+A ChatGPT sign-in's refresh token is kept in the system keychain, never in the preferences or a
+project file, and no token is ever logged. The short-lived access token stays in the memory of the
+RustGIS window that got it, so each time RustGIS starts it renews the sign-in once before its first
+request; after a restart, the browser may ask you to choose the account again when you sign in.
+<code>chatgpt-auth.json</code> in the app's settings folder keeps only the saved accounts (their client id,
+account, email, permissions, when the tokens expire, and which one is selected), no token. A
+sign-in from an earlier version, whose tokens are in that file, keeps working: they move to the
+keychain the first time they are used, and leave the file only once the keychain has taken them.
+If the keychain is unavailable, they stay in the file until it is, and the settings say so. A new
+sign-in the keychain can't take lasts until RustGIS closes and is never written to the file; the
+settings say it won't be remembered, and it never replaces a sign-in the keychain still holds for
+that account. <strong>Sign out</strong> revokes the session at OpenAI and deletes its token; if the keychain
+can't be read, you are still signed out on this computer, and the settings say the session
+couldn't be ended at OpenAI. <strong>Remove account</strong> also forgets the account, once any keychain item it
+had is deleted: while the keychain can't be read or can't delete it, removal refuses, so no token
+is left behind in it. Without <code>--use-saved-secrets</code>, the command line has no keychain (it uses a
+sign-in from an earlier version still in the file), so its sign-ins last for the command only,
+and it can't use, sign out or remove an account whose token is in the keychain. With the flag,
+it uses the keychain as the app does. Python's <code>Session(use_saved_secrets=True)</code> similarly opts
+connection commands into the system store; it does not add an assistant API. The ChatGPT
+provider's address is fixed, so only the
+OpenAI API receives the tokens. Renewals are serialized across RustGIS processes (a refresh token
+can be used only once), and the keychain is read under the same lock.
+Plain HTTP is only used for servers on your computer or local network.</p>
+<p>In the web app, the browser calls the provider directly. Anthropic, OpenAI, Gemini and
+OpenRouter accept that; a local Ollama server must allow the page's origin
+(<code>OLLAMA_ORIGINS=https://web.rustgis.app ollama serve</code>).</p>
+<h2 id="retries-and-long-conversations">Retries and long conversations<a class="headerlink" href="#retries-and-long-conversations" title="Permanent link">&para;</a></h2>
+<p>The assistant stops after 16 rounds of tool use per message, shared with subagents. Provider
+retries and conversation summaries are separate. Reply "continue" to go on.</p>
+<p>RustGIS first trims older tool results and reasoning when the conversation grows too large.
+If that is not enough, or the provider rejects the context length, it asks the same model to
+summarize earlier turns. <strong>Compact</strong> requests this explicitly while the assistant is idle;
+<strong>New conversation</strong> clears the chat and its remembered approvals and ends local-agent
+threads, without resetting the map.</p>
+<p>Live streaming text is available on the desktop. The browser currently buffers the complete
+response (up to the response limit, 64 MiB for SSE) before displaying it; it has no live streaming
+preview. Cross-origin retry timing headers are available only when the provider exposes them
+through CORS; otherwise ordinary backoff applies.</p>
+<p>A failed compaction shows an error and keeps the original conversation, then stops. It does not
+retry continuously in the background. Sending another message or pressing Compact explicitly
+tries again; if the history still cannot fit, use New conversation or choose another model.</p>
+<p>Connection failures and explicit provider overload/rate-limit failures are retried at most three
+times, including errors reported inside an HTTP-200 stream. The failed reply and its preview
+are discarded before retrying; no tool calls from it run. Usage limits, authentication failures,
+browser fetch failures (which can be permanent CORS refusals), timeouts and interrupted streams
+without an explicit retryable provider error stop without
+replay. Stop cancels a pending retry.</p>
+<p>Summary requests have a total input bound, retaining the newest history if older text must be
+omitted. If the provider rejects a summary as too long, RustGIS halves that bound and tries again,
+down to 1,024 bytes; further failure stops and preserves the original conversation. This learned
+bound lasts for the conversation. A cut, refused or failed summary never replaces history.
+The summariser treats retrieved text as data, not instructions. Internal summary markers in user messages are escaped in model
+input; the visible transcript keeps the user's exact text.</p>
+<p>Background agent reports are quoted as untrusted data, with markup escaped and the report
+payload constrained by the configured tool-output budget. The main assistant uses observations
+relevant to your task, rather than treating a report as a new user instruction.</p>
+<p>ACP input uses a bounded background writer queue, so a stalled agent cannot block permission
+buttons or follow-up submission. Queue overflow reports an error instead of blocking. On Linux
+and macOS, an exited leader is observed without reaping until cleanup; its reserved identity
+lets Stop terminate surviving process-group descendants before finally reaping the leader.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../workspace/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Workspace">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Workspace
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../comparison/" class="md-footer__link md-footer__link--next" aria-label="Next: RustGIS vs. other GIS platforms">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                RustGIS vs. other GIS platforms
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Qiusheng Wu
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/opengeos/RustGIS" target="_blank" rel="noopener" title="RustGIS on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/sponsors/giswqs" target="_blank" rel="noopener" title="Sponsor RustGIS on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="m241 87.1 15 20.7 15-20.7C296 52.5 336.2 32 378.9 32 452.4 32 512 91.6 512 165.1v2.6c0 112.2-139.9 242.5-212.9 298.2-12.4 9.4-27.6 14.1-43.1 14.1s-30.8-4.6-43.1-14.1C139.9 410.2 0 279.9 0 167.7v-2.6C0 91.6 59.6 32 133.1 32 175.8 32 216 52.5 241 87.1"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://buymeacoffee.com/giswqs" target="_blank" rel="noopener" title="Buy the maintainer a coffee" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M152-16c-13.3 0-24 10.7-24 24 0 38.9 23.4 59.4 39.1 73.1l1.1 1C184.5 96.4 192 103.9 192 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C183.5 31.7 176 24.1 176 8c0-13.3-10.7-24-24-24M96 192c-17.7 0-32 14.3-32 32v192c0 53 43 96 96 96h192c41.8 0 77.4-26.7 90.5-64h5.5c70.7 0 128-57.3 128-128s-57.3-128-128-128zm352 192V256c35.3 0 64 28.7 64 64s-28.7 64-64 64M288 8c0-13.3-10.7-24-24-24S240-5.3 240 8c0 38.9 23.4 59.4 39.1 73.1l1.1 1C296.5 96.4 304 103.9 304 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C295.5 31.7 288 24.1 288 8"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"../..","features":["content.code.copy","navigation.indexes","navigation.footer","navigation.instant","navigation.top","navigation.tracking","search.highlight","search.share"],"redirect":null,"search":"../../assets/javascripts/workers/search.c47bb847.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.77dd0ce9.min.js"></script>
+      
+    
+  </body>
+</html>

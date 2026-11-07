@@ -1,0 +1,2524 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A fast, free and open-source GIS in pure Rust for mapping, analyzing and sharing geospatial data, on the desktop and in the browser">
+      
+      
+        <meta name="author" content="opengeos">
+      
+      
+        <link rel="canonical" href="https://rustgis.app/user-guide/data-formats/">
+      
+      
+      
+        <link rel="prev" href="../web-data/">
+      
+      
+        <link rel="next" href="../shapefile-encoding/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="https://assets.rustgis.app/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.73">
+    
+    
+      
+        <title>Supported Data Formats - RustGIS</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../assets/stylesheets/modern/main.4ab2de0c.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/modern/palette.b60ce83d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
+    <div data-md-component="skip">
+      <a href="#__skip" class="md-skip">
+        Skip to content
+      </a>
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="RustGIS" class="md-header__button md-logo" aria-label="RustGIS" data-md-component="logo">
+      
+  <img src="https://assets.rustgis.app/images/logo.svg" alt="RustGIS">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+      <span class="md-visually-hidden">Navigation</span>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RustGIS
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Supported Data Formats
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+          <span class="md-visually-hidden">Search</span>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/opengeos/RustGIS" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/RustGIS
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="RustGIS" class="md-nav__button md-logo" aria-label="RustGIS" data-md-component="logo">
+      
+  <img src="https://assets.rustgis.app/images/logo.svg" alt="RustGIS">
+
+    </a>
+    RustGIS
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/opengeos/RustGIS" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/RustGIS
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Installation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Getting Started
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://web.rustgis.app" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Web App
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  User Guide
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  User Guide
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Web Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Supported Data Formats
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Supported Data Formats
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#vector-and-tabular-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Vector and tabular files
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#formats-read-through-gdal" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Formats read through GDAL
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#files-on-the-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Files on the web
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#map-and-feature-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Map and feature services
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Map and feature services">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#secured-arcgis-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Secured ArcGIS services
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#catalogues" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Catalogues
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#postgresql-and-postgis" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        PostgreSQL and PostGIS
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mysql-and-mariadb" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        MySQL and MariaDB
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sql-server-and-azure-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        SQL Server and Azure SQL
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sql-queries-and-duckdb-databases" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        SQL queries and DuckDB databases
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rasters" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Rasters
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tiles-and-web-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Tiles and web services
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Writing
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#define-projection" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Define Projection
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rustgis-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        RustGIS files
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shapefile-encoding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Shapefile DBF language drivers
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../maps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Maps and Basemaps
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cartography/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Cartography
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../editing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Editing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Analysis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layouts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Layouts and Reports
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sharing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sharing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workspace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Workspace
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../assistant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AI Assistant
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../comparison/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Comparison
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_6">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Comparison
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comparison/geolibre/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  RustGIS and GeoLibre
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comparison/qgis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  RustGIS and QGIS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Command Line
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MCP Server
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Plugins
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../i18n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Languages
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Architecture
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Contributing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../acknowledgements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Acknowledgements
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../citation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  How to Cite
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sponsor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sponsor
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../privacy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Privacy
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/opengeos/RustGIS/issues" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Report Issues
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#vector-and-tabular-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Vector and tabular files
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#formats-read-through-gdal" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Formats read through GDAL
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#files-on-the-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Files on the web
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#map-and-feature-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Map and feature services
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Map and feature services">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#secured-arcgis-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Secured ArcGIS services
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#catalogues" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Catalogues
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#postgresql-and-postgis" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        PostgreSQL and PostGIS
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mysql-and-mariadb" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        MySQL and MariaDB
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sql-server-and-azure-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        SQL Server and Azure SQL
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sql-queries-and-duckdb-databases" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        SQL queries and DuckDB databases
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rasters" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Rasters
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tiles-and-web-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Tiles and web services
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Writing
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#define-projection" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Define Projection
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rustgis-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        RustGIS files
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                <a id="__skip" tabindex="-1"></a>
+                
+                  
+
+  
+  
+
+
+<h1 id="supported-data-formats">Supported Data Formats<a class="headerlink" href="#supported-data-formats" title="Permanent link">&para;</a></h1>
+<p>This page lists the data formats RustGIS reads and writes, how to add each one, and the main
+limits. <a href="../data/">Data</a> covers adding data, large files and rasters in more detail; <a href="../maps/#basemaps">Maps and
+Basemaps</a> covers web tile layers.</p>
+<p>Most native readers work in the desktop app and the <a href="https://web.rustgis.app">web app</a>.
+Formats read through external GDAL or DuckDB programs need the desktop app or <code>rustgis-cli</code>;
+they aren't available in the web app. Database connections and folder-based File Geodatabases
+are desktop-only too. Browser files are uploaded rather than opened by path; GeoPackages use a
+pure-Rust SQLite file reader there. Reprojection supports the coordinate systems RustGIS knows,
+not every EPSG code; azimuthal equidistant systems such as Equi7 need the desktop app.</p>
+<h2 id="vector-and-tabular-files">Vector and tabular files<a class="headerlink" href="#vector-and-tabular-files" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>Extensions or source</th>
+<th>How to add it</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GeoJSON</td>
+<td><code>.geojson</code>, <code>.json</code></td>
+<td>Home › Add › Add Data, or drop the file</td>
+<td>Features with typed attributes; a <code>GeometryCollection</code> keeps its first readable member. A FeatureCollection's legacy <code>crs</code> member (<code>{"type": "name", "properties": {"name": "urn:ogc:def:crs:EPSG::28992"}}</code>) is honoured for EPSG codes (<code>EPSG:28992</code>, <code>urn:ogc:def:crs:EPSG::28992</code>, <code>urn:ogc:def:crs:EPSG:6.6:28992</code>) and for <code>CRS84</code>: a projected or other non-WGS 84 system converts the coordinates to longitude/latitude and the layer keeps it as its coordinate system (Layer properties, export in it, Define Projection); <code>CRS84</code> and <code>EPSG:4326</code> are longitude/latitude already, so the coordinates stay as they are and the layer has no other coordinate system. Coordinates are x/y (easting/northing, or longitude/latitude) whatever the EPSG axis order. A <code>crs</code> that isn't understood (a <code>link</code>, WKT or PROJ text, any other name, an unknown code) is named in a notice and the coordinates are read as longitude/latitude. A feature whose coordinates can't be converted, or convert to beyond ±180.5° longitude or ±90.5° latitude (the declared system doesn't fit the numbers), is left out and counted in a notice, and Define Projection then asks for the file to be added again. A <code>crs</code> on a feature, a geometry or a lone Feature is ignored. GeoJSON is always written in WGS 84 without a <code>crs</code>. Desktop FeatureCollections larger than 32 MiB use an in-place reader (which honours <code>crs</code> too, reading the file once more to check the features convert); layers with more than 100,000 features stream a view at a time. Other GeoJSON files load whole, up to 256 MiB.</td>
+</tr>
+<tr>
+<td>Delimited text</td>
+<td><code>.csv</code>, <code>.tsv</code>, <code>.txt</code></td>
+<td>Add Data, or Home › Add › Add Data › Delimited Text… to choose the columns from the file's header</td>
+<td>Comma, semicolon, tab or pipe separated (found from the header, or <code>"delimiter"</code>); <code>info.fileColumns</code> lists the columns and the ones found. Points from x/y columns (named like longitude/latitude or easting/northing, or chosen with <code>"x"</code> and <code>"y"</code>), or any geometry from a WKT/EWKT column (named like <code>wkt</code> or <code>geometry</code>, or <code>"wkt"</code>). Coordinates in another system are converted from <code>"crs"</code> (<code>EPSG:2263</code>, or WKT) or an EWKT <code>SRID=</code>; without either, coordinates outside longitude/latitude are pointed out. A file without coordinates opens as a standalone table.</td>
+</tr>
+<tr>
+<td>Shapefile</td>
+<td><code>.shp</code> with <code>.dbf</code> (and <code>.shx</code>), or zipped (<code>.zip</code>)</td>
+<td>Add Data or drop the file; in the web app, pick or drop the <code>.shp</code> and <code>.dbf</code> together, with the <code>.shx</code> and <code>.prj</code> if there are (they open as one layer), or the zip</td>
+<td>A zip may hold several Shapefiles, in folders, and other vector files (GeoJSON, CSV, GeoParquet, FlatGeobuf); each becomes a layer, at most 32 for the whole archive (Shapefiles first, so other files are left out when Shapefiles fill it). <code>.txt</code> files and macOS <code>__MACOSX</code> entries are passed over, and a member that can't be read is skipped and named in a notice. Converted to longitude/latitude from the coordinate system in its <code>.prj</code> (EPSG, Esri or OGC WKT, or WKT2 as PROJ and QGIS write it; Web Mercator, UTM, State Plane and other common projections); without a <code>.prj</code> it must be in longitude/latitude. On the desktop, one with more than 100,000 shapes (counted from its <code>.shx</code>) is read in place, a view at a time.</td>
+</tr>
+<tr>
+<td>KML / KMZ</td>
+<td><code>.kml</code>, <code>.kmz</code></td>
+<td>Add Data, drop the file, or upload it in the web app</td>
+<td>A layer for each kind of geometry (points, lines, polygons), with each placemark's name, description, folder path and extended data. Styles are kept: the layer is drawn by unique values of its <code>style</code> field, with each KML style's line and fill colours, widths and icon colours (up to 64 styles). Multi-geometries and <code>gx:Track</code>s are read. Ground overlays (pictures on a <code>LatLonBox</code>, turned by its <code>rotation</code>) are raster layers kept in the project: the picture inside a KMZ, or a file beside a KML (not a web address, nor outside its folder); a <code>gx:LatLonQuad</code> isn't drawn.</td>
+</tr>
+<tr>
+<td>GPX</td>
+<td><code>.gpx</code></td>
+<td>Add Data, drop the file, or upload it in the web app</td>
+<td>Waypoints, routes, tracks (one line per track, its segments as parts) and track points (with elevation and time) as separate layers.</td>
+</tr>
+<tr>
+<td>Spreadsheets</td>
+<td><code>.xlsx</code>, <code>.xlsm</code>, <code>.xlsb</code>, <code>.xls</code>, <code>.ods</code></td>
+<td>Add Data (or Delimited Text… to choose the columns), drop the file, or upload it in the web app</td>
+<td>One sheet at a time, read like delimited text: the first non-empty row names the columns, and x/y or WKT columns (found, or given with <code>"x"</code>, <code>"y"</code>, <code>"wkt"</code> and <code>"crs"</code>) make the geometry; a sheet without them is a table. The first sheet is added and the others named in a notice; <code>"layer"</code> picks one, and <code>info.fileLayers</code> lists them. Dates read as ISO 8601.</td>
+</tr>
+<tr>
+<td>GeoRSS</td>
+<td><code>.rss</code>, <code>.atom</code>, <code>.georss</code>, or <code>.xml</code></td>
+<td>Add Data, drop the file, upload, or From URL…</td>
+<td>RSS 2.0, RSS 1.0 and Atom feeds with GeoRSS Simple, GeoRSS GML or W3C Basic Geo places: points, lines and polygons layers with each item's title, link, description, date, id and category.</td>
+</tr>
+<tr>
+<td>LandXML</td>
+<td><code>.landxml</code>, or <code>.xml</code></td>
+<td>Add Data, drop the file, or upload</td>
+<td>Coordinate geometry points, parcels (polygons), alignments (lines; curves as chords) and TIN surfaces (a triangle per face, with its mean elevation), converted from the file's <code>epsgCode</code> or <code>"crs"</code>.</td>
+</tr>
+<tr>
+<td>Encoded polylines</td>
+<td>text</td>
+<td><code>layer.addEncodedPolyline</code> with <code>"polyline"</code> (one or a list)</td>
+<td>Google's encoding, precision 5, or 6 (<code>"precision"</code>) as OSRM and Valhalla can give: a line layer.</td>
+</tr>
+<tr>
+<td>GML</td>
+<td><code>.gml</code></td>
+<td>Add Data, drop the file, or upload</td>
+<td>Simple features in GML 2 and 3 (WFS answers, OGR's GML): a layer per feature type, its simple elements as fields. Converted from the <code>srsName</code> (EPSG codes, URNs and URLs; the URN and URL forms of geographic systems are latitude first).</td>
+</tr>
+<tr>
+<td>MapInfo Interchange</td>
+<td><code>.mif</code> with its <code>.mid</code> (or both zipped)</td>
+<td>Add Data, drop the file, or upload the zip</td>
+<td>Points, lines, polylines, regions (holes found by nesting), rectangles and ellipses; text and arcs are rows without geometry. Converted from the <code>CoordSys</code>: longitude/latitude, Transverse Mercator, Lambert Conformal Conic, Albers or Mercator. A loose <code>.mif</code> upload has no <code>.mid</code> attributes; zip both files to keep them in the web app.</td>
+</tr>
+<tr>
+<td>OpenStreetMap PBF</td>
+<td><code>.osm.pbf</code>, or <code>.pbf</code> containing OSM data</td>
+<td>Add Data, drop the file, or upload</td>
+<td>Points (tagged nodes), lines and multipolygons (closed ways that are areas, and multipolygon and boundary relations), with common tags as fields and the rest in <code>other_tags</code>, as GDAL gives them. Up to 40 million nodes (4 million in the web app); on the desktop, extracts over 256 MiB open through GDAL when it is installed. Vector-tile <code>.pbf</code> files use Add Tile Layer instead.</td>
+</tr>
+<tr>
+<td>TopoJSON</td>
+<td><code>.topojson</code>, or <code>.json</code></td>
+<td>Add Data, drop the file, or upload</td>
+<td>Shared arcs (quantized or not) are rebuilt into geometries. A <code>.topojson</code> adds a layer per object, up to 64; a topology named <code>.json</code> adds its first object and names the others in a notice. Use <code>.topojson</code> to add them all.</td>
+</tr>
+<tr>
+<td>AutoCAD DXF</td>
+<td><code>.dxf</code> (ASCII)</td>
+<td>Add Data, drop the file, or upload</td>
+<td>Points, lines and polygons layers from the drawing's entities: POINT, LINE, LWPOLYLINE and POLYLINE (bulges drawn as arcs; closed ones stay lines; polyface meshes become polygons), CIRCLE, ARC, ELLIPSE, SPLINE, HELIX, LEADER, MLINE (its centre line), TEXT, MTEXT, ATTRIB and constant ATTDEF (points with their text, at the alignment point of justified text), HATCH boundaries (holes found by nesting), SOLID, TRACE and 3DFACE (polygons). Blocks (named in any case) are drawn where INSERTs place them (scaled, rotated, in arrays, nested up to 8 deep), and so are DIMENSIONs' blocks (a linear dimension without one draws its lines and measured text). Entities in an object's own coordinate system are turned into the drawing's. Fields: <code>layer</code>, <code>entity</code>, <code>color</code> (ACI, BYLAYER and BYBLOCK resolved), <code>linetype</code>, <code>text</code>, <code>height</code>, <code>rotation</code>, <code>block</code>, <code>elevation</code> and <code>paperspace</code>. The drawing's layouts (paper space: title blocks, viewport frames) are left out, with a notice, unless <code>"paperSpace": true</code>. A drawing never says its coordinate system: give <code>"crs"</code> (such as <code>EPSG:2263</code>), or its coordinates are kept as they are, with a notice. <code>"layer"</code> picks one of the drawing's own layers, and <code>info.fileLayers</code> lists them. Up to 2 million features (500,000 in the web app). Not read: binary DXF, MULTILEADER, WIPEOUT, IMAGE and ACIS solids (3DSOLID, REGION), named in a notice.</td>
+</tr>
+<tr>
+<td>Geotagged photos</td>
+<td><code>.jpg</code>, <code>.jpeg</code></td>
+<td>Add Data (several at once in the web app), drop them, upload, or <code>layer.addPhotos</code> with <code>"paths"</code> or a <code>"folder"</code></td>
+<td>JPEGs with a GPS position in their EXIF become points in the <strong>Photos</strong> layer (photos added one at a time join it): each with its <code>name</code>, <code>file</code>, <code>time</code> (when it was taken), <code>altitude</code>, <code>direction</code> (where the camera faced), <code>camera</code> and a <code>thumbnail</code> of at most 160 pixels, kept with the feature so the project needs no other file. Identify shows the thumbnail. Photos without a position are named in a notice and left out; a layer holds up to 2,000 photos. A JPEG is always read as a photo unless <code>layer.addData</code> or <code>layer.addDataBytes</code> is given <code>"as": "scan"</code> (a phone photo of a paper map, say: see <a href="#rasters">Scans with no coordinates</a>).</td>
+</tr>
+<tr>
+<td>LiDAR point clouds</td>
+<td><code>.las</code>, <code>.laz</code> (COPC too)</td>
+<td>Add Data, drop the file, upload, or From URL…</td>
+<td>LAS 1.0–1.4 (point formats 0–10) and LAZ, on desktop and web: points with <code>z</code>, <code>intensity</code>, <code>classification</code>, <code>return</code> and colour (<code>red</code>, <code>green</code>, <code>blue</code>), coloured by ASPRS class or elevation. An evenly spread sample is read once, at most 2 million points (500,000 in the web app); views use that sample, not the COPC spatial index. LAZ decompression reads at most the first 400 million points (40 million on the web), with a notice when capped. Converted from the file's WKT or GeoTIFF-key record; without one, coordinates are kept with a notice. A local project keeps the path; uploads keep the file bytes. Remote files download whole.</td>
+</tr>
+<tr>
+<td>GeoPackage</td>
+<td><code>.gpkg</code></td>
+<td>Add Data, or upload in the web app</td>
+<td>Local files and browser uploads add every feature table, up to 32 (with the rest counted in <code>skippedCount</code> and up to 100 named in <code>skipped</code>); <code>"layer"</code> picks one, and <code>info.fileLayers</code> lists them. Desktop byte uploads and downloads add the first table unless <code>"layer"</code> names another. Large local tables use their R-tree and reproject supported EPSG systems. Browser tables are scanned, testing each geometry header's envelope first; UTF-16 databases aren't read there. Raster tile tables aren't imported.</td>
+</tr>
+<tr>
+<td>GeoParquet</td>
+<td><code>.parquet</code>, <code>.geoparquet</code></td>
+<td>Add Data, or upload in the web app</td>
+<td>WKB geometry, with the CRS from the file's <code>geo</code> metadata. A binary geometry column is required; plain non-spatial Parquet tables and GeoArrow-native geometry encodings aren't read by this importer. Row groups are pruned by the bbox covering. Snappy, gzip, LZ4 and zstd compression are read, in the browser too; Brotli isn't.</td>
+</tr>
+<tr>
+<td>FlatGeobuf</td>
+<td><code>.fgb</code></td>
+<td>Add Data, or upload</td>
+<td>Read in place by its packed R-tree.</td>
+</tr>
+<tr>
+<td>Esri File Geodatabase</td>
+<td><code>.gdb</code> folder (desktop)</td>
+<td>In Add Data pick a <code>.gdbtable</code> file inside it; or double-click the <code>.gdb</code> in the Browser, or drop the folder</td>
+<td>The native reader loads up to 512 feature classes and tables, up to 2 GiB per table. Feature classes become layers and non-spatial tables standalone tables; dates are text. Coordinates use the EPSG/Esri code, else WKT. <code>"layer"</code> picks one; <code>info.fileLayers</code> lists them. Multipatches become footprints with <code>z_min</code>, <code>z_max</code> and <code>height</code>; large or wall-only ones may use a convex hull. Curves become straight segments between their ends. Unreadable tables (compressed storage, raster fields or unsupported row indexes) are tried through GDAL when installed; otherwise they are named in a notice.</td>
+</tr>
+<tr>
+<td>Standalone tables</td>
+<td>CSV, or any layer without geometry</td>
+<td>Add Data</td>
+<td>Listed under the map in Layers; join or relate them to layers.</td>
+</tr>
+</tbody>
+</table>
+<p>Shapefile text uses the encoding in its <code>.cpg</code> sidecar first, then the language-driver code in
+the <code>.dbf</code> header. Include the <code>.cpg</code> when picking or dropping loose files in the web app.
+UTF-8 (including <code>65001</code>), DOS code pages such as CP437 and CP850 (numeric, <code>CP</code> or <code>IBM</code>
+labels), Windows code pages such as <code>1252</code>, <code>CP1252</code> and <code>Windows-1252</code>, ISO-8859 encodings
+and common East Asian encodings are supported. The Esri <code>0x57</code> DBF marker
+is read as Windows-1252. An unreadable, empty, invalid, oversized or unsupported <code>.cpg</code> gives a notice and
+falls back to the DBF code page; an unsupported DBF code page gives a notice and falls back to
+UTF-8. Files without encoding metadata keep the UTF-8 default. Unsupported characters become
+replacement characters. This applies to zipped files and large files read in place too.
+See the <a href="../shapefile-encoding/">DBF language-driver support inventory</a> for every recognized
+marker and the legacy code pages that still use the UTF-8 fallback.</p>
+<p>Files with more than 100,000 features (GeoPackage, GeoParquet, FlatGeobuf, and Shapefile on the
+desktop) are read in place, a view
+at a time, rather than loaded whole: see <a href="../data/#large-files">Large files</a>. They draw, label,
+identify and run through tools like any layer; <strong>Load All Features</strong> loads one to edit it.</p>
+<h2 id="formats-read-through-gdal">Formats read through GDAL<a class="headerlink" href="#formats-read-through-gdal" title="Permanent link">&para;</a></h2>
+<p>With <a href="https://gdal.org">GDAL</a> installed (its <code>ogr2ogr</code> and <code>ogrinfo</code> on the <code>PATH</code>, GDAL 3.7 or
+later), the desktop app also reads the vector formats below. Each layer is converted once into a
+cached, indexed FlatGeobuf, so large ones stream too: see <a href="../data/#formats-through-gdal">Formats through
+GDAL</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>Extensions or source</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AutoCAD DWG</td>
+<td><code>.dwg</code></td>
+<td>Through GDAL's CAD driver, when it is built in. Give <code>"crs"</code> (such as <code>EPSG:2263</code>) when the drawing doesn't say its coordinate system.</td>
+</tr>
+<tr>
+<td>MapInfo tables</td>
+<td><code>.tab</code></td>
+<td>Keep the companion files together.</td>
+</tr>
+<tr>
+<td>OpenStreetMap XML</td>
+<td><code>.osm</code></td>
+<td></td>
+</tr>
+<tr>
+<td>GeoJSON Lines, GMT</td>
+<td><code>.geojsonl</code>, <code>.geojsons</code>, <code>.gmt</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="files-on-the-web">Files on the web<a class="headerlink" href="#files-on-the-web" title="Permanent link">&para;</a></h2>
+<p><strong>Home › Add › Add Data › From URL…</strong> (<code>layer.addUrl</code> with <code>"url"</code>) downloads a file by its <code>https://</code>
+(or <code>http://</code> or <code>s3://</code>, see <a href="../data/#s3-buckets">S3 buckets</a>) address and adds it like an
+uploaded file. Native formats include GeoJSON, delimited text, GeoParquet, FlatGeobuf, GeoPackage,
+zipped Shapefiles, KML/KMZ, GPX, spreadsheets, GeoRSS, GML, DXF, TopoJSON, LiDAR and rasters.
+Downloads are limited to 512 MiB on desktop and 256 MiB on the web; individual readers may have
+lower limits (the whole-file vector readers use 256 MiB). In the web app the server must allow
+requests from web pages (CORS). On the desktop, with
+<a href="https://gdal.org">GDAL</a> installed, a JPEG 2000 file (<code>.jp2</code>, <code>.j2k</code>: Sentinel-2's imagery on S3)
+is downloaded too, converted to a GeoTIFF that the project keeps, and added. Desktop byte uploads
+(<code>layer.addDataBytes</code>) of <code>.jp2</code> and <code>.j2k</code> use the same conversion. The web app rejects both JPEG
+2000 uploads and downloads with an explicit GDAL limitation; convert them to GeoTIFF first.
+The format comes from the address, or from the contents when the address has no extension (an API
+endpoint, say), JPEG 2000 included: its signature is recognised in the contents, so the desktop
+converts it and the web app gives the same GDAL limitation. The
+app downloads in the background and adds the layer when the file arrives (to the project it was
+started in: opening another meanwhile drops it). A <code>.pmtiles</code> address is added as a tile layer
+and read a tile at a time instead.</p>
+<p>For JPEG 2000 uploads and downloads on the desktop, the converted GeoTIFF must fit within 512 MiB.
+The private conversion workspace (source file, output and GDAL scratch files together) is monitored
+every 50 ms against a budget of the input file's byte length plus three times that output limit
+(1.5 GiB). Conversion stops when the workspace exceeds the budget, but files can grow between
+checks: this is not a strict operating-system disk quota. Ordinary conversions of files opened
+from disk do not use this workspace budget.</p>
+<p>Conversion runs synchronously while the layer is added and can temporarily make the app
+unresponsive. The original JPEG 2000 byte buffer is released once it has been staged on disk,
+before GDAL runs or the GeoTIFF is read back. The converted GeoTIFF and decoded raster still
+occupy memory together; the 512 MiB file limit is not a limit on total process memory.</p>
+<p>A tiled GeoTIFF is read in place rather than downloaded: its header first, then, by HTTP range
+requests, the tiles of the overview each part of the view needs. Overviews make zoomed-out reads
+smaller. It is a tile layer (<code>map.addTiles</code> kind <code>cog</code>, saved by its address), drawn under the map's
+own layers: RGB(A) 8-bit images in colour, other images stretched between the 2nd and 98th
+percentiles of their coarsest overview. Planar files (bands stored apart), signed-byte data and
+bottom-up images work too. <code>map.setTiles</code> selects one or three <code>"bands"</code> (from 1) and a fixed
+<code>"range"</code>; see <a href="../web-data/#satellite-embeddings">Satellite embeddings</a>.
+A GeoTIFF in strips, a rotated image or an unsupported tiled image downloads whole as a raster layer, as does a
+GeoTIFF added with <code>"whole": true</code> (for raster tools and symbology). The web app needs the server
+to allow range requests (CORS with the <code>Range</code> header).</p>
+<p>A GeoParquet or FlatGeobuf file by its address is read in place too, a view at a time, however
+large: the layer is streamed like a large local file, and the view's features are fetched in the
+background by HTTP range requests and drawn as they land. A FlatGeobuf's header and packed R-tree
+index are read first (a level of the tree per round of requests), then only the features in the
+view. A GeoParquet's footer is read first, then the row groups the view meets, by their bounding
+box covering column (<code>bbox</code>) and its statistics: the covering of groups on the view's edge, then
+the geometry and attribute columns of the rows taken. A view holding more than a read takes (60,000
+features on the desktop, 30,000 in the web app) shows an evenly spread sample of it, in patches;
+zoom in for more detail. The project keeps the address and reads it the same way when it opens.
+A FlatGeobuf without an
+index, a GeoParquet without a covering column, or a server that doesn't answer range requests
+means the file is downloaded whole instead, as is any file added
+with <code>"whole": true</code>; Load All Features and the geoprocessing tools fetch the whole file on the
+desktop, while in the web app they need the file downloaded first.</p>
+<p>On desktop, <code>layer.addUrl</code> waits for downloads, up to a minute; the From URL… dialog (<code>ui.addUrl</code>)
+works in the background. In the web app the same dialog handles asynchronous downloads.
+<code>layer.addUrl</code> can add PMTiles and COG tile layers directly, but an ordinary download returns
+<code>{"pending": true, "url": "…"}</code> and is added later by the app. To open a remote GeoParquet or
+FlatGeobuf whose header hasn't been fetched yet, use the From URL… dialog or a <code>?data=</code> link.</p>
+<h2 id="map-and-feature-services">Map and feature services<a class="headerlink" href="#map-and-feature-services" title="Permanent link">&para;</a></h2>
+<p><strong>Home › Add › Add Data › From Service…</strong> connects to a service by its address, lists what it offers from
+its capabilities. For OGC API feature collections, enter a group name (initially <strong>My OGC Layer</strong>)
+and choose <strong>Import All</strong>. The group expands into ordinary point, line and polygon layers with
+the same legends, styling and attribute tables as file imports. Other offerings have individual
+<strong>Add</strong> buttons (<code>service.layers</code> and <code>service.add</code> from scripts, the command line and MCP).
+An OGC API landing page works directly: RustGIS follows its advertised
+JSON collections link, so you don't need to append <code>/collections</code>. If the landing page also
+offers map tiles, they remain listed alongside the collections. A failed collections request
+leaves any available map layers usable and shows the error.</p>
+<p>When a service can't be reached or refuses the request, the dialog says what happened in plain
+words and what to try next: a sign-in or token it needs (401), access refused (403), nothing at
+that address (404), too many requests (429), a problem on the server (5xx), or a server that
+couldn't be reached or took too long. When a firewall in front of the server (Cloudflare,
+Akamai, Imperva, Sucuri or AWS WAF) blocked or challenged RustGIS itself, told by its own block
+page or a header it sends only then, it says so: only the service's administrator can let
+RustGIS through. A firewall that only passed on the service's own refusal (a private service
+wanting a token) isn't blamed for it. <strong>Details</strong>, folded below, lists
+what the server said for an expert or the administrator: the address (without keys or tokens),
+the status, the server, the firewall and the request's id, the <code>User-Agent</code> RustGIS sent, and
+the title or first words of the server's answer (as text). <strong>Copy details</strong> copies them to send.
+In the web app the browser hides most of a refused answer, so it tells the status only.</p>
+<p>Right-click the group and choose <strong>Refresh</strong> to rediscover its collections and update them all,
+including newly added or removed collections. Right-click a child and choose <strong>Refresh</strong> to
+update only that collection. Existing children keep their names, styles and visibility (a changed
+geometry type gets a suitable default symbol); selections are cleared because row positions can
+change. Refresh replaces local feature edits with the service's data. Failed imports or refreshes
+leave the map intact; a successful operation is one undo step. Groups and their source connections
+are saved in the project. Group downloads are limited to 2000 collections and 64 MB in total and
+use the existing per-collection feature limits.</p>
+<p>Scripts use <code>service.import {"url":"…","name":"My OGC Layer"}</code> and
+<code>service.refresh {"group":id}</code> or <code>service.refresh {"layer":id}</code>. The browser uses
+<code>service.groupPlan</code> to discover the requests, then supplies <code>text</code>, <code>documents</code>, and
+<code>responses: [{"url":"…","text":"GeoJSON"}]</code> to import or refresh without blocking network calls.</p>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>What it lists</th>
+<th>How a layer is added</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WMS 1.1.1 / 1.3.0</td>
+<td>Named layers offered in Web Mercator</td>
+<td>A tile layer of GetMap images (PNG when the service offers it, else JPEG)</td>
+</tr>
+<tr>
+<td>WMTS</td>
+<td>Layers whose tile matrix set is Web Mercator's pyramid</td>
+<td>A tile layer from the tile template (or KVP GetTile)</td>
+</tr>
+<tr>
+<td>WFS 1.1 / 2.0</td>
+<td>Feature types</td>
+<td>Their features downloaded as GeoJSON, in the output format the service names (up to 50,000)</td>
+</tr>
+<tr>
+<td>OGC API Features</td>
+<td>Collections</td>
+<td>Their items downloaded as GeoJSON, following the service's <code>next</code> pages up to 100,000 features (a command such as <code>service.add</code> waits a minute at most)</td>
+</tr>
+<tr>
+<td>OGC API Tiles</td>
+<td>Collections' map and vector tiles; a landing page's dataset map tiles</td>
+<td>A tile layer in WebMercatorQuad, from the tile template the tileset advertises (its <code>item</code> link; <code>…/tiles/WebMercatorQuad/{z}/{y}/{x}</code>, the usual path, when that can't be read), keeping the tiles link's query (a token), map tiles in the server's image format, vector tiles drawn layer by layer in colours of their own</td>
+</tr>
+<tr>
+<td>WCS 1.0 / 2.0 (a 1.1 service is asked in 1.0)</td>
+<td>Coverages, with their bounds</td>
+<td>A raster: GetCoverage of the map's view within the coverage's bounds (or its whole extent: <code>"bbox": "full"</code>), as a GeoTIFF in EPSG:4326, at most 2048 pixels on a side</td>
+</tr>
+<tr>
+<td>ArcGIS REST</td>
+<td>FeatureServer and MapServer layers; a MapServer's map; an ImageServer; a VectorTileServer</td>
+<td>Layers queried as GeoJSON, page by page past the server's record limit (<code>resultOffset</code>) up to 100,000 features (a command such as <code>service.add</code> waits a minute at most), where the layer supports paging (ArcGIS Server 10.3 and later; otherwise up to the record limit); a map as its tile cache when it is Web Mercator's pyramid, else exported images; an ImageServer as exported images; a VectorTileServer as its MapLibre style</td>
+</tr>
+</tbody>
+</table>
+<p>The type is guessed from the address (<code>?SERVICE=</code>, <code>/wmts</code>, <code>/wfs</code>, <code>/wcs</code>, <code>/collections</code>, <code>/rest/services</code>…) or
+chosen (select <strong>OGC API Features and Tiles</strong> when a landing page's address doesn't identify
+its type). A WebMercatorQuad tileset is found by its
+tile matrix set, whatever the server calls it. A service that asks for a token says so. In the web app the server must allow requests
+from web pages (CORS).</p>
+<p>A coverage is read once, for the view when it was added (its DescribeCoverage first, for its axes,
+format and bounds; <code>service.coverage</code> gives the GetCoverage address alone). Moving the map doesn't
+ask for it again: add it again for another area. The server reprojects it to EPSG:4326 (WCS 2.0
+through its CRS extension); one that can't answers with an error, which is shown.</p>
+<p>A WFS, OGC API Features or ArcGIS feature layer comes whole, as in other GIS programs. A large
+one (a country's municipalities, hundreds of megabytes) can be asked for over an area instead:
+tick <strong>Only the map's area</strong> in the dialog, or give <code>service.add</code> a <code>"bbox"</code>
+(<code>[west, south, east, north]</code> in longitude/latitude, or <code>"view"</code>). The service then sends only
+the features that cross the area, whole, not clipped. <code>service.add</code> then zooms to the box given
+(not to the whole layer's bounds), and leaves the view as it is for <code>"view"</code>. The box is asked in
+each service's own terms:</p>
+<ul>
+<li><strong>WFS 1.1 and 2.0:</strong> <code>BBOX</code>, in CRS84 when the feature type offers it, else in
+  <code>urn:ogc:def:crs:EPSG::4326</code>, latitude first as that name fixes.</li>
+<li><strong>OGC API Features:</strong> <code>bbox</code>, longitude first; the <code>next</code> pages keep it.</li>
+<li><strong>ArcGIS:</strong> an envelope in EPSG:4326 the features intersect; the pages past the record limit
+  keep it.</li>
+</ul>
+<p>A WFS 1.0 service reads its box in the feature type's own coordinate system, so it is asked for
+the whole layer, as is an area across the antimeridian; a note says so. When a whole layer takes
+longer than <code>service.add</code> waits (a minute), the error suggests <code>"bbox"</code>:</p>
+<div class="highlight"><pre><span></span><code>rustgis-cli<span class="w"> </span>run<span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'service.add={"url":"https://geoservicos.ibge.gov.br/geoserver/wfs","layer":"CGMAT:qg_2024_030_munic","bbox":[-45.99,-10.93,-40.37,-2.74]}'</span>
+</code></pre></div>
+<p>The layer holds the features of the area it was added for: moving the map doesn't ask for more.</p>
+<p>For callers that fetch documents themselves (including the web app), <code>service.layers</code> accepts
+<code>text</code> for the initial document and <code>documents: [{"url": "…", "text": "…"}]</code> for subsequent
+responses. It returns <code>next</code> while another collections document is needed; supplied documents
+never cause a blocking capabilities fetch. Each listed layer includes <code>source_url</code>; pass it
+and the same documents to <code>service.add</code> to distinguish layers with the same name. Discovery
+follows at most four documents and rejects loops and disallowed addresses. Collection lists
+aren't paged. On the desktop, feature downloads follow their <code>next</code> pages (see the table above).</p>
+<h3 id="secured-arcgis-services">Secured ArcGIS services<a class="headerlink" href="#secured-arcgis-services" title="Permanent link">&para;</a></h3>
+<p>A secured ArcGIS service answers error 499, "Token Required". There are two ways in:</p>
+<ul>
+<li><strong>Sign in to ArcGIS</strong> (in Add From Service, shown for ArcGIS addresses; <code>arcgis.signIn</code>) signs in
+  to ArcGIS Online, an ArcGIS Online organization (<code>https://myorg.maps.arcgis.com</code>) or an ArcGIS
+  Enterprise portal (<code>https://gis.example.org/portal</code>) on the portal's own page, with its single
+  sign-on and multi-factor checks: RustGIS never sees the password. It uses OAuth 2.0 with PKCE.
+  ArcGIS Online needs no setup: leave <strong>Client ID</strong> blank and RustGIS's own app is used. An
+  Enterprise portal needs the client ID of an app registered on it (<strong>Content › New item ›
+  Developer credentials › OAuth 2.0 credentials</strong>) whose redirect URLs list RustGIS's callback:
+  <code>http://127.0.0.1:7290/arcgis/callback</code> for the desktop app and the command line (give
+  <code>"port"</code> to <code>arcgis.signIn</code> for another port, and register that address instead), and
+  <code>oauth-callback.html</code> next to the web app's page for the browser (for example
+  <code>https://web.rustgis.app/oauth-callback.html</code>), where the sign-in opens in a pop-up window.
+  ArcGIS accepts only an address the app registers, port and path included. The portal and
+  client ID are remembered; the session is not.</li>
+<li><strong>A token with the address</strong>: a service address given with <code>?token=…</code> (from the portal, or
+  <code>arcgis.token</code> with <code>"url"</code> and <code>"token"</code>) keeps the token for that ArcGIS Server and takes it
+  out of the address the layer keeps.</li>
+</ul>
+<p>A token is sent (in the <code>X-Esri-Authorization</code> header; in the browser, as the request's <code>token</code>
+parameter, since ArcGIS's query endpoints refuse the header from web pages) only where its session
+reaches: the portal
+and, for ArcGIS Online, the organization's own hosted services (<code>services*.arcgis.com/&lt;org id&gt;/…</code>,
+<code>tiles.arcgis.com/tiles/&lt;org id&gt;/…</code>), or, for ArcGIS Enterprise, the portal's host and its
+federated servers; a token given with an address goes to that server alone. Its layers, tiles and
+feature pages are then read with it. Tokens live in memory for the session, never in a project or
+a connection, and a sign-in renews itself until the portal's session ends (two weeks at most).
+<strong>Sign out</strong> (<code>arcgis.signOut</code>) forgets it (and, on the desktop, revokes it with the portal); <code>arcgis.status</code> lists
+the sessions.</p>
+<h3 id="catalogues">Catalogues<a class="headerlink" href="#catalogues" title="Permanent link">&para;</a></h3>
+<p>The same dialog's <strong>Catalogue search (CSW)</strong> type searches a CSW 2.0.2 catalogue (GeoNetwork,
+pycsw, geocat.ch…) by words anywhere in its records and, if you like, the map's area
+(<code>catalog.search</code>). Its records are listed 20 at a time (<strong>More</strong> asks for the next), with their
+titles, abstracts (on hover) and bounds (<strong>Zoom</strong>), and a button per link RustGIS can follow: a WMS,
+WMTS, WFS, WCS, OGC API or ArcGIS service connects in the dialog, a download is added as From URL…
+does. Links pointing where a document on the web may not send RustGIS (the local network) are left
+out.</p>
+<h2 id="postgresql-and-postgis">PostgreSQL and PostGIS<a class="headerlink" href="#postgresql-and-postgis" title="Permanent link">&para;</a></h2>
+<p>The desktop app reads the geometry and geography columns of a PostGIS database live, talking to the
+server itself: see <a href="../data/#postgresql-and-postgis">PostgreSQL and PostGIS</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>How to add it</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PostGIS table or view</td>
+<td>Home › Add › Add Data › Database… (<code>layer.addDatabase</code>) with a libpq connection string or <code>postgresql://</code> address</td>
+<td>Large tables read a view at a time by their spatial index, others loaded whole. Converted to longitude/latitude by the server; <code>"crs"</code> for geometry that doesn't say. A column of mixed types becomes a layer per type. The password is kept for the session only.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="mysql-and-mariadb">MySQL and MariaDB<a class="headerlink" href="#mysql-and-mariadb" title="Permanent link">&para;</a></h2>
+<p>The desktop app reads the spatial columns of a MySQL (8 or later) or MariaDB (10.2 or later)
+database live, talking to the server itself: see <a href="../data/#mysql-and-mariadb">MySQL and MariaDB</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>How to add it</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MySQL or MariaDB table or view</td>
+<td>Home › Add › Add Data › Database… (<code>layer.addDatabase</code>) with a <code>mysql://user@host:3306/database</code> or <code>mariadb://…</code> address</td>
+<td>Large tables read a view at a time by their spatial index, others loaded whole. Converted to longitude/latitude by RustGIS from the column's SRID; <code>"crs"</code> for an SRID of 0. A column of mixed types becomes a layer per type. <code>ssl-mode</code> sets the encryption. The password is kept for the session only.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="sql-server-and-azure-sql">SQL Server and Azure SQL<a class="headerlink" href="#sql-server-and-azure-sql" title="Permanent link">&para;</a></h2>
+<p>The desktop app reads SQL Server 2012 or later and Azure SQL spatial tables live, without an
+external client: see <a href="../data/#sql-server-and-azure-sql">SQL Server and Azure SQL</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>How to add it</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SQL Server table or view</td>
+<td>Home › Add › Add Data › Database… (<code>layer.addDatabase</code>) with an <code>mssql://user@host:1433/database</code> address</td>
+<td>Read only; large tables read a view at a time. Geometry and geography, including curves, are converted to longitude/latitude. <code>"crs"</code> supplies SRID 0; mixed types become separate layers. TLS and certificate checking are on by default. SQL Server logins on every desktop platform; Windows logins on Windows only. Passwords are kept for the session, never in projects.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="sql-queries-and-duckdb-databases">SQL queries and DuckDB databases<a class="headerlink" href="#sql-queries-and-duckdb-databases" title="Permanent link">&para;</a></h2>
+<p>With <a href="https://duckdb.org">DuckDB</a> installed (the <code>duckdb</code> program on the <code>PATH</code>, DuckDB 1.5 or
+later), the desktop app adds the result of an SQL query as a layer, and opens DuckDB database files.
+Results are written as cached GeoParquet, so large ones stream too: see <a href="../data/#sql-queries-and-duckdb-databases">SQL queries and DuckDB
+databases</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>How to add it</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SQL query</td>
+<td><code>layer.addSql</code> with <code>"sql"</code></td>
+<td>One DuckDB <code>SELECT</code> with DuckDB Spatial: Parquet, CSV, GeoParquet and <code>ST_Read</code> files, web addresses (<code>https://</code>, <code>s3://</code>). Give <code>"crs"</code> for a geometry that doesn't say its coordinate system.</td>
+</tr>
+<tr>
+<td>DuckDB database</td>
+<td><code>.duckdb</code>, <code>.ddb</code>: Add Data</td>
+<td>Every table with a geometry column becomes a layer (<code>"layer"</code> picks one). Converted once, until the file changes.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="rasters">Rasters<a class="headerlink" href="#rasters" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>Extensions or source</th>
+<th>How to add it</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GeoTIFF / Cloud-optimised GeoTIFF</td>
+<td><code>.tif</code>, <code>.tiff</code></td>
+<td>Add Data, or upload</td>
+<td>Regular or cloud-optimised, striped or tiled; grey, RGB(A), palette (with its colour table) or multiband; Deflate, LZW, PackBits, JPEG or Zstandard compression. Supported EPSG systems or the file's own GeoKey projection are reprojected as it draws. Rotated or skewed images are resampled north-up. Large files open from an overview, or one made while reading. Browser uploads over 256 MiB read only the parts needed for a fitting overview, provided those parts fit the upload limit; the project keeps those parts, not the full-resolution file.</td>
+</tr>
+<tr>
+<td>JPEG 2000</td>
+<td><code>.jp2</code>, <code>.j2k</code></td>
+<td>Add Data, byte upload (<code>layer.addDataBytes</code>), or From URL… (desktop, with <a href="https://gdal.org">GDAL</a> installed)</td>
+<td>Converted through GDAL. Uploads and downloads keep the converted GeoTIFF in the project, so reopening it needs neither GDAL nor the original file or address; their output and workspace limits are described under <a href="#files-on-the-web">Files on the web</a>. The web app rejects JPEG 2000 uploads and downloads with an explicit GDAL limitation: use GeoTIFF instead.</td>
+</tr>
+<tr>
+<td>Scans with no coordinates</td>
+<td>an untagged <code>.tif</code> or <code>.png</code>; any <code>.tif</code>, <code>.png</code> or <code>.jpg</code>/<code>.jpeg</code> with <code>"as": "scan"</code></td>
+<td>Add Data, or upload (<code>layer.addData</code>, <code>layer.addDataBytes</code>)</td>
+<td>Grey or RGB(A), 8- or 16-bit pixels. An untagged TIFF or PNG opens as a scan by default; a JPEG needs <code>"as": "scan"</code> (otherwise it is a photo). This also discards a GeoTIFF's coordinates. The scan initially covers the current view and is marked not georeferenced (<code>georeferenced: false</code>) until <strong>Georeference</strong> places it. Export and tools needing ground coordinates refuse it until then. PNG/JPEG decoding is bounded and may reduce the image; large TIFFs can be read at reduced resolution.</td>
+</tr>
+<tr>
+<td>ASCII grid</td>
+<td><code>.asc</code> (with an optional <code>.prj</code> on desktop)</td>
+<td>Add Data, or upload</td>
+<td>A single numeric band with square <code>CELLSIZE</code> or separate <code>DX</code> and <code>DY</code> pixel sizes. Desktop files use the neighbouring <code>.prj</code>; uploaded and downloaded grids have no sidecar and must have coordinates that fit WGS 84 longitude/latitude.</td>
+</tr>
+<tr>
+<td>Zarr</td>
+<td>a store's folder (<code>.zarr</code>, desktop) or web address (desktop and browser), format 2 (consolidated) or 3</td>
+<td>Home › Add › Add Data › Zarr… (<code>layer.addZarr</code>), Add Data on a local folder, or a <code>?zarr=</code> link</td>
+<td>A variable's latitude/longitude (or y/x) map at the steps picked of its other dimensions (time, level), read chunk by chunk in pure Rust (blosc, zlib, gzip, zstd, LZ4; sharded arrays too). See <a href="../data/#zarr-stores">Zarr stores</a>.</td>
+</tr>
+<tr>
+<td>Rasters GDAL reads</td>
+<td><code>.img</code>, <code>.hgt</code>, <code>.dem</code>, <code>.dt0</code>–<code>.dt2</code>, <code>.nc</code>, <code>.nc4</code>, <code>.hdf</code>, <code>.hdf5</code>, <code>.h5</code>, <code>.he5</code>, <code>.bil</code>, <code>.bsq</code>, <code>.bip</code>, <code>.envi</code>, <code>.grd</code>, <code>.rst</code>, <code>.sdat</code>, <code>.kea</code>, <code>.ers</code>, <code>.ntf</code>, <code>.nitf</code>, <code>.ecw</code>, <code>.sid</code>, <code>.gsb</code>, <code>.bt</code>, <code>.rsw</code></td>
+<td>Add Data (desktop, with <a href="https://gdal.org">GDAL</a>: <code>gdal_translate</code>, <code>gdalinfo</code> and <code>gdalwarp</code>; the installed build must include the driver)</td>
+<td>Converted once to a cached cloud-optimised GeoTIFF. NetCDF/HDF variables are subdatasets: the first is added, the others named in a notice; <code>"layer"</code> picks one. Without a declared coordinate system, longitude/latitude-like coordinates use WGS 84 (0–360° longitudes are moved to −180–180°); otherwise give <code>"crs"</code>. JPEG 2000 is listed separately above.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tiles-and-web-services">Tiles and web services<a class="headerlink" href="#tiles-and-web-services" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>Extensions or source</th>
+<th>How to add it</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Raster tiles</td>
+<td>XYZ/TMS template (<code>{z}/{x}/{y}</code>, <code>{-y}</code>, <code>{s}</code>, <code>{q}</code>), WMS (<code>{bbox-epsg-3857}</code>)</td>
+<td>Home › Add › Basemap › Add Tile Layer</td>
+<td>PNG, JPEG and WebP.</td>
+</tr>
+<tr>
+<td>Vector tiles</td>
+<td>Mapbox Vector Tiles (<code>.pbf</code>, <code>.mvt</code>) template, or TileJSON</td>
+<td>Add Tile Layer</td>
+<td>Drawn in a built-in style that knows the OpenMapTiles, Protomaps and Shortbread schemas.</td>
+</tr>
+<tr>
+<td>MapLibre styles</td>
+<td><code>style.json</code></td>
+<td>Add Tile Layer</td>
+<td>A supported subset of vector and raster sources, sprites, expressions and zoom functions; see <a href="../maps/#basemaps">Maps and Basemaps</a> for styling limits.</td>
+</tr>
+<tr>
+<td>PMTiles</td>
+<td><code>.pmtiles</code>: a web address, or a desktop file</td>
+<td>Add Tile Layer (or <strong>Tile Archive File…</strong>), Add Data, or drop a local file on desktop</td>
+<td>Version 3 archives only: PNG, JPEG or WebP rasters, or MVT vectors; uncompressed, gzip, Brotli or Zstandard. Read a tile at a time by byte ranges (CORS on the web). Browser local-file uploads aren't supported; use an archive's web address. The map moves to the archive's bounds, except a world archive. Vector archives use the built-in basemap style, or a colour per layer when added as an overlay.</td>
+</tr>
+<tr>
+<td>MBTiles</td>
+<td><code>.mbtiles</code>: a file</td>
+<td>Add Data, drop the file, Add Tile Layer's <strong>Tile Archive File…</strong> button, or upload in the web app</td>
+<td>Raster (PNG, JPEG, WebP) or vector tiles, as its metadata says, drawn as PMTiles archives are. The desktop reads the file in place, a tile at a time. The web app reads an upload into memory (the plain <code>tiles</code> table and the deduplicated layouts of mbutil, TileMill and Planetiler) and keeps it for the session: a project saved there asks for the file again.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="writing">Writing<a class="headerlink" href="#writing" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>How to write it</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GeoJSON (<code>.geojson</code>, <code>.json</code>), CSV</td>
+<td>Data › Export (<code>share.exportLayer</code>)</td>
+<td>The Export Features dialog picks the format; the chosen extension is appended when needed. In the web app it downloads any vector format below except GeoPackage (a Shapefile as one zip). Feature export loads a streamed layer's whole source; remote sources on the web must be downloaded first.</td>
+</tr>
+<tr>
+<td>GeoPackage</td>
+<td>Data › Export to <code>.gpkg</code> (desktop)</td>
+<td>A new file with one feature table (an attributes table for a layer without geometry) in the layer's coordinate system (see below), with an R-tree and GeoPackage 1.4 triggers to maintain it. An existing destination is refused; adding or replacing tables in an existing GeoPackage is not supported. Unique feature ids that fit signed 64-bit integers are kept; otherwise SQLite assigns new ids.</td>
+</tr>
+<tr>
+<td>GeoParquet (<code>.parquet</code>, <code>.geoparquet</code>)</td>
+<td>Data › Export</td>
+<td>GeoParquet 1.1: WKB geometry in WGS 84, Snappy compression, row groups of 65,536 features and a <code>bbox</code> covering column. A standalone table without geometry writes plain Parquet.</td>
+</tr>
+<tr>
+<td>Shapefile</td>
+<td>Data › Export to <code>.shp</code> (or <code>.zip</code> for the files zipped)</td>
+<td>Writes <code>.shp</code>, <code>.shx</code>, <code>.dbf</code>, <code>.prj</code> (the coordinate system, see below) and <code>.cpg</code> (UTF-8). Field names are cut to 10 characters (made unique), text to 254 bytes, and numbers too wide for a dBase field are left empty; features without geometry, and lines of a single point, are left out (and reported).</td>
+</tr>
+<tr>
+<td>FlatGeobuf</td>
+<td>Data › Export to <code>.fgb</code></td>
+<td>In the layer's coordinate system (see below), with a spatial index; features without geometry are left out (and reported).</td>
+</tr>
+<tr>
+<td>KML, KMZ, GPX</td>
+<td>Data › Export to <code>.kml</code>, <code>.kmz</code> or <code>.gpx</code></td>
+<td>Placemarks named by a <code>name</code> field, if there is one; features without geometry are left out.</td>
+</tr>
+<tr>
+<td>GeoJSON, KML, GPX, CSV, CSV with WKT</td>
+<td>Analyze › Workflows › Data Interop (<code>data.convert</code>; <code>"format": "geojson"</code>, <code>"kml"</code>, <code>"gpx"</code>, <code>"csv"</code> or <code>"wkt"</code>)</td>
+<td>Returns text when <code>"path"</code> is omitted; writes a file on desktop when it is given.</td>
+</tr>
+<tr>
+<td>GeoTIFF / Cloud-optimised GeoTIFF</td>
+<td>Data › Export Raster (<code>share.exportRaster</code>)</td>
+<td>Untiled GeoTIFF by default; <code>"cog": true</code> writes 512-pixel tiles, Deflate compression and overviews. Writes the loaded raster's resolution (an overview when that is what was opened), the selected band or its colour bands. The web app's Export Raster downloads an ordinary GeoTIFF.</td>
+</tr>
+<tr>
+<td>PNG</td>
+<td>Publish › Export Map (<code>share.exportMap</code>)</td>
+<td>Configurable DPI, with labels, scale bar and tile credits.</td>
+</tr>
+<tr>
+<td>PDF</td>
+<td>Layouts, reports and presentations</td>
+<td></td>
+</tr>
+<tr>
+<td>Wavefront OBJ, glTF</td>
+<td>Publish › Export To 3D, Share As › Web Scene</td>
+<td>Polygons extruded by a field.</td>
+</tr>
+<tr>
+<td>Web map, OGC API Features, MapLibre style</td>
+<td>Publish › Share As</td>
+<td>Open-format files that need no server: see <a href="../sharing/">Sharing</a>.</td>
+</tr>
+<tr>
+<td>Raster tiles</td>
+<td><code>imagery.hostedImagery</code></td>
+<td>A zip of <code>tiles/z/x/y.png</code> tiles, <code>tiles.json</code> and a viewer page; at most 5,000 tiles and 256 MiB of tile data.</td>
+</tr>
+</tbody>
+</table>
+<p>GeoPackage, Shapefile and FlatGeobuf exports default to the layer's original coordinate system
+when it has an EPSG code. Shapefiles can also retain a custom WKT system; GeoPackage and FlatGeobuf
+need an EPSG code and otherwise default to WGS 84. A layer made in RustGIS defaults to WGS 84.
+<code>share.exportLayer</code> takes <code>"crs"</code> to choose
+another, such as <code>{"layer": "Parcels", "path": "parcels.gpkg", "crs": "EPSG:4647"}</code>. GeoJSON, KML,
+GPX, GeoParquet and CSV are always written in WGS 84.</p>
+<h2 id="define-projection">Define Projection<a class="headerlink" href="#define-projection" title="Permanent link">&para;</a></h2>
+<p>When a Shapefile's <code>.prj</code> is missing or incorrect, right-click its layer and choose
+<strong>Define Projection…</strong> (also in Command Search). Enter the <strong>source</strong> coordinate system, such
+as <code>EPSG:2263</code> or a WKT/PROJ definition, then Apply. This reinterprets the native coordinate
+numbers: it changes the layer's position, preserves attributes and selection, and can be undone
+in one step. Use <strong>Zoom To Layer</strong> to see its corrected position. It does not modify the original
+file. Saving the project keeps the definition. Shapefile exports use it by default;
+GeoPackage and FlatGeobuf exports do so when the definition has an EPSG code. Custom
+definitions without an EPSG code can be exported in their native coordinates as Shapefiles.</p>
+<p>This differs from changing the map's coordinate system, which only changes the display, or
+exporting to another CRS, which converts coordinate numbers while preserving locations.
+RustGIS stores geometry in longitude/latitude, so Define Projection first reconstructs native
+numbers through the previous CRS; small floating-point rounding differences are possible.
+Edits already made to the layer are reinterpreted too. If the wrong CRS already discarded or
+clamped coordinates, import the original file again to recover them accurately.</p>
+<p>If the incorrect <code>.prj</code> prevented geometry from being read, Define Projection cannot restore
+it. Choose <strong>Import Original File…</strong> in the dialog, or search for <strong>Import Shapefile with
+Projection…</strong>. Enter the correct CRS before choosing the file. In the browser, pick the <code>.shp</code>
+and <code>.dbf</code> together, with any sidecars, or choose a ZIP. The override replaces the <code>.prj</code> before
+any conversion and applies to every Shapefile in a ZIP; other formats keep their own CRS.
+This adds a new layer, so existing layer edits and styles are not transferred.</p>
+<p>A streamed layer cannot be changed by Define Projection. Use <strong>Load All Features</strong> first (up
+to the read limit), or import again with the override; streamed Shapefiles remember that
+override when the project reopens. Layers whose import lost geometry must be imported again.</p>
+<p>The same operations are available to scripts and the CLI:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"cmd"</span><span class="p">:</span><span class="s2">"layer.defineProjection"</span><span class="p">,</span><span class="nt">"params"</span><span class="p">:{</span><span class="nt">"layer"</span><span class="p">:</span><span class="s2">"Parcels"</span><span class="p">,</span><span class="nt">"crs"</span><span class="p">:</span><span class="s2">"EPSG:2263"</span><span class="p">}}</span>
+<span class="p">{</span><span class="nt">"cmd"</span><span class="p">:</span><span class="s2">"layer.addData"</span><span class="p">,</span><span class="nt">"params"</span><span class="p">:{</span><span class="nt">"path"</span><span class="p">:</span><span class="s2">"parcels.shp"</span><span class="p">,</span><span class="nt">"crs"</span><span class="p">:</span><span class="s2">"EPSG:2263"</span><span class="p">}}</span>
+</code></pre></div>
+<p><code>layer.addDataBytes</code>, <code>layer.addUrl</code> and <code>layer.addDownload</code> also accept <code>crs</code> for zipped
+Shapefiles. The source files and their <code>.prj</code> sidecars are never rewritten by either operation.</p>
+<h2 id="rustgis-files">RustGIS files<a class="headerlink" href="#rustgis-files" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Extension</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Project</td>
+<td><code>.rgis</code> (older <code>.rgisx</code> open too)</td>
+<td>Saves streamed layers' local file paths relative to the project, not their features; a browser upload is kept inside.</td>
+</tr>
+<tr>
+<td>Map, layer, style, color ramp, template, task, bookmark and layout files</td>
+<td><code>.rgismap</code>, <code>.rgislyr</code>, <code>.rgisstyle</code>, <code>.rgisramp</code>, <code>.rgistemplate</code>, <code>.rgistask</code>, <code>.rgisbookmarks</code>, <code>.rgislayout</code></td>
+<td>See <a href="../data/#project-items">Project items</a>.</td>
+</tr>
+<tr>
+<td>Project package</td>
+<td><code>.rgispkg</code></td>
+<td>Everything, rasters included.</td>
+</tr>
+<tr>
+<td>Plugin</td>
+<td><code>.rgplugin</code></td>
+<td>See <a href="../../plugins/">Plugins</a>.</td>
+</tr>
+<tr>
+<td>Color ramps from other tools</td>
+<td>QGIS style <code>.xml</code> and layer style <code>.qml</code>, GDAL color-relief <code>.txt</code>, GMT <code>.cpt</code></td>
+<td>Read as custom color ramps; see <a href="../cartography/#color-ramps-from-other-tools">Custom color ramps</a>.</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../web-data/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Web Data">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Web Data
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../shapefile-encoding/" class="md-footer__link md-footer__link--next" aria-label="Next: Shapefile DBF language drivers">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Shapefile DBF language drivers
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Qiusheng Wu
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/opengeos/RustGIS" target="_blank" rel="noopener" title="RustGIS on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/sponsors/giswqs" target="_blank" rel="noopener" title="Sponsor RustGIS on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="m241 87.1 15 20.7 15-20.7C296 52.5 336.2 32 378.9 32 452.4 32 512 91.6 512 165.1v2.6c0 112.2-139.9 242.5-212.9 298.2-12.4 9.4-27.6 14.1-43.1 14.1s-30.8-4.6-43.1-14.1C139.9 410.2 0 279.9 0 167.7v-2.6C0 91.6 59.6 32 133.1 32 175.8 32 216 52.5 241 87.1"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://buymeacoffee.com/giswqs" target="_blank" rel="noopener" title="Buy the maintainer a coffee" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M152-16c-13.3 0-24 10.7-24 24 0 38.9 23.4 59.4 39.1 73.1l1.1 1C184.5 96.4 192 103.9 192 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C183.5 31.7 176 24.1 176 8c0-13.3-10.7-24-24-24M96 192c-17.7 0-32 14.3-32 32v192c0 53 43 96 96 96h192c41.8 0 77.4-26.7 90.5-64h5.5c70.7 0 128-57.3 128-128s-57.3-128-128-128zm352 192V256c35.3 0 64 28.7 64 64s-28.7 64-64 64M288 8c0-13.3-10.7-24-24-24S240-5.3 240 8c0 38.9 23.4 59.4 39.1 73.1l1.1 1C296.5 96.4 304 103.9 304 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C295.5 31.7 288 24.1 288 8"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"../..","features":["content.code.copy","navigation.indexes","navigation.footer","navigation.instant","navigation.top","navigation.tracking","search.highlight","search.share"],"redirect":null,"search":"../../assets/javascripts/workers/search.c47bb847.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.77dd0ce9.min.js"></script>
+      
+    
+  </body>
+</html>
