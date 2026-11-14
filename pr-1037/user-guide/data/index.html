@@ -1,0 +1,2966 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A fast, free and open-source GIS in pure Rust for mapping, analyzing and sharing geospatial data, on the desktop and in the browser">
+      
+      
+        <meta name="author" content="opengeos">
+      
+      
+        <link rel="canonical" href="https://rustgis.app/user-guide/data/">
+      
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../web-data/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="https://assets.rustgis.app/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.73">
+    
+    
+      
+        <title>Data - RustGIS</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../assets/stylesheets/modern/main.4ab2de0c.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/modern/palette.b60ce83d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
+    <div data-md-component="skip">
+      <a href="#__skip" class="md-skip">
+        Skip to content
+      </a>
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="RustGIS" class="md-header__button md-logo" aria-label="RustGIS" data-md-component="logo">
+      
+  <img src="https://assets.rustgis.app/images/logo.svg" alt="RustGIS">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+      <span class="md-visually-hidden">Navigation</span>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RustGIS
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Data
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+          <span class="md-visually-hidden">Search</span>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/opengeos/RustGIS" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/RustGIS
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="RustGIS" class="md-nav__button md-logo" aria-label="RustGIS" data-md-component="logo">
+      
+  <img src="https://assets.rustgis.app/images/logo.svg" alt="RustGIS">
+
+    </a>
+    RustGIS
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/opengeos/RustGIS" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/RustGIS
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Installation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Getting Started
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://web.rustgis.app" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Web App
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  User Guide
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  User Guide
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Data
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Data
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Formats
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#attribute-tables-and-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Attribute tables and fields
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#formats-through-gdal" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Formats through GDAL
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sql-queries-and-duckdb-databases" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        SQL queries and DuckDB databases
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SQL queries and DuckDB databases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#postgresql-and-postgis" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        PostgreSQL and PostGIS
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#editing-postgis-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Editing PostGIS tables
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mysql-and-mariadb" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        MySQL and MariaDB
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sql-server-and-azure-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        SQL Server and Azure SQL
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#web-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Web Data
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geocoding-addresses" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Geocoding addresses
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#s3-buckets" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        S3 buckets
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-sources" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Data Sources
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Sources">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#named-connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Named connections
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#large-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Large files
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Large files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#streamed-view-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Streamed view memory
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rasters" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Rasters
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rasters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#zarr-stores" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Zarr stores
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-items" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Project items
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Project items">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#complete-streamed-shapefile-rendering" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Complete streamed Shapefile rendering
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Web Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-formats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Supported Data Formats
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../maps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Maps and Basemaps
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cartography/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Cartography
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../editing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Editing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Analysis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layouts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Layouts and Reports
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sharing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sharing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workspace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Workspace
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../assistant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AI Assistant
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../comparison/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Comparison
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_6">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Comparison
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comparison/geolibre/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  RustGIS and GeoLibre
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comparison/qgis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  RustGIS and QGIS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Command Line
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MCP Server
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Plugins
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../i18n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Languages
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Architecture
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Contributing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../acknowledgements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Acknowledgements
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../citation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  How to Cite
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sponsor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sponsor
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../privacy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Privacy
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/opengeos/RustGIS/issues" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Report Issues
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Formats
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#attribute-tables-and-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Attribute tables and fields
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#formats-through-gdal" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Formats through GDAL
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sql-queries-and-duckdb-databases" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        SQL queries and DuckDB databases
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SQL queries and DuckDB databases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#postgresql-and-postgis" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        PostgreSQL and PostGIS
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#editing-postgis-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Editing PostGIS tables
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mysql-and-mariadb" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        MySQL and MariaDB
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sql-server-and-azure-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        SQL Server and Azure SQL
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#web-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Web Data
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geocoding-addresses" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Geocoding addresses
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#s3-buckets" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        S3 buckets
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-sources" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Data Sources
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Sources">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#named-connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Named connections
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#large-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Large files
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Large files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#streamed-view-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Streamed view memory
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rasters" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Rasters
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rasters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#zarr-stores" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Zarr stores
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-items" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Project items
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Project items">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#complete-streamed-shapefile-rendering" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Complete streamed Shapefile rendering
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                <a id="__skip" tabindex="-1"></a>
+                
+                  
+
+  
+  
+
+
+<h1 id="data">Data<a class="headerlink" href="#data" title="Permanent link">&para;</a></h1>
+<h2 id="formats">Formats<a class="headerlink" href="#formats" title="Permanent link">&para;</a></h2>
+<p>Every format, with how to add it and its limits, is listed on <a href="../data-formats/">Supported Data
+Formats</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>Read</th>
+<th>Write</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GeoJSON (<code>.geojson</code>, <code>.json</code>)</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Delimited text (<code>.csv</code>, <code>.tsv</code>, <code>.txt</code>) with x/y columns in a supported coordinate system, or WKT geometry</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Shapefile (<code>.shp</code> + <code>.dbf</code>, or zipped in a <code>.zip</code>)</td>
+<td>Yes (the web app also accepts sidecar files picked or dropped together)</td>
+<td>Yes (<code>share.exportLayer</code>)</td>
+</tr>
+<tr>
+<td>GeoPackage (<code>.gpkg</code>, feature tables)</td>
+<td>Yes</td>
+<td>Yes (desktop)</td>
+</tr>
+<tr>
+<td>GeoParquet (<code>.parquet</code>, <code>.geoparquet</code>, WKB geometry)</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>FlatGeobuf (<code>.fgb</code>)</td>
+<td>Yes</td>
+<td>Yes (<code>share.exportLayer</code>)</td>
+</tr>
+<tr>
+<td>KML/KMZ (with their styles), GPX</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Spreadsheets (<code>.xlsx</code>, <code>.xls</code>, <code>.ods</code>), GeoRSS feeds, LandXML, encoded polylines</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>GML, MapInfo MIF/MID, OpenStreetMap PBF, TopoJSON, AutoCAD DXF (ASCII)</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>LiDAR point clouds: LAS, LAZ, COPC (an evenly spread sample)</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Geotagged photos (JPEG with EXIF GPS): points with their thumbnails</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Esri File Geodatabase (<code>.gdb</code> folder; 3D multipatches as footprints)</td>
+<td>Yes (desktop)</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Through GDAL: AutoCAD DWG, MapInfo TAB, OpenStreetMap XML, File Geodatabases RustGIS can't read itself…</td>
+<td>Yes (desktop, when GDAL is installed)</td>
+<td>No</td>
+</tr>
+<tr>
+<td>PostgreSQL/PostGIS databases, read live (large tables a view at a time)</td>
+<td>Yes (desktop)</td>
+<td>No</td>
+</tr>
+<tr>
+<td>MySQL and MariaDB databases, read live (large tables a view at a time)</td>
+<td>Yes (desktop)</td>
+<td>No</td>
+</tr>
+<tr>
+<td>SQL Server and Azure SQL databases, read live (large tables a view at a time)</td>
+<td>Yes (desktop)</td>
+<td>No</td>
+</tr>
+<tr>
+<td>DuckDB databases (<code>.duckdb</code>, <code>.ddb</code>) and SQL queries</td>
+<td>Yes (desktop, when DuckDB is installed)</td>
+<td>No</td>
+</tr>
+<tr>
+<td>GeoTIFF and cloud-optimised GeoTIFF (<code>.tif</code>, <code>.tiff</code>)</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>ASCII grid (<code>.asc</code>, with an optional <code>.prj</code>)</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Unreferenced TIFF and PNG scans; JPEG with <code>"as": "scan"</code></td>
+<td>Yes</td>
+<td>GeoTIFF after georeferencing</td>
+</tr>
+<tr>
+<td>Through GDAL: JPEG 2000, ERDAS Imagine, SRTM HGT, DTED, NetCDF, HDF, ENVI, SAGA…</td>
+<td>Yes (desktop, when GDAL is installed)</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Web tiles: XYZ/TMS/WMS rasters, Mapbox Vector Tiles, MapLibre styles, PMTiles and MBTiles archives</td>
+<td>Yes</td>
+<td>Yes (Analyze › Create Hosted Imagery)</td>
+</tr>
+<tr>
+<td>RustGIS project (<code>.rgis</code>; older <code>.rgisx</code> files open too)</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<p>Add data with <strong>Home › Add › Add Data</strong>: its main button opens the file picker, and its menu offers
+other ways to add data, including <strong>Delimited Text…</strong>, <strong>From URL…</strong> and <strong>From Service…</strong>. Files
+can also be dropped on the window or passed on the command line (<code>rustgis places.geojson</code>). The
+file picker opens formats listed on <a href="../data-formats/">Supported Data Formats</a>, including
+cloud-optimised GeoTIFF, GeoParquet and FlatGeobuf (read in place, a view at a time; see <a href="../data-formats/#files-on-the-web">Files
+on the web</a>). <strong>Home › Add › Data Sources</strong> opens the pane with
+saved connections, favourites, recent data and the public-source library.
+On the desktop, a file that holds several layers (a File Geodatabase, a GeoPackage, a DuckDB
+database or a file read through GDAL) asks which to add when it is picked, dropped or
+double-clicked in the Browser: <strong>Choose Layers</strong> lists them, all ticked, with <strong>Select All</strong>,
+<strong>Select None</strong> and a filter for a long list. Turn <strong>Ask Which Layers to Add</strong> off in the Add Data
+menu to add every layer, as before. Scripts pick one with <code>layer.addData</code>'s <code>"layer"</code>;
+<code>info.fileLayers</code> lists them.
+On the desktop, <strong>Home › Add › Add Data › Add Folder…</strong> connects a folder to the Browser; the web
+app does not offer folder connections.
+<strong>Home › Add › Add Data › Delimited Text…</strong> asks for a CSV or a spreadsheet first, then lists its columns to pick the x and y (or WKT)
+ones from, with the coordinate system (such as <code>EPSG:2263</code>) and the separator (changing it reads
+the columns again); <code>info.fileColumns</code> lists them for scripts. Add Data finds them itself
+(columns named like longitude/latitude, easting/northing or geometry, and EWKT's <code>SRID=</code>) and
+says when coordinates aren't longitude/latitude. A CSV without coordinate columns, or a layer without geometry, opens as a
+standalone table, listed under the map in Layers; right-click it to open or remove it. Tables
+can share a name: commands and tools take a table's id (<code>info.project</code> lists them) as well as its
+name, which stands for the first table of that name. An id given as a number is never taken for
+a name. The Tools pane and Geocode Addresses send the id of the table picked; a tool's run keeps
+the table's name beside it (<code>input_name</code>). The <strong>XY Table To Point</strong> tool
+(<a href="../analysis/">Geoprocessing</a>, and a table's right-click menu) makes points of a table already in
+the project, from two fields of coordinates and their coordinate system. In a text field a single comma is the decimal separator
+(<code>1,234</code> is 1.234); thousands separators are not read.
+<strong>Home › Add › Add Data › Graphics Layer</strong> adds a layer for <a href="../cartography/#graphics">drawn graphics</a>,
+and <strong>Data › Layer Templates</strong> adds empty layers with ready-made schemas to draw into.</p>
+<p>Vector geometry is stored as WGS 84 longitude/latitude. Data in another supported coordinate
+system is converted as it is read; Shapefiles use their <code>.prj</code>, and formats such as GeoPackage,
+GeoParquet and FlatGeobuf carry their coordinate system in the file. Rasters keep their own
+coordinate system and are reprojected as they draw. The map uses Web Mercator by default, but
+<strong>View › Projection</strong> can change it; see <a href="../maps/">Maps</a>.</p>
+<p>ESRI <code>.prj</code> files without an EPSG code use their projection parameters and, for ED50,
+Monte Mario (from Greenwich or from Rome), OSGB36, DHDN, Amersfoort, GGRS87, CH1903/CH1903+
+and S-JTSK, the same built-in Helmert datum transformation as the EPSG definition. A <code>TOWGS84</code>
+transformation in the file takes precedence. RDN2008 and IGM95 are treated as WGS 84-like
+datums. These transformations do not replace regional grid corrections for survey accuracy. An
+unrecognized datum keeps its ellipsoid and produces a notice when no transformation is
+available. Swiss oblique Mercator and the standard Krovak East/North variant are supported from
+their parameters.</p>
+<p>Shapefile text uses a supported <code>.cpg</code> encoding, otherwise the <code>.dbf</code> code page, with UTF-8 as
+the fallback. Keep the sidecar files together.</p>
+<h2 id="attribute-tables-and-fields">Attribute tables and fields<a class="headerlink" href="#attribute-tables-and-fields" title="Permanent link">&para;</a></h2>
+<p>Open a feature layer's table with <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-t">T</kbd></span> (<span class="keys"><kbd class="key-command">Cmd</kbd><span>+</span><kbd class="key-t">T</kbd></span> on macOS), <strong>Home › Selection › Attributes</strong>
+or <strong>Attribute Table</strong> on a feature layer's <strong>Data</strong> tab (<code>table.open</code>). Rows and map selections stay in sync.
+Standalone tables open from their right-click menu; their cells are read only. See <a href="../analysis/#the-attribute-table">The attribute table</a> for
+sorting, filtering, selection and the SQL <code>WHERE</code> clause syntax used by <strong>Select By Attributes</strong>
+and <strong>Definition Query</strong>. These clauses filter a layer; they are not DuckDB queries.</p>
+<p>For an editable feature layer, double-click a cell to change it. The table's toolbar also adds
+fields, calculates field expressions and opens <strong>Calculate Geometry</strong> (<code>edit.calculateGeometry</code>).
+The geometry calculator fills a new double field or an existing numeric field with area,
+perimeter, length or point X/Y, for all or selected features. Point coordinates can be WGS 84
+degrees or a supported projected EPSG system's units. See <a href="../editing/">Editing</a> for field
+calculations and data-design rules. Streamed layers must first be loaded with <strong>Load All
+Features</strong>.</p>
+<h2 id="formats-through-gdal">Formats through GDAL<a class="headerlink" href="#formats-through-gdal" title="Permanent link">&para;</a></h2>
+<p>When <a href="https://gdal.org">GDAL</a> is installed (its <code>ogr2ogr</code> and <code>ogrinfo</code> programs on the <code>PATH</code>,
+or the folder holding them in <code>RUSTGIS_GDAL_BIN</code>; GDAL 3.7 or later), the desktop app also opens
+the vector formats GDAL reads: DWG, MapInfo TAB, OpenStreetMap XML, File Geodatabases RustGIS
+can't read itself (compressed ones, or ones with raster fields)
+and more. RustGIS doesn't link to GDAL: each layer is converted once, by <code>ogr2ogr</code>, into a
+FlatGeobuf with a spatial index in WGS 84 (GDAL reprojects it), kept in the cache folder
+(<code>~/.cache/rustgis/gdal</code> on Linux, <code>~/Library/Caches/RustGIS/gdal</code> on macOS,
+<code>%LOCALAPPDATA%\RustGIS\cache\gdal</code> on Windows, or <code>RUSTGIS_GDAL_CACHE</code>). Adding the file again
+reuses the conversion until the file changes, and large layers stream like any large FlatGeobuf
+(below). Every layer of the file is added; a layer mixing geometry types is
+added as one layer per type. Curves become straight segments, and 3D surfaces (an Esri
+multipatch, such as the buildings of swissBUILDINGS3D, is read as a TIN) become flat
+polygons, one part per face, without their heights. Projects remember the original file and
+convert it again if the cached copy is gone.</p>
+<h2 id="sql-queries-and-duckdb-databases">SQL queries and DuckDB databases<a class="headerlink" href="#sql-queries-and-duckdb-databases" title="Permanent link">&para;</a></h2>
+<p>When <a href="https://duckdb.org">DuckDB</a> is installed (the <code>duckdb</code> program on the <code>PATH</code>, or the folder
+holding it in <code>RUSTGIS_DUCKDB_BIN</code>; DuckDB 1.5 or later), the desktop app adds the result of an SQL
+query as a layer, with the <code>layer.addSql</code> command (Add Data From SQL in command search):</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"sql"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELECT name, geometry FROM read_parquet('places.parquet') WHERE country = 'FR'"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"French places"</span><span class="p">}</span>
+</code></pre></div>
+<p><strong>Analyze › SQL</strong> opens the SQL pane, a workspace for these queries: an editor (Ctrl+Enter runs
+the query) that completes table and column names of the database named above it and DuckDB
+Spatial's common functions, the result's first 200 rows as a table, <strong>Add to Map</strong> for a result
+with a geometry column, and a history of the queries run (kept by the app with its preferences,
+without the database's password; a query that seems to hold a credential, such as <code>user:password@</code>
+in an address, a signed URL or a secret, isn't kept). Queries run in the background, so the app keeps drawing while DuckDB works. The
+commands behind it are <code>sql.query</code> (a query's first rows, up to 1,000, without adding a layer) and
+<code>sql.schema</code> (a database's tables and their columns); both take <code>"database"</code> as <code>layer.addSql</code>
+does. The web app has no DuckDB, so the pane says to open the project in the desktop app.</p>
+<p>The query is one DuckDB <code>SELECT</code> (or <code>FROM …</code>, <code>WITH …</code>), with <a href="https://duckdb.org/docs/stable/core_extensions/spatial/overview">DuckDB
+Spatial</a>'s <code>ST_</code> functions: it can
+read Parquet, CSV, JSON and GeoParquet files, anything <code>ST_Read</code> reads, and web addresses (<code>https://</code>,
+<code>s3://</code>), so a bounding box of <a href="https://overturemaps.org">Overture Maps</a> is one query:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="k">names</span><span class="p">.</span><span class="k">primary</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">geometry</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">read_parquet</span><span class="p">(</span><span class="s1">'s3://overturemaps-us-west-2/release/2026-09-23.1/theme=places/type=place/*'</span><span class="p">,</span><span class="w"> </span><span class="n">hive_partitioning</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">bbox</span><span class="p">.</span><span class="n">xmin</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="o">-</span><span class="mi">83</span><span class="p">.</span><span class="mi">95</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="o">-</span><span class="mi">83</span><span class="p">.</span><span class="mi">89</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">bbox</span><span class="p">.</span><span class="n">ymin</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="mi">35</span><span class="p">.</span><span class="mi">94</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">35</span><span class="p">.</span><span class="mi">98</span>
+</code></pre></div>
+<p>The first geometry column becomes the layer's geometry; other columns become its attributes (types
+RustGIS doesn't read, such as dates and lists, as text). A geometry that says its coordinate system
+is converted to longitude/latitude; give <code>"crs"</code> (such as <code>EPSG:2263</code>) for one that doesn't. A
+result mixing geometry types becomes a layer per type, and rows without a geometry are left out.
+<code>"database"</code> opens a DuckDB database (read only) so the query names its tables plainly; the
+database is trusted like the query, since its views run as part of it.</p>
+<p><strong>Home › Add › Add Data</strong> opens a DuckDB database file (<code>.duckdb</code>, <code>.ddb</code>): every table with a geometry
+column becomes a layer (<code>"layer"</code> picks one).</p>
+<h3 id="postgresql-and-postgis">PostgreSQL and PostGIS<a class="headerlink" href="#postgresql-and-postgis" title="Permanent link">&para;</a></h3>
+<p><strong>Home › Add › Add Data › Database…</strong> (<code>layer.addDatabase</code>, desktop) connects to a PostgreSQL database with
+PostGIS and reads its tables live. The dialog takes a saved connection or a typed one, a password,
+a table (<strong>List Tables</strong>, or all tables with geometry) and a coordinate system for geometry that
+doesn't say its own. RustGIS talks to the server itself (nothing else to install;
+TLS as libpq does it). <code>sslmode=prefer</code> (the default) uses TLS only when the server offers it, and otherwise connects
+without encryption, so a server in the middle can force a plaintext connection. <code>require</code> always
+uses TLS but doesn't check the server's certificate. On networks you don't trust, use
+<code>verify-full</code> or <code>verify-ca</code>; both check the host name here. The certificate is checked against <code>sslrootcert</code> (a private authority's PEM file) or the
+web's roots. <code>disable</code> turns TLS off. The connection is a libpq connection string
+(<code>host=localhost port=5432 dbname=gis user=postgres</code>) or a <code>postgresql://user@host/dbname</code>
+address; what it leaves out comes from <code>PGHOST</code>, <code>PGPORT</code>, <code>PGUSER</code> and <code>PGDATABASE</code>, as with
+libpq. <strong>List Tables</strong> (<code>info.databaseTables</code>) shows the tables and views with a geometry or
+geography column, and every one of them becomes a layer unless one is chosen (<code>table</code>,
+<code>schema.table</code>, or <code>table:column</code> for one of several geometry columns). The connection is read
+only.</p>
+<p>A table of more than 100,000 rows (or any, with <code>"stream": true</code>) is read in place a view at a
+time, like a large GeoParquet: the view's box is matched against the column's spatial index, and
+when more rows match than a view draws, an evenly spread sample of them is numbered on the server,
+so only those cross the network. Smaller tables are loaded whole, so they can be edited. The
+server converts geometry to longitude/latitude (<code>ST_Transform</code>, so every coordinate system in its
+<code>spatial_ref_sys</code> works) and curves to lines; give <code>"crs"</code> (such as <code>EPSG:2263</code>) for a column whose
+geometry doesn't say its coordinate system. A column of mixed geometry types becomes a layer per
+type, and empty tables (such as the TIGER geocoder's) are left out. Features keep their ids between
+views: the table's integer primary key, else the row's place in the table (the rows of a view or
+a partitioned table without a key are numbered as read, so theirs can change between views).</p>
+<p>Passwords are never written to the project. By default, an entered password lasts until
+RustGIS closes. For a named desktop connection, <strong>Remember on this computer</strong> is an unchecked
+opt-in to the operating system's password store; see <a href="#named-connections">Named connections</a>
+for reconnect, selection and forgetting rules. Opening a project can use a remembered password
+only for a unique, exact saved-address match, or an explicit session selection. Otherwise a
+waiting layer offers <strong>Log In…</strong>, or a chooser when several remembered connections match.
+Without a matching connection, connect again with <strong>Home › Add › Add Data › Database…</strong>.
+<code>PGPASSWORD</code> or libpq's password file (<code>~/.pgpass</code>, or
+<code>%APPDATA%\postgresql\pgpass.conf</code>) can serve when you explicitly add a table without a password;
+opening a project never newly authorizes these ambient credentials. A small table's features
+are kept in the project as they were when added.</p>
+<p><code>layer.addSql</code> takes a connection as its <code>"database"</code> too, through DuckDB's <code>postgres</code> extension
+(installed the first time, like DuckDB Spatial), so a query names its tables plainly; the password
+reaches DuckDB in its environment (<code>PGPASSWORD</code>), never on its command line:</p>
+<div class="highlight"><pre><span></span><code>rustgis-cli<span class="w"> </span>run<span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'layer.addSql={"sql":"SELECT name, geom FROM roads WHERE lanes &gt; 2","database":"postgres:host=localhost dbname=gis user=postgres","password":"…"}'</span>
+</code></pre></div>
+<p>RustGIS doesn't link to DuckDB: it runs <code>duckdb</code>, which writes the result as GeoParquet in the
+cache folder (<code>~/.cache/rustgis/duckdb</code> on Linux, <code>~/Library/Caches/RustGIS/duckdb</code> on macOS,
+<code>%LOCALAPPDATA%\RustGIS\cache\duckdb</code> on Windows, or <code>RUSTGIS_DUCKDB_CACHE</code>), sorted along a
+Hilbert curve with a bounding-box covering, so large results stream like any large GeoParquet
+(below). DuckDB Spatial is installed the first time (a download from DuckDB's extension
+repository). A database table is converted once and reused until the file changes; a query runs
+afresh each time. Projects convert a table again if the cached result is gone, but never run a
+query when they open: run it again. A database is read on its own, shut out of other files and web
+addresses, so a view in it that reaches elsewhere fails rather than reading them.</p>
+<p>A query can read any file the app can and fetch any web address, and a database is a file or a
+server, so the <a href="../assistant/">AI Assistant</a> asks before it runs a query or reads a database, and
+plugins need both the files and network permissions.</p>
+<h3 id="editing-postgis-tables">Editing PostGIS tables<a class="headerlink" href="#editing-postgis-tables" title="Permanent link">&para;</a></h3>
+<p>On the desktop, a PostgreSQL table with PostGIS can be loaded to be edited and its edits saved
+back to it. In <strong>Home › Add › Add Data › Database…</strong>, give a PostgreSQL connection, choose a table
+(<strong>List Tables</strong>) and tick <strong>Load for editing</strong>.</p>
+<ul>
+<li>The connection (<code>pg.connect</code>) lasts until RustGIS closes, or until <strong>Disconnect</strong> in the same
+  form (<code>pg.disconnect</code>). It isn't saved with the project, and neither is the password. Without a
+  password, <code>PGPASSWORD</code> or libpq's password file serve.</li>
+<li>
+<p>The table (<code>pg.addLayer</code>; <code>pg.tables</code> lists those with a geometry or geography column) loads
+  whole, up to 100,000 rows a layer, in the order of its key.
+  A table whose geometries are of several types loads each type as its own layer, each up to that many.
+  A <strong>condition</strong> (an SQL expression on its columns, such as <code>population &gt; 10000</code>) loads only the
+  rows it keeps. The layer is an ordinary layer in memory, so every editing tool works on it.</p>
+</li>
+<li>
+<p><strong>Edit › Manage Edits › Save to PostGIS…</strong> (<code>pg.saveEdits</code>), there while a layer is loaded for
+  editing, shows how many of the layer's rows are new, changed and deleted, and writes them to its
+  table in one transaction. <strong>Discard PostGIS Edits…</strong> (<code>pg.discardEdits</code>)
+  loads the rows again as they are in the database, dropping the edits (Undo brings them back).</p>
+</li>
+</ul>
+<p>A table needs a single-column integer primary key to be added this way. The key becomes each
+feature's id, and the layer keeps each row's version (PostgreSQL's <code>xmin</code>) and what it held as it
+was read. Saving locks the rows you changed or deleted and checks them first: when one was changed
+or deleted in the database since you loaded it, or a new row's key is already taken, <strong>nothing is
+saved</strong>, and the message lists those rows. Discard PostGIS Edits then loads them as they are now. A row
+someone else changed that you didn't edit is no conflict, and stays as they left it.</p>
+<p>Undo doesn't reach into the database: undoing a save brings back the layer as it was before, but
+the rows stay saved. Saving that layer again is refused, since it would write the same edits
+twice (its new rows as more new rows); Redo, or Discard PostGIS Edits, brings the layer back in step.</p>
+<p>Only what you changed is written: the columns whose values differ, and the geometry when it moved
+(converted back to the table's coordinate system, single or multi type and dimensions). A new row
+takes the value of its key field, else the table's default key (<code>serial</code>, identity), else its
+feature id, and its feature takes the key it was saved with. A new row's empty fields take their
+column's default, NULL when it has none. Fields the table has no column for
+aren't saved, and the message names them. The layer says when the database's user can't insert,
+update or delete the table's rows; saving is then refused.</p>
+<div class="highlight"><pre><span></span><code>rustgis-cli<span class="w"> </span>run<span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'pg.connect={"host":"localhost","database":"gis","user":"postgres"}'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--cmd<span class="w"> </span><span class="s1">'pg.addLayer={"table":"public.roads","where":"lanes &gt; 2","name":"Roads"}'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--cmd<span class="w"> </span><span class="s1">'edit.enable={"on":true}'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--cmd<span class="w"> </span><span class="s1">'edit.setValue={"layer":"Roads","row":0,"field":"name","value":"Main St"}'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--cmd<span class="w"> </span><span class="s1">'pg.saveEdits={"layer":"Roads"}'</span>
+</code></pre></div>
+<p>Connecting and adding a layer read the database, so the <a href="../assistant/">AI Assistant</a> asks
+before it connects or adds a table, and asks every time before it saves edits. Plugins can't
+connect or save at all.</p>
+<h2 id="mysql-and-mariadb">MySQL and MariaDB<a class="headerlink" href="#mysql-and-mariadb" title="Permanent link">&para;</a></h2>
+<p><strong>Home › Add › Add Data › Database…</strong> (<code>layer.addDatabase</code>) also connects to a MySQL (8 or later) or
+MariaDB (10.2 or later) database and reads its spatial columns live, as it does PostGIS tables:
+RustGIS talks to the server itself, with nothing else to install. The connection is an address,
+<code>mysql://user@host:3306/database</code> (or <code>mariadb://…</code>); what it leaves out is, as with the
+<code>mysql</code> client, <code>localhost</code>, port 3306 and your login name. <strong>List Tables</strong>
+(<code>info.databaseTables</code>) shows the database's tables and views with a geometry column, and every
+one becomes a layer unless one is chosen (<code>table</code>, or <code>table:column</code> for one of several geometry
+columns). An address without a database lists the tables of every database but the server's own,
+as <code>database.table</code>. The session is read only, and a server asking for a local file (<code>LOAD DATA
+LOCAL INFILE</code>) is sent none.</p>
+<p><code>ssl-mode</code> in the address's query sets the encryption, as the <code>mysql</code> client names it:
+<code>PREFERRED</code> (the default) encrypts, connecting unencrypted only when the server offers no
+encryption (the layer then says so), and <code>REQUIRED</code> always encrypts; neither checks the server's
+certificate, so neither protects the password from a server in the middle. On networks you
+don't trust, use <code>VERIFY_IDENTITY</code>, which checks the certificate and the host name (against
+<code>ssl-ca</code>, a private authority's PEM file, or the web's roots); <code>VERIFY_CA</code> checks the
+certificate only. <code>DISABLED</code> turns encryption off:</p>
+<div class="highlight"><pre><span></span><code>rustgis-cli<span class="w"> </span>run<span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'layer.addDatabase={"database":"mysql://gis@db.example:3306/city?ssl-mode=VERIFY_IDENTITY","password":"…"}'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--cmd<span class="w"> </span><span class="s1">'share.exportMap={"path":"city.png"}'</span>
+</code></pre></div>
+<p>Large tables are read a view at a time through the column's spatial index (<code>MBRIntersects</code>), and
+a capped view is an evenly spread sample numbered on the server; smaller ones are loaded whole.
+RustGIS converts the geometry to longitude/latitude itself (MariaDB has no <code>ST_Transform</code>), from
+the column's SRID (MySQL's per-column SRID, MariaDB's <code>REF_SYSTEM_ID</code>) or else its rows'; give
+<code>"crs"</code> (such as <code>EPSG:2263</code>) for a column whose SRID is 0. A <code>GEOMETRY</code> column of mixed types
+becomes a layer per type. Features keep their ids between views from the table's integer primary
+key; a table without one has its rows numbered as read, so theirs can change between views.</p>
+<p>Passwords are never written to the project and last for the session unless you opt in with
+<strong>Remember on this computer</strong> for a named desktop connection. The same exact-address reconnect,
+chooser and Forget rules in <a href="#named-connections">Named connections</a> apply. <code>MYSQL_PWD</code> can serve when you explicitly
+add a table without a password, but opening a project never newly authorizes it.
+SQL queries (<code>layer.addSql</code>, the SQL pane) don't run on MySQL or MariaDB databases.</p>
+<h2 id="sql-server-and-azure-sql">SQL Server and Azure SQL<a class="headerlink" href="#sql-server-and-azure-sql" title="Permanent link">&para;</a></h2>
+<p><strong>Home › Add › Add Data › Database…</strong> (<code>layer.addDatabase</code>) reads the <code>geometry</code> and <code>geography</code>
+columns of SQL Server 2012 or later and Azure SQL tables and views directly, on the desktop.
+Use <code>mssql://user@host:1433/database</code>; an empty host means <code>localhost</code>, and omitting the database
+uses the login's default database. <strong>List Tables</strong> (<code>info.databaseTables</code>) lists spatial columns.
+Choose a table as <code>table</code>, <code>schema.table</code> or <code>table:column</code>, or leave the choice empty to add all.
+For a named instance, use <code>?instance=SQLEXPRESS</code> without a port so SQL Browser can discover it.</p>
+<p>The connection is encrypted and its certificate checked against the platform's trust store by
+default (<code>encrypt=mandatory</code>, also <code>required</code>, <code>true</code> or <code>yes</code>). <code>encrypt=strict</code> selects TDS 8.0
+strict encryption on servers that support it. A private authority can be supplied as
+<code>?ca=/path/to/ca.pem</code>, and <code>hostname-in-certificate</code> overrides the expected certificate name.
+For a self-signed server, <code>?trust-server-certificate=true</code> disables certificate checking; the
+layer reports that it is unchecked. <code>?encrypt=false</code> (also <code>optional</code> or <code>no</code>) requests encryption
+for login only, not subsequent traffic; certificate validation still applies during login unless
+explicitly disabled with <code>trust-server-certificate=true</code>. <code>connect-timeout</code> sets a positive
+connection deadline in seconds (default: 10, maximum: 300).</p>
+<div class="highlight"><pre><span></span><code>rustgis-cli<span class="w"> </span>run<span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'layer.addDatabase={"database":"mssql://gis@db.example:1433/city","password":"…"}'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--cmd<span class="w"> </span><span class="s1">'share.exportMap={"path":"city.png"}'</span>
+</code></pre></div>
+<p>SQL Server logins work on every desktop platform. On Windows, <code>DOMAIN%5Cuser</code> with a password
+uses a Windows login: <code>%5C</code> is the URL encoding of <code>\</code>, and a literal <code>DOMAIN\user</code> is also accepted
+in the address (escape it as <code>DOMAIN\\user</code> inside JSON). Leaving the user out signs in as the
+current Windows user. These Windows logins are not supported on macOS or Linux: give a SQL Server
+login instead. Passwords can be supplied in user-info or the <code>password</code>, <code>pass</code>, <code>pwd</code>, or <code>passwd</code>
+query parameters; the separate password field overrides an address's password.</p>
+<p>Large tables read a view at a time using their spatial index, with a server-numbered sample when
+more rows match than a view draws; small tables are loaded whole. Curves are linearized and
+coordinates converted to longitude/latitude. Only rows with the first non-null geometry's SRID
+are read; give <code>"crs"</code> for SRID 0. Mixed geometry families become separate layers. An integer
+primary key provides stable feature ids; without one (including views), ids are numbered as read.</p>
+<p>At database compatibility level 100 or lower, streamed <code>geography</code> layers filter their whole-table
+read or sample locally instead of sending a viewport polygon to the server. A small view can
+therefore miss features in a large sampled table. <code>geometry</code> layers and higher compatibility
+levels retain server-side viewport filtering.</p>
+<p>The provider only reads data; edits are not written back to SQL Server. Passwords are never
+written to the project and last for the session unless <strong>Remember on this computer</strong> is
+checked for a named desktop connection. The <a href="#named-connections">named-connection rules</a> govern
+remembered reconnects and explicit selection. Secret-named query values such as <code>pwd</code> and
+<code>access_token</code> are removed from saved connection addresses. <code>SQLCMDPASSWORD</code> serves only when
+explicitly adding a database, not when opening a project. Windows integrated sign-in still
+requires that same address to have been added this session: opening a project does not
+authorize Windows identity. Reconnect with <strong>Home › Add › Add Data › Database…</strong> when needed. SQL queries
+(<code>layer.addSql</code>, the SQL pane) do not run on SQL Server connections.</p>
+<h2 id="web-data">Web Data<a class="headerlink" href="#web-data" title="Permanent link">&para;</a></h2>
+<p><strong>Home › Add › Web Data</strong> gathers public web services and catalogs: STAC imagery catalogs, Overture
+Maps, OpenStreetMap, NASA Earthdata, open-data portals, satellite embeddings and more. They have a
+page of their own: <a href="../web-data/">Web Data</a>.</p>
+<h2 id="geocoding-addresses">Geocoding addresses<a class="headerlink" href="#geocoding-addresses" title="Permanent link">&para;</a></h2>
+<p><strong>Home › Add › Add Data › Geocode Addresses…</strong> (<code>layer.geocode</code>) turns a standalone table's or a
+layer's addresses into points: a CSV of addresses without coordinates is added as a standalone table, then each row's address
+fields (<code>"address"</code>: a field, or several such as street, city and country, joined with commas)
+are looked up, each distinct address once. The result is a new point layer holding every field
+plus <code>geocoded</code>, what the geocoder called the place; rows that weren't found stay in its table
+without a point.</p>
+<p>The geocoder is OpenStreetMap's public <a href="https://nominatim.org">Nominatim</a> by default, or
+<a href="https://photon.komoot.io">Photon</a> (<code>"provider": "photon"</code>). Their usage policies allow light
+use, so RustGIS sends them at most one request a second and 100 addresses a run; give <code>"url"</code> of
+a Nominatim or Photon server of your own for more (up to 10,000, with no wait between requests).
+In the app the requests go out in the background, one at a time, and the layer is added when the
+last answer lands; <code>layer.geocode</code> on the command line waits for them.</p>
+<div class="highlight"><pre><span></span><code>rustgis-cli<span class="w"> </span>run<span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'layer.addData={"path":"stores.csv"}'</span><span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'layer.geocode={"table":"stores","address":["street","city","country"]}'</span>
+</code></pre></div>
+<p>The addresses are sent to the geocoder's server, so the <a href="../assistant/">AI Assistant</a> asks before
+it geocodes, and plugins need the network permission.</p>
+<h2 id="s3-buckets">S3 buckets<a class="headerlink" href="#s3-buckets" title="Permanent link">&para;</a></h2>
+<p>An <code>s3://bucket/key</code> address works wherever data is added by its address: <strong>Home › Add › Add Data ›
+From URL…</strong> and <code>layer.addUrl</code> (a cloud-optimised GeoTIFF is read in place by range, other files are
+downloaded), PMTiles archives, <code>?data=</code> links, and STAC assets whose address is an <code>s3://</code> one.
+A public bucket needs nothing more: it is read anonymously from AWS.</p>
+<p><strong>Home › Add › Add Data › S3…</strong> (<code>s3.connect</code>) connects to a private bucket, or to an S3-compatible
+service (MinIO, Cloudflare R2, Wasabi, source.coop…) by its endpoint, and browses a bucket a
+folder at a time (<code>s3.list</code>), adding an object with <strong>Add</strong>. A connection names its endpoint (AWS
+when empty), its region and the buckets it serves: the ones it is given (<code>"buckets"</code>) and the ones
+browsed through it this session. An <code>s3://</code> address of one of them is read through that
+connection, signed (AWS Signature Version 4) with its keys; an address of any other bucket (a
+project's, a link's) is read anonymously from AWS, never with your keys or from your endpoint.
+Keys are typed, or, on the desktop and only when chosen, read from an AWS profile
+(<code>"profile"</code>: <code>~/.aws/credentials</code> and <code>~/.aws/config</code>) or from the environment
+(<code>"environment": true</code>: <code>AWS_ACCESS_KEY_ID</code>, <code>AWS_SECRET_ACCESS_KEY</code>, <code>AWS_SESSION_TOKEN</code>,
+<code>AWS_REGION</code>); without any, the connection is anonymous. <strong>AWS, anonymous</strong> in the dialog browses
+with no keys at all.</p>
+<div class="highlight"><pre><span></span><code>rustgis-cli<span class="w"> </span>run<span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'s3.connect={"name":"minio","endpoint":"https://minio.example.org","buckets":["my-bucket"],"accessKeyId":"…","secretAccessKey":"…"}'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--cmd<span class="w"> </span><span class="s1">'s3.list={"url":"s3://my-bucket/rasters/"}'</span><span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'layer.addUrl={"url":"s3://my-bucket/rasters/dem.tif"}'</span>
+</code></pre></div>
+<p>Keys are kept until RustGIS closes unless you ask otherwise: never in a project (which keeps the
+address), a command's result, a notice or the log. After <strong>Connect</strong>, <strong>Save as Connection</strong> keeps
+its name, endpoint, region and credential source under <strong>Data Sources › Connections</strong>, never its
+keys. Use <strong>Saved connection</strong> to pick it again.</p>
+<p>On the desktop, a saved connection that uses typed keys can also keep them in your computer's
+credential store (the macOS Keychain, the Windows Credential Manager, or the Secret Service):
+tick <strong>Remember on this computer</strong> in the S3 dialog or the connection's form when you log in
+(it is off every time; <code>connection.login</code> takes <code>"remember": true</code>). Both keys go to the store,
+with the endpoint they are for, and the connection only gets a <strong>Saved keys</strong> mark; the
+connection's definition, the preferences and projects never contain a key. Displaying that mark
+does not read the store or guarantee it is available. In the next session, choosing, browsing,
+testing or logging in to the connection can read its keys from the store with nothing typed
+(the system may ask you to unlock it). Typed keys win over saved ones for that login.
+Temporary credentials (with a session token) are never kept: they work for the session,
+and keys saved earlier stay as they were. If the store is missing or refuses, the login still
+works for this session and says the keys weren't remembered; without keys typed, a connection
+with nothing available says so, and is not logged in. The web app has no system keychain; the
+command line and Python use it only with <code>--use-saved-secrets</code> / <code>use_saved_secrets=True</code>.
+<strong>Forget Saved Keys</strong> (<code>connection.forgetSavedKeys</code>; the connection's right-click menu or its
+form) deletes them from the store and keeps the session's login. Removing a connection deletes
+its saved keys first, and changing its endpoint or switching away from typed keys does too.
+With a credential store available, these actions check it even when the <strong>Saved keys</strong> indication
+is absent: the indication may be stale. If the store refuses deletion, the forget, removal or
+edit doesn't happen. Without a store, a connection marked as holding saved keys cannot be
+removed or have its endpoint changed. Renaming, grouping, buckets and region keep the keys,
+and a copy of a connection has none. A profile, the environment or anonymous access never
+read saved keys.</p>
+<p>A saved connection's login reads only what is added through it: its listings, and the objects
+<strong>Add</strong> takes from them, are kept as addresses that name that connection (and its endpoint), so a
+project reads a bucket through the connection it was added with, never with another connection's
+keys because the endpoint or bucket is the same. Opening a project (or importing a map or layer)
+finds each bucket its S3 sources read. A single matching connection whose bucket list explicitly
+includes that bucket logs in and opens the sources when its credentials are available.
+Connections with an empty bucket list require an explicit choice, even when only one matches.
+When only one such connection matches, the notice names it and asks you to confirm it in
+<strong>Choose S3 connection…</strong>; it is not automatically authorized to read an unlisted bucket.
+Missing or unavailable keys leave the sources blocked until you log in.
+If several connections fit, <strong>Choose S3 connection…</strong> (<code>connection.resolveS3</code>) asks which one,
+with no connection selected initially; nothing is read until you choose, and <strong>Cancel</strong> leaves
+the sources blocked. If none fits, sources carrying saved-connection provenance stay unread
+(an older project's bare <code>s3://</code> address is read as before). Addresses of plain <code>s3.connect</code>
+sessions keep reading as they did.
+A saved login belonging to another open session is not reused merely because its name matches:
+each session logs in through its selected saved connection.
+Resolving a bucket retries only that bucket's deferred sources, keeping layer styles and ordering.
+An older source with an unknown endpoint stays separate from an explicitly AWS-backed source,
+even when both name the same bucket and object. Saving and reopening while a choice is pending
+preserves that distinction; choosing a connection for one resource does not choose for the other.
+Raster reloads use the same authorized address and load their pixels in the background.
+Keys go only to the endpoint they're for: a signed request that is redirected isn't followed, and
+keys from a profile or the environment are used only with AWS or the profile's own
+<code>endpoint_url</code>. In the web app, the bucket's CORS rules must allow the page's origin (and, for a
+private bucket, the <code>Authorization</code> and <code>x-amz-*</code> headers). The <a href="../assistant/">AI Assistant</a> asks
+before it connects or lists; plugins can't connect, and need the network permission to list.</p>
+<h2 id="data-sources">Data Sources<a class="headerlink" href="#data-sources" title="Permanent link">&para;</a></h2>
+<p>The <strong>Data Sources</strong> pane (<strong>View › Windows › Data Sources</strong>, <code>ui.pane.sources</code>; <strong>Home › Add ›
+Data Sources</strong> also opens it) gathers the places data comes from:</p>
+<ul>
+<li><strong>Favourites</strong>: any source, right-clicked and added.</li>
+<li><strong>Recent</strong>: the last 20 sources added (files, web addresses, tile layers, services, database
+  tables, Zarr variables, STAC assets, sample data), newest first. A dataset added from a
+  connection in the tree is listed under that connection's name rather than one made from its
+  address. Only the name changes: the entry keeps the kind, address and options of the dataset
+  as it was added, and the layer keeps its own name. Clicking it opens it as any Recent entry
+  of that kind opens (a service entry reopens the service's layer list). A source is one entry
+  per kind and address, so every dataset added through one service shares an entry, as do two
+  connections with one address. The name is the connection's when the dataset was added:
+  renaming a connection changes it only when something is added from it again. An add that
+  fails, or is cancelled before it lands, isn't listed.</li>
+<li><strong>Folders</strong>: the folders connected to the Browser (<strong>Add Folder…</strong>; desktop).</li>
+<li><strong>Connections</strong>: named services, databases, STAC APIs and S3 endpoints, organised by optional
+  groups. <strong>New Connection ▾</strong> opens a kind-specific form. Click a connection to open it: its
+  datasets are listed under it, a level at a time as you open its folders, with <strong>Refresh</strong>
+  (a connection's or a folder's right-click menu; <strong>⟳</strong> refreshes every connection) and an error
+  with <strong>Retry</strong> (and <strong>Log In…</strong> for databases and keyed S3) when it can't be read. Click a
+  dataset to select it (click again to clear it); double-click, or right-click › <strong>Add</strong>, adds
+  one, and right-click › <strong>Add Selected (N)</strong> adds them all (<strong>Clear Selection</strong> empties the
+  selection). Each dataset is added by one command, so each is one undo step. On a table, a
+  service layer or a STAC collection, <strong>Add With Options…</strong> opens the database, service or STAC
+  add dialog on it; on a connection, it opens the kind's add dialog. Right-click a connection to
+  edit, test, duplicate, copy its address or remove it.</li>
+<li><strong>Library</strong>: well-known public sources: OpenStreetMap tiles, EOX Sentinel-2 cloudless and
+  NASA GIBS (WMTS), USGS imagery, topographic and hydrography maps (ArcGIS), GEBCO bathymetry
+  (WMS), swisstopo's maps and imagery (geo.admin.ch, WMTS), Earth Search and Planetary Computer (STAC), and the Natural Earth sample layers.</li>
+</ul>
+<p>A click on a file, a web address, a tile layer or a sample adds it at once. The lists are kept
+with the app's preferences, never in a project. They hold no secrets: a web address loses its
+password and any key, token or signature in its query (<code>token=</code>, <code>sig=</code>, <code>X-Amz-*</code>…), and a
+database is kept without its password. The commands <code>sources.list</code>, <code>sources.save</code>,
+<code>sources.favourite</code> and <code>sources.remove</code> read and change the lists, for the command line and the
+<a href="../assistant/">AI Assistant</a>. On the command line they last for the run.</p>
+<h3 id="named-connections">Named connections<a class="headerlink" href="#named-connections" title="Permanent link">&para;</a></h3>
+<p>In the pane, <strong>New Connection ▾</strong> and <strong>Edit…</strong> let you set the name, group and address;
+<strong>Home › Add › Add Data › New Connection</strong> opens the same form for a chosen kind. Leave a new
+connection's name blank to derive it from the address. <strong>Test</strong> checks the form without saving
+it: web-service, catalogue, STAC and S3 requests run in the background on both desktop and web;
+database tests run synchronously on desktop. The web app doesn't offer database kinds for new
+connections; saved database rows remain visible but cannot be opened or tested there. Earth
+Search and Planetary Computer remain available under <strong>Library</strong>.</p>
+<p><strong>From Service…</strong> (including <strong>Catalogue search (CSW)</strong>), <strong>Database…</strong>, <strong>STAC Search…</strong> and
+<strong>S3…</strong> can use saved connections directly. Service, database and S3 dialogs offer a <strong>Saved
+connection</strong> picker; STAC includes saved connections in its existing API/catalog list.
+Picking one keeps its identity, not just its address: two connections can point to the same
+server with different names or users.</p>
+<p>To keep an endpoint entered by hand, click <strong>Save as Connection</strong> after it connects: after
+<strong>List Tables</strong> for a database, <strong>Collections</strong> or <strong>Browse</strong> for STAC, a catalogue search with
+results, or <strong>Connect</strong> for a service or S3. Nothing is saved automatically. The new connection
+is selected and the button disappears. An endpoint typed by hand can be saved even when another
+connection has the same address; its default name is made unique. S3 uses the session name, so
+choose a different name and connect again if that name is already saved. DuckDB files aren't
+saved database connections. Within an ArcGIS directory, the button keeps the root directory.</p>
+<p>Changing a form field clears pending or completed Test feedback; a late response from the
+previous inputs is ignored. PostgreSQL accepts a bare <code>host=… dbname=… user=…</code> connection
+string, but a blank address cannot be saved or tested.</p>
+<p>The <code>connection.*</code> commands keep named, reusable endpoints independently of the project.
+Each has a stable id (<code>c1</code>, <code>c2</code>, …), a case-insensitively unique name and an optional group.
+Different names may use the same address. <code>connection.new</code>, <code>connection.edit</code>,
+<code>connection.duplicate</code> and <code>connection.remove</code> manage them; commands that take <code>id</code> accept
+either the id or the name. <code>connection.list</code> can filter by <code>kind</code> or <code>group</code>, and reports
+availability, session login state and the commands to use to add data.
+Names cannot match a stored id or the reserved <code>c</code> + digits id pattern (case-insensitive).
+Loaded names that conflict get a numeric suffix; ids and endpoints stay unchanged. Clearing
+a name with <code>connection.edit</code> chooses a unique default from the address.</p>
+<div class="highlight"><pre><span></span><code>rustgis-cli<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--cmd<span class="w"> </span><span class="s1">'connection.new={"kind":"wms","address":"https://ows.terrestris.de/osm/service","name":"OSM WMS","group":"Public"}'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--cmd<span class="w"> </span><span class="s1">'connection.test={"id":"OSM WMS"}'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--cmd<span class="w"> </span><span class="s1">'connection.list={"group":"public"}'</span>
+</code></pre></div>
+<p>Kinds are <code>postgres</code>, <code>mysql</code> (including MariaDB), <code>sqlserver</code>, <code>service</code> (detected on
+connect), <code>wms</code>, <code>wmts</code>, <code>wfs</code>, <code>wcs</code>, <code>ogcapi</code>, <code>arcgis</code>, <code>csw</code>, <code>stac</code> and <code>s3</code>.
+Database connections are used on the desktop only. S3 options are <code>region</code>, <code>buckets</code>
+(comma-separated), <code>credentials</code> (<code>keys</code>, <code>profile</code>, <code>environment</code> or <code>none</code>) and <code>profile</code>.
+<code>connection.test</code> lists the endpoint's tables, layers, records, collections or buckets.
+It also accepts an unsaved definition (<code>kind</code>, <code>address</code>, <code>name</code>, <code>group</code>, <code>options</code>) instead
+of <code>id</code>. With <code>probe: true</code>, it returns the secret-free address to fetch (<code>fetch: null</code> for
+databases). For non-database kinds, pass that response text as <code>answer</code> with the same definition
+to parse it without a network request. Database kinds ignore <code>answer</code> and test through their
+driver. An anonymous S3 test needs at least one named bucket.</p>
+<p><code>connection.browse</code> lists what a connection offers, a level at a time: the tables of a database
+(under their schemas), the layers of a service, the records of a catalogue with the services and
+files they link to, the collections of a STAC API and the items and assets of a collection (for a
+static STAC catalog, its catalogs, collections and items, each item opened for its assets), or
+the buckets, folders and files of an S3 connection. Each child has a <code>key</code>, a <code>name</code> and what it
+is (<code>what</code>); a child with a <code>node</code> is browsed by asking again with that <code>node</code>; one with <code>add</code>
+names the command and parameters that add it (<code>service.add</code>, <code>layer.addDatabase</code>,
+<code>stac.addAsset</code>, <code>layer.addUrl</code>). A level lists at most 500 children and says <code>truncated</code> when
+it left some out. Like <code>connection.test</code>, it reads the address itself on the desktop and the
+command line; with <code>probe: true</code> it returns the address to fetch, and the app passes what it
+fetched back as <code>answer</code> (and further <code>documents</code> when a service asks for them, as <code>next</code>).
+Browsing never changes the project. When a saved database password turns out to be missing, or
+to have been saved for another address, the connection loses its <strong>Saved password</strong> marker; the
+stored entry itself is left for <strong>Forget Saved Password</strong>, an address edit or a removal to delete.</p>
+<p>Addresses are saved without passwords or tokens. Database passwords entered through
+<code>connection.login</code> are kept separately by connection ID for this session.
+On desktop, <strong>Remember on this computer</strong> in the new, edit and login forms is always unchecked
+initially. Checking it opts that submitted password into the operating system's password store;
+<strong>Test</strong> never saves it. The command equivalent is
+<code>connection.login {"id":"c1","password":"…","remember":true}</code>; <code>remember</code> defaults to false.
+If the store is missing, unavailable or denies access, the login remains usable for the
+session and a visible warning says it was not remembered (<code>passwordSaved:false</code> in the result).
+The browser has no OS-store hook and remains session-only. The command line and Python also
+remain session-only unless run with <code>--use-saved-secrets</code> (Python: <code>use_saved_secrets=True</code>).</p>
+<p>The stored database password envelope is bound to the connection's ID, kind and cleaned address,
+including its username. Renaming or regrouping preserves it. Changing the address or username,
+or removing the connection, deletes the old stored password before committing the change; if
+deletion fails, the definition remains unchanged. Invalid edits do not delete a password.
+Duplicating a connection copies neither its stored password nor its session login.
+<strong>Saved password</strong> marks a remembered database connection without reading the store just to
+display it; it is separate from an S3 connection's <strong>Saved keys</strong> marker.
+<strong>Forget Saved Password</strong> (<code>connection.forgetPassword {"id":"c1"}</code>) deletes the stored value,
+but leaves an explicitly entered session password and already-open layers alone. Forgetting an
+inactive connection never selects it or replaces another connection's active password.</p>
+<p>Database layer origins remain address-only: projects contain neither database passwords nor saved
+database connection IDs. On opening a project, one exact matching remembered database connection
+may reconnect automatically.
+Matching strips passwords and outer wrappers/whitespace, but does not infer that URI and
+libpq forms, reordered parameters, host aliases or different usernames mean the same server.
+Several eligible remembered matches open a chooser with no default; cancel leaves the layers
+unavailable. Choose a connection explicitly, or use <code>connection.login {"id":"c2"}</code> to select
+its existing session, environment or remembered password without exposing it. Selection lasts
+for this session, not in the project. <code>connection.list</code> reports secret-free <code>loginRequests</code> with
+the reason, database label, candidate IDs and affected-layer count; ambiguous layers are not
+attributed to the first saved row. <code>loggedIn</code> means this ID has a session password, an
+environment password selected for it, or an already-loaded remembered password available; it
+does not certify successful server authentication.</p>
+<p>Explicit command, address and session passwords take precedence over saved credentials. On the
+command line and in Python with <code>--use-saved-secrets</code> / <code>use_saved_secrets=True</code>, an eligible
+remembered connection's <code>PGPASSWORD</code>, <code>MYSQL_PWD</code> or <code>SQLCMDPASSWORD</code> (according to the database
+kind) wins over the keychain password without reading the store; the desktop app always uses the
+saved password. Project opening may use it only through the same exact-address
+remembered-connection selection; it never newly authorizes an unrelated address, password-file
+credentials or Windows identity. A positively refused saved or environment password is not
+retried automatically for the rest of the session, and no other saved password is tried
+automatically. Its old OS-store value is retained.
+The fresh login form has an empty password and Remember unchecked: an unchecked replacement is
+session-only and does not overwrite or delete the old value; checking Remember and successfully
+saving replaces it. A password the server refuses is not kept as this session's, and is not sent
+to the database's other layers. A refused typed login restores the previous active password,
+selection and activation; with no previous password, the attempted value is removed.
+If a password reused from this ID's session cache is refused, that cached value, its owned
+driver entry and activation are cleared, and a password is requested. An identical saved value
+is also suppressed for this session; a different saved value is not marked refused by this
+attempt. The OS-store entry is retained in either case.
+A transport error or missing table is not a wrong-password prompt. Use Forget to delete a
+previously saved password.</p>
+<p>A database login reopens waiting layers at the same password-free address;
+<code>connection.list</code> reports them as <code>waiting</code>, and <code>connection.login</code> returns <code>reopened</code> and
+<code>failed</code> counts. Adding, editing or removing a saved connection, or adding a layer, resolves
+only the databases that change: an unrelated database that is down is not connected to again.
+<code>connection.test</code> never persists a password. For a named connection, if the
+server positively refuses a password typed for that Test, the previous per-ID session credential,
+selection and active address password are restored (or the attempted credential is removed if
+none existed).
+A failure after authentication, such as a table-listing error, keeps the new session login.
+S3 <code>accessKeyId</code> and <code>secretAccessKey</code> likewise stay session-only unless a typed-key login opts
+into remembering them; a nonblank <code>sessionToken</code> always keeps the complete temporary credential
+set session-only, leaving previously saved keys unchanged (see <a href="#s3-buckets">S3 buckets</a>).
+With login parameters, an S3 <code>connection.test</code> logs in first, never remembers keys, and a failed
+listing does not undo that session login.
+S3 profiles and environment credentials remain subject to the existing endpoint restrictions;
+editing an S3 name, endpoint or options disconnects its session login. S3 shares the name-based
+session registry used by the S3 dialog and <code>s3.connect</code>, so editing or removing a saved
+connection also affects a session entry of the same name created there.
+Renaming clears runtime entries under both the old and new names, so the renamed
+connection cannot inherit an unrelated login at its destination name.
+Web-service logins are not supported. Plugins may list connections but cannot manage, log in
+to, forget passwords or S3 keys for, choose an S3 connection for, test or browse them. The in-app
+assistant asks for fresh approval each time for those operations, including Forget, S3 source
+selection and scripted calls; external assistants using MCP cannot run them. Even <code>probe: true</code>
+needs approval: connection operations cannot be approved for the whole conversation.</p>
+<p>Desktop and web apps save connections with their preferences (<code>connections</code> in desktop
+<code>prefs.json</code>, <code>rustgis.connections</code> in web localStorage). The first load imports saved services,
+databases other than DuckDB files, STAC APIs and remembered S3 connections once, without
+changing the old lists. Legacy saved endpoint lists are no longer shown in the pane or the
+S3 dialog; use the imported named connections instead. Testing S3 can register or replace the
+session endpoint and credentials under the form's connection name, including a same-name
+session created in the S3 dialog. Cancel does not disconnect that login or restore the
+previous one. CLI and Python connections last only for the run.</p>
+<h2 id="large-files">Large files<a class="headerlink" href="#large-files" title="Permanent link">&para;</a></h2>
+<p>GeoPackage, GeoParquet, FlatGeobuf and (on the desktop) Shapefile files with more than 100,000
+features are read in place rather than loaded whole, avoiding an in-memory copy of the entire
+dataset. The layer reads features in view in the background as the map moves, using spatial
+indexes: the GeoPackage R-tree, the FlatGeobuf packed R-tree, GeoParquet row-group bounding
+boxes, or a cached Shapefile R-tree built from the shapes' bounding boxes. When a
+local file's view holds more than 250,000 features (100,000 in the web app), the layer draws an
+evenly spread sample of them and its tooltip in Layers says so: zoom in to see them all. Remote files have lower limits (see
+<a href="../data-formats/">Data formats</a>). Smaller files load
+whole; <code>layer.addData</code> with <code>"stream": true</code> or <code>false</code> overrides the choice.</p>
+<p>On the desktop, opening a large Shapefile for the first time scans its record headers to build
+a disposable SQLite index outside the dataset directory. Reopening an unchanged file reuses
+that index; its canonical path, size and modification time identify the cached generation.
+The record directory and R-tree stay on disk, with an 8 MiB SQLite page-cache target per open
+index and memory mapping disabled. Query results retain file order and the same sampling
+rules. Attributes and the <code>.prj</code> are still read from the source files.</p>
+<p>Set <code>RUSTGIS_SHP_CACHE</code> to choose the cache directory and <code>RUSTGIS_SHP_CACHE_MIB</code> to choose
+the retained index budget (2048 MiB by default, clamped to 64–65536 MiB). Idle indexes are
+evicted in least-recently-used order. Open readers and builders hold operating-system leases,
+so another instance cannot evict their indexes; active files can temporarily exceed the
+budget. An index larger than the budget is session-only. Cache checkout and release reclaim
+abandoned builds and temporary indexes. A corrupt cache is rebuilt, and an unavailable cache
+directory falls back to the system temporary directory (a per-user directory on Unix).
+New Unix cache directories are created with mode <code>0700</code>. Existing roots must belong to
+the effective user, forbid group/other writes, and have trusted parents; symlink roots
+are rejected. These checks also apply to configured locations. Unsafe locations fall
+back rather than changing their permissions. If neither location works, the
+Shapefile remains readable by scanning record headers without retaining a full in-memory
+index. Deleting idle cache files does not modify the dataset.</p>
+<p>On the desktop, a GeoJSON FeatureCollection larger than 32 MB is read the same way, with no size
+limit: opening reads the file once, keeping each feature's place in it and its bounding box (a
+file over 256 MB through a buffer, so it is never held whole), and each view parses just the
+features it shows. A single feature, a bare geometry or TopoJSON is loaded whole.</p>
+<p>A streamed layer works like any other for symbology, labels, pop-ups, selection and the
+attribute table (which lists the features read for the view). Geoprocessing tools, exports and
+<strong>Load All Features</strong> read the whole source, up to 2 million features (500,000 in the web app);
+a larger source is refused rather than processed as a sample. A tool given a streamed layer with
+a selection uses the selected features read for the view. Edits are refused, since the features are read again as the view moves: right-click the
+layer in Layers and choose <strong>Load All Features</strong> (<code>layer.loadAll</code>) to load it into memory and
+edit it. Projects save the layer's file path, not its features, and read the file again when they
+open; a browser upload is kept in the project.</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Features</th>
+<th>A view read</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GeoParquet, 0.1° grid (50 MB)</td>
+<td>1.6 million polygons</td>
+<td>183,000 in 0.15 s</td>
+</tr>
+<tr>
+<td>FlatGeobuf, the same grid (335 MB)</td>
+<td>1.6 million polygons</td>
+<td>183,000 in 0.11 s</td>
+</tr>
+<tr>
+<td>GeoPackage, the same grid (344 MB)</td>
+<td>1.6 million polygons</td>
+<td>183,000 in 0.18 s</td>
+</tr>
+<tr>
+<td>GeoParquet, global grid (190 MB)</td>
+<td>6.5 million polygons</td>
+<td>a sample of 136,000 in 0.27 s</td>
+</tr>
+</tbody>
+</table>
+<h3 id="streamed-view-memory">Streamed view memory<a class="headerlink" href="#streamed-view-memory" title="Permanent link">&para;</a></h3>
+<p>Interaction windows share a retained-memory budget across all source layers in a map,
+including hidden layers: 128 MiB on the desktop and 48 MiB in the browser. The budget
+counts allocated row capacity, attribute strings, nested geometry buffers, projected
+geometry, extent arrays and optional display geometry. Complex records can therefore
+reduce the interaction sample even below the existing feature-count limit. Source ids,
+attributes and file order are retained; the sample is marked as incomplete. An individual
+feature that cannot fit produces a layer error instead of silently disappearing.</p>
+<p>Projection is prepared with the window on the source worker. Optional thinned geometry
+uses the remaining budget, up to 64 MiB per layer; when it cannot fit, drawing uses the
+original projected geometry. Explicitly loaded layers retain their full source data and
+limit only their optional display caches.</p>
+<p>This is a budget for installed interaction caches, not a process-RSS or GPU-memory cap.
+Provider decoding scratch, in-flight reads, shared snapshots and explicit full reads are
+outside it. The generic provider adapter probes a small sample and trims the returned
+window; it does not bound the provider's transient decoding allocations. Blocking map
+exports retain their original row limits and reread instead of reusing a budget-reduced
+interaction window. Full-source loading, analysis, editing, data exports and project
+serialization continue to use the original source data and existing read limits.</p>
+<h2 id="rasters">Rasters<a class="headerlink" href="#rasters" title="Permanent link">&para;</a></h2>
+<figure>
+  <img alt="A shaded-relief elevation raster of the Sierra Nevada with the Style tab open" src="https://assets.rustgis.app/images/raster.webp" />
+<br />
+<figcaption>An elevation raster of the Sierra Nevada with shaded-relief symbology.</figcaption>
+</figure>
+<p>Add a GeoTIFF or an ASCII grid with <strong>Add Data</strong>, by dropping it on the window, or in the web app
+by picking it. Local ASCII grids can be up to 1 GiB; ASCII-grid uploads are limited to 256 MiB in the web app.
+A TIFF or PNG without coordinates opens as a scan to place with <strong>Georeference</strong>; see
+<a href="../data-formats/">Supported Data Formats</a>. An ASCII grid takes its coordinate system from a <code>.prj</code>
+file next to it (as a Shapefile does); otherwise, and always for uploads, it must be in
+longitude/latitude degrees. On the desktop, a GDAL <code>.aux.xml</code> file next to a raster (<code>dem.tif.aux.xml</code>
+or <code>dem.aux.xml</code>) names its bands from their descriptions, gives the no-data value when the file
+has none, and supplies the band statistics when only an overview of the raster is read. Its
+category names (GDAL's <code>SetCategoryNames</code>, one per value) label the classes in the legend of a
+Colormap or Unique Values layer; a value without a name shows the value itself. The band
+descriptions GDAL and rasterio write inside a GeoTIFF (its <code>GDAL_METADATA</code> tag) name its bands
+too, a sidecar's taking precedence.
+Exporting a raster opened from an overview writes that overview; the results of adding and of
+exporting it (<code>layer.addData</code>, <code>share.exportRaster</code>) give the full size as <code>overviewOf</code>, so scripts
+and the MCP server see it too.
+<code>share.exportRaster</code> writes an untiled GeoTIFF; with <code>"cog": true</code> it writes a cloud-optimised one:
+512-pixel tiles compressed with Deflate, overviews (each half the size of the last, down to one
+tile), and every directory ahead of the tiles, so a reader fetches the header once and then only the
+tiles it needs. Overviews are averaged, except for a palette raster or one with a few whole-number
+classes, whose overviews take a pixel so that no class is invented; a palette keeps its colour
+table, though not the table's transparency, which a TIFF colour table can't hold (GDAL drops it
+too). The file is classic TIFF when it would fit in 4 GiB even uncompressed and BigTIFF when it
+might not. Exported to a file it is written tile by tile, never held whole in memory (the browser
+builds it in memory to download it).
+GeoTIFFs may be regular or cloud-optimised: grey, RGB(A), palette (coloured by the file's colour
+table, as land cover such as the NLCD is) or multiband, of any pixel type, tiled or striped, and
+compressed with Deflate, LZW, PackBits, JPEG or Zstandard. JPEG-compressed YCbCr images are shown
+as RGB; other YCbCr and CMYK images aren't read. A rotated or skewed image is resampled to a
+north-up grid as it is read. The coordinate system is an EPSG code,
+or the file's own projection described in its GeoKeys (Albers, Lambert conformal conic, transverse
+Mercator, Mercator, Lambert azimuthal, stereographic, equirectangular, sinusoidal and others), which an
+exported GeoTIFF keeps. A raster too large to hold in memory (more than 120 million samples, 32
+million in the web app) opens from its largest overview that fits; one without overviews opens as
+an overview made as it is read, a strip or tile at a time (every second, fourth… pixel each way),
+so reading it takes as long as decoding the whole file once. A cloud-optimised GeoTIFF added by its
+web address is read in place instead, a tile at a time (see <a href="../data-formats/#files-on-the-web">Files on the
+web</a>).</p>
+<p>The web app opens a picked or dropped file of up to 256 MB whole. A larger GeoTIFF is read a part
+at a time instead: its header, then only the tiles of the overview it opens from. A
+cloud-optimised file opens however large it is, as long as those parts fit in 256 MB (a 436 MB
+EnMAP hyperspectral scene reads about 20 MB, the 1.6 GB NLCD land cover about 14 MB).
+The parts read are what a saved project keeps. A file that isn't cloud-optimised (in strips, or
+without overviews) needs most of itself, and past 256 MB the web app says to open it in the
+desktop app.</p>
+<p>With a raster layer selected in Layers, the <strong>Style</strong> and <strong>Data</strong> tabs show its groups:</p>
+<table>
+<thead>
+<tr>
+<th>Tab › Group</th>
+<th>Controls</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Style › Visibility Range, Effects</td>
+<td>Scale range, transparency</td>
+</tr>
+<tr>
+<td>Style › Rendering</td>
+<td><strong>Symbology</strong>: Stretch, RGB, Classify, Unique Values, Colormap, Shaded Relief; <strong>Stretch Type</strong>: None, Minimum Maximum, Custom Min/Max (your own bounds, one pair per colour channel on an RGB layer), Percent Clip, Standard Deviation, Histogram Equalize; <strong>DRA</strong> (stretch the pixels in view); <strong>Resampling</strong> (nearest or bilinear); <strong>Band Combination</strong> (natural colour, colour infrared, or any bands)</td>
+</tr>
+<tr>
+<td>Style › Enhancement</td>
+<td>Brightness, contrast, gamma</td>
+</tr>
+<tr>
+<td>Data</td>
+<td>Raster information (size, bands, statistics, coordinate system) and Export Raster (GeoTIFF)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Masking</strong>, at the foot of the Symbology pane (<code>raster.mask</code>), hides pixel values from view without
+changing the data: values to draw as no data (a background of 0 or −9999 the file doesn't flag, QA
+flags, land cover classes such as <code>0, 254, 255</code>), and values outside, or inside, a range. The
+stretch, class breaks and legend then use only the values shown. <strong>Clear mask</strong> shows every value
+again; the mask is saved with the project.</p>
+<p>A single-band raster of continuous values (an elevation model, a temperature grid, an index such
+as NDVI) is first drawn as a grey stretch, black to white (matplotlib's <code>gray</code>), clipping 0.5 % at each end. To draw such rasters
+your own way, style one with the Stretch symbology, then click <strong>Save as Default</strong> under
+<strong>Resampling</strong>: rasters added from then on, opened files and analysis results (a slope, an NDVI)
+alike, take its color scheme, inversion, stretch type and
+resampling (a Custom Min/Max stretch is in one raster's own units, so it can't be saved). <strong>Reset
+Default</strong> goes back to the grey stretch. The app keeps the setting with its preferences, for every
+project; colour images, rasters with their own color table and rasters of a few categories keep
+their own look. Scripts use <code>raster.setDefaultStyle</code>, e.g.
+<code>{"ramp": "Viridis", "invert": false, "stretch": "standardDeviation", "n": 2, "resampling": "bilinear"}</code>,
+<code>{"fromLayer": true}</code> or <code>{"reset": true}</code>; with no parameters it returns the current setting.</p>
+<p>Tiles of one dataset drawn as separate layers each stretch over their own values, which shows as
+steps where they meet. <code>raster.stretch</code> with <code>{"like": "&lt;layer&gt;"}</code> gives a layer the value range
+of another layer's stretch as fixed bounds, so the tiles match; <code>{"type": "custom", "min": …,
+"max": …}</code> sets the bounds yourself.</p>
+<p>Clicking a raster with the Explore tool shows its pixel values. Projects remember a raster's file
+path relative to the project and reopen it; rasters added in the browser are stored inside the project.</p>
+<h3 id="zarr-stores">Zarr stores<a class="headerlink" href="#zarr-stores" title="Permanent link">&para;</a></h3>
+<p><strong>Home › Add › Add Data › Zarr…</strong> (<code>layer.addZarr</code>) adds a variable of a <a href="https://zarr.dev">Zarr</a> store
+(format 2 or 3), the multidimensional arrays climate and Earth-observation data are kept in: give
+the store's web address, or (on the desktop) its folder, and <strong>Connect</strong> lists its variables
+(<code>raster.zarrInfo</code>). A variable's map is its latitude/longitude (or y/x) dimensions; its other
+dimensions, such as time or pressure level, are picked a step at a time with a slider, labelled by
+their coordinates (CF time units as dates, the <code>noleap</code> and <code>360_day</code> model calendars included).
+<strong>Add to Map</strong> adds that step as a raster layer named after the variable and step (<code>tas
+2014-07-15</code>), and the dialog stays open to add others. Only the chunks the step needs are fetched,
+a few at a time, in the background.</p>
+<p>Stores are read in pure Rust, in the web app as well as on the desktop: Zarr 2 with consolidated
+metadata (<code>.zmetadata</code>, as xarray writes) and Zarr 3 (<code>zarr.json</code>, sharded arrays too), chunks
+compressed with blosc (LZ4, zlib or zstd, byte- or bit-shuffled), zlib, gzip, zstd or LZ4, of
+integer or float values, in C or Fortran order. A sharded array's shards are fetched whole.
+<code>_FillValue</code>, <code>missing_value</code> and a Zarr 2 array's fill value are no data; a Zarr 3 array's fill
+value isn't: chunks never written are left empty, but chunks missing from inside a shard show the
+fill value. <code>scale_factor</code> and <code>add_offset</code> are applied. The coordinates must be evenly spaced (a curvilinear grid isn't read);
+longitude/latitude grids of 0–360° are turned to -180–180°, and projected ones take their
+coordinate system from the variable's grid mapping (<code>crs_wkt</code>, <code>spatial_ref</code>, an EPSG code) or
+<code>"crs"</code>. Blosclz-compressed and transposed chunks and shards inside shards aren't read yet, and
+say so. A store by web address must allow the browser to fetch it (CORS) for the web app;
+Google Cloud's CMIP6 bucket does, ARCO-ERA5's doesn't (the desktop reads both).</p>
+<div class="highlight"><pre><span></span><code>rustgis-cli<span class="w"> </span>run<span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'layer.addZarr={"url":"https://storage.googleapis.com/gcp-public-data-arco-era5/ar/1959-2022-full_37-1h-0p25deg-chunk-1.zarr-v2","variable":"2m_temperature","index":{"time":539100}}'</span>
+</code></pre></div>
+<p><strong>Follow the time slider</strong> (desktop; <code>layer.addZarr</code> with <code>"time": true</code>) adds the variable as one
+layer whose step is the time slider's. The slider turns on over the variable's dates when it is
+off, and the layer shows the last of its steps in the slider's window, or nothing when none falls
+in it. Moving or playing the slider reads that step's slice (only its chunks), keeping the last
+eight read. A web store's next two steps are read ahead in the background. The stretch is fixed at
+the first slice's range, so a colour means the same value at every step, and <strong>Export</strong> writes an
+animation of it. An axis longer than the slider's 20,000 steps (hourly ERA5) takes a period with <code>"start"</code> and
+<code>"end"</code>; given neither (as the dialog adds it), the layer takes 20,000 steps from the one picked. The project keeps such a layer by its store (a folder or a web address)
+and selection, not as a slice, and reads the slider's step again when it opens.</p>
+<div class="highlight"><pre><span></span><code>rustgis-cli<span class="w"> </span>run<span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'layer.addZarr={"path":"air.zarr","variable":"t","time":true}'</span><span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'time.export={"path":"t.gif"}'</span>
+</code></pre></div>
+<p><strong>View › Time Series</strong> (desktop; <code>zarr.series</code>) reads a Zarr variable's values through time at a
+point. Pick a Zarr layer, then <strong>Pick a Point</strong> on the map. A layer that follows the time slider
+gives its period, a slice the whole axis, and <code>"start"</code>/<code>"end"</code> any other. Only the chunks holding
+that point's cell are read. A store chunked one step at a time, such as ARCO-ERA5's map-oriented
+copy, reads a chunk per step: about 4,000 steps at most, so a long axis needs a shorter period.
+The chart draws up to six points as lines and marks the time slider's step, and a click on it
+takes the slider to that date. <strong>Export CSV…</strong> writes the date and value of each point.</p>
+<div class="highlight"><pre><span></span><code>rustgis-cli<span class="w"> </span>run<span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'zarr.series={"path":"air.zarr","variable":"t","lon":-55.7,"lat":-12.5}'</span>
+</code></pre></div>
+<p><strong>Summarise over time</strong> (in the Time Series pane; <code>zarr.reduce</code>) makes a raster of one statistic of
+a Zarr variable's steps: <strong>mean</strong>, <strong>min</strong>, <strong>max</strong>, <strong>sum</strong>, <strong>std</strong> (the population standard
+deviation), <strong>count</strong> of values, or <strong>countAbove</strong> a threshold (days above 30 °C, say). It reads a
+layer's period by default, else the <code>"start"</code>/<code>"end"</code> given, and <code>"months"</code> keeps one season across
+years (<code>[12, 1, 2]</code>). Slices are read one at a time and folded into running totals (12 to 20 bytes a
+cell, for grids of up to 32 million cells), so memory depends on the grid, not on the period: at most
+20,000 steps, with progress and <strong>Cancel</strong> in the app. A cell keeps no value when it had fewer values
+than <code>"minValid"</code> (a share, 0 by default) of the steps read; with the default, <strong>count</strong> and
+<strong>countAbove</strong> give 0 where a cell never had a value (land in an ocean variable, say), and a
+<code>"minValid"</code> above 0 leaves such cells empty. The layer is named after what it holds (<code>tas mean 1991-01-01–2020-12-31</code>) and kept in the
+project as a GeoTIFF.</p>
+<div class="highlight"><pre><span></span><code>rustgis-cli<span class="w"> </span>run<span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'zarr.reduce={"path":"air.zarr","variable":"t","stat":"mean","months":[12,1,2]}'</span>
+</code></pre></div>
+<p>A single step (a layer that doesn't follow the slider) from a store in a folder is saved in the
+project by its folder and slice (<code>2m_temperature[time=539100]</code>) and read again when the project
+opens, as Add Data on the folder does (its first variable); a single step from a store by web
+address is kept in the project as the slice read. <code>?zarr=&lt;address&gt;</code> in a web app link
+opens the dialog on a store.</p>
+<h2 id="project-items">Project items<a class="headerlink" href="#project-items" title="Permanent link">&para;</a></h2>
+<p>RustGIS saves pieces of a project as files you can share and reuse:</p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Extension</th>
+<th>Made with</th>
+<th>Opened with</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Map file (a map with its data)</td>
+<td><code>.rgismap</code></td>
+<td>Publish › Save As › Map File</td>
+<td>Command Search (<code>map.import</code>), or drop it on the window</td>
+</tr>
+<tr>
+<td>Layer file (a layer with its symbology)</td>
+<td><code>.rgislyr</code></td>
+<td>Publish › Save As › Layer File</td>
+<td>Add Data</td>
+</tr>
+<tr>
+<td>Styles (saved symbology)</td>
+<td><code>.rgisstyle</code></td>
+<td>Style › Styles › New Style, then Publish › Save As › Style Items</td>
+<td>Style › Styles › Add Style File</td>
+</tr>
+<tr>
+<td><a href="../cartography/#custom-color-ramps">Color ramps</a></td>
+<td><code>.rgisramp</code> (also reads QGIS <code>.xml</code>/<code>.qml</code>, GDAL color <code>.txt</code> and GMT <code>.cpt</code>)</td>
+<td>Publish › Save As › Color Ramps, or by hand</td>
+<td>Style › Styles › Add Color Ramp File</td>
+</tr>
+<tr>
+<td>Project template (the setup without features)</td>
+<td><code>.rgistemplate</code></td>
+<td>Publish › Save As, or Command Search (<code>project.saveTemplate</code>)</td>
+<td>Command Search (<code>project.fromTemplate</code>)</td>
+</tr>
+<tr>
+<td>Project package (the project, with linked raster files embedded while they fit)</td>
+<td><code>.rgispkg</code></td>
+<td>Publish › Package › Project</td>
+<td>Project › Open, or drop it on the window</td>
+</tr>
+<tr>
+<td>Map package / mobile map package</td>
+<td><code>.rgismpk</code></td>
+<td>Publish › Package › Map or Mobile Map</td>
+<td>Open the package as a project, or drop it on the window</td>
+</tr>
+<tr>
+<td>Results package (geoprocessing history and outputs)</td>
+<td><code>.rgisgpk</code></td>
+<td>Publish › Package › Results</td>
+<td>any zip tool</td>
+</tr>
+<tr>
+<td>Task (guided command steps)</td>
+<td><code>.rgistask</code></td>
+<td>Analyze › Task, Publish › Save As › Task Item</td>
+<td>Analyze › Task › Import Task</td>
+</tr>
+<tr>
+<td>Bookmarks (as longitude, latitude and scale)</td>
+<td><code>.rgisbookmarks</code></td>
+<td>Home › Navigate › Bookmarks › Export Bookmarks</td>
+<td>Home › Navigate › Bookmarks › Import Bookmarks</td>
+</tr>
+<tr>
+<td>Layout</td>
+<td><code>.rgislayout</code></td>
+<td>Publish › Save Layout File</td>
+<td>Home › New Layout › Import Layout</td>
+</tr>
+</tbody>
+</table>
+<p>Packages are zip files. Project and map packages can newly embed a combined 512 MiB of linked
+raster files on the desktop (128 MiB in the web app); a raster that doesn't fit stays linked.
+Already embedded uploads are retained. Local streamed vector files, databases and web layers
+stay linked to their sources. A mobile map package keeps only the visible layers and simplifies their
+geometry, for phones and tablets. Styles can also be imported from the layers of a layer file,
+map file or project. Data › Layer Templates adds empty layers with ready-made schemas (places,
+routes, areas, observations…) to draw into. Add Folder connects a folder to the Browser, which
+also lists the project's layouts, styles and tasks. A task's steps each run a command; New Task
+From History turns the geoprocessing history into a task you can replay.</p>
+<p>Saved projects, map and layer files, and packages keep no password, key, token or signature in
+layer web addresses. The open project keeps them for this session. RustGIS remembers the 32 most
+recent distinct saved snapshots whose addresses needed stripping. Opening a plain <code>.rgis</code> file
+whose bytes exactly match one of those snapshots restores its secrets; saving more distinct
+snapshots evicts the oldest. Changed files, packages, imports and files saved by another process
+never restore secrets. After a snapshot is evicted or RustGIS closes, add those layers again with
+their credentials.</p>
+<h3 id="complete-streamed-shapefile-rendering">Complete streamed Shapefile rendering<a class="headerlink" href="#complete-streamed-shapefile-rendering" title="Permanent link">&para;</a></h3>
+<p>The CPU renderer traverses a streamed Shapefile in source order instead of painting only
+its interaction sample. Shapes and attributes arrive in chunks targeting 8 MiB of owned
+feature storage; projection and display geometry are temporary copies of one chunk.
+Whole-file imports, loading for editing and other providers retain their existing read APIs.
+An indivisible row exceeding the chunk target is emitted alone, preserving its full geometry.
+A zero budget reports an error.</p>
+<p>Styles, definition queries, display filters and label classes use the same painter as an
+in-memory layer. The renderer chooses geometry simplification from statistics over the whole
+layer, accumulates point bins across chunks, applies transparency and blend once per layer,
+and draws selection highlights after the whole layer. Labels share the existing global
+priority, stable tie ordering, collision rules and 20,000-candidate placement limit.
+Screen rendering and PNG/layout exports share this traversal. Live redraws of a streamed
+Shapefile therefore also read the complete source; line/polygon layers currently make an
+additional statistics pass. Interaction windows remain byte-budgeted, but they are not a
+shortcut for this complete painter, so redraws can be I/O intensive on large files.</p>
+<p>Native flat extrusions use a private disposable SQLite ordering workspace (2 MiB page-cache
+target, memory mapping disabled, 4 GiB database ceiling), with a global shadow pass followed
+by globally sorted solids. It is removed when rendering finishes. Failure or incomplete
+traversal does not publish a partial successful frame. This workspace is not a reusable index.</p>
+<p>This is not a fixed bound on total renderer memory: raster targets, label candidates and the
+existing combined polygon-mask path have separate costs. Upright perspective point markers
+and polygon extrusions retain the complete upstream depth renderer through an isolated
+full-source snapshot. Upright points require a known source total of at most 50,000 rows;
+larger or unknown totals use complete ground-marker traversal, independent of the current
+interaction-window size. Plain fills, lines and mask sources continue complete chunk traversal
+per band, including terrain bands; they do not consume that snapshot's feature budget.
+Retained complete-source feature storage across the snapshot has a separate budget (512 MiB natively, 192 MiB in the browser).
+Exceeding it fails the whole frame with a source diagnostic, without sampling or truncating
+features; raster targets, derived geometry caches and decoding scratch are outside that budget. Flat line/polygon rendering
+makes a statistics pass before painting and currently reads the entire source, so it trades
+additional I/O for complete rendering and predictable chunk storage. Geometry preprocessing
+and GPU preparation are separate optimizations.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: User Guide">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                User Guide
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../web-data/" class="md-footer__link md-footer__link--next" aria-label="Next: Web Data">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Web Data
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Qiusheng Wu
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/opengeos/RustGIS" target="_blank" rel="noopener" title="RustGIS on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/sponsors/giswqs" target="_blank" rel="noopener" title="Sponsor RustGIS on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="m241 87.1 15 20.7 15-20.7C296 52.5 336.2 32 378.9 32 452.4 32 512 91.6 512 165.1v2.6c0 112.2-139.9 242.5-212.9 298.2-12.4 9.4-27.6 14.1-43.1 14.1s-30.8-4.6-43.1-14.1C139.9 410.2 0 279.9 0 167.7v-2.6C0 91.6 59.6 32 133.1 32 175.8 32 216 52.5 241 87.1"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://buymeacoffee.com/giswqs" target="_blank" rel="noopener" title="Buy the maintainer a coffee" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M152-16c-13.3 0-24 10.7-24 24 0 38.9 23.4 59.4 39.1 73.1l1.1 1C184.5 96.4 192 103.9 192 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C183.5 31.7 176 24.1 176 8c0-13.3-10.7-24-24-24M96 192c-17.7 0-32 14.3-32 32v192c0 53 43 96 96 96h192c41.8 0 77.4-26.7 90.5-64h5.5c70.7 0 128-57.3 128-128s-57.3-128-128-128zm352 192V256c35.3 0 64 28.7 64 64s-28.7 64-64 64M288 8c0-13.3-10.7-24-24-24S240-5.3 240 8c0 38.9 23.4 59.4 39.1 73.1l1.1 1C296.5 96.4 304 103.9 304 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C295.5 31.7 288 24.1 288 8"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"../..","features":["content.code.copy","navigation.indexes","navigation.footer","navigation.instant","navigation.top","navigation.tracking","search.highlight","search.share"],"redirect":null,"search":"../../assets/javascripts/workers/search.c47bb847.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.77dd0ce9.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1764 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A fast, free and open-source GIS in pure Rust for mapping, analyzing and sharing geospatial data, on the desktop and in the browser">
+      
+      
+        <meta name="author" content="opengeos">
+      
+      
+        <link rel="canonical" href="https://rustgis.app/comparison/geolibre/">
+      
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../qgis/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="https://assets.rustgis.app/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.71">
+    
+    
+      
+        <title>RustGIS and GeoLibre - RustGIS</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../assets/stylesheets/modern/main.e442bf79.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/modern/palette.b60ce83d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
+    <div data-md-component="skip">
+      <a href="#__skip" class="md-skip">
+        Skip to content
+      </a>
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="RustGIS" class="md-header__button md-logo" aria-label="RustGIS" data-md-component="logo">
+      
+  <img src="https://assets.rustgis.app/images/logo.svg" alt="RustGIS">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RustGIS
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              RustGIS and GeoLibre
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/opengeos/RustGIS" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/RustGIS
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="RustGIS" class="md-nav__button md-logo" aria-label="RustGIS" data-md-component="logo">
+      
+  <img src="https://assets.rustgis.app/images/logo.svg" alt="RustGIS">
+
+    </a>
+    RustGIS
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/opengeos/RustGIS" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/RustGIS
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Installation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Getting Started
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://web.rustgis.app" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Web App
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../user-guide/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  User Guide
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  User Guide
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/web-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Web Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/data-formats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Supported Data Formats
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/maps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Maps and Basemaps
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/cartography/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Cartography
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/editing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Editing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Analysis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/layouts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Layouts and Reports
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/sharing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sharing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/workspace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Workspace
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/assistant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AI Assistant
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Comparison
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_6">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Comparison
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  RustGIS and GeoLibre
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  RustGIS and GeoLibre
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-short-answer" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The short answer
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-geolibre-is-stronger" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Where GeoLibre is stronger
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-rustgis-is-stronger" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Where RustGIS is stronger
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#side-by-side" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Side by side
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-them-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Using them together
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Common questions
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        See also
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../qgis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  RustGIS and QGIS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Command Line
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MCP Server
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Plugins
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../i18n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Languages
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Architecture
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Contributing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sponsor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sponsor
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../privacy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Privacy
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/opengeos/RustGIS/issues" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Report Issues
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-short-answer" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The short answer
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-geolibre-is-stronger" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Where GeoLibre is stronger
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-rustgis-is-stronger" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Where RustGIS is stronger
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#side-by-side" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Side by side
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-them-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Using them together
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Common questions
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        See also
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                <a id="__skip" tabindex="-1"></a>
+                
+                  
+
+  
+  
+
+
+<h1 id="rustgis-and-geolibre">RustGIS and GeoLibre<a class="headerlink" href="#rustgis-and-geolibre" title="Permanent link">&para;</a></h1>
+<p>RustGIS and <a href="https://geolibre.app">GeoLibre</a> are sibling <a href="https://github.com/opengeos">opengeos</a>
+projects with the same maintainer, so people often ask how they differ and which to use. This
+page answers that: what each is built for, where each is stronger, and how to use them together.
+For RustGIS beside QGIS, ArcGIS Pro and ArcGIS Online as well, see the
+<a href="../">full comparison</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">How to read this</p>
+<p>This page is written by the RustGIS project. It reflects RustGIS as of <strong>October 2026</strong> and
+GeoLibre 3.4 as described in <a href="https://geolibre.app">its documentation</a>, not every
+plugin either one can load. Both projects move quickly, so details here age fast. Found
+something wrong or out of date? Please
+<a href="https://github.com/opengeos/RustGIS/issues">open an issue</a>.</p>
+</div>
+<h2 id="the-short-answer">The short answer<a class="headerlink" href="#the-short-answer" title="Permanent link">&para;</a></h2>
+<p><strong>GeoLibre is the broader, web-first GIS.</strong> It is built with web technology (Tauri, React,
+MapLibre GL JS, DuckDB-WASM, deck.gl) and runs in a browser tab with nothing installed, as a
+desktop app, and as native Android and iOS apps. It reaches further into data (databases,
+cloud catalogs, dozens of open-data portals), 3D (Cesium, 3D Tiles, I3S, Gaussian splats), AI
+(SAM segmentation, ONNX object detection), sharing (share links, review comments, real-time
+collaboration) and the Python and R ecosystems (a Jupyter widget and an R package).</p>
+<p><strong>RustGIS is the narrower, native one.</strong> It is a single program written entirely in Rust that
+draws its own interface on the GPU, with no browser engine or JavaScript runtime inside, and the
+same program compiled to WebAssembly for the browser. Its interface is a ribbon laid out in the
+order of the work, every button is a command you can run from the command line, Python or an AI
+agent, its plugins run sandboxed, and it goes further in the classic desktop GIS jobs of data
+design, reports and print layouts.</p>
+<p>They are complementary rather than competing. Both run the same 1,000+ GeoLibre and Whitebox
+geoprocessing tools, both keep your data on your device, and both read and write the same open
+formats. Choose GeoLibre for reach, choose RustGIS for a compact, scriptable desktop GIS, or use
+both.</p>
+<h2 id="where-geolibre-is-stronger">Where GeoLibre is stronger<a class="headerlink" href="#where-geolibre-is-stronger" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>More platforms.</strong> GeoLibre runs as a web app, an installable PWA, a desktop app on Windows,
+  macOS and Linux, native <a href="https://geolibre.app">Android and iOS apps</a>, a Docker image, a Chrome
+  extension and a Jupyter widget. RustGIS runs on the desktop and in the browser; it has no
+  mobile app and no touch-first layout.</li>
+<li><strong>Data reach.</strong> GeoLibre opens more formats in the app itself, including File Geodatabase,
+  DWG, MapInfo TAB, NetCDF-4/HDF5, Kerchunk and Icechunk, ICESat-2 and GEDI. It connects to
+  SQL Server and Apache Iceberg as well as PostGIS and DuckDB, and its plugins browse dozens of
+  catalogs and portals, from NASA Earthdata and Planet to Hugging Face and about 150 US local
+  agencies. RustGIS reads a focused set natively and the rest through GDAL's programs when they
+  are installed (see <a href="../../user-guide/data-formats/">Data formats</a>).</li>
+<li><strong>SQL in the browser.</strong> GeoLibre runs DuckDB Spatial, PGlite/PostGIS and Apache Sedona inside
+  the browser. RustGIS's SQL pane uses DuckDB on the desktop; its web app has no SQL engine yet.</li>
+<li><strong>Cartography depth.</strong> GeoLibre has rule-based and expression renderers, heat maps,
+  clustering, diagrams, blend modes, layer groups, a data-defined label engine, and style
+  interchange with SLD, QGIS QML and Mapbox GL JSON. RustGIS covers the common renderers and
+  collision-free labels, without that depth.</li>
+<li><strong>3D.</strong> GeoLibre has a Cesium globe with terrain, 3D Tiles, I3S, Gaussian splats, CZML and
+  Google Photorealistic 3D Tiles. RustGIS has a globe, 2.5D extrusion and LiDAR point layers.</li>
+<li><strong>AI and imagery models.</strong> Besides an AI assistant, GeoLibre has SAM segmentation, in-browser
+  ONNX/YOLO object detection and an object-based image analysis workbench. RustGIS has pixel
+  classification (k-means, minimum distance and a trainable neural network).</li>
+<li><strong>Sharing and collaboration.</strong> GeoLibre shares projects through links with roles, expiry and
+  passwords, has review comments anchored to the map, story maps, dashboards, and an
+  experimental real-time collaboration mode. RustGIS shares by writing files: web map pages,
+  packages and static exports.</li>
+<li><strong>Python, R and notebooks.</strong> The <code>geolibre</code> Python package is a two-way Jupyter widget with a
+  leafmap-style API, the <code>geolibre</code> R package works in RStudio, Quarto and Shiny, and the
+  notebook panel runs JupyterLite or JupyterLab. RustGIS has a <a href="../../python/">Python package</a>
+  that runs commands headlessly and built-in notebooks of command cells, but no Python console
+  in the app and no R package.</li>
+<li><strong>Opening other projects.</strong> GeoLibre imports QGIS (<code>.qgs</code>/<code>.qgz</code>) and ArcGIS Pro
+  (<code>.aprx</code>/<code>.mapx</code>) projects. RustGIS opens neither.</li>
+<li><strong>Editing.</strong> GeoLibre edits vertices and writes edits back to their sources (GeoPackage,
+  PostGIS, ArcGIS feature services). RustGIS cannot yet edit the vertices of existing features,
+  and edits stay in the project until exported.</li>
+<li><strong>Languages.</strong> GeoLibre's interface comes in 21 languages, including right-to-left Arabic,
+  Hebrew and Persian. RustGIS has <a href="../../i18n/">16</a>, none right-to-left.</li>
+</ul>
+<h2 id="where-rustgis-is-stronger">Where RustGIS is stronger<a class="headerlink" href="#where-rustgis-is-stronger" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>A native program, not a web view.</strong> RustGIS is memory-safe Rust compiled to one native
+  program (18–30 MB installers) with no browser engine, JavaScript or Python inside. Large
+  GeoPackage, GeoParquet, FlatGeobuf and Shapefile files are streamed a view at a time rather
+  than loaded into a browser tab's memory, and nothing depends on a web view's limits.</li>
+<li><strong>Everything is a command.</strong> Every ribbon button, shortcut and pane action is a command with an
+  id and JSON parameters, and the same ids run from <a href="../../cli/"><code>rustgis-cli</code></a>, the
+  <a href="../../python/"><code>rustgis</code> Python package</a>, notebooks, models, the Script pane, the
+  <a href="../../mcp/">MCP server</a> and the AI Assistant. A batch of maps can be rendered in CI with one
+  command line. GeoLibre is driven through its interface, its Python and R packages and its MCP
+  server; it has no general command-line tool.</li>
+<li><strong>Sandboxed plugins.</strong> RustGIS <a href="../../plugins/">plugins</a> are WebAssembly modules that can do
+  only what their declared permissions allow, and the same file runs on the desktop, in
+  <code>rustgis-cli</code> and in the browser. GeoLibre's TypeScript plugins can do much more inside the
+  app (panels, map tools, custom layers), but its plugin API states that they "run as trusted
+  code in the app window" and that its policy "is not a security boundary".</li>
+<li><strong>Data design.</strong> RustGIS defines domains, subtypes, attribute rules, contingent values,
+  relationship classes, archiving, topology rules and traverse/COGO in the project itself, the
+  geodatabase design work of ArcGIS Pro. GeoLibre has attribute forms with constraints and
+  honours the domains and subtypes of the ArcGIS feature services it edits, but doesn't define
+  its own.</li>
+<li><strong>Reports and layouts.</strong> RustGIS builds grouped reports with statistics, charts and
+  subreports, and layouts with map frames, grids, extent indicators and map series. GeoLibre's
+  print layout and atlas cover the common cases, and it has no report builder.</li>
+<li><strong>A ribbon interface.</strong> Tabs follow the order of the work (Home, Data, Style, Edit, Analyze,
+  View, Publish), with Command Search (<span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-k">K</kbd></span>) to find any command or tool by name. People
+  coming from ArcGIS Pro often find it familiar. GeoLibre uses menus and panels, with a command
+  palette and beginner, intermediate and advanced interface levels.</li>
+<li><strong>Self-contained.</strong> Everything RustGIS does with local data runs inside the program, with no
+  network, server or helper process, and offline areas sync edited features back. GeoLibre works
+  offline too, but some features need a remote host (GDAL export, ONNX detection and story map
+  HTML export among them), and on the desktop its raster tools and some vector tools use an
+  optional Python sidecar.</li>
+</ul>
+<h2 id="side-by-side">Side by side<a class="headerlink" href="#side-by-side" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><strong>RustGIS</strong></th>
+<th><strong>GeoLibre</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Licence</strong></td>
+<td>Apache-2.0</td>
+<td>MIT</td>
+</tr>
+<tr>
+<td><strong>Written in</strong></td>
+<td>Rust (egui, wgpu, tiny-skia)</td>
+<td>TypeScript and Rust (Tauri, React, MapLibre GL JS, DuckDB-WASM, deck.gl)</td>
+</tr>
+<tr>
+<td><strong>First release</strong></td>
+<td>2026</td>
+<td>2026 (v1.0 in June)</td>
+</tr>
+<tr>
+<td><strong>Platforms</strong></td>
+<td>Windows, macOS, Linux, and the browser (WebAssembly)</td>
+<td>Windows, macOS, Linux, the browser and PWA, Android, iOS, Docker</td>
+</tr>
+<tr>
+<td><strong>Interface</strong></td>
+<td>Ribbon with Command Search</td>
+<td>Menus and panels with a command palette and interface levels</td>
+</tr>
+<tr>
+<td><strong>Map engines</strong></td>
+<td>One native renderer (2D map and globe)</td>
+<td>MapLibre, Mapbox GL JS, CesiumJS or the ArcGIS Maps SDK</td>
+</tr>
+<tr>
+<td><strong>Formats</strong></td>
+<td>A focused set read natively; more through GDAL when installed</td>
+<td>A wide set in the app, some desktop only (File Geodatabase, MBTiles)</td>
+</tr>
+<tr>
+<td><strong>Databases</strong></td>
+<td>PostgreSQL/PostGIS, MySQL and MariaDB, read live, and DuckDB through DuckDB, on the desktop</td>
+<td>DuckDB, PostGIS, SQL Server, Iceberg; PGlite and Sedona in the browser</td>
+</tr>
+<tr>
+<td><strong>Geoprocessing</strong></td>
+<td>1,000+ (GeoLibre and Whitebox) plus built-in vector tools</td>
+<td>1,000+ (GeoLibre and Whitebox) plus the GeoLibre Toolbox</td>
+</tr>
+<tr>
+<td><strong>Editing</strong></td>
+<td>Create, move, rotate, scale, split, merge, snapping; no vertex editing yet</td>
+<td>Vertex editing and write-back to sources</td>
+</tr>
+<tr>
+<td><strong>Data design</strong></td>
+<td>Domains, subtypes, attribute rules, relationships, topology</td>
+<td>Attribute forms; ArcGIS services' domains and subtypes</td>
+</tr>
+<tr>
+<td><strong>Output</strong></td>
+<td>Layouts, map series, reports, presentations, web map pages</td>
+<td>Print layouts with atlas, story maps, dashboards, offline HTML</td>
+</tr>
+<tr>
+<td><strong>Scripting</strong></td>
+<td>Every action a command: CLI, Python package, notebooks, Script pane, MCP</td>
+<td>Python and R packages, Jupyter widget, notebooks, MCP</td>
+</tr>
+<tr>
+<td><strong>Plugins</strong></td>
+<td>Sandboxed WebAssembly, small registry</td>
+<td>TypeScript, trusted, small registry</td>
+</tr>
+<tr>
+<td><strong>AI</strong></td>
+<td>Assistant acting through undoable commands; MCP server</td>
+<td>Assistant with undoable operations and voice; SAM, ONNX; MCP server</td>
+</tr>
+<tr>
+<td><strong>Collaboration</strong></td>
+<td>—</td>
+<td>Share links, review comments, real-time (experimental)</td>
+</tr>
+<tr>
+<td><strong>Languages</strong></td>
+<td>16</td>
+<td>21, including right-to-left</td>
+</tr>
+<tr>
+<td><strong>Project file</strong></td>
+<td><code>.rgis</code> (open JSON)</td>
+<td><code>.geolibre</code> (open, documented JSON)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="using-them-together">Using them together<a class="headerlink" href="#using-them-together" title="Permanent link">&para;</a></h2>
+<p>The two read and write the same open formats, so data moves between them without conversion:
+GeoPackage, GeoParquet, FlatGeobuf, Shapefile, GeoJSON, KML/KMZ, GPX, CSV and cloud-optimised
+GeoTIFF. Neither opens the other's project file yet; move the data across and restyle it.</p>
+<p>They also share their geoprocessing. RustGIS's <strong>Analyze › Tools</strong> runs the GeoLibre and
+Whitebox suite (natively through the <code>geolibre</code> program on the desktop, and on WebAssembly in the
+browser), so a tool learned in one works the same way in the other. See
+<a href="../../user-guide/analysis/">Analysis</a>.</p>
+<p>A common split is to explore, share and collaborate in GeoLibre, especially from a browser,
+a phone or a notebook, and to use RustGIS for repeatable desktop work: a project scripted
+command by command, maps rendered by <code>rustgis-cli</code> in CI, data with domains and attribute rules,
+or reports and map series printed to PDF.</p>
+<h2 id="common-questions">Common questions<a class="headerlink" href="#common-questions" title="Permanent link">&para;</a></h2>
+<p><strong>Why are there two?</strong>
+They are built on different foundations for different jobs. GeoLibre uses the web platform to
+reach as many places and data sources as possible. RustGIS explores what a desktop GIS looks like
+as one native Rust program in which every action is a command. Each project borrows ideas from
+the other.</p>
+<p><strong>Which one should I start with?</strong>
+If you want to open a dataset in a browser tab or on a phone right now, or work in Jupyter or R,
+start with GeoLibre. If you want a desktop GIS with a ribbon, a command line that can do
+everything the interface can, or reports and data design, start with RustGIS.</p>
+<p><strong>Do they run the same geoprocessing tools?</strong>
+Yes: the GeoLibre and Whitebox suite of over 1,000 tools, built from
+<a href="https://github.com/opengeos/geolibre-rust">geolibre-rust</a>. RustGIS adds its own built-in vector
+tools and guided workflows; GeoLibre adds its Toolbox (routing, H3 grids, spatial statistics).</p>
+<p><strong>Can a GeoLibre plugin run in RustGIS, or the other way round?</strong>
+No. GeoLibre plugins are TypeScript modules for its web interface; RustGIS plugins are sandboxed
+WebAssembly modules that add commands and tools.</p>
+<p><strong>Can I open a GeoLibre project in RustGIS?</strong>
+Not yet. Export the layers (GeoPackage or GeoParquet keep the most) and add them to RustGIS.</p>
+<h2 id="see-also">See also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../">Full comparison</a>: RustGIS beside GeoLibre, QGIS, ArcGIS Pro and ArcGIS Online</li>
+<li><a href="../qgis/">RustGIS and QGIS</a>: a closer look, for QGIS users</li>
+<li><a href="https://geolibre.app">GeoLibre</a> and <a href="https://geolibre.app/comparison/">its comparison</a> with
+  QGIS, ArcGIS, CARTO, Felt and kepler.gl</li>
+<li><a href="../../user-guide/analysis/">Analysis</a>: the GeoLibre and Whitebox tools in RustGIS</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: RustGIS vs. other GIS platforms">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                RustGIS vs. other GIS platforms
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../qgis/" class="md-footer__link md-footer__link--next" aria-label="Next: RustGIS and QGIS">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                RustGIS and QGIS
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Qiusheng Wu
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/opengeos/RustGIS" target="_blank" rel="noopener" title="RustGIS on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/sponsors/giswqs" target="_blank" rel="noopener" title="Sponsor RustGIS on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="m241 87.1 15 20.7 15-20.7C296 52.5 336.2 32 378.9 32 452.4 32 512 91.6 512 165.1v2.6c0 112.2-139.9 242.5-212.9 298.2-12.4 9.4-27.6 14.1-43.1 14.1s-30.8-4.6-43.1-14.1C139.9 410.2 0 279.9 0 167.7v-2.6C0 91.6 59.6 32 133.1 32 175.8 32 216 52.5 241 87.1"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://buymeacoffee.com/giswqs" target="_blank" rel="noopener" title="Buy the maintainer a coffee" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M152-16c-13.3 0-24 10.7-24 24 0 38.9 23.4 59.4 39.1 73.1l1.1 1C184.5 96.4 192 103.9 192 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C183.5 31.7 176 24.1 176 8c0-13.3-10.7-24-24-24M96 192c-17.7 0-32 14.3-32 32v192c0 53 43 96 96 96h192c41.8 0 77.4-26.7 90.5-64h5.5c70.7 0 128-57.3 128-128s-57.3-128-128-128zm352 192V256c35.3 0 64 28.7 64 64s-28.7 64-64 64M288 8c0-13.3-10.7-24-24-24S240-5.3 240 8c0 38.9 23.4 59.4 39.1 73.1l1.1 1C296.5 96.4 304 103.9 304 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C295.5 31.7 288 24.1 288 8"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"../..","features":["content.code.copy","navigation.indexes","navigation.footer","navigation.instant","navigation.top","navigation.tracking","search.highlight","search.share"],"redirect":null,"search":"../../assets/javascripts/workers/search.c47bb847.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a2388154.min.js"></script>
+      
+    
+  </body>
+</html>
