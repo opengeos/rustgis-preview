@@ -1,0 +1,2319 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A fast, free and open-source GIS in pure Rust for mapping, analyzing and sharing geospatial data, on the desktop and in the browser">
+      
+      
+        <meta name="author" content="opengeos">
+      
+      
+        <link rel="canonical" href="https://rustgis.app/user-guide/editing/">
+      
+      
+      
+        <link rel="prev" href="../cartography/">
+      
+      
+        <link rel="next" href="../analysis/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="https://assets.rustgis.app/images/favicon.png">
+      <meta name="generator" content="zensical-0.1.0">
+    
+    
+      
+        <title>Editing - RustGIS</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../assets/stylesheets/modern/main.4ab2de0c.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/modern/palette.b60ce83d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
+    <div data-md-component="skip">
+      <a href="#__skip" class="md-skip">
+        Skip to content
+      </a>
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="RustGIS" class="md-header__button md-logo" aria-label="RustGIS" data-md-component="logo">
+      
+  <img src="https://assets.rustgis.app/images/logo.svg" alt="RustGIS">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+      <span class="md-visually-hidden">Navigation</span>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RustGIS
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Editing
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+          <span class="md-visually-hidden">Search</span>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/opengeos/RustGIS" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/RustGIS
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="RustGIS" class="md-nav__button md-logo" aria-label="RustGIS" data-md-component="logo">
+      
+  <img src="https://assets.rustgis.app/images/logo.svg" alt="RustGIS">
+
+    </a>
+    RustGIS
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/opengeos/RustGIS" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/RustGIS
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Installation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Getting Started
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../videos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Video Tutorials
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://web.rustgis.app" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Web App
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  User Guide
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_6">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  User Guide
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Web Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-formats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Supported Data Formats
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shapefile-encoding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Shapefile DBF language drivers
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../maps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Maps and Basemaps
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cartography/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Cartography
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Editing
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Editing
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#creating-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Creating features
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modifying-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Modifying features
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Modifying features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#moving-shared-polygon-vertices" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Moving shared polygon vertices
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distance-units-in-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Distance units in commands
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Data design
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clipboard-and-pop-ups" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Clipboard and pop-ups
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#object-annotations" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Object annotations
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Object annotations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#one-image-and-one-geojson" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        One image and one GeoJSON
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#single-file-annotation-metadata-and-obb-exchange" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Single-file annotation metadata and OBB exchange
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rotated-boxes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Rotated boxes
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where-the-rectangle-is-exact" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Where the rectangle is exact
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#geojson-export-and-reopening" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        GeoJSON export and reopening
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Analysis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Expressions
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layouts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Layouts and Reports
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sharing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sharing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workspace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Workspace
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../assistant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AI Assistant
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../comparison/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Comparison
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_7">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Comparison
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comparison/geolibre/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  RustGIS and GeoLibre
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comparison/qgis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  RustGIS and QGIS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Command Line
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MCP Server
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Plugins
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../themes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Themes
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://jgregoriorincon.github.io/30DayMapChallenge-2026/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  30DayMapChallenge
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../i18n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Languages
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Architecture
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Contributing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintaining/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Maintaining
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../acknowledgements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Acknowledgements
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../citation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  How to Cite
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sponsor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sponsor
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../privacy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Privacy
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/opengeos/RustGIS/issues" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Report Issues
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#creating-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Creating features
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modifying-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Modifying features
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Modifying features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#moving-shared-polygon-vertices" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Moving shared polygon vertices
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distance-units-in-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Distance units in commands
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Data design
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clipboard-and-pop-ups" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Clipboard and pop-ups
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#object-annotations" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Object annotations
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Object annotations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#one-image-and-one-geojson" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        One image and one GeoJSON
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#single-file-annotation-metadata-and-obb-exchange" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Single-file annotation metadata and OBB exchange
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rotated-boxes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Rotated boxes
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where-the-rectangle-is-exact" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Where the rectangle is exact
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#geojson-export-and-reopening" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        GeoJSON export and reopening
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                <a id="__skip" tabindex="-1"></a>
+                
+                  
+
+  
+  
+
+
+<h1 id="editing">Editing<a class="headerlink" href="#editing" title="Permanent link">&para;</a></h1>
+<h2 id="creating-features">Creating features<a class="headerlink" href="#creating-features" title="Permanent link">&para;</a></h2>
+<p><strong>Edit › Create</strong> draws new points, lines and polygons into the layer selected in Layers:
+click once for a point, or click each vertex and double-click to finish a line or polygon
+(<span class="keys"><kbd class="key-escape">Esc</kbd></span> cancels). <strong>Delete</strong> (<span class="keys"><kbd class="key-delete">Del</kbd></span>) removes the selected features across the map's layers.
+Edit attributes in the attribute table (<span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-t">T</kbd></span>): double-click a cell
+to change it. <strong>Data › Data Design</strong> (and <strong>Data › Fields</strong>) adds and deletes fields and calculates a
+field from an expression; <strong>Calculate Geometry</strong> (in the attribute table's toolbar) fills a new or
+existing numeric field with each feature's area, perimeter, length or X/Y coordinate, in the units
+you choose, for all features or the selected ones. Length and perimeter include feet and miles;
+area includes square feet (<code>ft2</code>), acres (<code>ac</code>) and square miles (<code>mi2</code>). Every edit is one undo
+step. Areas, perimeters and lengths measure on the WGS 84 ellipsoid, the same measure as the network tools and the Measure panel (Spatial Join still
+measures on the sphere). A ring with a full-turn edge, -180° to 180° along a parallel that the
+ring reaches down one meridian and leaves back up the other (a globe-wide band, or a cap closed
+along the pole), counts that whole parallel, as long as the ring's turns leave it closed around
+the globe; an edge from 180° to -180° anywhere else is a seam along the antimeridian (a polygon
+split there), so a 1° cell written that way is the cell. A ring winding around a pole is measured as the region it
+traces, where <a href="../analysis/#geoprocessing-tools">Geoprocessing</a> gives the smaller polar cap.</p>
+<p>Undo (<span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-z">Z</kbd></span>) and Redo (<span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-y">Y</kbd></span> or <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-z">Z</kbd></span>) restore project changes, not just
+feature edits; use <span class="keys"><kbd class="key-command">Cmd</kbd></span> instead of <span class="keys"><kbd class="key-control">Ctrl</kbd></span> on macOS. While typing in a text field, those
+shortcuts undo or redo the typing instead. Saving keeps the undo history; opening or creating
+a project clears it. Undo does not reverse files already written by an export.</p>
+<h2 id="modifying-features">Modifying features<a class="headerlink" href="#modifying-features" title="Permanent link">&para;</a></h2>
+<figure>
+  <img alt="Edit Vertices on Lake Victoria: square vertex handles and round midpoint handles around the selected lake" src="https://assets.rustgis.app/images/editing.webp" />
+<br />
+<figcaption>Edit Vertices: drag a square handle to move a vertex, a round one to add a vertex.</figcaption>
+</figure>
+<p>The Edit tab's <strong>Edit</strong> button turns feature editing on or off for the map; with it off,
+feature creation, geometry changes and attribute edits are disabled. The Editing pane
+(Settings, Templates, Status, Modify) holds the rest. Its <strong>Distance units</strong>
+selector sets the units used for Move and constant elevation. The choice is remembered independently
+of the live map's measurement units. The entered numbers are interpreted in the selected units when
+you click <strong>Move</strong>, <strong>Constant</strong> or <strong>Apply elevation</strong>. The current elevation stays in effect while
+you edit the value or choose units; click <strong>Apply elevation</strong> to apply the new inputs.</p>
+<ul>
+<li><strong>Modify</strong>: move the selected features by distances east and north, rotate them, scale them,
+  merge them (polygons are unioned), explode multipart features, split a line where you click,
+  and flip line direction. A single point turns and scales on itself, so Rotate and Scale leave
+  points (text graphics included) as they are: with only points selected they change nothing,
+  say so, and add no undo step. Edit › Tools lists every editing tool.
+  Beyond 85.05°, where Web Mercator stops, Move, Rotate and Scale work on the ground: a feature
+  that reaches beyond it, or that the edit would take beyond it, moves rigidly, together with the
+  selected features sharing a vertex with it (their center goes the distance and direction asked,
+  along the ground and across a pole if that's the way, and the rest turn with the world around
+  it), and turns or scales about its own center. Within ±85.05° an edit is made in Web Mercator, as
+  before (where a long move north covers less ground than asked, and Rotate and Scale turn about
+  the middle of the feature's extent), so an edit that just stays within 85.05° and one that just
+  passes it can land far apart. Only the vertices move rigidly: edges stay straight in longitude
+  and latitude between them, so long edges bend, the more so the nearer the pole one end is than
+  the other, and far less for moves north–south than east–west: an edge from 87° to 89° bends
+  333 m for each kilometer moved east; one from 89.5° to 89.99° bends much more. Add vertices along them first to keep their shape. A moved
+  feature's longitudes run on from where they were written, past ±180° if it crosses there (to
+  188°, say, rather than −172°), as within ±85.05°; one carried more than halfway around a pole
+  is written within half a turn of where it was.
+  Rotate and Scale use each feature's own center, so selected neighbors sharing a corner can
+  separate at that corner.
+  Right by a pole a move's directions turn quickly with its center's place: a center at
+  the pole takes "east" from the prime meridian (toward 90°E), one a meter away from its own
+  longitude. The whole edit is refused, and nothing changes, when a selected line or polygon
+  edited on the ground reaches a pole (so moving every feature of a world layer fails while
+  Antarctica is selected), spans 180° of longitude or more in one edge, or would be carried onto
+  or around a pole, or when the edit would move a feature more than 10,000 km on the ground or
+  carry a vertex more than 10,000 km from the center it's edited about. A move of no distance
+  leaves features beyond 85.05° as they are. Moving neighbors one at a time, one within ±85.05°
+  and one beyond, can leave their shared corners apart, by about the distance moved times
+  2·sin(Δλ/2), Δλ being the corner's longitude from the center of the one moved on the ground (a
+  tenth of it 6° away, half of it 30° away): select them together. Split cuts beyond 85.05° where
+  it's asked: where the point or the line reaches beyond it, at the line's point nearest on the
+  ground (once a split has worked out a million distances along segments near the point, a
+  segment counts as near as the nearest point found on it so far, its nearer end at first, and the
+  split says how many lines it cut that way, or left whole when that point was an end).</li>
+<li><strong>Cut Polygon</strong> (Edit › Tools, or the Editing pane): select polygons, then click a line across
+  them and double-click to finish. Each polygon the line crosses from edge to edge is cut into
+  pieces; a zigzag line can make several. The pieces keep the original's attributes. The
+  original row keeps the largest piece, together with any parts of a multipart polygon that the
+  line missed; every other piece becomes a feature of its own, and the pieces end up selected.
+  Holes the line misses stay in the piece around them. A line that stops inside a polygon cuts
+  nothing there; a line end within a centimetre of an edge counts as on it. When the cut
+  succeeds, a notice says how many selected features the line didn't cut (<code>missed</code> in the
+  result). A line that cuts none of them gives an error instead.
+  <code>edit.cutPolygon={"line": {"type": "LineString", "coordinates": [[0.3, -1], [0.3, 2]]}}</code>.</li>
+<li><strong>Reshape</strong> (Edit › Tools, or the Editing pane): select one line or polygon, then draw a line
+  that leaves its edge and comes back to it. For a polygon, the stretch of boundary between the
+  line's first and last crossings is replaced by the line, keeping whichever of the two possible
+  shapes is larger. A hole left wholly outside the new boundary goes with the part reshaped away,
+  and a notice says how many (<code>holesRemoved</code> in the result). A reshape that would make the
+  boundary cross itself, or a hole cross its outer ring, is refused. For a line, the stretch between two crossings is replaced. A drawn
+  line that crosses only once replaces the shorter end, so start on the line and draw out to
+  extend or redirect an end (<code>edit.reshape={"line": …}</code>).</li>
+<li><strong>Trace</strong> (Edit › Features): while drawing a feature, a cut or a reshape, click a point on a
+  line or polygon edge, then another point on the same edge. The sketch follows the edge between
+  them, going the shorter way round a ring; click a point partway to go the other way. Turn on
+  snapping so clicks land exactly on the edge. From scripts,
+  <code>edit.trace={"from": [lon, lat], "to": [lon, lat]}</code> returns the path along the nearest edge
+  passing within the snapping tolerance of both points (<code>"layer"</code> keeps the search to one layer;
+  add <code>"row"</code> to trace a given feature), and how far each point was from the edge (<code>fromOffM</code>, <code>toOffM</code>, in Web Mercator metres, which
+  run longer than ground metres away from the equator).</li>
+<li><strong>Edit Vertices</strong> (Edit › Features): reshape the selected features on the map. Their vertices
+  show as square handles and each edge has a round midpoint handle. Drag a vertex to move it;
+  drag a midpoint, or click an edge, to insert a vertex; click a vertex and press <span class="keys"><kbd class="key-delete">Del</kbd></span> to
+  remove it (a line keeps at least two vertices, a polygon ring three). Clicking elsewhere
+  selects the feature there (<span class="keys"><kbd class="key-shift">Shift</kbd></span> adds it). Multipart features and polygon holes work the
+  same way, dragged vertices snap when snapping is on, and each move, insertion or deletion is
+  one undo step. <span class="keys"><kbd class="key-escape">Esc</kbd></span> finishes. From scripts and the command line, <code>edit.vertex</code> does the
+  same to one vertex and <code>edit.setGeometry</code> (Set Geometry) replaces a feature's whole shape.</li>
+<li><strong>Feature templates</strong>: named default values for new features, made from a selected feature;
+  the Create tool uses the chosen template.</li>
+<li><strong>Snapping</strong> (<strong>Edit › Snapping</strong>): new and dragged vertices snap to nearby vertices, edges and
+  line ends of visible feature layers at the current scale (magenta marker; graphics and rasters
+  are not targets). Vertices and ends take priority over edges within the tolerance. Snapping
+  starts off; its vertex, edge and end options start on. Both Point features and individual
+  MultiPoint members use the vertex option; they supply neither edges nor line ends. Dragging
+  a Point or MultiPoint member excludes its entire source feature. The tolerance is how near, in screen
+  pixels, a vertex must come to snap (10 by default, 1 to 100):
+  <code>edit.snapping={"on": true, "tolerancePx": 12, "edge": false}</code> (without <code>"on"</code> it toggles
+  snapping, even when other options are supplied). <code>edit.snap={"lon":12.5,"lat":41.9}</code> queries
+  the current snap target without editing a feature.</li>
+<li><strong>Settings</strong>: <strong>Show Vertices</strong> marks the vertices of the selected features even when Edit
+  Vertices isn't on (<code>edit.settings={"showVertices": true}</code>).</li>
+<li><strong>Elevation</strong>: new features get a <code>z</code> attribute, constant or sampled from a raster surface at
+  the feature's label point; this is not a change to its geometry's coordinates.</li>
+<li><strong>Ground to grid</strong>: a scale factor and rotation applied to entered distances and directions
+  (Move, and <code>edit.traverse</code>, which draws a line or polygon from distances and bearings).</li>
+<li><strong>Topology</strong>: rules (must not overlap, must not have gaps, must not self-intersect, must not
+  have dangles, must be covered by); Validate lists the errors, and clicking one zooms to it.
+  Beyond 85.05° they follow the geometry tools (see
+  <a href="../analysis/#geoprocessing-tools">Geoprocessing tools</a>, <strong>Near the poles</strong>).</li>
+<li><strong>Status</strong>: features added, changed and deleted per layer since the last save.</li>
+</ul>
+<h3 id="moving-shared-polygon-vertices">Moving shared polygon vertices<a class="headerlink" href="#moving-shared-polygon-vertices" title="Permanent link">&para;</a></h3>
+<p><strong>Edit › Features › Shared Vertices</strong> opts polygon moves into linked editing. It starts off,
+lasts only for the current app session, and is not saved in projects or preferences. With it on,
+dragging a polygon vertex moves every polygon vertex in that layer stored at exactly the same
+original coordinate, including unselected and filtered-out rows, point-only contacts, other
+polygon parts and holes. Unrelated polygons touching by chance at that point move together too;
+turn the switch off to move just the source feature. Inserting and deleting vertices, and moving
+line or point vertices, keep their existing behaviour. Changing the switch cancels a held drag.</p>
+<p>The command uses row positions and the same vertex addresses as <code>edit.vertex</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"layer"</span><span class="p">:</span><span class="s2">"Parcels"</span><span class="p">,</span><span class="nt">"row"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"part"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"ring"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"index"</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="nt">"lon"</span><span class="p">:</span><span class="mf">12.5</span><span class="p">,</span><span class="nt">"lat"</span><span class="p">:</span><span class="mf">41.9</span><span class="p">}</span>
+</code></pre></div>
+<p>Run these parameters with <code>edit.moveSharedVertex</code>. It returns the source <code>part</code>, <code>ring</code> and
+<code>index</code>, plus <code>modified</code>: the number of features whose geometry or attributes actually changed.
+Every matched feature runs through attribute rules and archiving in one transaction; a rejection
+rolls back the whole edit. A successful command is one undo step. As with <code>edit.vertex</code>, a direct
+same-position command still runs the rules and records an edit, even if <code>modified</code> is zero.
+Undo retains cumulative edit counts. Streamed layers require <strong>Load All Features</strong> first.</p>
+<p>This moves coincident <strong>vertices</strong>, not every shared boundary. For a boundary stored as P–Q
+on one polygon and P–R–Q on its neighbour, moving Q moves the two stored Q vertices but leaves
+R in place. It does not remap intermediate vertices, insert missing ones or refuse the edit
+because vertex densities differ; the two boundaries can separate. There is no tolerance or
+nearby-coordinate matching. Use the <code>mustNotOverlap</code> and <code>mustNotHaveGaps</code> topology rules, then
+<strong>Edit › Manage Edits › Topology › Error Inspector (validate)</strong> (<code>topology.validate</code>) to inspect a coverage.</p>
+<h3 id="distance-units-in-commands">Distance units in commands<a class="headerlink" href="#distance-units-in-commands" title="Permanent link">&para;</a></h3>
+<p><code>edit.move</code>, <code>edit.traverse</code> and constant <code>edit.elevation</code> accept <code>"units": "Feet"</code>,
+<code>"Meters"</code>, <code>"Kilometers"</code> or <code>"Miles"</code> (case insensitive). Omitting <code>units</code> keeps the
+existing metre default. All traverse legs use the command's units. Conversion to metres
+happens before ground-to-grid corrections and distance limits; stored elevation stays in
+metres. Feet mean international feet (0.3048 m), independently of the source CRS's units.</p>
+<p>For example, <code>edit.move={"dx":500,"dy":0,"units":"Feet"}</code> moves selected features
+152.4 metres east.</p>
+<h2 id="data-design">Data design<a class="headerlink" href="#data-design" title="Permanent link">&para;</a></h2>
+<p>The Data tab's Data Design pane keeps attributes valid, on every edit (creating, pasting,
+attribute edits, Calculate Field):</p>
+<ul>
+<li><strong>Domains</strong>: coded values (<code>code=description</code>) or a numeric range for a field.</li>
+<li><strong>Subtypes</strong>: an integer field's codes, each with a name and default values for new features;
+  the layer is symbolized by subtype.</li>
+<li><strong>Attribute rules</strong>: calculations (a field set from an expression on every insert and update)
+  and constraints (a SQL condition every feature must meet).</li>
+<li><strong>Contingent values</strong>: the combinations of values allowed across fields.</li>
+<li><strong>Archiving</strong>: keeps every edit with its time; restore the layer as it was minutes ago.</li>
+<li><strong>Relationships</strong>: link two layers by key fields; <strong>Related Data</strong> selects the rows related to
+  the selection.</li>
+</ul>
+<h2 id="clipboard-and-pop-ups">Clipboard and pop-ups<a class="headerlink" href="#clipboard-and-pop-ups" title="Permanent link">&para;</a></h2>
+<p>Copy (<span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span>) and Cut (<span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-x">X</kbd></span>) take selected features from one layer: the active layer
+if it has a selection, otherwise the first layer with selected features. Paste (<span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-v">V</kbd></span>)
+adds them to the layer selected in Layers, matching fields by name and converting values to the
+destination field types; unmatched fields stay empty. Geometry types must match. <strong>Paste Special</strong>
+adds them as a new layer instead. Copied features also go on the system clipboard as GeoJSON, so
+they can be pasted into another RustGIS window or a text editor, and GeoJSON copied elsewhere
+pastes into RustGIS. <strong>Copy Path</strong> copies the selected layer's data source path.</p>
+<p>Whole-layer copying is separate: use <strong>Copy Layer</strong> or <strong>Copy Group</strong> and <strong>Paste Layer</strong> in the
+Layers pane's context menus to preserve symbology and other layer settings, including when
+moving layers between maps.</p>
+<p>Pop-ups (Home › Navigate) choose which layers a click with Explore identifies: the topmost layer
+under the click, every visible layer, only selectable layers, only the layer selected in Layers, or
+nothing. The pop-up lists every feature under the click in those layers, overlapping ones included
+(up to 100): step through them with ‹ ›. The feature shown is the one selected. The magnifier in
+the pop-up's header zooms to it. Long feature titles and layer names are shortened with an
+ellipsis to leave room for the header controls; hover over either name to read it in full.</p>
+<p>The topmost and visible modes also identify the features of vector tile layers under the click:
+PMTiles and MBTiles archives and vector tiles added as data (not catalog basemaps or MapLibre
+styles), beneath the map's own layers. Each shows its tile layer and source layer (<code>firenze ›
+buildings</code>) and its attributes; tile features can't be selected or zoomed to.</p>
+<p>They ask WMS layers too (WMS tile layers that are shown and, as far as their service's
+capabilities say, queryable): RustGIS sends the service a standard GetFeatureInfo request for the
+point (WMS 1.3.0 or 1.1.1, as in the layer's address), asking for GeoJSON when it offers it, else
+GML, other XML, plain text or HTML. While it asks, the pop-up says "Asking the map service…".
+When something else is under the click, it waits up to 4 seconds for every layer asked to answer,
+then shows the features found and answered together, in drawing order; answers that come later
+join it as they arrive. When nothing else is, it waits until an answer has features, and closes
+once every layer asked has answered (or failed) without any.
+When the service answers with an error in that format (swisstopo's MapServer can't write some of
+its layers as GeoJSON, but answers them in GML), RustGIS asks again in the next format it offers,
+and keeps asking that layer in it for the rest of the session.
+Topmost asks only the highest WMS layer that can be asked at the point (one that covers it and is
+queryable), and only when it is drawn over the feature found, or nothing was found; its features
+then take that feature's place. A project doesn't save the request: a WMS layer from a project reads its service's
+capabilities again on its first click (once for all the map's layers from that service), so until
+then Topmost takes it as one that can be asked.
+<code>identify</code> lists the requests in <code>featureInfo</code>, and <code>identify.featureInfo</code> reads an answer (or, on
+the command line, asks the service and waits).</p>
+<p>A tile layer's row in Layers can be clicked to select it, as a map layer's can (<code>map.selectTiles</code>;
+no map layer is active then, and clicking one ends it). With <strong>Selected in Layers</strong>, a click on
+the map then identifies that tile layer alone: a WMS layer is asked as above, and a vector tile
+layer, archive or MapLibre style lists its features. This works for catalog basemaps and MapLibre
+styles too, which the topmost and visible modes leave out.</p>
+<h2 id="object-annotations">Object annotations<a class="headerlink" href="#object-annotations" title="Permanent link">&para;</a></h2>
+<p>The <strong>Annotate</strong> tab supports boxes (including paddle rotation), circles, freeform polygons and
+points. All shapes and classes can share one annotation layer. Create <strong>New Annotation Layer</strong>,
+choose a class and colour, and choose a shape. Right-click the layer and choose <strong>Annotate Features</strong>
+to continue later. The target selector keeps subsequent annotations in that same layer.</p>
+<ul>
+<li><strong>Point:</strong> click to place each point; click an existing point to select it, then drag to move.
+  The selected point's X and Y fields use its stored reference grid.</li>
+<li><strong>Circle:</strong> drag from the centre to the rim. Click to select, drag inside to move, or drag a rim
+  handle to change the radius. A numeric Radius control uses reference pixels or local grid units.</li>
+<li><strong>Polygon:</strong> click successive vertices. Double-click, click the first vertex, press Enter, or
+  choose <strong>Finish Polygon</strong> to close it. Backspace removes the last draft vertex. Crossing or
+  touching edges are refused. A failed finish keeps the outline so you can correct it and retry.
+  Select a polygon and drag a vertex to reshape it, or drag inside to move the whole polygon.</li>
+<li><strong>Box:</strong> drag to create; use the rotation paddle, side/corner handles and numeric controls below.</li>
+</ul>
+<p><strong>Space + drag</strong> and middle-drag pan between annotations and during a polygon draft; the wheel
+zooms. Space is a temporary override: release it to resume the same annotation tool, then click an
+existing annotation to edit it. A press begun with Space stays navigation through mouse release,
+even if Space is released first or the pointer moves too little to become a drag. A hand cursor
+marks navigation; the annotation cursor returns afterward. Hold Alt to draw over an existing
+annotation. Escape cancels and returns to Pan. Each completed draw or drag is one undo step.
+Clicking an existing annotation chooses its shape tool.</p>
+<p>Click an annotation, then choose <strong>Delete Selected Annotation</strong> in its controls, or press <strong>Delete</strong>
+while annotating. This removes only that object from its layer, preserving the layer, class palette
+and selections in other layers. Undo restores it. With no single visible annotation selected, the
+Delete key does nothing in annotation mode. Save Annotations writes the deletion to the GeoJSON.</p>
+<p>While annotating, right-click an object to select it and choose <strong>Delete Annotation</strong> or <strong>Change
+Class</strong>. The class submenu uses the layer’s saved class colours, including unused categories. These
+actions affect only the clicked object and support Undo. Right-clicking empty map space keeps the
+usual map menu. Save Annotations writes these edits to the companion GeoJSON.</p>
+<p>GeoJSON exports points as Point features and the other shapes as Polygon features. Circles are
+<strong>256-edge polygon approximations</strong>; exact centre, radius and frozen reference frame are retained
+in the versioned <code>_rustgis_shape</code> text property for constrained editing when reopened. This is a
+circle in the chosen image/local grid, not a geodesic ground-distance circle. The same property
+retains point and freeform polygon coordinates in their frozen local grid. As with boxes, external
+geometry edits can invalidate the construction record; ordinary feature editing remains available.
+Freeform polygons currently support a single outline (3–512 vertices), without holes. Use GeoJSON
+for a mixed point/polygon layer; formats that only accept one geometry family may refuse it or
+report conversion losses. For map-based annotation layers, class colours remain project styling. Image-bound GeoJSON also retains its category palette, as described below.</p>
+<h3 id="one-image-and-one-geojson">One image and one GeoJSON<a class="headerlink" href="#one-image-and-one-geojson" title="Permanent link">&para;</a></h3>
+<p>For image datasets, load a georeferenced <code>.tif</code> or <code>.tiff</code>, select its raster layer, and choose
+<strong>Annotate › Annotate Image</strong>. RustGIS creates an annotation layer bound to that TIFF's original
+pixel grid, or resumes its sibling GeoJSON:</p>
+<div class="highlight"><pre><span></span><code>survey_001.tif
+survey_001.geojson
+</code></pre></div>
+<p>Choose <strong>Save Annotations</strong> to write the associated GeoJSON. This is separate from saving the
+RustGIS project: saving a project does not automatically overwrite the GeoJSON. <strong>Export Features</strong>
+also carries the metadata when the destination is GeoJSON. Supplying the command's optional
+<code>path</code> exports a one-off copy and refuses an existing unrelated destination. It leaves the layer's
+association unchanged: later <strong>Save Annotations</strong> operations still write the original companion
+GeoJSON. Open the copied GeoJSON with <strong>Annotate Image</strong> to continue working from that copy.</p>
+<p>Select an imported image annotation layer and choose <strong>Annotate Image</strong> to reconnect its sibling
+TIFF. The CLI command <code>annotation.openImage</code> also accepts the path of either member of the pair.
+Discovery first uses the same basename and <code>.tif</code>/<code>.tiff</code> (also uppercase extensions). If none
+exists, the validated image basename recorded in the GeoJSON is tried in that same folder. Multiple distinct
+TIFF matches are an error; select the intended loaded raster explicitly. Renaming both files
+together works: the dimensions, coordinate system and full affine grid must still match. A
+mismatched or unrelated sibling GeoJSON is refused and left unchanged. Matching filenames identify
+the pair, but do not prove the pixels are unchanged if an image has been replaced with another
+image on exactly the same grid.</p>
+<p>All new shapes use the bound image grid; the reference chooser is replaced by the filename and
+original dimensions. This includes rotated/skewed TIFFs: their original six-term affine transform
+is read before the display reader resamples pixels north-up. Annotation coordinates remain in
+<strong>original image pixels</strong>, not the resampled display grid. Full GeoTIFFs with embedded georeferencing and supported coordinate systems are required.
+Streamed rasters, overviews, unreferenced scans, CRS overrides and subdatasets are refused; export
+a corrected GeoTIFF first when the source needs a georeferencing override.
+In the browser, upload the original TIFF, select it and choose Annotate Image, then use
+<strong>Export Features</strong> to download the GeoJSON. Sibling discovery and Save Annotations require local
+filesystem access and are desktop workflows.</p>
+<p>Classes, stable category IDs and RGB colours are embedded in the same GeoJSON, including classes
+with no features. <strong>Import Classes…</strong> reads the palette from another image annotation GeoJSON
+without importing its features or changing the target image. It merges by exact name and ID;
+conflicting identities are errors, and the import is undoable. Recolouring a class preserves its
+ID. Use a shared imported palette across images to keep dataset category identities consistent.
+New categories receive the next unused positive ID; sorting the legend does not assign IDs.</p>
+<h3 id="single-file-annotation-metadata-and-obb-exchange">Single-file annotation metadata and OBB exchange<a class="headerlink" href="#single-file-annotation-metadata-and-obb-exchange" title="Permanent link">&para;</a></h3>
+<p>The collection's <code>rustgis_annotation</code> member contains this versioned metadata (illustrative):</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"image"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"file_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"survey_001.tif"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"width"</span><span class="p">:</span><span class="w"> </span><span class="mi">4096</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"height"</span><span class="p">:</span><span class="w"> </span><span class="mi">2048</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"crs"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"Epsg"</span><span class="p">:</span><span class="w"> </span><span class="mi">32633</span><span class="p">},</span>
+<span class="w">    </span><span class="nt">"affine"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">400000</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">5000000</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mf">-0.5</span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">"categories"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"vehicle"</span><span class="p">,</span><span class="w"> </span><span class="nt">"color"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">59</span><span class="p">,</span><span class="w"> </span><span class="mi">130</span><span class="p">,</span><span class="w"> </span><span class="mi">246</span><span class="p">]}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>This is a RustGIS annotation convention using GeoJSON's
+<a href="https://www.rfc-editor.org/rfc/rfc7946.html#section-6.1">foreign members</a>, not a native Roboflow or
+Label Studio import format. Categories borrow COCO's <code>id</code> and <code>name</code> vocabulary and its panoptic
+RGB colour convention. Other GIS applications can use the geographic features, but may discard
+collection metadata when rewriting the file. No XML or palette sidecar is needed.</p>
+<p><code>file_name</code> is a basename, never an absolute path or URL. Pixel <code>(0, 0)</code> is the upper-left <strong>corner</strong>
+of the original image; pixel centres are at half-integers. Coordinates are continuous/subpixel,
+x right and y down. <code>affine</code> is in GDAL order:</p>
+<div class="highlight"><pre><span></span><code>world_x = affine[0] + x * affine[1] + y * affine[2]
+world_y = affine[3] + x * affine[4] + y * affine[5]
+</code></pre></div>
+<p>World coordinates use <code>image.crs</code>; GeoJSON geometry remains WGS 84 longitude/latitude. Saved CRS
+values are <code>"WebMercator"</code>, <code>"LonLat"</code>, <code>{"Epsg": code}</code> or <code>{"Proj": {"proj4": "…", "label": "…"}}</code>.
+The affine is invertible and may include rotation and skew. Width/height describe the original
+image, not a view, overview or training chip.</p>
+<p>Each feature retains a stable <code>annotation_id</code> and <code>class</code>. Export derives its <code>category_id</code> from
+the category table. Construction properties are <strong>JSON-encoded text strings</strong>, with these decoded
+contents:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Required construction fields</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>_rustgis_box</code></td>
+<td><code>version: 1</code>, <code>frame</code>, <code>center: [x,y]</code>, positive <code>width</code>, positive <code>height</code>, clockwise <code>angle</code> in degrees</td>
+</tr>
+<tr>
+<td><code>_rustgis_shape</code> (circle)</td>
+<td><code>version: 1</code>, <code>frame</code>, <code>shape: {"kind":"circle","center":[x,y],"radius":r}</code></td>
+</tr>
+<tr>
+<td><code>_rustgis_shape</code> (polygon)</td>
+<td><code>version: 1</code>, <code>frame</code>, <code>shape: {"kind":"polygon","vertices":[[x,y],…]}</code></td>
+</tr>
+<tr>
+<td><code>_rustgis_shape</code> (point)</td>
+<td><code>version: 1</code>, <code>frame</code>, <code>shape: {"kind":"point","position":[x,y]}</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>frame</code> retains <code>crs</code>, <code>transform</code> (origin_x, origin_y, pixel_width, pixel_height), and <code>image</code>
+(the construction image name, which may remain a provenance label after a rename; the binding
+filename identifies the current pair). Image-bound frames additionally retain <code>affine</code>, which takes precedence over
+<code>transform</code> and must match the binding's original grid. Legacy map-based frames without <code>affine</code>
+continue to use <code>transform</code>. Circle radii and rectangle dimensions are exact in that grid.
+Circle geometry is a 256-edge closed polygon approximation; retaining its centre, radius and frame
+is required to resume circle editing. A polygon outline has 3–512 distinct vertices, without a
+repeated closing vertex in the construction record. Its GeoJSON exterior ring is closed.</p>
+<p>Box features additionally export an <code>obb</code> property containing <strong>four ordered <code>[x,y]</code> pixel corners</strong>:
+local top-left, top-right, bottom-right, bottom-left, rotated around the stored centre. These are
+unclosed corners in the image's downward-y coordinate system, independently of the geographic
+polygon's winding/start vertex. They are derived from the construction record on each export;
+editing the derived <code>obb</code> property does not change the box. <code>annotation.obb</code> returns the same
+per-box exchange properties without writing a file. Its result reports <code>count</code> (returned boxes),
+<code>total</code> (all annotations) and <code>skipped</code> (annotations without OBB corners). A nonzero <code>skipped</code>
+count also produces one summary notice for the layer; empty and boxes-only layers produce none.
+Non-box annotations remain in the source GeoJSON.</p>
+<p>For <a href="https://supervision.roboflow.com/latest/detection/core/">Supervision</a>, collect these corners
+into <code>data[ORIENTED_BOX_COORDINATES]</code> with shape <code>(N, 4, 2)</code>; map stable category IDs to the dense
+class indices used by the consumer. For <a href="https://docs.ultralytics.com/datasets/obb/">YOLO OBB</a>,
+divide each x by image width and y by image height, then emit the four corners with the target
+class index. The native annotation GeoJSON remains the editable source.</p>
+<p>Coordinates outside the image are retained, not silently clipped. Training conversion must
+explicitly reject, retain or clip them; clipping may turn a rectangle into a non-rectangle.
+Circles/polygons do not acquire an OBB automatically, and points need a task-specific policy.
+COCO detection boxes are axis-aligned: a consumer must explicitly request an enclosing box or
+segmentation conversion. Stock RF-DETR OBB training compatibility is not implied by preserving
+OBB annotations. Cropping, tiling or resizing training images requires transforming the pixel
+coordinates into the corresponding output image grid.</p>
+<p>RustGIS validates stored construction against geometry and refuses incompatible external edits
+or unknown metadata versions. Image annotation layers and their palettes survive project saves.
+Projects written by this version use format 2; older RustGIS versions must refuse them. Standalone
+map/layer files containing image metadata also carry a format-2 guard.</p>
+<h3 id="rotated-boxes">Rotated boxes<a class="headerlink" href="#rotated-boxes" title="Permanent link">&para;</a></h3>
+<p><strong>Annotate › New Annotation Layer</strong> creates one annotation layer containing multiple classes
+and opens its annotation controls. Each drag on empty map space adds another box to that same
+layer. To resume later, right-click the layer and choose <strong>Annotate Features</strong>, or choose its
+name in the Annotate tab's layer selector. Editing is enabled automatically.</p>
+<p>Choose a reference raster for new boxes. Type a class such as <code>vehicle</code> and click <strong>Add Class</strong>;
+use <strong>Class colour</strong> to change its colour. <strong>Existing classes</strong> selects a class for subsequent
+boxes, including classes defined before any boxes are drawn. New classes also receive colours
+automatically when a box is created. Multiple classes share one layer and appear separately in
+its legend. Changing a class colour updates every box of that class, while <strong>Apply Class to
+Selected Box</strong> changes only the selected box's class. Class names are exported in GeoJSON;
+for map-based layers, custom colours are retained in a RustGIS project. Image-bound GeoJSON
+also carries the category palette.</p>
+<p>Select a box to see its eight resize handles and its rotation paddle:</p>
+<ul>
+<li>Drag the paddle to rotate about the centre. Hold Shift to snap to 15-degree steps.</li>
+<li>Drag a corner or edge handle to resize along the box's own axes. The opposite corner or edge
+  stays fixed; right angles are preserved even when a handle crosses to the other side.</li>
+<li>Drag inside the selected box to move it. Width, height and clockwise angle can also be entered
+  numerically. <strong>Apply Class to Selected Box</strong> changes its class.</li>
+<li><strong>Three-click creation</strong> places the start and end of an edge, then the perpendicular height.
+  Hold Alt when starting a box to draw over an existing annotation.</li>
+<li>Escape cancels an unfinished box or held drag and returns to Pan. Each completed drag is one undo step.
+  <strong>Space + drag</strong> pans temporarily and keeps the box tool ready; middle-drag also pans and the
+  wheel zooms. <strong>Pan / Stop Annotating</strong> returns to Pan. Choose <strong>Box</strong> to continue.</li>
+</ul>
+<h3 id="where-the-rectangle-is-exact">Where the rectangle is exact<a class="headerlink" href="#where-the-rectangle-is-exact" title="Permanent link">&para;</a></h3>
+<p>A raster reference uses the <strong>loaded raster's pixel grid</strong>, with subpixel precision: x increases
+right, y increases down, and angle increases clockwise from the image's rightward axis. Resizing
+and rotation regenerate corners from the centre, dimensions and angle; they do not repeatedly
+transform the last result. Changing the map view never changes the stored rectangle.</p>
+<p>RustGIS currently resamples rotated or skewed source rasters to north-up on import. An annotation
+on such a raster is exact in that resampled grid, <strong>not in the original file's pixels</strong>. An
+unreferenced scan or a reduced-resolution overview cannot be used as a reference. Without a
+raster, boxes use Web Mercator grid metres, which differ from ground metres away from the equator.
+The reference transform and coordinate system are saved with each box; moving or removing the
+reference layer does not change existing boxes.</p>
+<p>Box annotation is supported on flat, untilted Earth maps. Boxes crossing the antimeridian or the
+polar editing limit (85.05° latitude) are refused. A transformed rectangle can look like a
+quadrilateral in another projection. Export represents its four transformed corners; curved
+projected edges are not densified, so use this for local object annotations rather than regional
+footprints.</p>
+<h3 id="geojson-export-and-reopening">GeoJSON export and reopening<a class="headerlink" href="#geojson-export-and-reopening" title="Permanent link">&para;</a></h3>
+<p>Use <strong>Annotate › Export Features</strong> (also available under Publish), with a <code>.geojson</code> destination. Each feature is a closed,
+counterclockwise WGS 84 longitude/latitude Polygon with four corners, its feature ID, a stable <code>annotation_id</code> property, its <code>class</code>,
+and a <code>_rustgis_box</code> text property containing the versioned construction parameters and reference
+frame. Other GIS applications can use the polygons without interpreting that property.</p>
+<p>Reopen the GeoJSON, select its layer and choose <strong>Box</strong> on the Annotate tab or
+<strong>Annotate Features</strong> in the layer’s right-click menu to resume. Editing is enabled automatically.
+Keep <code>_rustgis_box</code> intact for constrained editing. RustGIS validates it against the polygon,
+accepting reversed winding and a different starting corner. If generic vertex edits or another
+application change the geometry, the box controls refuse to refit it silently; the feature remains
+available as an ordinary polygon through <strong>Edit Vertices</strong>. Unknown construction versions are
+likewise refused by the box editor and remain preserved as feature attributes.</p>
+<p>Use GeoJSON or a RustGIS project to retain constrained editing. Shapefile export shortens
+field names and limits text to 254 bytes, which can truncate the construction record and
+annotation ID; its exported polygons remain usable, but may no longer be editable as boxes.
+The exporter reports these truncations. Box recognition also deliberately uses a strict corner
+match: if a future projection library changes the regenerated corners, use Edit Vertices on
+the preserved polygon rather than accepting an automatic refit.</p>
+<p>The CLI and scripts can create a layer with <code>annotation.newLayer</code>, then use
+<code>annotation.addBox</code> and <code>annotation.updateBox</code>. <code>annotation.setClass</code> defines class colours and
+<code>annotation.resume</code> continues an existing layer. Command search lists their full parameters.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../cartography/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Cartography">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Cartography
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../analysis/" class="md-footer__link md-footer__link--next" aria-label="Next: Analysis">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Analysis
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Qiusheng Wu
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/opengeos/RustGIS" target="_blank" rel="noopener" title="RustGIS on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/sponsors/giswqs" target="_blank" rel="noopener" title="Sponsor RustGIS on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="m241 87.1 15 20.7 15-20.7C296 52.5 336.2 32 378.9 32 452.4 32 512 91.6 512 165.1v2.6c0 112.2-139.9 242.5-212.9 298.2-12.4 9.4-27.6 14.1-43.1 14.1s-30.8-4.6-43.1-14.1C139.9 410.2 0 279.9 0 167.7v-2.6C0 91.6 59.6 32 133.1 32 175.8 32 216 52.5 241 87.1"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://buymeacoffee.com/giswqs" target="_blank" rel="noopener" title="Buy the maintainer a coffee" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M152-16c-13.3 0-24 10.7-24 24 0 38.9 23.4 59.4 39.1 73.1l1.1 1C184.5 96.4 192 103.9 192 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C183.5 31.7 176 24.1 176 8c0-13.3-10.7-24-24-24M96 192c-17.7 0-32 14.3-32 32v192c0 53 43 96 96 96h192c41.8 0 77.4-26.7 90.5-64h5.5c70.7 0 128-57.3 128-128s-57.3-128-128-128zm352 192V256c35.3 0 64 28.7 64 64s-28.7 64-64 64M288 8c0-13.3-10.7-24-24-24S240-5.3 240 8c0 38.9 23.4 59.4 39.1 73.1l1.1 1C296.5 96.4 304 103.9 304 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C295.5 31.7 288 24.1 288 8"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"../..","features":["content.code.copy","navigation.indexes","navigation.footer","navigation.instant","navigation.top","navigation.tracking","search.highlight","search.share"],"redirect":null,"search":"../../assets/javascripts/workers/search.719e0d91.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d31f0ffa.min.js"></script>
+      
+    
+  </body>
+</html>

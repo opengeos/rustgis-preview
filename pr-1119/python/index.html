@@ -1,0 +1,1899 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A fast, free and open-source GIS in pure Rust for mapping, analyzing and sharing geospatial data, on the desktop and in the browser">
+      
+      
+        <meta name="author" content="opengeos">
+      
+      
+        <link rel="canonical" href="https://rustgis.app/python/">
+      
+      
+      
+        <link rel="prev" href="../cli/">
+      
+      
+        <link rel="next" href="../mcp/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="https://assets.rustgis.app/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.73">
+    
+    
+      
+        <title>Python - RustGIS</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ab2de0c.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.b60ce83d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
+    <div data-md-component="skip">
+      <a href="#__skip" class="md-skip">
+        Skip to content
+      </a>
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="RustGIS" class="md-header__button md-logo" aria-label="RustGIS" data-md-component="logo">
+      
+  <img src="https://assets.rustgis.app/images/logo.svg" alt="RustGIS">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+      <span class="md-visually-hidden">Navigation</span>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RustGIS
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Python
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+          <span class="md-visually-hidden">Search</span>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/opengeos/RustGIS" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/RustGIS
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="RustGIS" class="md-nav__button md-logo" aria-label="RustGIS" data-md-component="logo">
+      
+  <img src="https://assets.rustgis.app/images/logo.svg" alt="RustGIS">
+
+    </a>
+    RustGIS
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/opengeos/RustGIS" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/RustGIS
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Installation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Getting Started
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://web.rustgis.app" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Web App
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../user-guide/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  User Guide
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  User Guide
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/web-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Web Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/data-formats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Supported Data Formats
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/shapefile-encoding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Shapefile DBF language drivers
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/maps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Maps and Basemaps
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/cartography/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Cartography
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/editing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Editing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Analysis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/layouts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Layouts and Reports
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/sharing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sharing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/workspace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Workspace
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/assistant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AI Assistant
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../comparison/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Comparison
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_6">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Comparison
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparison/geolibre/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  RustGIS and GeoLibre
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparison/qgis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  RustGIS and QGIS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Command Line
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#a-first-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        A first session
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#layers" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Layers
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmtiles-archives" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        PMTiles archives
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-app-in-a-notebook" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The app in a notebook
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-app-in-a-qt-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The app in a Qt application
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Commands
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#saved-connections-and-secrets" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Saved connections and secrets
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-in-and-out" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Data in and out
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#from-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        From source
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MCP Server
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Plugins
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../i18n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Languages
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Architecture
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Contributing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../acknowledgements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Acknowledgements
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../citation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  How to Cite
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sponsor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sponsor
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../privacy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Privacy
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/opengeos/RustGIS/issues" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Report Issues
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#a-first-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        A first session
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#layers" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Layers
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pmtiles-archives" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        PMTiles archives
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-app-in-a-notebook" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The app in a notebook
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-app-in-a-qt-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The app in a Qt application
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Commands
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#saved-connections-and-secrets" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Saved connections and secrets
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-in-and-out" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Data in and out
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#from-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        From source
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                <a id="__skip" tabindex="-1"></a>
+                
+                  
+
+  
+  
+
+
+<h1 id="python">Python<a class="headerlink" href="#python" title="Permanent link">&para;</a></h1>
+<p><a href="https://pypi.org/project/rustgis/"><img alt="PyPI" src="https://img.shields.io/pypi/v/rustgis.svg" /></a>
+<a href="https://colab.research.google.com/github/opengeos/RustGIS/blob/main/apps/rustgis-python/examples/getting-started.ipynb"><img alt="Open in Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<p>The <code>rustgis</code> package runs the RustGIS engine inside Python, headless. It opens data and
+projects, runs engine commands and geoprocessing tools, styles layers, renders maps and saves
+projects that the desktop app opens as they are. There is no app to install and no server to run:
+the engine is a native module for Python 3.12 and later. Release wheels cover Windows x64,
+macOS Intel and Apple Silicon, and Linux x64 and arm64 (glibc 2.28 or later).</p>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>rustgis<span class="w">               </span><span class="c1"># pip install "rustgis[geopandas]" for GeoDataFrames</span>
+</code></pre></div>
+<p>A <a href="https://github.com/opengeos/RustGIS/blob/main/apps/rustgis-python/examples/getting-started.ipynb">getting-started notebook</a> walks
+through what follows; <a href="https://colab.research.google.com/github/opengeos/RustGIS/blob/main/apps/rustgis-python/examples/getting-started.ipynb">open it in Colab</a> to try it without installing anything.</p>
+<h2 id="a-first-session">A first session<a class="headerlink" href="#a-first-session" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">rustgis</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">rustgis</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="n">sample</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>                    <span class="c1"># the World Atlas sample</span>
+<span class="n">s</span><span class="o">.</span><span class="n">layer_names</span><span class="p">()</span>                                     <span class="c1"># ['Cities', 'Rivers', 'Lakes', 'Countries']</span>
+<span class="n">buffers</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">run_tool</span><span class="p">(</span><span class="s2">"buffer"</span><span class="p">,</span> <span class="nb">input</span><span class="o">=</span><span class="n">s</span><span class="p">[</span><span class="s2">"Cities"</span><span class="p">],</span> <span class="n">distance</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">s</span><span class="p">[</span><span class="s2">"Countries"</span><span class="p">]</span><span class="o">.</span><span class="n">style</span><span class="p">(</span><span class="s2">"graduated"</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="s2">"pop_est"</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">zoom_to</span><span class="p">(</span><span class="n">buffers</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">to_png</span><span class="p">(</span><span class="s2">"map.png"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1600</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">900</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">"atlas.rgis"</span><span class="p">)</span>
+</code></pre></div>
+<p>In Jupyter, a session on the last line of a cell shows its map as a picture. For the app itself,
+use a <code>Map</code>.</p>
+<h2 id="layers">Layers<a class="headerlink" href="#layers" title="Permanent link">&para;</a></h2>
+<p><code>s["Cities"]</code> (or <code>s.layer("Cities")</code>) is a <code>Layer</code>: one layer of the active map. It is kept by
+its id, so it is still the same layer after a rename, and its properties read the session each
+time.</p>
+<div class="highlight"><pre><span></span><code><span class="n">cities</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="s2">"Cities"</span><span class="p">]</span>                                <span class="c1"># by name (any case) or id</span>
+<span class="n">cities</span><span class="o">.</span><span class="n">count</span><span class="p">,</span> <span class="n">cities</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="n">cities</span><span class="o">.</span><span class="n">fields</span><span class="p">,</span> <span class="n">cities</span><span class="o">.</span><span class="n">bounds</span>
+<span class="s2">"Cities"</span> <span class="ow">in</span> <span class="n">s</span>                                       <span class="c1"># True</span>
+<span class="p">[</span><span class="n">layer</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">s</span><span class="p">]</span>                         <span class="c1"># every layer, top first</span>
+
+<span class="n">cities</span><span class="o">.</span><span class="n">style</span><span class="p">(</span><span class="s2">"proportional"</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="s2">"pop_max"</span><span class="p">)</span>       <span class="c1"># layer.symbology; returns the layer</span>
+<span class="n">cities</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">cities</span><span class="o">.</span><span class="n">set_transparency</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">cities</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s2">"pop_max &gt; 1000000"</span><span class="p">)</span>                  <span class="c1"># a definition query; None clears it</span>
+<span class="n">cities</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">"Towns"</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">undo</span><span class="p">()</span>                                            <span class="c1"># restore the name "Cities"</span>
+<span class="n">cities</span><span class="o">.</span><span class="n">zoom_to</span><span class="p">()</span>
+<span class="n">cities</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+<span class="n">s</span><span class="o">.</span><span class="n">undo</span><span class="p">()</span>                                            <span class="c1"># restore the removed layer</span>
+</code></pre></div>
+<p>Selections work by SQL where clause:</p>
+<div class="highlight"><pre><span></span><code><span class="n">n</span> <span class="o">=</span> <span class="n">cities</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">"pop_max &gt; 10000000"</span><span class="p">)</span>            <span class="c1"># mode="add", "remove" or "subset"</span>
+<span class="n">cities</span><span class="o">.</span><span class="n">to_geojson</span><span class="p">(</span><span class="n">selected</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>                    <span class="c1"># only the selected features</span>
+<span class="n">cities</span><span class="o">.</span><span class="n">clear_selection</span><span class="p">()</span>                            <span class="c1"># clears selections in every layer</span>
+</code></pre></div>
+<h2 id="pmtiles-archives">PMTiles archives<a class="headerlink" href="#pmtiles-archives" title="Permanent link">&para;</a></h2>
+<p><code>Session.add_pmtiles</code> and <code>Map.add_pmtiles</code> add a raster or vector PMTiles archive by web
+address or local file path. <code>source_layers</code> chooses the vector source layers; <code>style</code> is an
+array of MapLibre style layers (or its JSON text), using the same
+<a href="../user-guide/maps/#basemaps">supported style properties</a> as other vector tile layers. A custom
+style chooses what it draws through its own <code>source-layer</code> properties, overriding <code>source_layers</code>.
+Omit both for the archive's default look. Other <code>map.addTiles</code> parameters, such as <code>opacity</code>,
+can be passed as keyword arguments.</p>
+<div class="highlight"><pre><span></span><code><span class="n">s</span><span class="o">.</span><span class="n">add_pmtiles</span><span class="p">(</span><span class="s2">"https://example.org/atlas.pmtiles"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Atlas"</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">add_pmtiles</span><span class="p">(</span>
+    <span class="s2">"atlas.pmtiles"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Water"</span><span class="p">,</span> <span class="n">source_layers</span><span class="o">=</span><span class="p">[</span><span class="s2">"water"</span><span class="p">],</span>
+    <span class="n">style</span><span class="o">=</span><span class="p">[{</span>
+        <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"water"</span><span class="p">,</span> <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"fill"</span><span class="p">,</span> <span class="s2">"source-layer"</span><span class="p">:</span> <span class="s2">"water"</span><span class="p">,</span>
+        <span class="s2">"paint"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"fill-color"</span><span class="p">:</span> <span class="s2">"#336699"</span><span class="p">},</span>
+    <span class="p">}],</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>The result gives the tile layer's name, kind and position; it is not a feature <code>Layer</code>.
+Web archives need a server supporting byte-range requests (and CORS for the notebook app).
+Local archives can be read by Python, but are not embedded in the notebook app: use a web
+address accessible to the browser to show one there.</p>
+<h2 id="the-app-in-a-notebook">The app in a notebook<a class="headerlink" href="#the-app-in-a-notebook" title="Permanent link">&para;</a></h2>
+<p><code>rustgis.Map</code> shows the RustGIS app (ribbon, panes, map) in the cell, kept in step with its
+session: what Python adds or styles appears in the app, and what you do in the app (an edit, a new
+layer, a pan) is back in the session for Python to read. It needs
+<a href="https://anywidget.dev">anywidget</a>, and works in JupyterLab, Notebook, VS Code and Colab.</p>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"rustgis[jupyter]"</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">m</span> <span class="o">=</span> <span class="n">rustgis</span><span class="o">.</span><span class="n">Map</span><span class="p">(</span><span class="n">sample</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>                         <span class="c1"># height="800px"; lang="de" sets the language</span>
+<span class="n">m</span>                                                   <span class="c1"># the app, in the cell</span>
+
+<span class="n">m</span><span class="o">.</span><span class="n">add_geojson</span><span class="p">(</span><span class="s2">"sites.geojson"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sites"</span><span class="p">)</span>        <span class="c1"># appears in the app</span>
+<span class="n">m</span><span class="p">[</span><span class="s2">"Sites"</span><span class="p">]</span><span class="o">.</span><span class="n">style</span><span class="p">(</span><span class="s2">"unique"</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="s2">"name"</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">set_center</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">5_000_000</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">add_tiles</span><span class="p">(</span><span class="s2">"https://tile.openstreetmap.org/</span><span class="si">{z}</span><span class="s2">/</span><span class="si">{x}</span><span class="s2">/</span><span class="si">{y}</span><span class="s2">.png"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"OpenStreetMap"</span><span class="p">)</span>
+
+<span class="n">m</span><span class="o">.</span><span class="n">info</span><span class="p">()[</span><span class="s2">"center"</span><span class="p">]</span>                                  <span class="c1"># where the app's map is now</span>
+<span class="n">m</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">"sites.rgis"</span><span class="p">)</span>                                <span class="c1"># with what was done in the app</span>
+<span class="n">m</span><span class="o">.</span><span class="n">run_in_app</span><span class="p">(</span><span class="s2">"ui.language"</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="s2">"de"</span><span class="p">)</span>              <span class="c1"># a command only the app has</span>
+</code></pre></div>
+<p><code>Map</code> shares the command, data and view methods of <code>Session</code> (<code>run</code>, <code>run_tool</code>, <code>add_data</code>,
+<code>m["Sites"]</code>, <code>to_png</code>, ...); its layers' changes also appear in the app. <code>m.session</code> is the
+underlying session; <code>Map(session=s)</code> displays an existing one. Make changes through <code>m</code>, rather
+than directly through <code>m.session</code>, to send them to the app.</p>
+<p>Supported files up to 2 MiB added through <code>Map</code> travel with the project. Larger files and formats
+that cannot be embedded are read from a path only Python can see: they draw in <code>to_png</code> but not
+in the app. Use a zip for a Shapefile. The whole project goes across after each change, so
+simultaneous changes do not merge: the later one wins. A change made in the app replaces Python's
+project, so <code>m.undo()</code> undoes only what Python did since.</p>
+<p>The app is the <a href="../installation/">web app</a>, loaded from https://web.rustgis.app, so the
+notebook needs to be online. <code>Map(url=...)</code> or the <code>RUSTGIS_WEB_URL</code> environment variable points
+it at another copy (a self-hosted one, such as one built with the
+<a href="../installation/#self-host-the-web-app-with-docker">Dockerfile</a>, or <code>trunk serve</code> in
+<code>apps/rustgis-web</code>). Settings you change in the widget last until the cell is run again: an
+embedded app keeps nothing in the browser.</p>
+<p>The project, with the data that travels with it, goes to that app through the browser
+(<code>postMessage</code>); nothing goes to a server. The app runs in your browser, so with the default
+address your data stays on your machine. Point <code>url=</code> only at a copy of the app you trust.</p>
+<h2 id="the-app-in-a-qt-application">The app in a Qt application<a class="headerlink" href="#the-app-in-a-qt-application" title="Permanent link">&para;</a></h2>
+<p><code>rustgis.qt.MapWidget</code> is the same app in a Qt widget, for a desktop tool or a script that opens a
+window: it shows the web app in Qt WebEngine and keeps it in step with its session, as <code>Map</code> does
+in a notebook. It needs PySide6 (or PyQt6 with PyQt6-WebEngine).</p>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"rustgis[qt]"</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">rustgis.qt</span><span class="w"> </span><span class="kn">import</span> <span class="n">MapWidget</span>                     <span class="c1"># import it before the QApplication</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QApplication</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">([])</span>
+<span class="n">w</span> <span class="o">=</span> <span class="n">MapWidget</span><span class="p">(</span><span class="n">sample</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>                           <span class="c1"># lang="de", url=... as for Map</span>
+<span class="n">w</span><span class="p">[</span><span class="s2">"Countries"</span><span class="p">]</span><span class="o">.</span><span class="n">style</span><span class="p">(</span><span class="s2">"graduated"</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="s2">"pop_est"</span><span class="p">)</span>   <span class="c1"># appears in the app</span>
+<span class="n">w</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>                                             <span class="c1"># or add it to a layout</span>
+<span class="n">app</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+
+<span class="n">w</span><span class="o">.</span><span class="n">info</span><span class="p">()[</span><span class="s2">"center"</span><span class="p">]</span>                                   <span class="c1"># where the app's map was left</span>
+</code></pre></div>
+<p><code>MapWidget</code> has the methods of <code>Map</code> (<code>run</code>, <code>run_in_app</code>, <code>add_data</code>, <code>w["Sites"]</code>, <code>to_png</code>,
+<code>notices</code>, ...) and is a <code>QWidget</code>, so it goes in a layout or a dock like any other; <code>w.view</code> is
+the <code>QWebEngineView</code> the app runs in. Call its methods from the Qt main thread. What the
+<a href="#the-app-in-a-notebook">notebook section</a> says about files, merging and the app's address holds
+here too.</p>
+<p>In a conda environment that also has conda's own Qt, PySide6 from pip may find conda's Qt plugins
+instead of its own and fail to start ("Could not find the Qt platform plugin"). Use a separate
+environment for it, or point <code>QT_PLUGIN_PATH</code> at the <code>Qt/plugins</code> folder of the PySide6 package
+(and <code>QTWEBENGINEPROCESS_PATH</code> at its <code>Qt/libexec/QtWebEngineProcess</code>).</p>
+<h2 id="commands">Commands<a class="headerlink" href="#commands" title="Permanent link">&para;</a></h2>
+<p>Engine actions are commands with an id and JSON parameters: the same ids the ribbon, the
+<a href="../cli/">command line</a> and the <a href="../user-guide/assistant/">AI Assistant</a> use.
+<code>Session.run(id, ...)</code> runs them, with parameters as keyword arguments, a positional dict, or
+both (keyword arguments win). It returns the decoded command result and raises
+<code>rustgis.RustGISError</code> when the command fails. UI-only commands (<code>ui.*</code>) need
+<code>Map.run_in_app</code>, as in the notebook example above.</p>
+<p>A command runs to its end before <code>run</code> returns, but not holding Python's interpreter lock (the
+GIL): other Python threads keep running while it works, as do renders, layer reads and the
+keychain reads of <code>use_saved_secrets</code>. Native RustGIS calls, including calls on different
+sessions, take turns because connection activations are shared by the process. Waiting for
+another native call also releases the GIL; unrelated Python threads remain free to run.
+Ctrl+C (<code>KeyboardInterrupt</code>) is raised only once the command has ended. So a trend over a data
+cube (<code>cube.trend</code>) keeps the Script pane's bounds here (2 billion pairs compared, a STAC search
+of 2,000 items); run a larger one, such as a trend over a state, with <code>rustgis-cli run</code> (see
+<a href="../cli/">the command line</a>).</p>
+<div class="highlight"><pre><span></span><code><span class="n">s</span><span class="o">.</span><span class="n">commands</span><span class="p">()</span>                                        <span class="c1"># every command, with its parameters</span>
+<span class="n">s</span><span class="o">.</span><span class="n">tools</span><span class="p">()</span>                                           <span class="c1"># the geoprocessing tools</span>
+<span class="n">s</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="s2">"layer.symbology"</span><span class="p">)</span>                       <span class="c1"># one command's (or tool's) parameters</span>
+<span class="n">s</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">"labels.field"</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s2">"Cities"</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="s2">"name"</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">"map.goToXY"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"lon"</span><span class="p">:</span> <span class="mf">114.1</span><span class="p">,</span> <span class="s2">"lat"</span><span class="p">:</span> <span class="mf">22.4</span><span class="p">,</span> <span class="s2">"scale"</span><span class="p">:</span> <span class="mi">2_000_000</span><span class="p">})</span>
+<span class="n">s</span><span class="o">.</span><span class="n">notices</span><span class="p">()</span>                                         <span class="c1"># drains (text, is_error) pairs since last call</span>
+<span class="n">s</span><span class="o">.</span><span class="n">undo</span><span class="p">()</span>
+<span class="n">s</span><span class="o">.</span><span class="n">redo</span><span class="p">()</span>
+</code></pre></div>
+<p><code>run_tool</code> runs a geoprocessing tool and returns the layer it made (a list when it made several),
+or the tool's own result for one that selects or makes a table. Layers can be given as <code>Layer</code>
+objects or by name; tools take layers by name, so of two layers with the same name the upper one
+is used:</p>
+<div class="highlight"><pre><span></span><code><span class="n">s</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="s2">"buffer"</span><span class="p">)[</span><span class="s2">"params"</span><span class="p">]</span>                      <span class="c1"># input, distance, units, dissolve, output</span>
+<span class="n">rings</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">run_tool</span><span class="p">(</span><span class="s2">"buffer"</span><span class="p">,</span> <span class="nb">input</span><span class="o">=</span><span class="n">s</span><span class="p">[</span><span class="s2">"Cities"</span><span class="p">],</span> <span class="n">distance</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s2">"Kilometers"</span><span class="p">)</span>
+<span class="n">rings</span><span class="o">.</span><span class="n">style</span><span class="p">(</span><span class="s2">"single"</span><span class="p">)</span><span class="o">.</span><span class="n">set_transparency</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+</code></pre></div>
+<p>The common view commands have shortcuts too:</p>
+<div class="highlight"><pre><span></span><code><span class="n">s</span><span class="o">.</span><span class="n">set_center</span><span class="p">(</span><span class="mf">114.1</span><span class="p">,</span> <span class="mf">22.4</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">2_000_000</span><span class="p">)</span>          <span class="c1"># bearing= and pitch= tilt and turn it</span>
+<span class="n">s</span><span class="o">.</span><span class="n">zoom_to</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s2">"Cities"</span><span class="p">])</span>                              <span class="c1"># or a box: (west, south, east, north)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">bounds</span>                                            <span class="c1"># what the map shows now</span>
+<span class="n">s</span><span class="o">.</span><span class="n">set_basemap</span><span class="p">(</span><span class="s2">"paper"</span><span class="p">)</span>                              <span class="c1"># paper, midnight, ocean, atlas, blank</span>
+<span class="n">s</span><span class="o">.</span><span class="n">add_tiles</span><span class="p">(</span><span class="s2">"https://tile.openstreetmap.org/</span><span class="si">{z}</span><span class="s2">/</span><span class="si">{x}</span><span class="s2">/</span><span class="si">{y}</span><span class="s2">.png"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"OpenStreetMap"</span><span class="p">)</span>
+</code></pre></div>
+<p>The GeoLibre and Whitebox tools run as they do in the app, through the <code>geolibre</code> program
+(see <a href="../user-guide/analysis/">Analysis</a>). <code>rustgis.load_plugins()</code>, or
+<code>Session(plugins=True)</code>, loads the <a href="../plugins/">plugins</a> installed for the desktop app.</p>
+<h3 id="saved-connections-and-secrets">Saved connections and secrets<a class="headerlink" href="#saved-connections-and-secrets" title="Permanent link">&para;</a></h3>
+<p><code>rustgis.Session(use_saved_secrets=True)</code> loads the desktop app's saved connection definitions
+and lets <code>connection.login</code> and project sources use their remembered database passwords and S3
+keys. Secrets are read lazily from the system keychain, only when a command needs one, under
+the desktop's rules: the same connection ID, kind and address or S3 endpoint. Parameters given
+to a command, and environment credentials selected by a connection, take precedence over saved
+secrets. Changes to the connection definitions aren't saved back to the desktop preferences.</p>
+<p>The default is <code>False</code>: nothing reads the keychain or desktop preferences, so scripts and CI
+remain opt-in. If the keychain is unavailable, locked or refuses access, the session emits one
+<code>WARNING</code> record through <code>logging.getLogger("rustgis")</code> on its first failed access. With no
+logging configured, Python prints it to stderr. Unreadable or malformed desktop preferences
+produce a separate diagnostic during session construction; a missing preferences file is normal.</p>
+<p>These are log records, not Python warnings: warning filters cannot replace a successful result
+or hide the original <code>RustGISError</code>. Each session reports its own failure. A logging handler or
+filter that raises cannot change the operation's result; the diagnostic falls back to stderr.
+A command that doesn't need a secret neither touches the keychain nor emits a keychain
+diagnostic. On macOS, Keychain may ask once per item whether the Python executable may read it;
+<strong>Always Allow</strong> stops that question for that executable and item. Until such a question is
+answered (or a locked Secret Service on Linux responds), the command that asked waits, and so do
+other RustGIS calls in the process, even on other sessions; other Python threads keep running.</p>
+<h2 id="data-in-and-out">Data in and out<a class="headerlink" href="#data-in-and-out" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="n">s</span> <span class="o">=</span> <span class="n">rustgis</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="n">sample</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">[</span><span class="s2">"parcels.gpkg"</span><span class="p">])</span>
+<span class="n">roads</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">add_data</span><span class="p">(</span><span class="s2">"roads.fgb"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Roads"</span><span class="p">)</span>
+<span class="n">sites</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">add_geojson</span><span class="p">({</span>
+    <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"FeatureCollection"</span><span class="p">,</span>
+    <span class="s2">"features"</span><span class="p">:</span> <span class="p">[{</span><span class="s2">"type"</span><span class="p">:</span> <span class="s2">"Feature"</span><span class="p">,</span> <span class="s2">"geometry"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"type"</span><span class="p">:</span> <span class="s2">"Point"</span><span class="p">,</span> <span class="s2">"coordinates"</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">]},</span>
+                  <span class="s2">"properties"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Site A"</span><span class="p">}}],</span>
+<span class="p">},</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sites"</span><span class="p">)</span>
+
+<span class="n">gdf</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="s2">"Cities"</span><span class="p">]</span><span class="o">.</span><span class="n">to_geopandas</span><span class="p">()</span>                    <span class="c1"># a GeoDataFrame in EPSG:4326</span>
+<span class="n">big</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">add_geopandas</span><span class="p">(</span><span class="n">gdf</span><span class="p">[</span><span class="n">gdf</span><span class="o">.</span><span class="n">pop_max</span> <span class="o">&gt;</span> <span class="mi">5_000_000</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Big cities"</span><span class="p">)</span>
+<span class="n">s</span><span class="p">[</span><span class="s2">"Cities"</span><span class="p">]</span><span class="o">.</span><span class="n">to_geojson</span><span class="p">()</span>                            <span class="c1"># a FeatureCollection dict</span>
+<span class="n">big</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="s2">"big-cities.gpkg"</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="s2">"EPSG:3857"</span><span class="p">)</span>     <span class="c1"># GeoJSON, CSV, FlatGeobuf, GeoParquet, …</span>
+</code></pre></div>
+<p>GeoPackage exports through <code>Layer.to_file</code> or <code>share.exportLayer</code> require a new filename.
+An existing <code>.gpkg</code> is refused to preserve its tables; export does not append or replace tables.</p>
+<p><code>add_geojson</code> also takes any object with <code>__geo_interface__</code> (a Shapely geometry, a GeoSeries).
+<code>add_data</code>, <code>add_geojson</code> and <code>add_geopandas</code> return a <code>Layer</code> for a single layer, a list for
+multiple layers, or the command result for standalone tables. For example, a CSV without
+geometry is a table. Extra <code>add_data</code> keyword arguments go to <code>layer.addData</code>, such as <code>layer=</code>
+to choose a GeoPackage table, or <code>x=</code> and <code>y=</code> to choose coordinate columns.</p>
+<p>Every format the app reads works here: GeoJSON, CSV, Shapefile, GeoPackage, GeoParquet,
+FlatGeobuf, KML/KMZ, GPX, GeoTIFF and the rest of <a href="../user-guide/data-formats/">Supported Data
+Formats</a>. A large file read in place keeps only the features of the
+last view in memory; run <code>layer.loadAll</code> on it before <code>to_geojson</code> or <code>to_geopandas</code> to get all
+of them.</p>
+<p>Open an existing project with <code>Session(project="atlas.rgis")</code> or <code>s.open("atlas.rgis")</code>.
+<code>s.project_json()</code> returns its JSON text; <code>s.run("project.openText", text=...)</code> opens project
+JSON without an intermediate file. <code>to_png()</code> returns PNG bytes even when it also writes a
+file; omit the path to keep the image in memory.</p>
+<h2 id="from-source">From source<a class="headerlink" href="#from-source" title="Permanent link">&para;</a></h2>
+<p>The package lives in <code>apps/rustgis-python</code>, built with <a href="https://www.maturin.rs">maturin</a>.
+Install the <a href="../installation/#from-source">source-build prerequisites</a> and use a Python 3.12+
+virtual environment. From the repository root:</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"./apps/rustgis-python[test]"</span>
+python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>apps/rustgis-python/tests
+</code></pre></div>
+<p>For an editable development install, activate the virtual environment, then:</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"maturin&gt;=1.9.3,&lt;2"</span>
+<span class="nb">cd</span><span class="w"> </span>apps/rustgis-python
+maturin<span class="w"> </span>develop<span class="w"> </span>--release
+</code></pre></div>
+<p>Saved-credential regression tests use an injected store, so they never access your keychain:</p>
+<div class="highlight"><pre><span></span><code>maturin<span class="w"> </span>develop<span class="w"> </span>--release<span class="w"> </span>--features<span class="w"> </span>test-stores
+python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>tests/test_saved_secrets.py
+</code></pre></div>
+<p>Rebuild without <code>--features test-stores</code> afterward to restore the OS backend. CI builds one test
+wheel with the injected store and runs the suite once; distributed wheels keep default features.</p>
+<p>Its version is the RustGIS version, and each release publishes wheels to PyPI.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../cli/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Command Line">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Command Line
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../mcp/" class="md-footer__link md-footer__link--next" aria-label="Next: MCP Server">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                MCP Server
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Qiusheng Wu
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/opengeos/RustGIS" target="_blank" rel="noopener" title="RustGIS on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/sponsors/giswqs" target="_blank" rel="noopener" title="Sponsor RustGIS on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="m241 87.1 15 20.7 15-20.7C296 52.5 336.2 32 378.9 32 452.4 32 512 91.6 512 165.1v2.6c0 112.2-139.9 242.5-212.9 298.2-12.4 9.4-27.6 14.1-43.1 14.1s-30.8-4.6-43.1-14.1C139.9 410.2 0 279.9 0 167.7v-2.6C0 91.6 59.6 32 133.1 32 175.8 32 216 52.5 241 87.1"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://buymeacoffee.com/giswqs" target="_blank" rel="noopener" title="Buy the maintainer a coffee" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M152-16c-13.3 0-24 10.7-24 24 0 38.9 23.4 59.4 39.1 73.1l1.1 1C184.5 96.4 192 103.9 192 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C183.5 31.7 176 24.1 176 8c0-13.3-10.7-24-24-24M96 192c-17.7 0-32 14.3-32 32v192c0 53 43 96 96 96h192c41.8 0 77.4-26.7 90.5-64h5.5c70.7 0 128-57.3 128-128s-57.3-128-128-128zm352 192V256c35.3 0 64 28.7 64 64s-28.7 64-64 64M288 8c0-13.3-10.7-24-24-24S240-5.3 240 8c0 38.9 23.4 59.4 39.1 73.1l1.1 1C296.5 96.4 304 103.9 304 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C295.5 31.7 288 24.1 288 8"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["content.code.copy","navigation.indexes","navigation.footer","navigation.instant","navigation.top","navigation.tracking","search.highlight","search.share"],"redirect":null,"search":"../assets/javascripts/workers/search.c47bb847.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.77dd0ce9.min.js"></script>
+      
+    
+  </body>
+</html>
