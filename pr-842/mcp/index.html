@@ -1,0 +1,1992 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A fast, free and open-source GIS in pure Rust for mapping, analyzing and sharing geospatial data, on the desktop and in the browser">
+      
+      
+        <meta name="author" content="opengeos">
+      
+      
+        <link rel="canonical" href="https://rustgis.app/mcp/">
+      
+      
+      
+        <link rel="prev" href="../python/">
+      
+      
+        <link rel="next" href="../plugins/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="https://assets.rustgis.app/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.72">
+    
+    
+      
+        <title>MCP Server - RustGIS</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ab2de0c.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.b60ce83d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
+    <div data-md-component="skip">
+      <a href="#__skip" class="md-skip">
+        Skip to content
+      </a>
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="RustGIS" class="md-header__button md-logo" aria-label="RustGIS" data-md-component="logo">
+      
+  <img src="https://assets.rustgis.app/images/logo.svg" alt="RustGIS">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+      <span class="md-visually-hidden">Navigation</span>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RustGIS
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              MCP Server
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+          <span class="md-visually-hidden">Search</span>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/opengeos/RustGIS" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/RustGIS
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="RustGIS" class="md-nav__button md-logo" aria-label="RustGIS" data-md-component="logo">
+      
+  <img src="https://assets.rustgis.app/images/logo.svg" alt="RustGIS">
+
+    </a>
+    RustGIS
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/opengeos/RustGIS" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/RustGIS
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Installation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Getting Started
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://web.rustgis.app" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Web App
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../user-guide/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  User Guide
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  User Guide
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/web-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Web Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/data-formats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Supported Data Formats
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/maps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Maps and Basemaps
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/cartography/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Cartography
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/editing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Editing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Analysis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/layouts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Layouts and Reports
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/sharing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sharing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/workspace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Workspace
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/assistant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AI Assistant
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../comparison/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Comparison
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_6">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Comparison
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparison/geolibre/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  RustGIS and GeoLibre
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparison/qgis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  RustGIS and QGIS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Command Line
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MCP Server
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MCP Server
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#adding-it-to-an-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Adding it to an agent
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#managing-the-open-desktop-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Managing the open desktop app
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Managing the open desktop app">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mcp-over-http" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        MCP over HTTP
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-file-bridge" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The file bridge
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relay-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Relay requirements
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Tests
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Tools
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-the-agent-may-do" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        What the agent may do
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What the agent may do">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#local-agent-approvals" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Local-agent approvals
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Plugins
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../i18n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Languages
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Architecture
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Contributing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../acknowledgements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Acknowledgements
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sponsor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sponsor
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../privacy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Privacy
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/opengeos/RustGIS/issues" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Report Issues
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#adding-it-to-an-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Adding it to an agent
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#managing-the-open-desktop-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Managing the open desktop app
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Managing the open desktop app">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mcp-over-http" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        MCP over HTTP
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-file-bridge" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The file bridge
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relay-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Relay requirements
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Tests
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Tools
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-the-agent-may-do" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        What the agent may do
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What the agent may do">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#local-agent-approvals" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Local-agent approvals
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                <a id="__skip" tabindex="-1"></a>
+                
+                  
+
+  
+  
+
+
+<h1 id="mcp-server">MCP Server<a class="headerlink" href="#mcp-server" title="Permanent link">&para;</a></h1>
+<p><code>rustgis-cli mcp</code> runs RustGIS as a <a href="https://modelcontextprotocol.io">Model Context Protocol</a>
+server, so an AI agent such as Claude Code, Claude Desktop, Cursor, VS Code or Codex can make
+maps with it. The agent opens data, runs RustGIS commands and geoprocessing tools within the
+access policy below, reads attribute tables, looks at the map as an image and searches this
+documentation. RustGIS needs no model API key in this mode: the MCP client supplies the model.</p>
+<div class="highlight"><pre><span></span><code>rustgis-cli<span class="w"> </span>mcp<span class="w"> </span>--sample<span class="w">                </span><span class="c1"># the World Atlas sample</span>
+rustgis-cli<span class="w"> </span>mcp<span class="w"> </span>--data<span class="w"> </span>parcels.geojson<span class="w">  </span><span class="c1"># your own data (--data more than once, or --project p.rgis)</span>
+rustgis-cli<span class="w"> </span>mcp<span class="w"> </span>--yes<span class="w">                   </span><span class="c1"># also allow file and network access</span>
+rustgis-cli<span class="w"> </span>mcp<span class="w"> </span>--attach<span class="w"> </span><span class="o">[</span>--yes<span class="o">]</span><span class="w">        </span><span class="c1"># the desktop app that is already open (its MCP Relay)</span>
+</code></pre></div>
+<p>The server talks over standard input and output, so you don't start it yourself: you tell your
+agent how to start it (below), and the agent runs it. Each agent gets its own project, held in
+memory until the agent saves it.
+<code>--sample</code>, <code>--project</code> and repeated <code>--data</code> options initialize a private project.
+They cannot be combined with <code>--attach</code>, which uses the desktop app's existing project.
+Use absolute paths for data, projects and executables in client configurations: clients may
+start the server in a different working directory.</p>
+<h2 id="adding-it-to-an-agent">Adding it to an agent<a class="headerlink" href="#adding-it-to-an-agent" title="Permanent link">&para;</a></h2>
+<p>Claude Code:</p>
+<div class="highlight"><pre><span></span><code>claude<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>rustgis<span class="w"> </span>--<span class="w"> </span>rustgis-cli<span class="w"> </span>mcp<span class="w"> </span>--sample
+</code></pre></div>
+<p>Codex:</p>
+<div class="highlight"><pre><span></span><code>codex<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>rustgis<span class="w"> </span>--<span class="w"> </span>rustgis-cli<span class="w"> </span>mcp<span class="w"> </span>--sample
+</code></pre></div>
+<p>Claude Desktop (<code>claude_desktop_config.json</code>), Cursor (<code>~/.cursor/mcp.json</code>) and other clients
+that use an <code>mcpServers</code> object:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"mcpServers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"rustgis"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rustgis-cli"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"mcp"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--sample"</span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>VS Code (<code>.vscode/mcp.json</code>):</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"servers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"rustgis"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"stdio"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rustgis-cli"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"mcp"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--sample"</span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>If the agent can't find <code>rustgis-cli</code>, give its full path (see <a href="../installation/">Installation</a>).
+Then ask, for example:</p>
+<ul>
+<li>"Which 5 countries have the largest GDP? Show them on the map."</li>
+<li>"Buffer the cities by 200 km, colour the result by population and show me the map."</li>
+<li>"Load ~/data/parcels.geojson, label the parcels with their owner and export the map to
+  parcels.png." (this reads and writes files, so it needs <code>--yes</code>)</li>
+</ul>
+<h2 id="managing-the-open-desktop-app">Managing the open desktop app<a class="headerlink" href="#managing-the-open-desktop-app" title="Permanent link">&para;</a></h2>
+<p>By default each agent gets its own project in memory. To drive the project that is open in the
+desktop app instead, tick <strong>Let your Agents Control RustGIS</strong> in the AI Assistant's settings. It
+starts the relay and shows what an agent needs to connect: the MCP server configuration, and the
+<code>claude mcp add</code> / <code>codex mcp add</code> commands. While it's ticked, attached agents may also read and
+write files and use the network, without <code>--yes</code>. RustGIS remembers the choice and starts the
+relay with the app. The <strong>MCP Relay</strong> command (Help menu, or Command Search with Ctrl+K) starts the
+relay too, without that: attached agents then have the access their <code>--yes</code> asks for.
+The relay is off until the box is ticked or that command runs. While it runs, the status bar shows <code>MCP relay · n attached</code>,
+where n is the number of authenticated clients. For ten seconds after an attached agent runs a
+tool, the label also names it (<code>MCP relay · 1 attached · layer.addSample</code>, in red when it failed);
+hovering shows <code>Stop MCP relay</code> and the last call with its parameters, and clicking it stops the
+relay. Agents attached through the relay are told, when they connect, that this is the project you
+have open and that you watch the map change as they work.</p>
+<p>Under it, <strong>Full access</strong> (off unless you tick it, for this session only) lifts every refusal for
+agents attached with the relay's own token. They may then also run scripts, tasks and models, and
+install, remove and run plugins: what you could do yourself in RustGIS. It isn't remembered: it's
+off again at the next launch, and when agents are turned off. While it's on, the status bar reads
+<code>MCP relay · full access · n attached</code> in red. Full access also lifts the project-replacement
+and undo-ownership refusals described below; it is not just file and network access.
+Agents the app starts itself keep their own grants' rules.</p>
+<div class="highlight"><pre><span></span><code>rustgis-cli<span class="w"> </span>mcp<span class="w"> </span>--attach<span class="w">                 </span><span class="c1"># the open app on 127.0.0.1:8767</span>
+rustgis-cli<span class="w"> </span>mcp<span class="w"> </span>--attach<span class="w"> </span><span class="m">9000</span><span class="w"> </span>--yes<span class="w">      </span><span class="c1"># another port, with file and network access</span>
+rustgis-cli<span class="w"> </span>mcp<span class="w"> </span>--attach<span class="w"> </span>--timeout<span class="w"> </span><span class="m">300</span><span class="w">   </span><span class="c1"># wait up to 5 minutes for each call (5 to 600 seconds)</span>
+</code></pre></div>
+<p>The port is 8767 unless the <code>RUSTGIS_MCP_PORT</code> environment variable names another, for the app
+and for <code>--attach</code> alike (a second copy of RustGIS, or a port another program holds). When the
+port is taken, the relay's error says so and names that variable; a value that isn't a port number
+is an error too, not a quiet fall back to 8767. While the relay runs, the app
+publishes <code>endpoint.json</code> in the relay's private folder: <code>schema</code>, <code>host</code>, <code>port</code>, <code>url</code>, <code>pid</code>,
+<code>started_at</code>, the app <code>version</code>, the <code>token_file</code> path (not the token), the <code>attach</code> command, and
+once MCP over HTTP runs, its <code>http_url</code> and <code>http_token_file</code>.
+Setup scripts can read it instead of hard-coding the port. It's removed when the relay stops. With
+two copies of RustGIS on different ports it describes the one started last, and a crash can leave
+it behind: check that its <code>pid</code> is still running before trusting it.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"mcpServers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"rustgis-app"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rustgis-cli"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"mcp"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--attach"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--yes"</span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Attached calls run on the open app's session through the same tools and refusal policy as the
+private server. <code>snapshot</code> additionally supports a real window capture with <code>mode: "screen"</code>.
+If the map is not on screen, it falls back to an offscreen render and explains why in <code>note</code>.
+The relay holds a screen request until the app has taken the picture, and runs nothing else
+meanwhile. File and network commands need <code>--yes</code>, unless <strong>Let your Agents Control RustGIS</strong>
+is ticked.</p>
+<p>Without <strong>Full access</strong>, an attached agent cannot replace the open project:
+<code>project.new</code>, <code>project.open</code>, <code>project.openText</code>, <code>project.sample</code> and <code>project.fromTemplate</code>
+are refused, with or without <code>--yes</code>. Commands are recorded in your undo history as
+<code>agent 1</code>, <code>agent 2</code>… with the relay run's identity. An agent's <code>edit.undo</code> and <code>edit.redo</code>
+work only on its own steps: when the top step is yours or another agent's, they are refused.
+They run on their own through <code>run_command</code>, or as a one-line <code>run</code> script. You can still undo
+anything. Full access lifts both these restrictions for the relay's own token.</p>
+<p>Undo ownership and the active layer are scoped to a token, not a client connection.
+Ordinary <code>--attach</code> clients share the relay's token, so they share one agent identity and
+active layer; local agents with separate grants are kept apart. Selecting a layer through
+an agent (<code>layer.select</code>, or a command that makes a layer active) does not change your Layers
+pane selection. Once that token has chosen a layer, commands that omit <code>layer</code> use it while
+you select others; until then they use your current selection.</p>
+<p>Every tool call an attached agent makes is written to an audit log, one JSON line per call in a
+file per day (<code>2026-10-18.jsonl</code>) in the <code>mcp-audit</code> folder of the app-data folder
+(<code>~/.local/share/rustgis/mcp-audit</code> on Linux, <code>~/Library/Application Support/RustGIS/mcp-audit</code> on
+macOS, <code>%LOCALAPPDATA%\RustGIS\mcp-audit</code> on Windows). Each line holds <code>ts</code>, <code>source</code> (<code>mcp</code> for the relay and MCP over HTTP, <code>file</code> for the file
+bridge),
+<code>tool</code>, <code>command</code> or <code>script</code> when there is one, <code>args</code>, <code>success</code>, <code>duration_s</code> and <code>error</code>.
+Passwords, keys and tokens in the arguments, a <code>run</code> script's lines included, are replaced before
+they are written. On Linux and macOS the folder and files are readable by you only; on Windows they're protected by
+your user profile's permissions. A batch's calls share the batch's
+<code>duration_s</code> and are marked <code>"batch": true</code>. An error whose text mentions a credential (a token, a
+password, a bearer…) is logged as withheld rather than risk keeping the credential. Days older than 30 are removed.</p>
+<h3 id="mcp-over-http">MCP over HTTP<a class="headerlink" href="#mcp-over-http" title="Permanent link">&para;</a></h3>
+<p>While <strong>Let your Agents Control RustGIS</strong> is on, the app also serves MCP over HTTP ("Streamable
+HTTP", stateless, JSON replies) on <code>http://127.0.0.1:8768/mcp</code>, beside the relay. The
+<code>RUSTGIS_MCP_HTTP_PORT</code> environment variable names another port. Clients that speak HTTP connect
+without <code>rustgis-cli</code>. Every request needs <code>Authorization: Bearer &lt;token&gt;</code>. The token is made once
+and kept in <code>mcp-http.token</code> in the settings folder (readable by you only), so a client registered
+with it keeps working across launches; delete the file to make a new one. Requests that name
+another host, or that come from a web page (an <code>Origin</code> header), are refused before the token is
+read. Calls go through the same queue, refusals and one-at-a-time rule as the relay's. HTTP clients count
+as agents attached with the relay's own token: they share that agent's access, active layer and
+name in the undo history, and the token lasts across launches where the relay's lasts one run.</p>
+<p><code>rustgis-cli mcp-register --client claude</code> registers it with Claude Code (<code>claude mcp add
+--transport http rustgis-live http://127.0.0.1:8768/mcp --header "Authorization: Bearer …"</code>), and
+the settings section shows that command. Without <code>--client</code> it prints the configuration for any
+HTTP client. <code>--name</code> and <code>--port</code> change the registration's name and port. Either way the token
+leaves its file: <code>claude mcp add</code> takes it as an argument (other users of the computer can see a
+running program's arguments for the moment it runs), and the printed configuration shows it, so
+keep it out of shared logs. Whoever holds the token can do, while agents are on, what an attached agent can, files and the
+network included. If it leaks, stop the relay, delete <code>mcp-http.token</code>, and turn agents on again
+to create and load a new token; each registered client then needs registering again. Deleting
+the file alone does not revoke the token already loaded by a running listener. On Windows the
+token file is protected by your user profile's permissions, not by a mode of its own.</p>
+<p>An agent the app starts itself gets a run-scoped token instead of the relay's own:
+<code>rustgis-cli mcp --attach PORT --token-file FILE</code>. Each such grant carries its own file and network
+permission, and the app revokes it when it's done with the agent; that closes its connections and
+removes its file.</p>
+<h3 id="the-file-bridge">The file bridge<a class="headerlink" href="#the-file-bridge" title="Permanent link">&para;</a></h3>
+<p>For an agent that can't use MCP, or when the relay's port is taken, the app also runs scripts
+written to a file. It's on while <strong>Let your Agents Control RustGIS</strong> is ticked, even if the relay
+couldn't start: agents then stay on, and the status bar says only the file bridge is running.</p>
+<ol>
+<li>Write a script to <code>bridge-command.txt</code> in the relay's private folder
+   (<code>$XDG_RUNTIME_DIR/rustgis</code> on Linux, a <code>rustgis-mcp-&lt;user&gt;</code> folder in the temporary folder
+   elsewhere). The settings section shows the full path. The script is in the <code>script.run</code> format:
+   one <code>command-id {json}</code> per line, <code>#</code> for comments.</li>
+<li>Once the file has stopped changing for half a second, RustGIS runs it on the open project. (To be
+   sure a half-written script never runs, write it to another file in the folder and rename it to
+   <code>bridge-command.txt</code>.) It runs as one undo step, with
+   the same rules as the <code>run</code> tool: a refused or failing line stops it, and nothing it did to the
+   project is kept. Files written by an earlier line stay written.</li>
+<li>The outcome is written to <code>bridge-result.json</code> in the same folder: <code>{success, result, lines,
+   layersAdded, notices, error, duration_s, timestamp}</code>. The status bar says whether it worked.</li>
+</ol>
+<p>Only one RustGIS at a time runs the bridge: a second copy's is refused while the first's runs
+(it holds <code>bridge.lock</code>). The bridge runs a script each time the file changes. Whatever the file held when the bridge started
+isn't run. While the bridge is on, <code>bridge-ready.json</code> there holds its <code>pid</code>, the two files' paths,
+<code>started_at</code>, the app <code>version</code> and a <code>schema</code> number. The folder is readable by this user only,
+like the relay's token. Scripts run through the bridge are written to the audit log (<code>source:
+"file"</code>), and <strong>Full access</strong> applies to them as to agents attached with the relay's own token. The bridge is
+named <code>file bridge</code> in your undo history. Without Full access, a script's <code>edit.undo</code>
+(alone on its line) takes back only the bridge's own steps. It also keeps its own active layer.</p>
+<h3 id="relay-requirements">Relay requirements<a class="headerlink" href="#relay-requirements" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Off until asked.</strong> Only <code>ui.mcpRelay</code> starts a listener: run directly, or by ticking <strong>Let your
+  Agents Control RustGIS</strong> (also at launch, when it was left ticked). <code>ui.mcpRelay</code> with no parameters
+  or with the same port reports the address it already listens on. A different explicit <code>port</code>
+  is refused until the relay is stopped. <code>ui.mcpRelay {"stop": true}</code> stops it and is
+  idempotent. The default port is 8767.</li>
+<li><strong>Loopback only.</strong> <code>Relay::bind</code> refuses any non-loopback address before a socket is opened; the
+  app's <code>ui.mcpRelay</code> binds 127.0.0.1.</li>
+<li><strong>Private token.</strong> Each run draws 16 bytes from the operating system's random source,
+  written as 32 hex characters. The token file is <code>{port}.token</code> in <code>$XDG_RUNTIME_DIR/rustgis</code>
+  when that is an absolute folder, otherwise in a per-user folder under the system temporary
+  folder. The folder must be owned by the current user and not accessible to others. The file
+  must be a regular file owned by the current user, without group or other access. A file
+  that is a symlink is refused. <code>rustgis-cli mcp --attach</code> reads it with <code>read_token(port)</code>.
+  The token never appears on a command line. The file is removed when the relay stops.</li>
+<li><strong>App-granted access.</strong> <code>Relay::set_allow_access(true)</code> lets connections attached with the relay's
+  own token use files and the network whether or not they asked; the desktop app sets it while
+  <strong>Let your Agents Control RustGIS</strong> is ticked. This includes any process running as the same
+  user that can read that token, not just agents launched by RustGIS. It is checked for every call.
+  Turning the setting off stops the relay and disconnects its clients, including a relay started
+  manually. If the relay fails but the file bridge starts, the saved setting stays on and the
+  app reports the relay error; if both fail, the setting is cleared.</li>
+<li><strong>Grants.</strong> <code>Relay::grant(access)</code> writes a run-scoped token to <code>{port}-{run}-{n}.token</code> in the
+  same private folder (<code>run</code> is random per relay run). A grant asked for after the relay stopped is
+  refused. A connection that attaches with it gets the grant's permission. Dropping the grant
+  removes the file, forgets the token and closes its connections. Stopping the relay removes every
+  grant's file.</li>
+<li><strong>Attach first.</strong> A connection's first non-empty line must be a <code>rustgis/attach</code> message
+  carrying the token. It must arrive within 5 seconds, measured from connection, and be at most
+  4096 bytes including its newline. The token is compared without early exit. A connection that fails
+  this is closed. The <code>access</code> flag sets what that connection may do; the per-call refusal
+  policy still applies. A repeat attach may change <code>access</code>.</li>
+<li><strong>Handshake and idle limits.</strong> Attached clients that send nothing for 300 seconds are closed.
+  A reply write that takes longer than 10 seconds closes the connection.</li>
+<li><strong>Connection caps.</strong> At most 16 open connections, and at most 4 that have not attached. A
+  connection beyond either cap is dropped without a reply.</li>
+<li><strong>Queue cap.</strong> Up to 64 ordinary messages wait for the app's frame; messages held for
+  local-agent approval have a separate cap of 64. A request beyond either cap gets error
+  <code>-32001</code> (<code>the app is busy; try again</code>) if it expects a reply.</li>
+<li><strong>Bounded request waits.</strong> A request waits up to 60 seconds for the app to run it, or as long
+  as the client's attach asks (<code>timeout_s</code>, 5 to 600 seconds; <code>--timeout</code> on the command line).
+  If it is still pending then, it is cancelled and never runs; the client gets error <code>-32002</code>. If
+  it is already running, the client waits one more interval of the same length. If the reply
+  still has not come, the client gets error <code>-32003</code> (<code>its outcome is unknown</code>), and the command
+  may still complete later.</li>
+<li><strong>Busy app.</strong> When the app has drawn no frame for 10 seconds since a request was queued (a file
+  dialog is open, a long tool is running, or the window is minimized or hidden and the system has
+  stopped drawing it), the request is cancelled at once and the client gets
+  error <code>-32004</code> saying RustGIS is busy (apart from the full queue's <code>-32001</code>). It never runs, and the connection stays open. An app that
+  was only idle before the request isn't busy: the request wakes it. This comes before a long
+  <code>timeout_s</code>: a stalled app answers after 10 seconds whatever the client's wait, and a client
+  waiting less than 10 seconds gets <code>-32002</code> instead. A <code>timeout_s</code> outside 5 to 600 is clamped to
+  that range, and one that isn't a number is ignored (the 60-second default).</li>
+<li><strong>Stop.</strong> Stopping the relay, or dropping its last owner, closes the listener and every
+  client, drops queued messages unrun, and removes the token file. A waiting request ends at
+  once, checked every 25 milliseconds.</li>
+<li><strong>Wake.</strong> A queued message or a change in the attached-client count wakes the UI thread so
+  it draws a frame. A relay started before the first frame installs its wake on the first
+  logic call after that frame exists.</li>
+<li><strong>Shared framing.</strong> Each message is one JSON-RPC message per line. After attach, messages and
+  replies are read with <code>read_message_max</code> at 64 MiB (<code>MAX_LINE</code>), the limit counting the newline.
+  The attach line is read at most 4096 bytes including its newline (see Attach first). After an
+  oversized line on a socket the relay sends a -32700 error and closes that connection. On standard
+  input the reader skips the rest of the line and continues. IO errors name neither standard input
+  nor a socket.</li>
+</ul>
+<h3 id="tests">Tests<a class="headerlink" href="#tests" title="Permanent link">&para;</a></h3>
+<p>These behavioral tests in <code>crates/assistant/src/relay.rs</code> check the requirements above:</p>
+<ul>
+<li>Loopback bind and command run: <code>relay_runs_a_command_on_the_target_session</code></li>
+<li>Token required: <code>relay_drops_connections_without_the_token</code></li>
+<li>Parse error after attach: <code>relay_returns_parse_error_after_attach_and_stays_usable</code></li>
+<li>File commands need <code>--yes</code>: <code>relay_refuses_file_commands_without_yes</code></li>
+<li>Separate active layers: <code>relay_keeps_the_agents_active_layer_apart_from_the_users</code></li>
+<li>Agents undo only their own steps: <code>relay_agents_undo_only_their_own_steps</code></li>
+<li>Agents of an earlier relay run aren't this run's: <code>relay_agents_of_another_run_cant_undo_earlier_steps</code></li>
+<li>Busy app: <code>relay_says_the_app_is_busy_early</code></li>
+<li>Client-chosen waits: <code>relay_waits_as_long_as_the_client_asks</code></li>
+<li>Endpoint file and port variable: <code>relay_publishes_its_endpoint_and_names_the_port_variable</code></li>
+<li>Full access, for the relay's own token only: <code>relay_full_access_lifts_the_refusals_for_its_own_token_only</code></li>
+<li>Screen snapshots go to the app: <code>relay_hands_screen_snapshots_to_the_app</code></li>
+<li>Snapshots without the screen: <code>relay_draws_snapshots_offscreen_without_the_screen</code></li>
+<li>Saved snapshots need access: <code>relay_refuses_a_saved_snapshot_without_access</code></li>
+<li>The agent's last call, for the status bar: <code>relay_records_the_agents_last_call</code></li>
+<li>MCP over HTTP with the token: <code>relay::http::tests::http_clients_with_the_token_drive_the_session</code></li>
+<li>HTTP refusals (no token, other host, web page, method, size): <code>relay::http::tests::http_refuses_requests_without_the_token_or_from_elsewhere</code></li>
+<li>Stable, private HTTP token: <code>relay::http::tests::http_token_is_stable_and_private</code></li>
+<li>Audit log: <code>relay_writes_each_call_to_the_audit_log</code></li>
+<li>The open project stays the user's: <code>relay_keeps_project_commands_for_the_user</code></li>
+<li>Timed-out command never runs: <code>relay_cancels_a_timed_out_command_so_it_never_runs</code></li>
+<li>Stop cleanup: <code>relay_stop_closes_clients_and_removes_the_token</code></li>
+<li>Last owner drop: <code>relay_last_owner_drop_closes_the_listener</code></li>
+<li>Unauthenticated cap: <code>relay_caps_unauthenticated_connections</code></li>
+<li>Oversized pre-attach line: <code>relay_refuses_an_oversized_unauthenticated_line</code></li>
+<li>Token random and private: <code>relay_token_is_random_and_private</code></li>
+<li>Client count and wake: <code>relay_counts_authenticated_clients_and_wakes_on_change</code></li>
+<li>Stop ends a reply wait: <code>relay_stop_ends_a_reply_wait_and_the_command_never_runs</code></li>
+<li>Running command reported as unknown: <code>relay_reports_a_running_command_past_its_wait_as_unknown</code></li>
+<li>Handshake deadline: <code>relay_closes_a_trickling_handshake_at_its_deadline</code></li>
+<li>App-granted access: <code>relay_app_lets_agents_use_files_without_yes</code></li>
+<li>Grants are scoped and revocable: <code>relay_grants_are_scoped_and_revocable</code></li>
+</ul>
+<h2 id="tools">Tools<a class="headerlink" href="#tools" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>list_layers</code></td>
+<td>The whole project in one call: path and unsaved changes, the view (centre, longitude/latitude extent, scale, projection), the active layer, layers in table-of-contents order (group, type, source, extent, feature count, selection, definition query, renderer, labels, fields, visibility), web tile layers, basemap, tables and layouts with their map frames. <code>name_filter</code> keeps the layers and tables whose name holds it; <code>include_fields: false</code> leaves fields out</td>
+</tr>
+<tr>
+<td><code>view_map</code></td>
+<td>The map as a PNG image at the current view; <code>width</code> and <code>height</code> default to 1024 × 640, each clamped to 64–2048 pixels</td>
+</tr>
+<tr>
+<td><code>snapshot</code></td>
+<td>The map as a PNG with JSON metadata: <code>mode</code>, <code>width</code>, <code>height</code>, <code>extent</code> (longitude/latitude), <code>center</code>, <code>scale</code>, <code>projection</code>, <code>render_settled</code>, <code>saved</code> and <code>note</code>. <code>mode: "screen"</code> captures the RustGIS window through the relay, once the map has finished drawing or after <code>wait_s</code> seconds (default 5, clamped to 0–30); <code>overlays: false</code> leaves out the map's controls, scale bar, north arrow and sketches. <code>mode: "render"</code> draws offscreen at <code>max_width</code> (default 1024, clamped to 64–2048 pixels); height follows the view's shape, with each side capped at 2048. It works while the window is hidden. <code>mode: "auto"</code> (default) takes the screen when the map is on it. Unavailable screen captures fall back to render. <code>save_path</code> also writes the PNG to a file, which needs file access</td>
+</tr>
+<tr>
+<td><code>search_commands</code></td>
+<td>Finds RustGIS commands by words: their ids, ribbon locations and parameters</td>
+</tr>
+<tr>
+<td><code>run_command</code></td>
+<td>Runs a command by id with JSON parameters; each run is one undo step. The result names the layers it added (<code>layersAdded</code>) and what the command said beside it (<code>notices</code>), including any parameters it ignored (<code>layer.moveDown ignores 'steps' (it reads layer)</code>)</td>
+</tr>
+<tr>
+<td><code>run</code></td>
+<td>Runs several commands in one call, as one undo step: a script in the <code>script.run</code> format (one <code>command-id {json}</code> per line, <code>#</code> comments). A failing line stops it, nothing it did to the project is kept, and the error names the line; files an earlier line wrote (an export) stay written. Answers <code>{success, result, lines, layersAdded, notices, error, duration_s}</code>, where <code>result</code> is the last command's. Each line follows <code>run_command</code>'s rules, checked before any line runs</td>
+</tr>
+<tr>
+<td><code>search_tools</code></td>
+<td>Finds geoprocessing tools by words</td>
+</tr>
+<tr>
+<td><code>describe_tool</code></td>
+<td>A geoprocessing tool's parameters</td>
+</tr>
+<tr>
+<td><code>run_tool</code></td>
+<td>Runs a geoprocessing tool; its output is added to the map as a new layer (with <code>layersAdded</code> and <code>notices</code> as for <code>run_command</code>)</td>
+</tr>
+<tr>
+<td><code>read_features</code></td>
+<td>A vector layer's attribute rows: <code>layer</code> (name or id), optional <code>where</code>, <code>fields</code>, <code>order_by</code>, <code>descending</code> and <code>selected</code>; <code>limit</code> defaults to 20, capped at 200. Returns the matching count and rows with <code>_row</code>, <code>_lon</code> and <code>_lat</code></td>
+</tr>
+<tr>
+<td><code>search_docs</code></td>
+<td>Searches this documentation and returns the best matching sections</td>
+</tr>
+<tr>
+<td><code>read_doc</code></td>
+<td>Reads a documentation page or section as Markdown; <code>offset</code> (1-based line) and <code>limit</code> (default 2000 lines) page through long results using <code>next_offset</code></td>
+</tr>
+</tbody>
+</table>
+<p>MCP exposes these twelve tools: the nine shared <a href="../user-guide/assistant/">AI Assistant</a> tools,
+plus <code>view_map</code>, <code>snapshot</code> and <code>run</code>. The assistant-only <code>delegate</code> and <code>load_skill</code> tools are
+not exposed through MCP. Instead, enabled <a href="../user-guide/assistant/#skills">skills</a> are offered
+as MCP prompts (<code>prompts/list</code> and <code>prompts/get</code>). Every built-in documentation page is also a
+resource (<code>rustgis://docs/cli.md</code>, <code>rustgis://docs/user-guide/maps.md</code>…) that a client can attach
+to a conversation. Successful JSON tool results use the default
+<a href="../user-guide/assistant/#tool-output-limits">tool-output budget</a>: an estimated 10,000 tokens
+per result. Read large documentation results in sections or continue with <code>next_offset</code>.</p>
+<h2 id="what-the-agent-may-do">What the agent may do<a class="headerlink" href="#what-the-agent-may-do" title="Permanent link">&para;</a></h2>
+<p>Your MCP client's approval settings determine when it asks you. The server adds its own limits:</p>
+<ul>
+<li>Commands that read or write files, connect to an address on the internet or run a plugin's
+  command run only when the server was started with <code>--yes</code>, as does opening a project from
+  text (it could bring in web layers). Without it, the agent can still work with the data you
+  gave the server and with the built-in sample, basemaps and geoprocessing. <code>view_map</code> draws
+  the web tile layers the project you opened already has, fetching their tiles.</li>
+<li>Plugin management, scripts, tasks, models and the GeoLibre runner are never run from here,
+  unless you turned on <strong>Full access</strong> for agents in the desktop app. That applies only to agents
+  attached to it with the relay's own token.</li>
+<li>In private-server mode, replacing and undoing in the project are allowed: it is the agent's
+  own. With <code>--attach</code>, project replacement and undo ownership follow the desktop restrictions
+  above, unless Full access is enabled. <code>ui.*</code> commands that only open panes and dialogs are
+  unavailable to the tools.</li>
+</ul>
+<p>Installed <a href="../plugins/">plugins</a> load first, as with the other subcommands (<code>--no-plugins</code> skips
+them). Notes such as "MCP server ready" go to standard error; standard output carries only the
+protocol.</p>
+<h3 id="local-agent-approvals">Local-agent approvals<a class="headerlink" href="#local-agent-approvals" title="Permanent link">&para;</a></h3>
+<p>Local agents launched by the assistant use <code>Relay::grant_reviewed(auto)</code>, not an unrestricted
+run grant. With automatic approval off, gated tool calls wait in a RustGIS-side queue scoped to
+that grant and exact message, including all tool calls in a batch. <code>--yes</code> and the general relay
+checkbox do not bypass it. An approval cannot revive an expired request; revoking the grant or
+stopping the relay cancels pending work. The approval wait has a separate 15-minute bound;
+other clients' reads can still run while it waits. Explicit automatic approval bypasses this
+extra queue for that run, but not the reserved-command refusals. Ordinary MCP clients retain
+the access policy described above.</p>
+<p>Stopping the relay through its command or status-bar control also turns off its remembered
+agent-control choice. Copyable setup commands are labelled for POSIX shells or PowerShell and
+quote the executable path literally; use the matching shell.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../python/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Python">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Python
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../plugins/" class="md-footer__link md-footer__link--next" aria-label="Next: Plugins">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Plugins
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Qiusheng Wu
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/opengeos/RustGIS" target="_blank" rel="noopener" title="RustGIS on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/sponsors/giswqs" target="_blank" rel="noopener" title="Sponsor RustGIS on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="m241 87.1 15 20.7 15-20.7C296 52.5 336.2 32 378.9 32 452.4 32 512 91.6 512 165.1v2.6c0 112.2-139.9 242.5-212.9 298.2-12.4 9.4-27.6 14.1-43.1 14.1s-30.8-4.6-43.1-14.1C139.9 410.2 0 279.9 0 167.7v-2.6C0 91.6 59.6 32 133.1 32 175.8 32 216 52.5 241 87.1"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://buymeacoffee.com/giswqs" target="_blank" rel="noopener" title="Buy the maintainer a coffee" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M152-16c-13.3 0-24 10.7-24 24 0 38.9 23.4 59.4 39.1 73.1l1.1 1C184.5 96.4 192 103.9 192 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C183.5 31.7 176 24.1 176 8c0-13.3-10.7-24-24-24M96 192c-17.7 0-32 14.3-32 32v192c0 53 43 96 96 96h192c41.8 0 77.4-26.7 90.5-64h5.5c70.7 0 128-57.3 128-128s-57.3-128-128-128zm352 192V256c35.3 0 64 28.7 64 64s-28.7 64-64 64M288 8c0-13.3-10.7-24-24-24S240-5.3 240 8c0 38.9 23.4 59.4 39.1 73.1l1.1 1C296.5 96.4 304 103.9 304 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C295.5 31.7 288 24.1 288 8"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["content.code.copy","navigation.indexes","navigation.footer","navigation.instant","navigation.top","navigation.tracking","search.highlight","search.share"],"redirect":null,"search":"../assets/javascripts/workers/search.c47bb847.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.10ee5ab6.min.js"></script>
+      
+    
+  </body>
+</html>

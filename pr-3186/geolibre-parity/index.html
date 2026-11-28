@@ -1,0 +1,2032 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A fast, free and open-source GIS in pure Rust for mapping, analyzing and sharing geospatial data, on the desktop and in the browser">
+      
+      
+        <meta name="author" content="opengeos">
+      
+      
+        <link rel="canonical" href="https://rustgis.app/geolibre-parity/">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="https://assets.rustgis.app/images/favicon.png">
+      <meta name="generator" content="zensical-0.1.4">
+    
+    
+      
+        <title>Feature parity with GeoLibre - RustGIS</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.5cb9f1ba.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.b60ce83d.min.css">
+      
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
+    <div data-md-component="skip">
+      <a href="#__skip" class="md-skip">
+        Skip to content
+      </a>
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="RustGIS" class="md-header__button md-logo" aria-label="RustGIS" data-md-component="logo">
+      
+  <img src="https://assets.rustgis.app/images/logo.svg" alt="RustGIS">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+      <span class="md-visually-hidden">Navigation</span>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RustGIS
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Feature parity with GeoLibre
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="None" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="None" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+          <span class="md-visually-hidden">Search</span>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/opengeos/RustGIS" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/RustGIS
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="RustGIS" class="md-nav__button md-logo" aria-label="RustGIS" data-md-component="logo">
+      
+  <img src="https://assets.rustgis.app/images/logo.svg" alt="RustGIS">
+
+    </a>
+    RustGIS
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/opengeos/RustGIS" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/RustGIS
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Installation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Getting Started
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../videos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Video Tutorials
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://web.rustgis.app" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Web App
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../user-guide/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  User Guide
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_6">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  User Guide
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/web-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Web Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/data-formats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Supported Data Formats
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/shapefile-encoding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Shapefile DBF language drivers
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/maps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Maps and Basemaps
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/cartography/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Cartography
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/editing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Editing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Analysis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Expressions
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/loss-codes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Data loss codes
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/layouts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Layouts and Reports
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/sharing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sharing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/workspace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Workspace
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/field-work/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Field Work
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/assistant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AI Assistant
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../comparison/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Comparison
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_7">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Comparison
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparison/geolibre/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  RustGIS and GeoLibre
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparison/qgis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  RustGIS and QGIS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Command Line
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MCP Server
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Plugins
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../themes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Themes
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://jgregoriorincon.github.io/30DayMapChallenge-2026/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  30DayMapChallenge
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../i18n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Languages
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Architecture
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Contributing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../maintaining/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Maintaining
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../acknowledgements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Acknowledgements
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../citation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  How to Cite
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sponsor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sponsor
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../privacy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Privacy
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/opengeos/RustGIS/issues" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Report Issues
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#data-formats-sources" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Data formats &amp; sources
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#map-rendering-3d" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Map rendering &amp; 3D
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cartography-styling" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Cartography &amp; styling
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#attribute-data-editing" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Attribute data &amp; editing
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Analysis
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#layouts-printing" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Layouts &amp; printing
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sharing-collaboration-publishing" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Sharing, collaboration &amp; publishing
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scripting-integrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Scripting &amp; integrations
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#platforms-distribution" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Platforms &amp; distribution
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        AI
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Other
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#already-at-or-beyond-parity" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Already at or beyond parity
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#to-verify" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        To verify
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                <a id="__skip" tabindex="-1"></a>
+                
+                  
+
+  
+  
+
+
+<h1 id="feature-parity-with-geolibre">Feature parity with GeoLibre<a class="headerlink" href="#feature-parity-with-geolibre" title="Permanent link">&para;</a></h1>
+<p><em>Last reviewed: 2026-10-23 (v0.3.0).</em></p>
+<p>What <a href="https://github.com/opengeos/GeoLibre/tree/v3.4.0">GeoLibre v3.4.0</a> offers and where RustGIS stands:
+<strong>missing</strong> or <strong>partial</strong>, or ticked when done. It moved here from <a href="https://github.com/opengeos/RustGIS/issues/77">#77</a> so that anyone can keep it
+current: <strong>tick or update an item in the pull request that lands it</strong>. Where an item is planned,
+<em>Roadmap</em> names its theme in <a href="https://github.com/opengeos/RustGIS/blob/main/ROADMAP.md">ROADMAP.md</a>. The GeoLibre and Whitebox geoprocessing
+suite RustGIS runs is not counted either way.</p>
+<p>Sources: GeoLibre <a href="https://github.com/opengeos/GeoLibre/tree/v3.4.0">v3.4.0</a> <code>docs/features.md</code>,
+<code>docs/data-formats.md</code> and the other GeoLibre docs named per
+section; RustGIS <a href="https://github.com/opengeos/RustGIS/blob/main/ROADMAP.md">ROADMAP.md</a>, <a href="../user-guide/">user guide</a> and the command registry
+(<code>crates/engine/src/cmd</code>). Some items may be out of scope for a pure-Rust GIS (noted inline);
+strike those through with a reason rather than leaving them open.</p>
+<p>This list is a reference, not a plan: not every GeoLibre feature suits RustGIS. Some are left
+to GeoLibre by decision (<a href="https://github.com/opengeos/RustGIS/discussions/951">#951</a>): mobile
+apps and field work, real-time collaboration and sharing, and AI segmentation are struck through
+below with their reasons, and the Spatial SQL item notes that an SQL engine in the browser is
+GeoLibre's too.</p>
+<h2 id="data-formats-sources">Data formats &amp; sources<a class="headerlink" href="#data-formats-sources" title="Permanent link">&para;</a></h2>
+<p><em>GeoLibre: docs/data-formats.md, docs/features.md › Adding data, SQL and databases</em></p>
+<ul>
+<li>[x] <strong>GeoPackage, GeoParquet, Shapefile (and KMZ) export</strong> (<a href="https://github.com/opengeos/RustGIS/issues/92">#92</a>): GeoLibre writes GeoJSON,
+  GeoParquet, Shapefile, GeoPackage, CSV, KML and KMZ; RustGIS writes all of them, plus
+  FlatGeobuf, GPX and WKT.</li>
+<li>[x] <strong>Shapefile and GeoPackage in the web app</strong> (<a href="https://github.com/opengeos/RustGIS/issues/94">#94</a>, <a href="https://github.com/opengeos/RustGIS/issues/95">#95</a>).</li>
+<li>[ ] <strong>Native KML/KMZ, GPX, GML, DXF/DWG, File Geodatabase, MapInfo and OSM PBF readers</strong>:
+  partial. KML/KMZ (styles and folders) and GPX (split into layers) are native on the desktop and
+  the web since <a href="https://github.com/opengeos/RustGIS/issues/97">#97</a>; GML, MapInfo MIF/MID, OSM PBF and TopoJSON since <a href="https://github.com/opengeos/RustGIS/issues/122">#122</a>; KML GroundOverlays as
+  raster layers since <a href="https://github.com/opengeos/RustGIS/issues/123">#123</a>; DXF (blocks, hatches, splines, text; a CAD layer picked with
+  "layer") since <a href="https://github.com/opengeos/RustGIS/issues/159">#159</a>; Esri File Geodatabases without GDAL on the desktop (3D multipatches as
+  footprints). Still missing: DWG (GDAL only) and File Geodatabase in the web app.</li>
+<li>[x] <strong>Excel, LandXML, encoded polylines, GeoRSS</strong> (<a href="https://github.com/opengeos/RustGIS/issues/118">#118</a>).</li>
+<li>[x] <strong>Delimited text with a projected CRS or address geocoding</strong>: x/y columns in any coordinate
+  system, WKT columns and any separator (<a href="https://github.com/opengeos/RustGIS/issues/115">#115</a>); place search and address-table geocoding (<a href="https://github.com/opengeos/RustGIS/issues/127">#127</a>).</li>
+<li>[x] <strong>Remote vector and COG by URL</strong>: Home › Add › Add Data › From URL (<a href="https://github.com/opengeos/RustGIS/issues/116">#116</a>); COGs (<a href="https://github.com/opengeos/RustGIS/issues/132">#132</a>), FlatGeobuf and
+  GeoParquet (<a href="https://github.com/opengeos/RustGIS/issues/152">#152</a>) read in place by HTTP range on the desktop and the web, from <code>s3://</code> too
+  (<a href="https://github.com/opengeos/RustGIS/issues/150">#150</a>).</li>
+<li>[x] <strong>PMTiles and MBTiles</strong> (<a href="https://github.com/opengeos/RustGIS/issues/74">#74</a>, <a href="https://github.com/opengeos/RustGIS/issues/113">#113</a>): raster and vector archives, desktop and web.</li>
+<li>[ ] <strong>Multidimensional rasters</strong>: Zarr/Icechunk, NetCDF-4/HDF5 and kerchunk, with variable and
+  dimension pickers, hyperspectral RGB and a 3D image cube. Partial: Zarr 2 and 3 stores with
+  variable and dimension pickers and CF dates (<a href="https://github.com/opengeos/RustGIS/issues/147">#147</a>), NetCDF/HDF variables through GDAL on the
+  desktop (<a href="https://github.com/opengeos/RustGIS/issues/117">#117</a>), data cubes on the time slider with trends. Still missing: native
+  NetCDF-4/HDF5 (<a href="https://github.com/opengeos/RustGIS/issues/396">#396</a>, <em>Exploratory</em>), kerchunk, Icechunk, sharded Zarr 3, hyperspectral RGB and
+  the 3D cube.</li>
+<li>[x] <strong>GDAL raster formats beyond GeoTIFF and ASCII grid</strong> (<a href="https://github.com/opengeos/RustGIS/issues/117">#117</a>, desktop).</li>
+<li>[ ] <strong>OGC services</strong>: partial. WMS, WMTS, WFS and OGC API Features from their capabilities
+  (<a href="https://github.com/opengeos/RustGIS/issues/120">#120</a>), OGC API Tiles (<a href="https://github.com/opengeos/RustGIS/issues/144">#144</a>), WCS and CSW (<a href="https://github.com/opengeos/RustGIS/issues/178">#178</a>). Still missing: auto-refresh (<em>Roadmap: style and map</em>).</li>
+<li>[ ] <strong>ArcGIS services</strong>: FeatureServer, MapServer, ImageServer and VectorTileServer, with OAuth
+  and a Portal browser. Partial: the four layer types through From Service… (<a href="https://github.com/opengeos/RustGIS/issues/120">#120</a>); a token in
+  the service address is sent with its requests (saved sources drop it); sign-in with OAuth to
+  ArcGIS Online and Enterprise. Missing: a Portal browser (<em>Roadmap: add data</em>).</li>
+<li>[ ] <strong>STAC browser and cloud catalogs</strong>: STAC, Planetary Computer, Earth Engine, Overture,
+  Source Cooperative, NASA Earthdata, Planet and Hugging Face. Partial: STAC Search (<a href="https://github.com/opengeos/RustGIS/issues/128">#128</a>) by box, point, line, polygon, selected features or file, with a buffer in your Distance units that widens points and lines (a box or polygon is searched as drawn, with a notice),
+  Planetary Computer with signed assets (<a href="https://github.com/opengeos/RustGIS/issues/144">#144</a>), Overture Maps and Source Cooperative (<a href="https://github.com/opengeos/RustGIS/issues/158">#158</a>), NASA
+  Earthdata (desktop) and Hugging Face. Missing: Earth Engine and Planet.</li>
+<li>[ ] <strong>Open-data portal browsers</strong>: partial. Overpass and geoBoundaries (<a href="https://github.com/opengeos/RustGIS/issues/139">#139</a>), CKAN, Socrata and
+  ArcGIS Hub (<a href="https://github.com/opengeos/RustGIS/issues/176">#176</a>), four Natural Earth sample layers. Missing: more Natural Earth themes; a Web
+  Data menu of global and per-country services (<a href="https://github.com/opengeos/RustGIS/issues/528">#528</a>).</li>
+<li>[ ] <strong>Database connections</strong>: PostgreSQL/PostGIS, SQL Server/Azure SQL with write-back, Apache
+  Iceberg. Partial: PostGIS (<a href="https://github.com/opengeos/RustGIS/issues/125">#125</a>), MySQL, MariaDB and SQL Server tables read live on the desktop;
+  edits saved back to PostGIS tables. Missing: write-back to SQL Server, and Iceberg.</li>
+<li>[x] <strong>Spatial SQL workspace</strong> (<a href="https://github.com/opengeos/RustGIS/issues/131">#131</a>): an SQL pane over DuckDB Spatial on the desktop. The web app
+  has no in-browser engine: SQL in the browser is left to GeoLibre, which runs DuckDB, PGlite and
+  Sedona there.</li>
+<li>[ ] <strong>Private S3 buckets</strong>: partial. <code>s3://</code> addresses, SigV4-signed connections, saved
+  connections without their secrets and an S3 browser, desktop and web (<a href="https://github.com/opengeos/RustGIS/issues/150">#150</a>). S3 keys can be kept in
+  the desktop keychain. Missing: SSO and IAM roles.</li>
+<li>[ ] <strong>3D and media data</strong>: LiDAR (LAS/LAZ/COPC/EPT) as layers, 3D Tiles, I3S, Gaussian splats,
+  placed glTF models, georeferenced video, geotagged photos, ICESat-2/GEDI. Partial: LAS, LAZ and
+  COPC as point layers (<a href="https://github.com/opengeos/RustGIS/issues/137">#137</a>), geotagged photos with thumbnails (<a href="https://github.com/opengeos/RustGIS/issues/175">#175</a>); the rest is missing.</li>
+<li>[x] <strong>Browser / Data Source Manager</strong> (<a href="https://github.com/opengeos/RustGIS/issues/157">#157</a>): a Data Sources pane with favourites, recents,
+  folders, saved services, databases, S3 connections, STAC APIs and a library of public services.</li>
+<li>[x] <strong>Data deep links</strong> (<code>?data=</code>, <code>?style=</code>, <code>?tiles=</code> in <a href="https://github.com/opengeos/RustGIS/issues/121">#121</a>, <code>?stac=</code> in <a href="https://github.com/opengeos/RustGIS/issues/144">#144</a>).</li>
+</ul>
+<h2 id="map-rendering-3d">Map rendering &amp; 3D<a class="headerlink" href="#map-rendering-3d" title="Permanent link">&para;</a></h2>
+<p><em>GeoLibre: docs/features.md › Map workspace, Rendering engines and 3D globe; docs/*-renderer.md</em></p>
+<ul>
+<li>[ ] <strong>3D terrain</strong>: exaggeration, keyless Terrarium tiles, a custom DEM/COG terrain source,
+  Cesium World Terrain. Partial: a globe, 2.5D extrusion, and tilt, rotation and terrain (from a
+  DEM or elevation tiles, <a href="https://github.com/opengeos/RustGIS/issues/395">#395</a>) in the GPU map.</li>
+<li>[ ] <strong>Full 3D scene content</strong>: 3D Tiles, I3S, point clouds, splats, CZML time-dynamic scenes,
+  true-Z vectors. Missing (<em>Roadmap: 3D scenes</em>, <a href="https://github.com/opengeos/RustGIS/issues/726">#726</a>).</li>
+<li>[ ] <strong>MapLibre style fidelity</strong>: line labels and road shields, line patterns, hillshade and
+  fill-extrusion in styles. Partial; vector tiles and labels on the GPU map are underway (<a href="https://github.com/opengeos/RustGIS/issues/635">#635</a>,
+  <a href="https://github.com/opengeos/RustGIS/issues/596">#596</a>).</li>
+<li>[ ] <strong>Basemap catalog</strong>: OpenFreeMap, Protomaps, EOX S2 cloudless, regional basemaps, planetary
+  bodies, thumbnail previews. Partial: a basemap gallery (OpenFreeMap, USGS Imagery), custom tile
+  layers and a Basemaps plugin.</li>
+<li>[ ] <strong>Multi-map grid</strong>: N synchronized panes. Partial: Side by Side with two maps and linked
+  views and cursors (<em>Roadmap: style and map</em>).</li>
+<li>[ ] <strong>Coordinate grids and readouts</strong>: UTM and MGRS/USNG grids, UTM/MGRS/DDM readouts,
+  grid-reference search, pointer elevation. Partial: graticule, decimal/DMS, UTM and MGRS readouts and
+  coordinate navigation (<em>Roadmap: style and map</em> for the grids).</li>
+<li>[ ] <strong>Live data overlays</strong>: RainViewer radar, a Timelapse of annual cloudless imagery, live feeds
+  (quakes, satellites, fires, AIS). Missing.</li>
+<li>[ ] <strong>Wikipedia cards, Street View/Mapillary, OpenAerialMap, historical imagery</strong>. Missing.</li>
+<li>[ ] <strong>On-map right-click menu with quick analysis</strong>: copy the coordinate, open it elsewhere, run
+  a buffer, isochrone or viewshed from the point. Partial: copy the coordinate, and a quick buffer,
+  viewshed or line of sight from the point (<em>Roadmap: analyse</em> for isochrones).</li>
+<li>[ ] <strong>Flight simulator, camera tours, atmosphere</strong>. Partial: a First-Person walk and animation
+  keyframes.</li>
+<li>[ ] ~~Multiple rendering engines (MapLibre, Mapbox, Cesium, ArcGIS)~~: out of scope by design;
+  RustGIS has its own renderer.</li>
+</ul>
+<h2 id="cartography-styling">Cartography &amp; styling<a class="headerlink" href="#cartography-styling" title="Permanent link">&para;</a></h2>
+<p><em>GeoLibre: docs/features.md › Layers, styling, and labels; docs/user-guide/styling.md</em></p>
+<ul>
+<li>[x] <strong>Layer groups</strong>.</li>
+<li>[ ] <strong>Rule-based and expression renderers</strong>: nested rules with scale ranges. Partial: a symbol's
+  size, colours, outline width and marker angle by expression (Symbology › By Expression,
+  <code>layer.symbolBy</code>); label text, size, colour and angle by expression (Labeling pane › Content ›
+  By Expression, <code>labels.by</code>); Unique Values by expression (<code>layer.symbology</code> <code>expression</code>), as
+  which QGIS's rule-based renderers import, scale ranges as <code>@map_scale</code>; display filters are
+  per-scale clauses; a rule renderer edited as rules is missing
+  (<em>Roadmap: style and map</em>).</li>
+<li>[ ] <strong>Heatmap and point-clustering renderers</strong>. Partial: hexagon/square aggregation; kernel density
+  is implemented as an analysis tool, while dynamic heatmap and point-clustering renderers remain outstanding
+  (<em>Roadmap: style and map</em>).</li>
+<li>[x] <strong>More classification methods</strong>: standard deviation, geometric interval, manual breaks.</li>
+<li>[ ] <strong>Symbol library</strong>: a marker library, custom SVG/PNG markers, fill patterns, pie/donut/bar
+  diagrams, arrow lines, inverted-polygon masks, geometry generators. Partial: 5 marker shapes,
+  pie/bar diagrams on features from several fields (<code>layer.diagram</code>), each slice or bar labelled
+  with its value, percent or both, and the categories listed in layout legends (<em>Roadmap:
+  style and map</em> for markers, patterns and a library).</li>
+<li>[ ] <strong>Style interchange</strong>: import/export SLD, QGIS QML, Mapbox GL JSON. Partial: MapLibre style
+  export, <code>.rgisstyle</code>, QGIS layer styles for the supported renderers and QML colour ramps
+  (<em>Roadmap: style and map</em> for more of QML, and SLD import).</li>
+<li>[ ] <strong>Smart styling</strong>: automatic palette on add, one-click style suggestions. Missing.</li>
+<li>[ ] <strong>Label engine depth</strong>: expression labels, offset, rotation, wrap, case, priority,
+  de-duplication, number formats. Partial: label classes with SQL queries, placement, offsets,
+  wrapping and scale ranges in the Labeling pane (<a href="https://github.com/opengeos/RustGIS/issues/618">#618</a>, <a href="https://github.com/opengeos/RustGIS/issues/722">#722</a>); label text, size,
+  colour and angle by expression (<em>Roadmap: style and map</em> for case, priority and number formats).</li>
+<li>[ ] <strong>On-map legend and colorbar controls</strong>. Partial: the legend is in Contents and layouts only
+  (<em>Roadmap: style and map</em>).</li>
+<li>[ ] <strong>Popup and tooltip designer</strong>: field picking, formats (date, link, image), an expression
+  title, hover tooltips. Partial: popup modes, links and pictures (<em>Roadmap: style and map</em> for
+  fields, formats and a title).</li>
+<li>[ ] <strong>Raster histogram stretch UI and Raster Attribute Table</strong>. Partial: stretch types and DRA
+  (<em>Roadmap: style and map</em>).</li>
+<li>[ ] <strong>Colour-ramp library and style presets manager</strong>. Partial: custom colour ramps and QGIS,
+  GDAL and GMT palette files.</li>
+</ul>
+<h2 id="attribute-data-editing">Attribute data &amp; editing<a class="headerlink" href="#attribute-data-editing" title="Permanent link">&para;</a></h2>
+<p><em>GeoLibre: docs/features.md › Attribute data and expressions; docs/arcgis-editing.md</em></p>
+<ul>
+<li>[x] <strong>Vertex editing</strong>: move, add and delete vertices.</li>
+<li>[ ] <strong>Topological digitizing and CAD dimensions</strong>: shared-edge drawing, dimension lines,
+  building massing. Partial: snapping, topology validation, traverse.</li>
+<li>[ ] <strong>Write-back to sources</strong>: GeoPackage, GeoJSON, PostGIS, SQL Server, ArcGIS FeatureService.
+  Partial: GeoPackage and PostGIS tables on the desktop, and Shapefile and GeoJSON files through
+  Publish to Source (<code>source.publish</code>).</li>
+<li>[ ] <strong>Expression builder and engine</strong>: one engine shared by filters, labels, styles and Calculate
+  Field, with a function reference. Partial: one expression language serves queries, filters,
+  label classes, attribute rules, Calculate Field and symbols (docs: Expressions); an expression
+  builder is missing.</li>
+<li>[ ] <strong>Virtual fields and persistent attribute joins</strong>. Missing; relationships and the one-off Join Field
+  exist (<em>Roadmap: projects, saved files and the data model</em>).</li>
+<li>[ ] <strong>Attribute form designer</strong>: widgets, constraints, conditional visibility. Partial: domains,
+  subtypes, attribute rules (<em>Roadmap: edit</em>).</li>
+<li>[ ] <strong>Editor tracking fields</strong>: created/edited by and at. Partial: archiving keeps edit times
+  (<em>Roadmap: edit</em>).</li>
+<li>[ ] <strong>Table column management</strong>: rename, hide and reorder columns, a column explorer. Partial:
+  sort, filter, add/delete field, hide and reorder columns (<em>Roadmap: edit</em> for renaming).</li>
+<li>[ ] <strong>Quick filters</strong>: per-field checkboxes and range/date controls. Partial: a definition query
+  (<em>Roadmap: style and map</em>).</li>
+<li>[x] <strong>Selection gestures</strong>: polygon, freehand, radius.</li>
+<li>[ ] <strong>Charts panel and dashboards</strong>: histogram, scatter, bar, line, box and pie charts,
+  indicators, cross-filtering. Partial: Exploratory Analysis, Infographics, layout/report charts
+  (<em>Roadmap: analyse</em> for charts linked to the selection).</li>
+</ul>
+<h2 id="analysis">Analysis<a class="headerlink" href="#analysis" title="Permanent link">&para;</a></h2>
+<p><em>GeoLibre: docs/features.md › Processing and analysis; docs/user-guide/processing.md,
+model-builder.md, segmentation.md, obia.md</em></p>
+<ul>
+<li>[x] <strong>Spatial join, intersect, union</strong> (<a href="https://github.com/opengeos/RustGIS/issues/959">#959</a>):
+  spatial join, clip, erase, split, intersect, identity, union, symmetrical difference, update
+  and near are built in.</li>
+<li>[ ] <strong>More built-in vector tools</strong>: attribute join, extract vertices, points along lines,
+  fix/check geometry, random extract, buffer options. Partial: Join Field, Merge, Feature
+  Vertices To Points, Points Along Lines, and Check and Repair Geometry are built in.</li>
+<li>[ ] <strong>Routing services</strong>: isochrones, service areas, OD matrix, multi-stop routing,
+  turn-by-turn (Valhalla/OSRM). Partial: shortest path over a line layer, and online Directions
+  (<em>Roadmap: analyse</em>).</li>
+<li>[ ] <strong>Geocoding</strong>: forward, batch and reverse, with multiple providers and a place search box.
+  Partial: place search and address tables (Nominatim, Photon, PDOK's Locatieserver or your own server), a local locator,
+  a search box. Missing: reverse geocoding (<em>Roadmap: analyse</em>).</li>
+<li>[ ] <strong>Spatial statistics</strong>: Emerging Hot Spot (Getis-Ord Gi*), composite score builder.
+  Partial: Suitability Modeler (<em>Roadmap: analyse</em> for hot spots).</li>
+<li>[ ] <strong>H3 and DGGS grids</strong>: H3, A5, DGGRID, DGGAL. Partial: H3, S2, A5 and anchored hexagon grids (Generate Tessellation, Aggregate Points to Grid; <a href="https://github.com/opengeos/RustGIS/issues/2726">#2726</a>); DGGRID and DGGAL <em>Roadmap: analyse</em>.</li>
+<li>[ ] ~~AI segmentation and detection~~ (SAM/SamGeo, ONNX/YOLO detection, OBIA with eCognition
+  import): left to GeoLibre, which has SAM and ONNX models built in and an OBIA workbench with
+  eCognition import. RustGIS has pixel classification.</li>
+<li>[ ] <strong>Visual Model Builder canvas</strong>: a node graph with validation and export to code. Partial:
+  ModelBuilder with a node canvas and models from history.</li>
+<li>[x] <strong>Re-run or copy history as code; batch runs over a folder</strong>: history copied as code, batch
+  runs over layers and folders (<code>gp.batch</code>).</li>
+<li>[ ] <strong>Viewshed from public terrain tiles (no DEM needed)</strong>. Partial: needs a loaded elevation
+  raster (<em>Roadmap: analyse</em> for a DEM downloader).</li>
+<li>[x] <strong>Conversion</strong>: vector to PMTiles/GeoParquet, raster to COG: GeoParquet, COG and vector and
+  raster PMTiles out (<a href="https://github.com/opengeos/RustGIS/issues/557">#557</a>).</li>
+<li>[x] <strong>Time Slider</strong>: vector layers by a date field (<code>time.bind</code>), data cubes, trends (Sen's
+  slope, Mann–Kendall), GIF export.</li>
+<li>[ ] <strong>Point cloud annotation</strong>: ASPRS classes, 3D boxes. Missing.</li>
+<li>[ ] <strong>Hydrology and elevation downloaders</strong>: NLDI navigation, USGS 3DEP and LiDAR, a global DEM
+  downloader. Missing (<em>Roadmap: analyse</em> for a DEM downloader).</li>
+</ul>
+<h2 id="layouts-printing">Layouts &amp; printing<a class="headerlink" href="#layouts-printing" title="Permanent link">&para;</a></h2>
+<p><em>GeoLibre: docs/features.md › Map tools, printing, and media; docs/user-guide/print-layout.md</em></p>
+<ul>
+<li>[x] <strong>SVG layout export</strong>: each element a named group, map frames and surrounds as vectors.</li>
+<li>[ ] <strong>Atlas along a line, page-filtered tables and charts, copy to clipboard</strong>. Partial:
+  per-feature map series, and a page copied to the clipboard.</li>
+<li>[ ] <strong>Map and video recording</strong>: canvas recording, a marker along a line to MP4, camera tours.
+  Partial: keyframe PNG frames, time slider GIFs.</li>
+<li>[x] <strong>STL 3D export</strong>: binary STL beside OBJ and glTF.</li>
+</ul>
+<h2 id="sharing-collaboration-publishing">Sharing, collaboration &amp; publishing<a class="headerlink" href="#sharing-collaboration-publishing" title="Permanent link">&para;</a></h2>
+<p><em>GeoLibre: docs/collaboration.md, docs/server-api.md, docs/user-guide/embedding.md, projects.md,
+storymaps.md</em></p>
+<ul>
+<li>[ ] ~~Real-time multi-user collaboration~~ (live sessions, permissions, roster, chat):
+  left to GeoLibre, the shared, web-first app.</li>
+<li>[ ] ~~Review comments~~ (anchored, threaded, resolvable): left to GeoLibre, the shared,
+  web-first app.</li>
+<li>[ ] ~~Share links, project gallery, accounts~~ (roles, expiry, passwords, a server API):
+  left to GeoLibre, the shared, web-first app. Share As writes static files.</li>
+<li>[ ] <strong>Story maps</strong>: chapters that fly the live map, a presenter view, HTML export. Partial:
+  Presentations.</li>
+<li>[ ] <strong>Embed API</strong>: a <code>postMessage</code> protocol, an npm client, viewer-only and map-only modes, deep
+  links. Partial: the web app embeddable with <code>?embed</code>, exchanging the project through
+  <code>postMessage</code> (<code>apps/rustgis-web/src/embed.rs</code>); no npm client.</li>
+<li>[ ] <strong>Import QGIS (<code>.qgs/.qgz</code>) and ArcGIS Pro (<code>.aprx/.mapx</code>) projects</strong>. Partial: supported
+  QGIS projects open as maps (<code>project.importQgis</code>). Missing: ArcGIS Pro (<em>Exploratory</em>).</li>
+<li>[ ] <strong>Autosave, project history, crash recovery, snapshot compare</strong>. Partial: undo, per-layer
+  archive restore, and autosave with crash recovery in the desktop app
+  (<a href="https://github.com/opengeos/RustGIS/issues/873">#873</a>); the browser has neither yet.</li>
+<li>[ ] <strong>Startup preferences and shareable interface settings</strong>. Partial: start-up preferences,
+  Pane Sets and ribbon/QAT customization.</li>
+<li>[ ] <strong>Layer metadata with STAC Item export</strong>. Missing (<em>Roadmap: add data</em>).</li>
+<li>[ ] <strong>Browser extension ("Open data in …")</strong>. Missing.</li>
+</ul>
+<h2 id="scripting-integrations">Scripting &amp; integrations<a class="headerlink" href="#scripting-integrations" title="Permanent link">&para;</a></h2>
+<p><em>GeoLibre: docs/python.md, docs/r.md, docs/notebook.md, docs/mcp.md, docs/plugin-api.md,
+docs/agent-skill.md</em></p>
+<ul>
+<li>[x] <strong>Python package / Jupyter widget</strong>: the <code>rustgis</code> package on PyPI runs the engine
+  in-process, and <code>rustgis.Map</code> is a two-way Jupyter widget (anywidget). No leafmap-style API.</li>
+<li>[ ] <strong>In-app Python console</strong>. Partial: the "Python Window" runs command scripts, not Python
+  (<em>Exploratory</em>).</li>
+<li>[ ] <strong>Live notebook kernel</strong>: JupyterLite on the web, JupyterLab on the desktop, driving the live
+  map. Partial: built-in command notebooks with <code>.ipynb</code> in and out.</li>
+<li>[ ] <strong>R package</strong>: RStudio, Quarto, Shiny, <code>sf</code>. Missing (<em>Exploratory</em>).</li>
+<li>[x] <strong>MCP: drive the running desktop app</strong>: the loopback relay lets external AI clients drive the
+  app; <code>rustgis-cli mcp</code> (<a href="https://github.com/opengeos/RustGIS/issues/75">#75</a>) runs on its own project.</li>
+<li>[ ] <strong>MCP Apps interactive map preview</strong>. Partial: <code>view_map</code> returns a static PNG.</li>
+<li>[x] <strong>A shipped agent skill (SKILL.md)</strong>: <a href="https://github.com/opengeos/RustGIS/blob/main/skills/rustgis/SKILL.md">skills/rustgis</a> installs and
+  manages the app; the assistant has built-in skills too.</li>
+<li>[ ] <strong>Plugin API breadth</strong>: side and floating panels, menus, custom layers, map-click tools,
+  assistant tools. Partial: commands, tools, a ribbon tab, assistant skills, process plugins.</li>
+<li>[ ] ~~Python FastAPI / GeoPandas processing sidecar~~: out of scope for pure Rust; process
+  plugins can run Python.</li>
+</ul>
+<h2 id="platforms-distribution">Platforms &amp; distribution<a class="headerlink" href="#platforms-distribution" title="Permanent link">&para;</a></h2>
+<p><em>GeoLibre: docs/android.md, ios.md, mac-app-store.md, downloads.md, self-hosting.md,
+deployment-capabilities.md, ui-profiles.md</em></p>
+<ul>
+<li>[ ] ~~Android app~~: left to GeoLibre, which has the mobile apps.</li>
+<li>[ ] ~~iOS/iPadOS app~~: left to GeoLibre, which has the mobile apps.</li>
+<li>[ ] ~~Touch and responsive layout~~: left to GeoLibre, which has the mobile apps. RustGIS's
+  layout is built for desktop screens, though the web app installs on phones and tablets.</li>
+<li>[ ] ~~Field data collection~~ (forms, photos, GPS or tap placement): left to GeoLibre, which
+  has the mobile apps. A QFieldCloud connection, requested in
+  <a href="https://github.com/opengeos/RustGIS/issues/665">#665</a>, is not on the roadmap either.</li>
+<li>[ ] ~~GPS~~ (live position, track logs, digitizing from GPS, NMEA receivers): left to
+  GeoLibre, which covers field work on phones.</li>
+<li>[ ] <strong>PWA and offline basemap tile pre-caching</strong>. Partial: the web app is installable with
+  offline start; offline data areas with sync. Tile pre-caching unverified.</li>
+<li>[ ] <strong>Docker self-hosting image with runtime config</strong>. Partial: a Dockerfile for the web app and
+  published images (ghcr.io/opengeos/rustgis, and rustgis-cli for the command line); runtime config
+  (settings from the container's environment) is missing.</li>
+<li>[ ] <strong>Deployment capabilities, policies and UI profiles</strong>: restrict edit, add, run and export per
+  deployment. Missing.</li>
+<li>[ ] <strong>Package-manager and store channels</strong>: winget, a Homebrew Cask, the Mac App Store. Partial:
+  winget, Homebrew, the AUR, Fedora COPR and the Microsoft Store; the Mac App Store is missing.</li>
+<li>[ ] <strong>Windows code signing</strong>. Missing (<em>Roadmap: platform, docs and security</em>).</li>
+<li>[ ] <strong>Auto-update</strong>. Partial: Check for Updates, with Download and Install for Windows <code>setup.exe</code>
+  installs (<em>Roadmap: platform, docs and security</em> for the macOS app).</li>
+<li>[ ] <strong>Desktop network features</strong>: OS trust store, mTLS client certificates, network log,
+  reloading files changed on disk. Partial: reloading files changed on disk is done (Reload Data,
+  and a notice when a linked file or tile archive changes,
+  <a href="https://github.com/opengeos/RustGIS/issues/1477">#1477</a>); the trust store, mTLS certificates
+  and network log remain.</li>
+</ul>
+<h2 id="ai">AI<a class="headerlink" href="#ai" title="Permanent link">&para;</a></h2>
+<p><em>GeoLibre: docs/user-guide/ai-assistant.md, docs/features.md › AI, Python, and automation</em></p>
+<ul>
+<li>[ ] <strong>Voice commands and spoken answers</strong>. Missing.</li>
+<li>[ ] <strong>Provider profiles and per-feature providers; AWS Bedrock, Vercel AI Gateway</strong>. Partial:
+  one provider and model at a time.</li>
+<li>[ ] <strong>AI-authored processing models</strong>. Missing.</li>
+</ul>
+<h2 id="other">Other<a class="headerlink" href="#other" title="Permanent link">&para;</a></h2>
+<p><em>GeoLibre: docs/features.md › Platforms and interface; docs/i18n.md</em></p>
+<ul>
+<li>[ ] <strong>More languages and right-to-left layout</strong>: GeoLibre has 20 languages including Arabic,
+  Persian and Hebrew. Partial: 20 languages; Persian text is drawn right to left, while the panes
+  keep their left-to-right layout.</li>
+<li>[ ] <strong>Translated geoprocessing tool names</strong>. Missing (possibly deliberate).</li>
+<li>[ ] <strong>Keyboard-shortcut cheat sheet</strong>. Partial: Command Search, and shortcuts rebindable with
+  JSON import and export (<a href="https://github.com/opengeos/RustGIS/issues/562">#562</a>).</li>
+</ul>
+<h2 id="already-at-or-beyond-parity">Already at or beyond parity<a class="headerlink" href="#already-at-or-beyond-parity" title="Permanent link">&para;</a></h2>
+<ul>
+<li>A native single-binary app, with every action a command shared by the ribbon, CLI, notebooks,
+  models, the assistant and MCP</li>
+<li>Map projections on the main map (presets and projected EPSG codes)</li>
+<li>Reports: grouped, with statistics, charts and subreports</li>
+<li>Data design: domains, subtypes, attribute rules, contingent values, relationships, archiving,
+  topology rules, traverse/COGO</li>
+<li>Large GeoPackage, GeoParquet and FlatGeobuf files streamed a view at a time</li>
+<li>Layouts: map frames, grids, extent indicators, map series and publication sheets to PDF</li>
+<li>Sandboxed WASM plugins with permissions and a hash-pinned registry, the same file on desktop,
+  CLI and web</li>
+<li>AI Assistant with local models and per-command approval; <code>rustgis-cli ask</code>; an MCP server with
+  built-in docs</li>
+<li>Imagery: mosaics, mensuration, pixel editor, a trainable classifier, hosted imagery tiles</li>
+<li>Offline areas with two-way sync of edited features</li>
+</ul>
+<h2 id="to-verify">To verify<a class="headerlink" href="#to-verify" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Whether exported COGs (written today) pass a COG validator: overviews and tile layout</li>
+<li>GeoLibre's language count: <a href="https://github.com/opengeos/RustGIS/issues/77">#77</a> said 20,
+  <code>docs/comparison/geolibre.md</code> says 21</li>
+<li>Accessibility compared with GeoLibre's axe-checked screens</li>
+<li>Whether offline areas or the tile cache pre-fetch basemap tiles</li>
+<li>Whether the shortcuts view is a full cheat sheet</li>
+<li>Some GeoLibre features above are taken from its docs and live in plugins or the Cesium engine
+  only</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Qiusheng Wu
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/opengeos/RustGIS" target="_blank" rel="noopener" title="RustGIS on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/sponsors/giswqs" target="_blank" rel="noopener" title="Sponsor RustGIS on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="m241 87.1 15 20.7 15-20.7C296 52.5 336.2 32 378.9 32 452.4 32 512 91.6 512 165.1v2.6c0 112.2-139.9 242.5-212.9 298.2-12.4 9.4-27.6 14.1-43.1 14.1s-30.8-4.6-43.1-14.1C139.9 410.2 0 279.9 0 167.7v-2.6C0 91.6 59.6 32 133.1 32 175.8 32 216 52.5 241 87.1"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://buymeacoffee.com/giswqs" target="_blank" rel="noopener" title="Buy the maintainer a coffee" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M152-16c-13.3 0-24 10.7-24 24 0 38.9 23.4 59.4 39.1 73.1l1.1 1C184.5 96.4 192 103.9 192 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C183.5 31.7 176 24.1 176 8c0-13.3-10.7-24-24-24M96 192c-17.7 0-32 14.3-32 32v192c0 53 43 96 96 96h192c41.8 0 77.4-26.7 90.5-64h5.5c70.7 0 128-57.3 128-128s-57.3-128-128-128zm352 192V256c35.3 0 64 28.7 64 64s-28.7 64-64 64M288 8c0-13.3-10.7-24-24-24S240-5.3 240 8c0 38.9 23.4 59.4 39.1 73.1l1.1 1C296.5 96.4 304 103.9 304 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C295.5 31.7 288 24.1 288 8"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["content.code.copy","navigation.indexes","navigation.footer","navigation.instant","navigation.top","navigation.tracking","search.highlight","search.share"],"redirect":null,"search":"../assets/javascripts/workers/search.719e0d91.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.ef37db6d.min.js"></script>
+      
+      
+    
+  </body>
+</html>

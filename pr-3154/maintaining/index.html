@@ -1,0 +1,2087 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A fast, free and open-source GIS in pure Rust for mapping, analyzing and sharing geospatial data, on the desktop and in the browser">
+      
+      
+        <meta name="author" content="opengeos">
+      
+      
+        <link rel="canonical" href="https://rustgis.app/maintaining/">
+      
+      
+      
+      
+        <link rel="prev" href="../contributing/">
+      
+      
+        <link rel="next" href="../acknowledgements/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="https://assets.rustgis.app/images/favicon.png">
+      <meta name="generator" content="zensical-0.1.4">
+    
+    
+      
+        <title>Maintaining - RustGIS</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.5cb9f1ba.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.b60ce83d.min.css">
+      
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
+    <div data-md-component="skip">
+      <a href="#__skip" class="md-skip">
+        Skip to content
+      </a>
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="RustGIS" class="md-header__button md-logo" aria-label="RustGIS" data-md-component="logo">
+      
+  <img src="https://assets.rustgis.app/images/logo.svg" alt="RustGIS">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+      <span class="md-visually-hidden">Navigation</span>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RustGIS
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Maintaining
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="None" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="None" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+          <span class="md-visually-hidden">Search</span>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/opengeos/RustGIS" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/RustGIS
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="RustGIS" class="md-nav__button md-logo" aria-label="RustGIS" data-md-component="logo">
+      
+  <img src="https://assets.rustgis.app/images/logo.svg" alt="RustGIS">
+
+    </a>
+    RustGIS
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/opengeos/RustGIS" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/RustGIS
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Installation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Getting Started
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../videos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Video Tutorials
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://web.rustgis.app" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Web App
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../user-guide/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  User Guide
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_6">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  User Guide
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/web-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Web Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/data-formats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Supported Data Formats
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/shapefile-encoding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Shapefile DBF language drivers
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/maps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Maps and Basemaps
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/cartography/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Cartography
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/editing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Editing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Analysis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Expressions
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/loss-codes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Data loss codes
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/layouts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Layouts and Reports
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/sharing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sharing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/workspace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Workspace
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/field-work/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Field Work
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/assistant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AI Assistant
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../comparison/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Comparison
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_7">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Comparison
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparison/geolibre/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  RustGIS and GeoLibre
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparison/qgis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  RustGIS and QGIS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Command Line
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MCP Server
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Plugins
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../themes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Themes
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://jgregoriorincon.github.io/30DayMapChallenge-2026/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  30DayMapChallenge
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../i18n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Languages
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Architecture
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Contributing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Maintaining
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Maintaining
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#who-approves-a-coordinate-first-change" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Who approves a coordinate-first change
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-a-proposal-gets-no-reply" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        When a proposal gets no reply
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#saved-files-and-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Saved files and settings
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#new-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        New dependencies
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-release-quality-pass" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The release quality pass
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../acknowledgements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Acknowledgements
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../citation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  How to Cite
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sponsor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sponsor
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../privacy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Privacy
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/opengeos/RustGIS/issues" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Report Issues
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#who-approves-a-coordinate-first-change" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Who approves a coordinate-first change
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-a-proposal-gets-no-reply" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        When a proposal gets no reply
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#saved-files-and-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Saved files and settings
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#new-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        New dependencies
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-release-quality-pass" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The release quality pass
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                <a id="__skip" tabindex="-1"></a>
+                
+                  
+
+  
+  
+
+
+<h1 id="maintaining-rustgis">Maintaining RustGIS<a class="headerlink" href="#maintaining-rustgis" title="Permanent link">&para;</a></h1>
+<p>This page is for the <a href="https://github.com/orgs/opengeos/teams/rustgis-maintainers">maintainers</a>:
+who approves a coordinate-first change, what happens when a proposal gets no reply, and what
+reviewers check on saved files and dependencies. Contributors need only
+<a href="https://github.com/opengeos/RustGIS/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a>.</p>
+<h2 id="who-approves-a-coordinate-first-change">Who approves a coordinate-first change<a class="headerlink" href="#who-approves-a-coordinate-first-change" title="Permanent link">&para;</a></h2>
+<p>CONTRIBUTING.md asks some changes to wait for a maintainer's reply. Who gives it depends on how
+hard the change is to undo.</p>
+<p><strong>Any maintainer</strong>, for changes that only add. A maintainer can open the pull request without
+proposing first; propose first when you're unsure which kind of change it is, or when the work is
+big enough that a "no" would waste it. Say in the pull request which kind it is.</p>
+<ul>
+<li>an optional command parameter, whose default keeps today's behaviour;</li>
+<li>a field in a command's output;</li>
+<li>an optional field in the project file or another saved file, whose absence means today's
+  behaviour, and whose loss when an older RustGIS saves the file costs a setting rather than data
+  or a different result;</li>
+<li>a feature of an existing dependency, a dev-dependency or an xtask-only crate, unless it brings in
+  a large set of new dependencies.</li>
+</ul>
+<p><strong>Two maintainers</strong>, for changes that break something that can still be put right, and for most
+new dependencies. A maintainer who proposes the change counts as one of them.</p>
+<ul>
+<li>removing or renaming a command or parameter, or changing what one means, returns or defaults to;</li>
+<li>a new renderer, symbology or layer kind;</li>
+<li>a new project format version for a feature, following <a href="#saved-files-and-settings">saved files</a>;</li>
+<li>an addition to the plugin interface that plugins declare through <code>minRustgisVersion</code>;</li>
+<li>any other new dependency, answering the questions under <a href="#new-dependencies">new dependencies</a>.</li>
+</ul>
+<p><strong>The project lead, <a href="https://github.com/giswqs">@giswqs</a></strong>, has the final say on:</p>
+<ul>
+<li>the shape of the core types: <code>Coord</code>, <code>Feature</code>, geometries and field types;</li>
+<li>how a project stores its data;</li>
+<li>a dependency that is a C, C++ or system library, brings in a large tree such as <code>tokio</code>, or
+  replaces or overlaps code RustGIS already has;</li>
+<li>a new crate in the workspace;</li>
+<li>a plugin ABI change, or removing something from the plugin interface;</li>
+<li>a new top-level ribbon tab;</li>
+<li><em>Exploratory</em> roadmap items, and anything that changes what RustGIS is for.</li>
+</ul>
+<p>The lead also settles a disagreement between maintainers. When you approve, say which kind of
+change it is, so the reply can be found later.</p>
+<h2 id="when-a-proposal-gets-no-reply">When a proposal gets no reply<a class="headerlink" href="#when-a-proposal-gets-no-reply" title="Permanent link">&para;</a></h2>
+<p>A contributor's proposal waits for the approval its kind needs. If a week passes without a reply,
+mention @opengeos/rustgis-maintainers on the issue once.</p>
+<p>If a maintainer proposes a change any maintainer could approve and nobody objects within a week of
+the proposal or its last change, they can go ahead. An objection says what would go wrong, so that
+it can be answered or the plan changed. Silence doesn't approve the other two kinds.</p>
+<p>For a change the lead decides, ask once, on the issue: the question in a sentence, the options and
+your recommendation. Link that comment from other threads rather than asking again.</p>
+<h2 id="saved-files-and-settings">Saved files and settings<a class="headerlink" href="#saved-files-and-settings" title="Permanent link">&para;</a></h2>
+<p>Projects, map, layer and style files, models, saved connections and sources, plugin state and
+preferences outlive the release that wrote them, and people run an older and a newer RustGIS on the
+same files. New and changed code follows these rules; not every existing reader does yet.</p>
+<ul>
+<li>A reader checks the version it is given.</li>
+<li>An older RustGIS refuses a file or setting newer than it understands, or keeps it unchanged. It
+  doesn't save it again without what it couldn't read.</li>
+<li>A format's version goes up only when a file uses something an older reader would lose or
+  misread.</li>
+<li>A key a project file has that this version doesn't read (a hand edit, another program) is left
+  out on open and said: one notice per part of the project, with a count and the first few
+  places. Keys inside a setting read leniently or flattened into another (a layer's labels) aren't
+  seen, so they go unsaid (#2639).</li>
+<li>Where a change allows it, reading a new version ships at least one release before anything
+  writes it.</li>
+<li>A project, map or layer file, a model or a web tool lists in <code>requires</code> each capability it needs
+  that an older reader would lose or misread: a reader refuses one it doesn't know, naming it.
+  A task file does too (#2818): <code>task.save</code> lists what its steps need, a <code>model.run</code> step's inline
+  graph included, and <code>task.import</code> refuses one it doesn't know. Presentation and notebook readers
+  don't check <code>requires</code> yet. A release reads
+  <code>.rgis</code> format 2 before any writes it (<code>READ_FORMAT</code> and <code>CAPABILITIES</code> in
+  <code>crates/engine/src/project.rs</code>), so what is added to format 2 after that comes with a capability
+  name, added to <code>CAPABILITIES</code> where it is read.
+  Independent sizes on classified point layers use <code>classified-point-size</code>; only documents
+  containing a <code>size_by</code> mapping list that requirement.</li>
+<li><code>schema/project.schema.json</code> is the JSON Schema of the project file, generated from the types
+  it is saved from by <code>cargo xtask schema</code>. A pull request that changes what a project saves
+  regenerates it and commits it in the same pull request; CI's <code>cargo xtask schema --check</code> fails
+  otherwise. A pull request that changes how it is read adds or updates a fixture project in
+  <code>schema/fixtures/</code>, which must open and validate against the schema. A schema change alone
+  doesn't raise the format: the rules above say when that happens.</li>
+<li>RustGIS releases, file formats, the plugin ABI and the GeoLibre runner protocol are versioned
+  separately.</li>
+<li>A program RustGIS installs from elsewhere, such as the native GeoLibre runner, is pinned to a
+  known release and moved forward by a pull request.</li>
+</ul>
+<p>Keep historical projects and preferences in the
+<a href="../../crates/engine/testdata/releases/">release fixtures</a>. These are the original bytes
+written by the release named in each filename: never regenerate, reformat or resave them.
+The <a href="../../.github/workflows/release-fixtures.yml">Release fixtures workflow</a> captures a small project
+and preferences file from each published release once its Linux archive is available, then opens
+a pull request. Actions must be allowed to create pull requests in the repository settings. If
+that setting is disabled, open a pull request from the <code>release-fixtures/&lt;tag&gt;</code> branch or use the
+workflow's artifact to submit the fixtures. Approve the CI runs on the generated pull request.
+The <code>released_projects_and_preferences_still_open</code> test discovers
+the files by version and checks that the current reader still opens them correctly. Record a skip
+in the fixtures' README and in the test's <code>SKIPS</code> when a release has no such file format.</p>
+<p>New project saves, map/layer exports and layout files write format 2. Their <code>requires</code> header names only
+features present in the saved payload: <code>terrain-block</code>, <code>terrain-block-shape</code> (a block
+diagram cut to a circle or to polygons), <code>terrain-block-polygon</code> (one cut to polygons),
+<code>terrain-water</code>,
+<code>terrain-water-shore</code> (a terrain water's shore band other than the default),
+<code>terrain-block-water</code> (water in a block diagram's walls),
+<code>terrain-block-walls-layer</code> (the layer a block diagram's walls are coloured by),
+<code>shaded-relief-effects</code> (cast shadows, sky visibility, fill light or rock colour),
+<code>shaded-relief-light</code> (a Shaded Relief's ambient or balanced light),
+<code>blank-paper</code> (a blank basemap's paper colour) and
+<code>normalized-legend-urls</code> for normalized legend addresses. Project
+requirements include offline map snapshots. <code>table-export-order</code> protects saved task commands,
+command notebook cells and replayable history using Export Table sort or limit options.
+Earlier format-2 readers refuse unknown required
+capabilities instead of opening and later saving away those settings; legacy format-1 files
+still open.</p>
+<p>Projects, map files and layer files whose symbology draws an image as a marker (<code>Marker::Picture</code>:
+a symbol's, a stacked stroke's or a dot fill's, saved styles included), or whose replayable
+commands set one (an <code>image</code> in <code>layer.marker</code>, a <code>layer.lineStrokes</code> stroke's markers or a
+<code>layer.fillLayers</code> fill), require <code>picture-markers</code>:
+an older reader must refuse them rather than fail on the marker or lose it. Where such an image
+is an SVG, they also require <code>svg-markers</code>: a reader of PNG and JPEG markers only would draw it
+as a circle and refuse the command that sets it.</p>
+<p>Projects, model files and web tools that save a percent-slope function require <code>slope-percent</code>:
+an older reader must refuse them rather than run the saved function in degrees. Project
+requirements also cover executable task steps, replayable history and notebook command cells.
+The same saved containers require <code>tabulate-intersection-unit</code> for Tabulate Intersection
+with a non-default <code>areaUnit</code>, so older readers refuse instead of silently using km².
+Omitted units and explicit <code>km2</code> require nothing extra; omitted zone fields need no
+capability because older tools refuse them.
+The same containers require <code>tabulate-intersection-empty-zones</code> when
+<code>includeEmptyZones</code> is on, so older readers refuse the file instead of omitting the zero rows.
+The same containers require <code>dggs-system</code> when Generate Tessellation or Aggregate Points to Grid
+(<code>a5Grid</code>, <code>a5Aggregate</code>) is given a <code>system</code> other than A5: those were A5's tools, and an older
+reader would make A5 cells, warning only that it ignored the key. A blank <code>system</code>, <code>A5</code> or none
+needs nothing.</p>
+<p>Every capability a saved command can need, except <code>table-export-order</code> (no tool node runs
+<code>share.exportTable</code>), also reads a <code>model.run</code> whose <code>graph</code> is given inline, in a saved task step,
+script line, notebook cell or history entry: each of the graph's tool nodes needs what the same
+tool as a step needs.</p>
+<p>Projects with a background on a layout element, or a saved task step, script, notebook command
+cell or history entry that gives one (<code>layout.addElement</code> or <code>layout.update</code> with a
+<code>background</code> other than <code>null</code>), require <code>layout-element-background</code>, so an older reader
+refuses them instead of opening the layout and saving it again, or running the command,
+without the background. Layout files (<code>.rgislayout</code>) carry a header of their own, as map files
+do, and require what their elements use, as the project does;
+<code>layout.import</code> refuses a newer format or an unknown <code>requires</code> entry by name, and reads a file
+without a header as a legacy layout (#2277).</p>
+<p>Projects, map files and layer files with a window of a Zarr variable that follows the time slider
+(<code>layer.addZarr</code> with <code>"time": true</code> and <code>"cells"</code> or <code>"bbox"</code>) require <code>zarr-window</code>, so an older
+reader refuses them instead of reading the whole map at each step. A saved <code>layer.addZarr</code> command
+with both needs nothing: an older RustGIS refuses it when it runs.</p>
+<p>Projects, map files and layer files with a label class curved along a guide line layer
+(<code>labels.placement</code> with a <code>guide</code>) require <code>label-guide</code>, so an older reader refuses them instead
+of placing those labels as without it and saving them again without the guide. A saved
+<code>labels.placement</code> command with a guide needs nothing: an older RustGIS refuses the key when it runs.</p>
+<p>Projects, map files and layer files with a label class weighing other than 5 (<code>labels.placement</code>
+with a <code>weight</code>) require <code>label-weight</code>, so an older reader refuses them instead of placing their
+labels as without it and saving them again without the weights. So do projects with such a class in
+a saved style, or a saved <code>labels.placement</code> step (in a task, a model or a script) with a weight
+other than 5: an older reader would apply the style, or run the step, without the weight, saying
+nothing.</p>
+<p>Likewise a label class keeping other than 2 points free round its labels (<code>labels.placement</code> with a
+<code>clearance</code>) requires <code>label-clearance</code>, in a layer, a saved style or a saved <code>labels.placement</code>
+step: an older reader would place the labels 2 points apart and save them again without the
+clearances, or run the step without it.</p>
+<p>A label class removing duplicates (<code>labels.placement</code> with a <code>removeDuplicates</code> distance) requires
+<code>label-duplicates</code>, in a layer, a saved style or a saved <code>labels.placement</code> step: an older reader
+would place and save every label, or run the step without it.</p>
+<p>Projects and map files with a tile layer drawn nearest (<code>map.setTiles</code> with <code>"resampling":
+"nearest"</code>) require <code>tile-resampling</code>, so an older reader refuses them instead of drawing the layer
+blended and saving it again without the setting. So do projects with a saved <code>map.addTiles</code> or
+<code>map.setTiles</code> step (in a task, a model or a script) that sets it: an older reader would run the
+step without it, saying nothing.</p>
+<p>Projects with an ink on a legend, colorbar, table or chart (<code>color</code> on those elements) require
+<code>layout-element-ink</code>, so an older reader refuses them instead of drawing those elements in dark
+grey and saving them again without it. Saved <code>layout.addElement</code> and <code>layout.update</code> commands
+that set one need nothing: an older reader refuses <code>color</code> on those elements, so the command
+fails there instead of losing the ink. A saved <code>layout.import</code> whose <code>text</code> gives an element an
+ink requires <code>layout-element-ink</code>, and one whose <code>text</code> gives an element a background requires
+<code>layout-element-background</code>, since an older reader would read that layout without them.</p>
+<p>Projects with a layout text that wraps to its box (<code>wrap</code> on a text element) require
+<code>layout-element-wrap</code>, so an older reader refuses them instead of drawing the text on its own
+line breaks and saving it again without the option. Saved <code>layout.addElement</code> and <code>layout.update</code>
+commands with <code>"wrap": true</code> require it too, since an older reader warns that it ignores the key
+and adds the text unwrapped; <code>"wrap": false</code> needs nothing. A saved <code>layout.import</code> whose <code>text</code>
+has a wrapped text requires it as well.</p>
+<p>Projects with a layout text placed in the middle or at the bottom of its box, with a line spacing
+other than 1, or drawn in upper or lower case (<code>valign</code>, <code>line_spacing</code>, <code>case</code> on a text element)
+require <code>layout-text-block</code>, so an older reader refuses them instead of drawing the text at the
+top, at the usual spacing and as typed, and saving it again without them. Saved
+<code>layout.addElement</code> and <code>layout.update</code> commands that set one require it too, since an older
+reader ignores the keys; giving the defaults (<code>"top"</code>, <code>1</code>, <code>"none"</code>, as the commands read them:
+<code>"1"</code> too) or <code>null</code> needs nothing. A saved <code>layout.import</code> whose <code>text</code> has such a text once read
+into range requires it as well, and a layout file (<code>.rgislayout</code>) with one lists it in its header.</p>
+<p>Projects with a layout chart grouped by a field, or with a statistic, an order or a number of bars
+other than the defaults, or with an Other bar (<code>group</code>, <code>statistic</code>, <code>order</code>, <code>bars</code>, <code>other</code> on a
+chart element) require <code>layout-chart-data</code>, so an older reader refuses them instead of drawing a
+bar per feature, the 20 largest, and saving the chart again without them. A statistic counts
+grouped or not: one kept while a chart is ungrouped would be lost too. Saved <code>layout.addElement</code>
+and <code>layout.update</code> commands that set one of them require it too, and so does a <code>layout.update</code>
+that gives a chart's <code>label</code> (<code>""</code> too), which an older reader's update doesn't take; giving the
+defaults, or <code>"group": ""</code>, needs nothing. A saved <code>layout.import</code> whose <code>text</code> has such a chart
+requires it as well.</p>
+<p>Projects with a layout chart drawn as columns, with its values or their decimals, its own title
+or none, a bar colour or labels against its bars (<code>orientation</code>, <code>values</code>, <code>decimals</code>, <code>title</code>,
+<code>bar_color</code>, <code>label_align</code> on a chart element) require <code>layout-chart-look</code>, so an older reader
+refuses them instead of drawing bars running across in the default blue, with the title the
+chart is given, and saving it again without them. Saved <code>layout.addElement</code> commands for a chart
+that set one of them require it too. A saved <code>layout.update</code> requires it for <code>values</code>,
+<code>decimals</code>, <code>barColor</code> and <code>labelAlign</code> only: its <code>title</code> and <code>orientation</code> may be a legend's or
+a colorbar's, which the command alone doesn't tell, and the project the update ran on requires it
+for its chart anyway (<code>decimals</code> may also be a scale bar's, so such an update requires
+<code>layout-scale-bar-details</code> as well). Giving the defaults needs nothing. A saved <code>layout.import</code>
+whose <code>text</code> has such a chart requires it as well.</p>
+<p>Projects with a layout chart coloured by its layer's classes (<code>classes</code> on a chart element)
+require <code>layout-chart-classes</code>, so an older reader refuses them instead of drawing every bar in
+the chart's bar colour and saving it again without. Saved <code>layout.addElement</code> commands for a
+chart and <code>layout.update</code> commands that set <code>"classes": true</code> require it too (only a chart takes
+the key); <code>false</code> needs nothing. A saved <code>layout.import</code> whose <code>text</code> has such a chart requires it
+as well.</p>
+<p>Projects with a layout chart stacked by a second field (<code>stack</code> on a chart element) require
+<code>layout-chart-stack</code>, so an older reader refuses them instead of drawing each bar whole and
+saving it again without the field. It is required whenever the field is stored, even where the
+chart doesn't draw it stacked (ungrouped, or not summing or counting, which commands refuse or
+let go). Saved <code>layout.addElement</code> commands for a chart and <code>layout.update</code> commands that set a
+<code>stack</code> field require it too (only a chart takes the key); <code>""</code> needs nothing. A saved
+<code>layout.import</code> whose <code>text</code> has such a chart requires it as well.</p>
+<p>Projects with a layout chart that faces another (<code>mirror</code>, a <code>max</code> or <code>hide_labels</code> on a chart
+element; a <code>max</code> not above 0, only in a hand-edited file, is let go on read and said as a value out
+of range) require <code>layout-chart-facing</code>, so an older reader refuses them instead of drawing
+the chart the usual way round, on its bars' own scale and labelled, and saving it again without
+(#2487 part 4). Saved <code>layout.addElement</code> commands for a chart and <code>layout.update</code> commands that
+set <code>"mirror": true</code>, a <code>max</code> above 0 or <code>"hideLabels": true</code> require it too (only a chart takes
+the keys); <code>false</code>, <code>null</code> and <code>"auto"</code> need nothing. A saved <code>layout.import</code> whose <code>text</code> has
+such a chart requires it as well.</p>
+<p>Projects with a layout chart that draws a line round its bars (<code>bar_outline</code> with a width above 0
+on a chart element) require <code>layout-chart-outline</code>, so an older reader refuses them instead of
+drawing the bars without and saving the chart again without (#2487 part 4b). In a hand-edited
+file, a width past 5 is held to 5 and one below 0 let go on read, both said as values out of
+range; a width of 0 draws none and is let go. Saved
+<code>layout.addElement</code> commands for a chart and <code>layout.update</code> commands that give a <code>barOutline</code>
+object without a width or with one above 0 require it too (only a chart takes the key); <code>null</code> and
+a width of 0 need nothing. A saved <code>layout.import</code> whose <code>text</code> has such a chart requires it as
+well.</p>
+<p>Projects with a map frame whose border isn't the default dark grey 0.8 pt line (<code>border_color</code>,
+<code>border_width</code> on a map frame, a width of 0 drawing none) require <code>layout-frame-border</code>, so an
+older reader refuses them instead of drawing the default border and saving the frame again
+without its own (#2557). A saved <code>layout.update</code> that gives a frame a <code>border</code> object requires it
+too, since an older reader warns that it ignores the key; <code>"border": null</code> only gives the default
+back and needs nothing. A saved <code>layout.import</code> whose <code>text</code> has such a frame requires it as well.</p>
+<p>Projects with section lines on a map frame (<code>sections</code>) require <code>layout-section</code>, so an older
+reader refuses them instead of drawing the frame without them and saving it again so (#2863). A
+saved <code>layout.addElement</code> of a section requires it too, and so does a <code>layout.update</code> with a
+<code>section</code> object, which an older reader warns that it ignores. A saved <code>layout.import</code> whose <code>text</code>
+has such a frame requires it as well.</p>
+<p>Projects with a legend, a scale bar or a grid whose text isn't its default size (<code>text_size</code> on
+a legend, 9 points by default, or on a scale bar, 8; <code>label_size</code> on a frame's grid, 8) require
+<code>layout-text-size</code>, so an older reader refuses them instead of drawing that text at the default
+and saving it again without its size (#2581). A saved <code>layout.addElement</code> that gives a legend or
+a scale bar <code>textSize</code>, or a grid <code>labelSize</code>, of another size requires it too, and so does a
+<code>layout.update</code> with <code>"grid": {"labelSize": …}</code> of another size; <code>null</code> or the default need
+nothing. A saved <code>layout.update</code> isn't told which element it changes, so any <code>textSize</code> but
+<code>null</code> requires it there. A saved <code>layout.import</code> whose <code>text</code> has such an element requires it
+as well.</p>
+<p>Projects with a legend that fits its box by shrinking its text or adding columns, that leaves its
+layer names off, or that has more than three columns (<code>fit</code>, <code>show_layer_names</code>, <code>columns</code> on a
+legend element) require <code>layout-legend-fit</code>, so an older reader refuses them instead of drawing
+the legend at its size, its names shown and in three columns, and saving it again without them.
+Saved <code>layout.addElement</code> and <code>layout.update</code> commands that set one require it too;
+<code>"fit": "manual"</code>, <code>"showLayerNames": true</code>, three columns or fewer, <code>null</code>, and a scale bar's own
+<code>fit</code> values need nothing. A saved <code>layout.import</code> whose <code>text</code> has such a legend requires it as
+well, and a layout file (<code>.rgislayout</code>) with one lists it in its header.</p>
+<p>Projects with a scale bar that has subdivisions, divisions before zero, labels below, a unit
+label of its own or placed elsewhere, decimals or a fit other than the defaults
+(<code>subdivisions</code>, <code>divisions_before_zero</code>, <code>label_position</code>, <code>unit_label</code>, <code>unit_label_position</code>,
+<code>decimals</code>, <code>fit</code> on a scale bar element) require <code>layout-scale-bar-details</code>, so
+an older reader refuses them instead of drawing a plain bar and saving it again without them.
+Saved <code>layout.addElement</code> and <code>layout.update</code> commands that set one require it too, since an
+older reader ignores the keys; giving the defaults, <code>"decimals": "auto"</code> or <code>"unitLabel": null</code>,
+needs nothing. Decimals fixed at any number, 0 included, are a detail. A chart takes <code>decimals</code>
+too: a saved <code>layout.update</code> can't tell whose they are, so a number there requires both this and
+<code>layout-chart-look</code>, while a <code>layout.addElement</code> says which kind it adds. A saved
+<code>layout.import</code> whose <code>text</code> has such a bar requires it as well, and a layout file
+(<code>.rgislayout</code>) with such a bar lists it in its header, so an older reader refuses the file too.
+A scale bar's text size isn't one of its details: it requires <code>layout-text-size</code>, as above.</p>
+<p>Projects with a layout whose page isn't white (<code>paper</code> on the layout, #2855) require
+<code>layout-page-color</code>, so an older reader refuses them instead of opening the page white and saving
+it again without its colour. A saved <code>layout.page</code> that gives a <code>color</code> other than white requires
+it too; <code>null</code> or <code>"#FFFFFF"</code> need nothing. A saved <code>layout.import</code> whose <code>text</code> has a coloured
+page requires it as well. A translucent page colour, which only a hand-edited file holds, is read
+as it looks on white paper (a clear one is the white page) and counted with the page settings the
+project says it repaired.</p>
+<p>Projects with a layout text that holds a layer statistic (<code>{count:Layer}</code>, <code>{sum:Layer:field}</code>,
+<code>{mean:…}</code>, <code>{min:…}</code> or <code>{max:…}</code>, #2853) require <code>layout-text-statistics</code>, so an older reader
+refuses them by name instead of printing the token as written. A saved <code>layout.addElement</code> or
+<code>layout.update</code> whose <code>text</code> holds one requires it too, as does a saved <code>layout.publication</code> whose
+<code>title</code>, <code>subtitle</code>, <code>note</code>, <code>sources</code>, <code>reference</code>, <code>author</code> or <code>headings</code> do, and a saved
+<code>layout.import</code> whose <code>text</code> has such a text, or a saved <code>report.existingTemplate</code> that reads one.
+A presentation's map page draws its title over its map frame, where a statistic is filled in, so a
+saved presentation with one in a map page's title requires it too, and so does a saved
+<code>presentation.mapPage</code> or <code>presentation.updatePage</code> whose <code>title</code> holds one, or a saved
+<code>presentation.import</code> whose <code>text</code> has such a map page (a blank page's text is drawn with no map
+frame, so no figure fills in there). Other braces (<code>{scale}</code>, <code>{foo}</code>, <code>{count:}</code>) need nothing.
+Files read by <code>path</code> or <code>data</code> are not looked into, as for every other layout capability, and a
+presentation file (<code>.rgispres</code>) has no header to list a capability in, so an older reader opens one
+with the token printed as written.</p>
+<p>Projects, map files and layer files with a layer or table held in a coordinate system of its own
+(<code>Dataset::held_in</code>: a file's system, kept since #2580) save its features in that system, exactly,
+with <code>held_in</code> beside them, and require <code>native-coordinates</code>: an older reader would read those
+coordinates as longitude/latitude, and one that saved the project again would lose its system and
+its exact coordinates. That holds for one with no features too (a template's layers), whose system
+an older reader would also save away. A layer or table in longitude/latitude, or a window onto a
+streamed source, is saved as before and requires nothing (#2032 C2d).</p>
+<p>A coordinate system read from WKT is saved with its PROJ definition, which older readers read,
+and its WKT beside it (<code>wkt</code>), which this release reads first. Projects, map files and layer
+files require <code>crs-wkt</code> when a saved system's definition doesn't place points as its WKT does
+(within a centimetre, at its centre and a few degrees around it): angles in grads, a datum
+transformation the definition can't hold, or no definition. An older reader refuses those
+instead of misplacing the layer. Others need nothing: an older reader opens them by the
+definition and, saving them again, drops only the WKT.</p>
+<p>A saved <code>layout.publication</code> that leaves out or sets up a part of the sheet (<code>grid</code> or
+<code>scaleBar</code> as <code>"none"</code> or an object that gives something, or <code>northArrow</code> as any object, #3094)
+requires <code>layout-publication-parts</code>, so an older reader refuses it instead of making the default
+sheet or failing on the object. <code>null</code>, a <code>grid</code> or <code>scaleBar</code> of <code>{}</code>, and the north arrow given
+as the text <code>"auto"</code>, <code>"always"</code> or <code>"none"</code> need nothing.</p>
+<h2 id="new-dependencies">New dependencies<a class="headerlink" href="#new-dependencies" title="Permanent link">&para;</a></h2>
+<p>A proposal for a dependency answers:</p>
+<ul>
+<li>Does it build for <code>wasm32-unknown-unknown</code>, or does it sit behind a native-only feature?</li>
+<li>Does <code>deny.toml</code> allow its licence?</li>
+<li>What does it add to build time and package size, measured, with only the features we need?</li>
+<li>What does it do better than the code we have, shown by tests (accuracy, malformed input, the
+  browser)?</li>
+</ul>
+<h2 id="the-release-quality-pass">The release quality pass<a class="headerlink" href="#the-release-quality-pass" title="Permanent link">&para;</a></h2>
+<p>One maintainer takes the <a href="../contributing/#releases">release quality pass</a> for each release and
+says so in the version-bump pull request. Each point left for the pass is fixed, filed as an issue,
+or dropped with a reply on its comment; none carries into a second release unrecorded.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../contributing/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Contributing">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Contributing
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../acknowledgements/" class="md-footer__link md-footer__link--next" aria-label="Next: Acknowledgements">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Acknowledgements
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Qiusheng Wu
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/opengeos/RustGIS" target="_blank" rel="noopener" title="RustGIS on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/sponsors/giswqs" target="_blank" rel="noopener" title="Sponsor RustGIS on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="m241 87.1 15 20.7 15-20.7C296 52.5 336.2 32 378.9 32 452.4 32 512 91.6 512 165.1v2.6c0 112.2-139.9 242.5-212.9 298.2-12.4 9.4-27.6 14.1-43.1 14.1s-30.8-4.6-43.1-14.1C139.9 410.2 0 279.9 0 167.7v-2.6C0 91.6 59.6 32 133.1 32 175.8 32 216 52.5 241 87.1"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://buymeacoffee.com/giswqs" target="_blank" rel="noopener" title="Buy the maintainer a coffee" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M152-16c-13.3 0-24 10.7-24 24 0 38.9 23.4 59.4 39.1 73.1l1.1 1C184.5 96.4 192 103.9 192 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C183.5 31.7 176 24.1 176 8c0-13.3-10.7-24-24-24M96 192c-17.7 0-32 14.3-32 32v192c0 53 43 96 96 96h192c41.8 0 77.4-26.7 90.5-64h5.5c70.7 0 128-57.3 128-128s-57.3-128-128-128zm352 192V256c35.3 0 64 28.7 64 64s-28.7 64-64 64M288 8c0-13.3-10.7-24-24-24S240-5.3 240 8c0 38.9 23.4 59.4 39.1 73.1l1.1 1C296.5 96.4 304 103.9 304 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C295.5 31.7 288 24.1 288 8"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["content.code.copy","navigation.indexes","navigation.footer","navigation.instant","navigation.top","navigation.tracking","search.highlight","search.share"],"redirect":null,"search":"../assets/javascripts/workers/search.719e0d91.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.ef37db6d.min.js"></script>
+      
+      
+    
+  </body>
+</html>

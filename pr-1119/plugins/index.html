@@ -1,0 +1,2485 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A fast, free and open-source GIS in pure Rust for mapping, analyzing and sharing geospatial data, on the desktop and in the browser">
+      
+      
+        <meta name="author" content="opengeos">
+      
+      
+        <link rel="canonical" href="https://rustgis.app/plugins/">
+      
+      
+      
+        <link rel="prev" href="../mcp/">
+      
+      
+        <link rel="next" href="../i18n/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="https://assets.rustgis.app/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.73">
+    
+    
+      
+        <title>Plugins - RustGIS</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ab2de0c.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.b60ce83d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
+    <div data-md-component="skip">
+      <a href="#__skip" class="md-skip">
+        Skip to content
+      </a>
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="RustGIS" class="md-header__button md-logo" aria-label="RustGIS" data-md-component="logo">
+      
+  <img src="https://assets.rustgis.app/images/logo.svg" alt="RustGIS">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+      <span class="md-visually-hidden">Navigation</span>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RustGIS
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Plugins
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+          <span class="md-visually-hidden">Search</span>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/opengeos/RustGIS" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/RustGIS
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="RustGIS" class="md-nav__button md-logo" aria-label="RustGIS" data-md-component="logo">
+      
+  <img src="https://assets.rustgis.app/images/logo.svg" alt="RustGIS">
+
+    </a>
+    RustGIS
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/opengeos/RustGIS" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+  </div>
+  <div class="md-source__repository">
+    opengeos/RustGIS
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Installation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Getting Started
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://web.rustgis.app" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Web App
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../user-guide/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  User Guide
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  User Guide
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/web-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Web Data
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/data-formats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Supported Data Formats
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/shapefile-encoding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Shapefile DBF language drivers
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/maps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Maps and Basemaps
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/cartography/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Cartography
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/editing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Editing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Analysis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/layouts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Layouts and Reports
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/sharing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sharing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/workspace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Workspace
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/assistant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AI Assistant
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../comparison/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Comparison
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_6">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Comparison
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparison/geolibre/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  RustGIS and GeoLibre
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparison/qgis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  RustGIS and QGIS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Command Line
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MCP Server
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Plugins
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Plugins
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#using-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Using plugins
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#safety" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Safety
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-a-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Writing a plugin
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Writing a plugin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pluginjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>plugin.json</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        File parameters
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#translations" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Translations
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-tab-of-its-own" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        A tab of its own
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-panel" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        A panel
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-a-plugin-can-ask-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        What a plugin can ask for
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What a plugin can ask for">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fetching-a-document" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Fetching a document
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-abi-version-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The ABI (version 1)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#process-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Process plugins
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Process plugins">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The protocol
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python-environments" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Python environments
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#skills" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Skills
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#publishing-a-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Publishing a plugin
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../i18n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Languages
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Architecture
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Contributing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../acknowledgements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Acknowledgements
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../citation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  How to Cite
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sponsor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sponsor
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../privacy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Privacy
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/opengeos/RustGIS/issues" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Report Issues
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#using-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Using plugins
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#safety" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Safety
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-a-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Writing a plugin
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Writing a plugin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pluginjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>plugin.json</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        File parameters
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#translations" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Translations
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-tab-of-its-own" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        A tab of its own
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-panel" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        A panel
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-a-plugin-can-ask-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        What a plugin can ask for
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What a plugin can ask for">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fetching-a-document" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Fetching a document
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-abi-version-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The ABI (version 1)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#process-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Process plugins
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Process plugins">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The protocol
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python-environments" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Python environments
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#skills" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Skills
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#publishing-a-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Publishing a plugin
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                <a id="__skip" tabindex="-1"></a>
+                
+                  
+
+  
+  
+
+
+<h1 id="plugins">Plugins<a class="headerlink" href="#plugins" title="Permanent link">&para;</a></h1>
+<p>Plugins add commands, geoprocessing tools and assistant skills to RustGIS. A plugin has a
+<code>plugin.json</code> manifest and is packaged as a <code>.rgplugin</code> file. WebAssembly plugins run sandboxed
+in the desktop app, on the command line and in the web app. <a href="#process-plugins">Process plugins</a>
+run a local program instead and need the desktop app or command line.</p>
+<p>Browse the <a href="https://plugins.rustgis.app/catalog/">plugin catalog</a>.
+<a href="https://github.com/opengeos/rustgis-plugins">opengeos/rustgis-plugins</a> holds the registry,
+blocklist and <a href="https://github.com/opengeos/rustgis-plugins/tree/main/sdk"><code>rustgis-plugin</code> SDK</a>,
+not plugin source. Plugin sources live in their own repositories; start one from the
+<a href="https://github.com/opengeos/rustgis-plugin-template">Rust WebAssembly</a>,
+<a href="https://github.com/opengeos/rustgis-rust-process-plugin-template">Rust process</a> or
+<a href="https://github.com/opengeos/rustgis-python-plugin-template">Python process</a> template.</p>
+<h2 id="using-plugins">Using plugins<a class="headerlink" href="#using-plugins" title="Permanent link">&para;</a></h2>
+<p>Open <strong>Plugins › Plugin Manager</strong>. The <strong>Plugins</strong> tab also has <strong>Install From File</strong> and
+<strong>Browse Plugins</strong> buttons.</p>
+<ul>
+<li><strong>Browse</strong> lists the plugins in the registry, with search and a category filter. <strong>Install</strong>
+  downloads the plugin, checks its SHA-256 and id against the registry entry, and shows what
+  the plugin may do before it loads.
+  Descriptions stay on one line; hover over one to read its full text and, for a withdrawn
+  plugin, the withdrawal reason in a single tooltip.</li>
+<li><strong>Installed</strong> lists your plugins: turn them on or off, update them, or uninstall them.</li>
+<li><strong>Settings</strong> has <strong>Install From File…</strong> for a <code>.rgplugin</code> file; you can also drop the file on
+  the window. It also sets the registry address (empty means the RustGIS registry). On the
+  desktop, <strong>Add Plugin Folder…</strong> loads an unpacked plugin while you develop it.</li>
+</ul>
+<p>A plugin's commands and tools appear on the <strong>Plugins</strong> tab, in a group named after the
+plugin, or on the plugin's own tab if it has one. Its commands are also in command search, and
+its tools are in the <strong>Tools</strong> pane under <strong>Plugins ›</strong>.</p>
+<p>The desktop app keeps installed packages in <code>plugins/</code> in its data folder (overridden by
+<code>$RUSTGIS_PLUGINS_DIR</code>) and loads them at startup. The web app remembers the
+plugins you installed from the registry and downloads them again on your next visit. Packages
+installed from files are remembered when they are at most 1.5 MiB; larger ones last for the
+current session only.</p>
+<p>On the command line:</p>
+<div class="highlight"><pre><span></span><code>rustgis-cli<span class="w"> </span>plugins<span class="w">                          </span><span class="c1"># installed plugins</span>
+rustgis-cli<span class="w"> </span>plugins<span class="w"> </span>browse<span class="w">                   </span><span class="c1"># the registry</span>
+rustgis-cli<span class="w"> </span>plugins<span class="w"> </span>get<span class="w"> </span>vector-toolkit<span class="w">       </span><span class="c1"># install from the registry</span>
+rustgis-cli<span class="w"> </span>plugins<span class="w"> </span>install<span class="w"> </span>my.rgplugin<span class="w">      </span><span class="c1"># install a file (or a plugin folder)</span>
+rustgis-cli<span class="w"> </span>plugins<span class="w"> </span>disable<span class="w"> </span>vector-toolkit<span class="w">   </span><span class="c1"># enable / disable / uninstall &lt;id&gt;</span>
+
+rustgis-cli<span class="w"> </span>run<span class="w"> </span>--sample<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--cmd<span class="w"> </span><span class="s1">'gp.run={"tool":"plugin:vector-toolkit/hexagon-grid","params":{"input":"Countries","size":300}}'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--cmd<span class="w"> </span><span class="s1">'share.exportMap={"path":"hex.png"}'</span>
+rustgis-cli<span class="w"> </span>run<span class="w"> </span>--plugin<span class="w"> </span>./dev-plugin/<span class="w"> </span>--sample<span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'plugin:my-plugin/hello'</span><span class="w">   </span><span class="c1"># load for one run</span>
+</code></pre></div>
+<p>Use <code>--no-plugins</code> to skip loading installed plugins. <code>plugins browse</code> and <code>plugins get</code> accept
+<code>--registry https://…/registry.json</code> for another registry.</p>
+<h2 id="safety">Safety<a class="headerlink" href="#safety" title="Permanent link">&para;</a></h2>
+<p>Plugins run in a sandbox: an interpreter (<code>wasmi</code>) with no access to files, the network, the
+clock or anything else outside the module. A plugin reaches RustGIS only through the requests
+described below, and RustGIS checks each one:</p>
+<ul>
+<li>Every plugin can <strong>read the map</strong>: its layers, their features and the view.</li>
+<li>With the <strong><code>edit</code></strong> permission, it can change the project. It can run commands that edit it and
+  add layers. A plugin command that changes the project is one undo step, and it is rolled back
+  if the command fails.</li>
+<li>With the <strong><code>files</code></strong> permission, it can run commands that read or write files the user names,
+  and its tools can take a file the user picks (a <a href="#file-parameters"><code>file</code> parameter</a>).
+  SQL, database and Zarr commands require both <code>files</code> and <code>network</code>, since they can reach
+  local files or remote servers.</li>
+<li>With the <strong><code>network</code></strong> permission, it can reach the web: read a small document from a web
+  address (<a href="#fetching-a-document"><code>host.fetch</code></a>) and run the commands that fetch (adding data
+  or services by their address). With <code>edit</code> too, it can add web tile layers (<code>map.addTiles</code>).
+  The addresses are the plugin's choice and can carry what it read from the project, so this is
+  a permission of its own. A command that would bring in a tile layer some other way (importing
+  a map file) has it taken out again without <code>network</code>.</li>
+<li>No plugin may run the user's scripts, tasks or models, create or save models, install or
+  locate other software, manage plugins or connections and logins, replace the project, or
+  step through undo history. It cannot call another plugin's command directly.</li>
+</ul>
+<p>A <a href="#process-plugins">process plugin</a> is the exception: it is a program on your computer, not
+sandboxed, and the install prompt says so.</p>
+<p>The install prompt lists these permissions. Each call has a fuel budget, so a plugin stuck in a
+loop is stopped. Memory is capped at 512 MB, and requests and replies are size-limited. A plugin
+that traps, panics or returns garbage produces an error message, never a crash.</p>
+<p>The registry is curated: plugins are reviewed before they are listed, and packages are
+hash-pinned. A <code>blocklist.json</code> beside a registry withdraws a plugin (every version, or one
+package). RustGIS checks it when you browse that registry. Desktop and command-line startup
+apply the cached blocklist; the web app fetches it when restoring plugins.</p>
+<h2 id="writing-a-plugin">Writing a plugin<a class="headerlink" href="#writing-a-plugin" title="Permanent link">&para;</a></h2>
+<p>Start from the <a href="https://github.com/opengeos/rustgis-plugin-template">Rust WebAssembly template</a>,
+or the <a href="https://github.com/opengeos/rustgis-rust-process-plugin-template">Rust</a> or
+<a href="https://github.com/opengeos/rustgis-python-plugin-template">Python</a> template for a
+<a href="#process-plugins">process plugin</a>, and read the
+<a href="https://official-plugins.rustgis.app">official plugins</a> for examples, such as
+<a href="https://github.com/opengeos/rustgis-official-plugins/tree/main/plugins/hello">Hello RustGIS</a>.
+A WebAssembly plugin uses the <code>rustgis-plugin</code> SDK crate:</p>
+<div class="highlight"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">rustgis_plugin</span><span class="p">::{</span><span class="n">Kind</span><span class="p">,</span><span class="w"> </span><span class="n">Request</span><span class="p">,</span><span class="w"> </span><span class="n">ToolOutput</span><span class="p">,</span><span class="w"> </span><span class="n">Value</span><span class="p">,</span><span class="w"> </span><span class="n">geojson</span><span class="p">,</span><span class="w"> </span><span class="n">host</span><span class="p">,</span><span class="w"> </span><span class="n">json</span><span class="p">};</span>
+
+<span class="k">fn</span><span class="w"> </span><span class="nf">handle</span><span class="p">(</span><span class="n">req</span><span class="p">:</span><span class="w"> </span><span class="nc">Request</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Result</span><span class="o">&lt;</span><span class="n">Value</span><span class="p">,</span><span class="w"> </span><span class="nb">String</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">match</span><span class="w"> </span><span class="p">(</span><span class="n">req</span><span class="p">.</span><span class="n">kind</span><span class="p">,</span><span class="w"> </span><span class="n">req</span><span class="p">.</span><span class="n">id</span><span class="p">.</span><span class="n">as_str</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">(</span><span class="n">Kind</span><span class="p">::</span><span class="n">Command</span><span class="p">,</span><span class="w"> </span><span class="s">"layer-report"</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="kd">let</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">host</span><span class="p">::</span><span class="n">layers</span><span class="p">()</span><span class="o">?</span><span class="p">.</span><span class="n">as_array</span><span class="p">().</span><span class="n">map_or</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nb">Vec</span><span class="p">::</span><span class="n">len</span><span class="p">);</span>
+<span class="w">            </span><span class="n">host</span><span class="p">::</span><span class="n">notify</span><span class="p">(</span><span class="o">&amp;</span><span class="fm">format!</span><span class="p">(</span><span class="s">"{n} layers"</span><span class="p">));</span>
+<span class="w">            </span><span class="nb">Ok</span><span class="p">(</span><span class="n">json</span><span class="o">!</span><span class="p">({</span><span class="s">"layers"</span><span class="p">:</span><span class="w"> </span><span class="nc">n</span><span class="p">}))</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="p">(</span><span class="n">Kind</span><span class="p">::</span><span class="n">Tool</span><span class="p">,</span><span class="w"> </span><span class="s">"bounding-boxes"</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="kd">let</span><span class="w"> </span><span class="n">boxes</span><span class="p">:</span><span class="w"> </span><span class="nb">Vec</span><span class="o">&lt;</span><span class="n">Value</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">req</span><span class="p">.</span><span class="n">features</span><span class="p">(</span><span class="s">"input"</span><span class="p">)</span><span class="o">?</span><span class="p">.</span><span class="n">iter</span><span class="p">().</span><span class="n">filter_map</span><span class="p">(</span><span class="o">|</span><span class="n">f</span><span class="o">|</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="kd">let</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">geojson</span><span class="p">::</span><span class="n">bbox</span><span class="p">(</span><span class="o">&amp;</span><span class="n">geojson</span><span class="p">::</span><span class="n">positions</span><span class="p">(</span><span class="o">&amp;</span><span class="n">f</span><span class="p">[</span><span class="s">"geometry"</span><span class="p">]))</span><span class="o">?</span><span class="p">;</span>
+<span class="w">                </span><span class="nb">Some</span><span class="p">(</span><span class="n">geojson</span><span class="p">::</span><span class="n">feature</span><span class="p">(</span><span class="n">geojson</span><span class="p">::</span><span class="n">polygon</span><span class="p">(</span><span class="o">&amp;</span><span class="p">[[</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span><span class="w"> </span><span class="p">[</span><span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span><span class="w"> </span><span class="p">[</span><span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="mi">3</span><span class="p">]],</span><span class="w"> </span><span class="p">[</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="mi">3</span><span class="p">]]]),</span><span class="w"> </span><span class="n">json</span><span class="o">!</span><span class="p">({})))</span>
+<span class="w">            </span><span class="p">}).</span><span class="n">collect</span><span class="p">();</span>
+<span class="w">            </span><span class="nb">Ok</span><span class="p">(</span><span class="n">ToolOutput</span><span class="p">::</span><span class="n">new</span><span class="p">().</span><span class="n">layer</span><span class="p">(</span><span class="s">"Boxes"</span><span class="p">,</span><span class="w"> </span><span class="n">geojson</span><span class="p">::</span><span class="n">collection</span><span class="p">(</span><span class="n">boxes</span><span class="p">)).</span><span class="n">into</span><span class="p">())</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="p">(</span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="nb">Err</span><span class="p">(</span><span class="fm">format!</span><span class="p">(</span><span class="s">"unknown '{other}'"</span><span class="p">)),</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">rustgis_plugin</span><span class="p">::</span><span class="n">export</span><span class="o">!</span><span class="p">(</span><span class="n">handle</span><span class="p">);</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>rustup<span class="w"> </span>target<span class="w"> </span>add<span class="w"> </span>wasm32-unknown-unknown
+cargo<span class="w"> </span>build<span class="w"> </span>--release<span class="w"> </span>--target<span class="w"> </span>wasm32-unknown-unknown
+</code></pre></div>
+<h3 id="pluginjson"><code>plugin.json</code><a class="headerlink" href="#pluginjson" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hello-rustgis"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hello RustGIS"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.1.0"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"What it does, in a sentence or two."</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"You"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"homepage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://github.com/you/your-plugin"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"license"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MIT"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"entry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"plugin.wasm"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"abi"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"minRustgisVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.1.0"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"edit"</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">"commands"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"layer-report"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Layer\nReport"</span><span class="p">,</span><span class="w"> </span><span class="nt">"help"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Shown on hover."</span><span class="p">,</span><span class="w"> </span><span class="nt">"icon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"stats"</span><span class="p">,</span><span class="w"> </span><span class="nt">"params"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{}"</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">"tools"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bounding-boxes"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bounding Boxes"</span><span class="p">,</span><span class="w"> </span><span class="nt">"summary"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One line."</span><span class="p">,</span><span class="w"> </span><span class="nt">"toolbox"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hello"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"input"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Input features"</span><span class="p">,</span><span class="w"> </span><span class="nt">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"vectorLayer"</span><span class="p">,</span><span class="w"> </span><span class="nt">"required"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"whole"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One box for the whole layer"</span><span class="p">,</span><span class="w"> </span><span class="nt">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bool"</span><span class="p">,</span><span class="w"> </span><span class="nt">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">"i18n"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"de"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"Layer\nReport"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ebenen-\nbericht"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li><code>id</code>: 1 to 64 lower-case letters, digits and hyphens, starting with a letter. Command and tool
+  ids follow the same rules. Their full ids are <code>plugin:&lt;id&gt;/&lt;command-or-tool&gt;</code>; run commands
+  directly and tools through <code>gp.run</code>.</li>
+<li><code>runtime</code>: <code>wasm</code> (the default), <code>process</code> or <code>skills</code>. For WebAssembly plugins, <code>entry</code>
+  defaults to <code>plugin.wasm</code> and must name a <code>.wasm</code> file relative to the manifest, using
+  forward slashes with no <code>.</code> or <code>..</code> path segments. <code>abi</code> defaults to <code>1</code> and must equal <code>1</code>.</li>
+<li><code>version</code> and optional <code>minRustgisVersion</code> are numeric versions such as <code>1.2.3</code> or <code>1.2</code>.
+  RustGIS compares their numeric components, ignoring prerelease and build suffixes, and
+  refuses a plugin that needs a newer RustGIS.</li>
+<li><code>permissions</code>: <code>edit</code>, <code>files</code> and <code>network</code> (see <a href="#safety">Safety</a>); empty by default.
+  Ask only for what you use.</li>
+<li><code>commands[].params</code>: a string describing the command's parameters for scripts and agents,
+  not a JSON object or a form definition; it defaults to <code>"{}"</code>.</li>
+<li><code>commands[].icon</code>: the name of one of RustGIS's own icons (<code>stats</code>, <code>zoom_full</code>, <code>bookmark</code>,
+  <code>buffer</code>…), or a puzzle piece when it isn't one.</li>
+<li>Tool parameter <code>kind</code>s: <code>layer</code>, <code>vectorLayer</code>, <code>polygonLayer</code>, <code>pointLayer</code>, <code>field</code>,
+  <code>numericField</code>, <code>number</code>, <code>text</code>, <code>choice</code> (with 1 to 64 <code>choices</code>), <code>bool</code> and <code>file</code> (see
+  <a href="#file-parameters">File parameters</a>). Each has <code>name</code>, <code>label</code>, optional <code>help</code>, <code>required</code>
+  (default <code>false</code>) and an optional JSON <code>default</code>. Parameter names start with a lower-case
+  letter and may also contain upper-case letters and underscores after it.</li>
+<li><code>panel</code> (optional) gives the plugin a pane of its own, with widgets bound to its commands. See
+  <a href="#a-panel">A panel</a>.</li>
+<li><code>i18n</code> translates the plugin's own text into the interface language, by language code (<code>de</code>,
+  <code>zh-CN</code>…). See <a href="#translations">Translations</a>.</li>
+<li><code>skills</code> (optional) lists skills for the AI Assistant that the package carries. See
+  <a href="#skills">Skills</a>.</li>
+</ul>
+<p>A manifest can declare at most 256 commands, 64 tools and 32 parameters per tool.</p>
+<p>A package is a zip archive, conventionally named <code>&lt;id&gt;-&lt;version&gt;.rgplugin</code>. It holds
+<code>plugin.json</code> at its root or inside one top-level folder; <code>entry</code> is relative to that manifest.
+Packages are at most 64 MiB with at most 4,096 entries, modules at most 48 MiB, and the manifest
+at most 512 KiB.</p>
+<h3 id="file-parameters">File parameters<a class="headerlink" href="#file-parameters" title="Permanent link">&para;</a></h3>
+<p>A tool can read a file the user picks, such as a NetCDF model run, with a <code>file</code> parameter.
+The plugin needs the <code>files</code> permission:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"model"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Model output"</span><span class="p">,</span><span class="w"> </span><span class="nt">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"file"</span><span class="p">,</span><span class="w"> </span><span class="nt">"required"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nt">"extensions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"nc"</span><span class="p">,</span><span class="w"> </span><span class="s2">"nc4"</span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>The Tools pane shows a path box with a <strong>Browse</strong> button. <code>extensions</code> filters the picker:
+  at most 16 extensions, each 1 to 16 letters or digits without the dot. Leave it out for any file.</li>
+<li>On the desktop and the command line the value is a path, and RustGIS reads the file. In the
+  web app, which has no paths, the user picks the file and its contents go with the run. A
+  script can do the same with <code>{"name": "run.nc", "data": base64}</code>.</li>
+<li>The tool gets the file in the request's <code>files</code>, by parameter name, as
+  <code>{"name": "run.nc", "data": base64}</code>. The parameter itself holds just the file name.</li>
+<li>Files are at most 64 MB. The Geoprocessing history keeps the file's name, not its contents.</li>
+<li>RustGIS versions before file parameters refuse a plugin that has one, so set
+  <code>minRustgisVersion</code> to the first version with them.</li>
+</ul>
+<h3 id="translations">Translations<a class="headerlink" href="#translations" title="Permanent link">&para;</a></h3>
+<p>A plugin speaks the interface language through its <code>i18n</code> table: for each language code, its
+English strings and their translations, written exactly as they appear in <code>plugin.json</code>
+(<code>\n</code> included):</p>
+<div class="highlight"><pre><span></span><code><span class="nt">"i18n"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">"de"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"Bounding Boxes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Begrenzungsrahmen"</span><span class="p">,</span><span class="w"> </span><span class="nt">"Input features"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Eingabe-Features"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">"zh-CN"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"Bounding Boxes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"边界框"</span><span class="p">,</span><span class="w"> </span><span class="nt">"Input features"</span><span class="p">:</span><span class="w"> </span><span class="s2">"输入要素"</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>It covers the plugin's name and description, command labels and help, tool names, summaries
+  and toolboxes, parameter labels and <code>choice</code> values, the tab, group and menu labels, and the
+  panel's title, help and widget labels. A string with no translation shows in English.</li>
+<li>Alongside English (<code>en</code>), RustGIS's interface languages are <code>de</code>, <code>es</code>, <code>fr</code>, <code>it</code>, <code>nl</code>,
+  <code>pt</code>, <code>ru</code>, <code>tr</code>, <code>az</code>, <code>id</code>, <code>vi</code>, <code>fa</code>, <code>zh</code>, <code>ja</code>, <code>ko</code> and <code>ka</code>. A code with a region
+  matches its language: <code>zh-CN</code> serves <code>zh</code>.</li>
+<li>The registry copies the name and description translations into <code>registry.json</code>, so the
+  Plugin Manager lists plugins in the interface language before they are installed.</li>
+<li>Messages a plugin builds while it runs can follow the interface language too: every request
+  carries its code as <code>lang</code>. In the SDK that is <code>req.lang</code>, and <code>req.tr</code> looks a message up in
+  <code>i18n</code>.</li>
+<li>Up to 64 languages and 20,000 translated strings in all.</li>
+</ul>
+<h3 id="a-tab-of-its-own">A tab of its own<a class="headerlink" href="#a-tab-of-its-own" title="Permanent link">&para;</a></h3>
+<p>By default a plugin's commands and tools get a group on the <strong>Plugins</strong> tab. A plugin can have a
+ribbon tab of its own instead. The tab sits at the end of the tab strip, and <strong>Settings › Customize › Ribbon</strong>
+can hide it like any other. Declare it in <code>plugin.json</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">"tab"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Explorer"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Go To"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nt">"menu"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Continent"</span><span class="p">,</span><span class="w"> </span><span class="nt">"icon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"zoom_world"</span><span class="p">,</span><span class="w"> </span><span class="nt">"help"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Go to a continent."</span><span class="p">,</span><span class="w"> </span><span class="nt">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"go-africa"</span><span class="p">,</span><span class="w"> </span><span class="s2">"go-europe"</span><span class="p">]</span><span class="w"> </span><span class="p">},</span>
+<span class="w">        </span><span class="s2">"random-place"</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Inspect"</span><span class="p">,</span><span class="w"> </span><span class="nt">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"layer-report"</span><span class="p">,</span><span class="w"> </span><span class="s2">"tool:field-summary"</span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li><code>items</code> lists the buttons. An item is a command id, <code>tool:&lt;id&gt;</code> (which opens that tool in the
+  Tools pane), <code>panel</code> (which opens the plugin's <a href="#a-panel">panel</a>), or a dropdown <code>menu</code> whose
+  <code>items</code> are any of those.</li>
+<li>A tab has 1 to 8 groups, a group has 1 to 16 items, and a menu has 1 to 32 entries. Every
+  entry must name one of the plugin's own commands or tools, or its panel.</li>
+<li>The label is one line of 1 to 32 characters and can't be the name of one of RustGIS's tabs
+  (Home, Data, Style, Analyze, Plugins…), including their older names. The <code>i18n</code> translations
+  apply to the tab, group and menu labels too.</li>
+</ul>
+<p><a href="https://github.com/opengeos/rustgis-official-plugins/tree/main/plugins/map-explorer">Map Explorer</a> is
+an example.</p>
+<h3 id="a-panel">A panel<a class="headerlink" href="#a-panel" title="Permanent link">&para;</a></h3>
+<p>A plugin can have a panel: a pane on the right of the map with texts, checkboxes, sliders and
+buttons bound to its commands. Declare it in <code>plugin.json</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">"panel"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Historical Imagery"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"icon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"history"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"help"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Step through the archived releases of World Imagery."</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"panel-state"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"text"</span><span class="p">,</span><span class="w"> </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"selected"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Selected release"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"checkbox"</span><span class="p">,</span><span class="w"> </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"local"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Only versions with local changes"</span><span class="p">,</span><span class="w"> </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"panel-state"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"slider"</span><span class="p">,</span><span class="w"> </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"release"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Release timeline"</span><span class="p">,</span><span class="w"> </span><span class="nt">"steps"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"go-to-release"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"button"</span><span class="p">,</span><span class="w"> </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"older"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"button"</span><span class="p">,</span><span class="w"> </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"newer"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"text"</span><span class="p">,</span><span class="w"> </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"metadata"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Location metadata"</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li><code>title</code> is the pane's tab and the label of the button that opens it: one line of 1 to 48
+  characters. RustGIS puts the button first in the plugin's group on the <strong>Plugins</strong> tab.
+  On a tab of its own, put <code>panel</code> among a group's items. Command search lists the panel too.
+  <code>icon</code> and <code>help</code> are for that button.</li>
+<li><code>items</code> lists the widgets, top to bottom (1 to 32). Buttons that follow each other share a
+  row. Each has an <code>id</code> (lower-case letters, digits and hyphens; a button's is its command's
+  unless given), and <code>label</code> and <code>help</code> (on hover) where they apply:<ul>
+<li><code>text</code>: a caption (<code>label</code>) over text the plugin sets (<code>text</code> is what it shows first).</li>
+<li><code>checkbox</code>: a box with a <code>label</code>, <code>default</code> <code>false</code> unless given.</li>
+<li><code>slider</code>: whole numbers from <code>min</code> to <code>max</code>, both within ±1,000,000,000 (both default
+  to <code>0</code>; <code>default</code> is <code>min</code> unless given), with a caption, the value's label, and its two
+  ends' labels. <code>steps: true</code> adds ‹ and › buttons that move it by one.</li>
+<li><code>button</code>: runs its <code>command</code>; its <code>label</code> is the command's unless given.</li>
+</ul>
+</li>
+<li>A checkbox runs its <code>command</code> when it changes, and a slider when it is let go, or stepped:
+  never while it is dragged, while the pane shows the label of the value it would take. Without
+  a <code>command</code>, a widget's value just goes with the plugin's next request.</li>
+<li><code>state</code> (optional) is a command RustGIS runs each time the panel is opened, to answer its
+  state.</li>
+<li>Every <code>command</code> reference, including <code>state</code>, must name one of the plugin's own commands.
+  Widget ids are independent of command ids. A plugin with a panel can't have a command
+  called <code>panel</code>.</li>
+</ul>
+<p>A plugin keeps nothing between calls, so RustGIS keeps the panel's state. Every request of a
+plugin with a panel carries the widgets' values, whatever ran the command (the panel, a ribbon
+button, a script or the command line):</p>
+<div class="highlight"><pre><span></span><code><span class="nt">"panel"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"values"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"local"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nt">"release"</span><span class="p">:</span><span class="w"> </span><span class="mi">196</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">"changed"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"release"</span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p><code>values</code> has each checkbox (<code>true</code> or <code>false</code>) and slider (a whole number), and <code>changed</code> the
+ones this call set: the widget the user just moved. A widget's command is run with
+<code>{"panel": {"release": 196}}</code> as its parameters, which sets the values before the call and is
+taken out of the request's <code>params</code>, so a script or <code>rustgis-cli</code> can do the same:</p>
+<div class="highlight"><pre><span></span><code>rustgis-cli<span class="w"> </span>run<span class="w"> </span>--sample<span class="w"> </span>--cmd<span class="w"> </span><span class="s1">'plugin:historical-imagery/go-to-release={"panel": {"release": 40}}'</span>
+</code></pre></div>
+<p>Any command can answer the panel's new state, beside the rest of its answer:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"panel"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"values"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"release"</span><span class="p">:</span><span class="w"> </span><span class="mi">196</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"selected"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-12-18\nRelease 13192"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">"release"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"min"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">"max"</span><span class="p">:</span><span class="w"> </span><span class="mi">196</span><span class="p">,</span><span class="w"> </span><span class="nt">"labels"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"2014-02-20"</span><span class="p">,</span><span class="w"> </span><span class="s2">"…"</span><span class="p">,</span><span class="w"> </span><span class="s2">"2025-12-18"</span><span class="p">]</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">"newer"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"enabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Source: Maxar (Vivid)\nResolution: 0.3 m"</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>An item can set <code>label</code> (<code>null</code> brings back the declared one), <code>enabled</code> and <code>visible</code>; a text
+  its <code>text</code>; a slider its <code>min</code>, <code>max</code> and <code>labels</code>, one per value from <code>min</code> (the numbers when
+  there are none). What an answer leaves out stays as it was.</li>
+<li>RustGIS checks the answer like any other: unknown ids and fields and values of the wrong type
+  are ignored, a slider's value stays within its ends, texts are clipped to 4,000 characters,
+  labels to 200, and a slider has at most 2,000 labels of 80 characters.</li>
+<li>A plugin words what it sets in the request's <code>lang</code>; RustGIS translates only what the
+  manifest declares.</li>
+<li>A command that fails leaves the values as they were. The panel's state command is no undo
+  step when it changes nothing in the project (it only reads the map); other commands keep
+  theirs.</li>
+<li>RustGIS asks for the state only when the panel opens, and takes in what the plugin's own
+  commands answer. It doesn't run the plugin when the map changes in other ways: undo, another
+  plugin, a project opened. A state command that reads what it shows from the map (which
+  release is on it) puts the panel right when it is opened again.</li>
+<li>The values are kept while RustGIS runs, not saved with the project.</li>
+<li><code>plugin.panel {"id": "&lt;plugin&gt;"}</code> answers a panel's state (<code>values</code> and <code>items</code>), and sets
+  <code>values</code> or, with <code>"refresh": true</code>, runs the state command first. On the command line, which
+  has no panes, the commands still run with the values given.</li>
+<li>RustGIS versions before panels ignore <code>panel</code> (and refuse a tab that names it): keep the
+  commands usable from the ribbon too, or set <code>minRustgisVersion</code>.</li>
+</ul>
+<h3 id="what-a-plugin-can-ask-for">What a plugin can ask for<a class="headerlink" href="#what-a-plugin-can-ask-for" title="Permanent link">&para;</a></h3>
+<p>Inside a request, <code>host::call(op, params)</code> sends one of these to RustGIS:</p>
+<table>
+<thead>
+<tr>
+<th>Request</th>
+<th>Answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>host.info</code></td>
+<td><code>{rustgis, abi, plugin, permissions}</code>: version, ABI, plugin id and permissions</td>
+</tr>
+<tr>
+<td><code>host.layers</code></td>
+<td><code>[{id, name, raster, visible, geometry, features, selected, active, fields: [{name, type}]}]</code></td>
+</tr>
+<tr>
+<td><code>host.features</code> <code>{layer, selected?, limit?}</code></td>
+<td>the layer's features as GeoJSON; each feature has its <code>row</code></td>
+</tr>
+<tr>
+<td><code>host.view</code></td>
+<td><code>{center: [lon, lat], scale, projection}</code></td>
+</tr>
+<tr>
+<td><code>host.notify</code> <code>{text, error?}</code></td>
+<td>shows a message in the status bar</td>
+</tr>
+<tr>
+<td><code>host.addLayer</code> <code>{name, geojson}</code></td>
+<td>adds a layer (<code>edit</code>)</td>
+</tr>
+<tr>
+<td><code>host.fetch</code> <code>{url}</code></td>
+<td><code>{url, text, json?}</code>: the document at a web address (<code>network</code>; see <a href="#fetching-a-document">Fetching a document</a>)</td>
+</tr>
+<tr>
+<td><code>map.addTiles</code> <code>{url, kind?, name?, attribution?, maxZoom?, overlay?, replace?, blend?, …}</code></td>
+<td>adds a tile layer (<code>edit</code> and <code>network</code>); accepts the built-in command's parameters</td>
+</tr>
+<tr>
+<td>any command id (<code>layer.zoomTo</code>, <code>select.byAttributes</code>, <code>layer.symbology</code>…)</td>
+<td>what the command returns, within the plugin's permissions</td>
+</tr>
+</tbody>
+</table>
+<p>In the web app a command can't wait for a download, so where <code>layer.addUrl</code> has to download a
+file whole it answers <code>{"pending": true, "url": …}</code> there: RustGIS downloads the data off the
+frame and adds the layer when it lands, as <strong>Home › Add › Add Data › From URL</strong> does. A PMTiles
+archive, a cloud-optimised GeoTIFF or a FlatGeobuf or GeoParquet read in place is added at once,
+as elsewhere.</p>
+<p><code>rustgis-cli commands</code> lists every command id and its parameters.</p>
+<h4 id="fetching-a-document">Fetching a document<a class="headerlink" href="#fetching-a-document" title="Permanent link">&para;</a></h4>
+<p><code>host.fetch {"url": "https://…"}</code> reads a small text document, such as a web API's JSON
+answer, with a GET request. It needs the <code>network</code> permission. The answer is
+<code>{"url", "text", "json"?}</code>: <code>url</code> is the address fetched, <code>text</code> the document, and <code>json</code> the
+document parsed when it is a JSON object or array.</p>
+<ul>
+<li>Only <code>http://</code> and <code>https://</code> addresses on the internet: not this computer, the local network
+  or cloud metadata addresses, and no redirect may lead there or from <code>https</code> to <code>http</code>. Names
+  are checked as written and again where they resolve, on every redirect too, so a name that
+  resolves to this computer or the local network is refused on the desktop and the command line
+  (in the web app, the browser decides what it may reach). Requests carry no credentials (an
+  S3 connection's included) and no headers of the plugin's. On the desktop and the command line
+  they never go through a proxy (<code>HTTPS_PROXY</code> and the like are ignored), since a proxy would
+  reach addresses RustGIS can't check.</li>
+<li>At most 2 MB, in UTF-8 (a byte-order mark is dropped). An answer that isn't a success (404,
+  500…) is an error ending in <code>HTTP &lt;status&gt;</code>.</li>
+<li>Answers are kept for 10 minutes (up to 256 documents and 16 MB in all) while RustGIS runs,
+  so asking for the same address again costs nothing. Each plugin has answers of its own: one
+  never reads what another fetched. Errors are kept for 30 seconds,
+  so every command waiting for an address sees its error; after that it is fetched again.</li>
+<li>On the desktop and the command line the request waits for the answer: at most 20 seconds for
+  one, and 60 seconds for all the fetches of one plugin call. A call makes at most 64 fetches.</li>
+<li>In the web app nothing may wait. A fetch that isn't kept yet answers
+  <code>{"pending": true, "url"}</code> and starts in the background. The command should then return
+  straight away, before doing anything outside the project (writing a file): RustGIS undoes
+  what the call did to the project (its notices stay, and so does anything done outside it),
+  and runs the command
+  again with the same parameters once every pending answer has landed (up to 8 per call), when
+  <code>host.fetch</code> answers from what was kept. A command that walks a chain of documents, each
+  address taken from the one before, runs once per step, up to 64 times. The browser follows
+  redirects itself, and the server must allow requests from web pages (CORS).</li>
+</ul>
+<p>Use <code>host::call("host.fetch", json!({"url": url}))</code> in the Rust SDK.</p>
+<p>Tools work differently. A tool receives its layer parameters' features as GeoJSON (only the
+selected features when a layer has a selection), and its <code>file</code> parameters' files. It returns
+new layers and standalone tables, or a selection, plus messages for the Geoprocessing history.
+RustGIS adds the results as it does for built-in tools, with undo; returning these results
+does not require <code>edit</code>. Tools can log, but they make no host requests.</p>
+<p>In the desktop app a plugin tool runs in the background, so the map and the rest of the window
+stay usable: the Tools pane shows the line the tool last logged, or a process plugin's last
+<code>progress</code> message, and a <strong>Cancel</strong> button. Cancel stops a process plugin's program; a WebAssembly tool runs on to its
+end and its result is dropped. One plugin tool runs at a time. <code>gp.run</code>, scripts and
+<code>rustgis-cli</code> still wait for the result.</p>
+<h3 id="the-abi-version-1">The ABI (version 1)<a class="headerlink" href="#the-abi-version-1" title="Permanent link">&para;</a></h3>
+<p>The SDK implements this; it is described here for other languages.</p>
+<p>The module is <code>wasm32</code> with no imports except these three, in module <code>rustgis</code>:</p>
+<ul>
+<li><code>call(ptr: i32, len: i32) -&gt; i32</code> runs the host request at <code>ptr</code>
+  (<code>{"op": "...", "params": {...}}</code>). It returns the length of the reply, which is
+  <code>{"ok": value}</code> or <code>{"error": "text"}</code>, or <code>-1</code> when there is none. A new call replaces any
+  reply not yet copied.</li>
+<li><code>result(ptr: i32)</code> copies that reply to <code>ptr</code> and consumes it. Allocate the length <code>call</code>
+  returned first.</li>
+<li><code>log(ptr: i32, len: i32)</code> logs a UTF-8 line.</li>
+</ul>
+<p>The module exports:</p>
+<ul>
+<li><code>memory</code>.</li>
+<li><code>rustgis_alloc(len: i32) -&gt; i32</code>, which returns room for <code>len</code> bytes. RustGIS writes the
+  request there.</li>
+<li><code>rustgis_call(ptr: i32, len: i32) -&gt; i64</code>, which handles the request and returns
+  <code>reply_ptr &lt;&lt; 32 | reply_len</code>. The reply is <code>{"ok": value}</code> or <code>{"error": "text"}</code>.</li>
+</ul>
+<p>Command requests are <code>{"abi": 1, "kind": "command", "id": "...", "params": {...}, "lang": "de"}</code>.
+<code>id</code> is the local command id from the manifest, not its <code>plugin:…/…</code> id. <code>lang</code> is the interface
+language's code (<code>en</code> for English). Commands of a plugin with a <a href="#a-panel">panel</a> also get
+<code>panel</code>, and may answer <code>panel</code> beside the rest of their <code>ok</code> value.</p>
+<p>Tools get <code>"kind": "tool"</code> and their local tool id, plus <code>layers</code>, which maps layer names
+(not parameter names) to FeatureCollections. When they have file inputs, <code>files</code> maps each
+parameter name to <code>{"name": "...", "data": "..."}</code>, with the contents in standard padded base64.
+A tool's <code>ok</code> value can contain:</p>
+<ul>
+<li><code>layers</code>: <code>[{"name": "...", "geojson": {...}}]</code>.</li>
+<li><code>tables</code>: the same shape, using FeatureCollections whose features have no geometry.</li>
+<li><code>selection</code>: <code>{"layer": "&lt;layer name&gt;", "rows": [0, 2, ...]}</code>. If present, it takes precedence
+  over <code>layers</code> and <code>tables</code>.</li>
+<li><code>messages</code>: an array of strings.</li>
+</ul>
+<p>RustGIS takes at most 64 layers, 64 tables and 200 messages, with at most 5,000,000 features
+in each output dataset.</p>
+<p>Each call gets a fresh instance, so a module keeps no state between calls and need not free
+memory. Host requests and module replies are limited to 128 MiB.</p>
+<h2 id="process-plugins">Process plugins<a class="headerlink" href="#process-plugins" title="Permanent link">&para;</a></h2>
+<p>A process plugin is a program on your computer instead of a WebAssembly module: a Python script,
+or an executable in any language. It can use the file system, threads and any library, which
+lets existing analysis code (numpy, xarray, GDAL…) become a plugin without a rewrite. It is <strong>not
+sandboxed</strong>: it can do anything you can. The install prompt says so, and the Plugin Manager
+marks it <em>Not sandboxed</em>, in <strong>Browse</strong> too, before it is installed (with the Python version
+its environment downloads, if it has one). Process plugins run on the desktop and the command
+line, not in the web app: its <strong>Browse</strong> list shows them as <em>Desktop and command line only</em>,
+with no <strong>Install</strong> button.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hello-python"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hello Python"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.1.0"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"runtime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"process"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"run"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"windows"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"python"</span><span class="p">,</span><span class="w"> </span><span class="s2">"main.py"</span><span class="p">],</span><span class="w"> </span><span class="nt">"default"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"python3"</span><span class="p">,</span><span class="w"> </span><span class="s2">"main.py"</span><span class="p">]</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">  </span><span class="nt">"commands"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w"> </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"layer-count"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Count\nLayers"</span><span class="w"> </span><span class="p">}],</span>
+<span class="w">  </span><span class="nt">"tools"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span>
+<span class="w">    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"feature-count"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Count Features"</span><span class="p">,</span><span class="w"> </span><span class="nt">"summary"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Counts a layer's features."</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"input"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Input layer"</span><span class="p">,</span><span class="w"> </span><span class="nt">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"vectorLayer"</span><span class="p">,</span><span class="w"> </span><span class="nt">"required"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">}]</span>
+<span class="w">  </span><span class="p">}]</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li><code>"runtime": "process"</code> and <code>run</code>: the program and its arguments, started in the plugin's
+  folder. A bare name (<code>python3</code>) is looked up on <code>PATH</code>; a relative path (<code>bin/tool</code>) is in the
+  plugin's folder. <code>run</code> can name a program per platform (<code>windows</code>, <code>macos</code>, <code>linux</code>, and
+  <code>default</code> when the platform has no entry). Omit <code>entry</code>; process plugins use <code>run</code> instead.
+  Each argument list contains the program and at most 63 arguments.</li>
+<li>Commands, tools, tabs, translations and permissions work as for WebAssembly plugins.
+  Permissions still decide which host requests RustGIS answers, but they don't limit what the
+  program itself can do.</li>
+<li>A <code>.rgplugin</code> holds the plugin's files (the manifest, scripts, executables). Installing it
+  unpacks them to <code>unpacked/&lt;id&gt;/</code> in the plugins folder, keeping Unix execute bits and
+  rejecting unsafe paths or more than 1 GiB of unpacked files. A plugin folder installed for
+  development (Plugin Manager › Settings, or <code>rustgis-cli plugins install ./folder</code>) runs where
+  it is.</li>
+</ul>
+<h3 id="the-protocol">The protocol<a class="headerlink" href="#the-protocol" title="Permanent link">&para;</a></h3>
+<p>The <a href="https://github.com/opengeos/rustgis-rust-process-plugin-template">Rust process template</a>
+provides a command, a tool and a reusable JSON-line transport module, with packaging and release
+builds for Linux, Windows and universal macOS. Users run the packaged executable without Rust or
+Python installed. Native plugins are not sandboxed and do not run in the web app.</p>
+<p>Each command or tool call starts the program once. It speaks the <a href="#the-abi-version-1">ABI</a>'s
+requests and replies over its standard input and output, one JSON object per line:</p>
+<ol>
+<li>RustGIS writes the <a href="#the-abi-version-1">request</a> as one JSON line, including <code>panel</code> for a
+   command of a plugin with a panel, and <code>layers</code> and optional <code>files</code> for a tool.</li>
+<li>The program writes lines:<ul>
+<li><code>{"call": {"op": "...", "params": {...}}}</code>: a <a href="#what-a-plugin-can-ask-for">host request</a>.
+  RustGIS answers with one line, <code>{"ok": value}</code> or <code>{"error": "text"}</code>.</li>
+<li><code>{"log": "text"}</code>: a line for the log (and a tool's run messages).</li>
+<li><code>{"progress": "text"}</code>: what a tool is doing now, shown while it runs and not kept in its
+  messages: a line per step of a long run, say.</li>
+<li>Last, <code>{"ok": value}</code> or <code>{"error": "text"}</code>: the result.</li>
+</ul>
+</li>
+<li>RustGIS then closes the program's input; a program still running a few seconds later is
+   stopped.</li>
+</ol>
+<p>Output lines that aren't protocol messages are logged and skipped, since libraries print (even
+JSON), and so is the program's error output. A command is stopped after 2 minutes; a tool runs
+until it finishes or is cancelled (the desktop app runs it in the background: see
+<a href="#what-a-plugin-can-ask-for">What a plugin can ask for</a>).</p>
+<p>The plugin above, in Python with no SDK:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">call</span><span class="p">(</span><span class="n">op</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Sends a request to RustGIS and returns its answer."""</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s2">"call"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"op"</span><span class="p">:</span> <span class="n">op</span><span class="p">,</span> <span class="s2">"params"</span><span class="p">:</span> <span class="n">params</span><span class="p">}}),</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">reply</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">readline</span><span class="p">())</span>
+    <span class="k">if</span> <span class="s2">"error"</span> <span class="ow">in</span> <span class="n">reply</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">reply</span><span class="p">[</span><span class="s2">"error"</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">reply</span><span class="p">[</span><span class="s2">"ok"</span><span class="p">]</span>
+
+
+<span class="n">req</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">readline</span><span class="p">())</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">req</span><span class="p">[</span><span class="s2">"id"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"layer-count"</span><span class="p">:</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">call</span><span class="p">(</span><span class="s2">"host.layers"</span><span class="p">,</span> <span class="p">{}))</span>
+        <span class="n">call</span><span class="p">(</span><span class="s2">"host.notify"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"text"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"The map has </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2"> layers."</span><span class="p">})</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"ok"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"layers"</span><span class="p">:</span> <span class="n">n</span><span class="p">}}</span>
+    <span class="k">elif</span> <span class="n">req</span><span class="p">[</span><span class="s2">"id"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"feature-count"</span><span class="p">:</span>
+        <span class="n">layer</span> <span class="o">=</span> <span class="n">req</span><span class="p">[</span><span class="s2">"params"</span><span class="p">][</span><span class="s2">"input"</span><span class="p">]</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">req</span><span class="p">[</span><span class="s2">"layers"</span><span class="p">][</span><span class="n">layer</span><span class="p">][</span><span class="s2">"features"</span><span class="p">])</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"ok"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"layers"</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">"messages"</span><span class="p">:</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">layer</span><span class="si">}</span><span class="s2"> has </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2"> features."</span><span class="p">]}}</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"error"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"unknown command '</span><span class="si">{</span><span class="n">req</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span><span class="si">}</span><span class="s2">'"</span><span class="p">}</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"error"</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">result</span><span class="p">),</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="python-environments">Python environments<a class="headerlink" href="#python-environments" title="Permanent link">&para;</a></h3>
+<p>A Python plugin can have RustGIS make its environment, so its users don't install Python or
+any package themselves:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">"runtime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"process"</span><span class="p">,</span>
+<span class="nt">"python"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3.12"</span><span class="p">,</span><span class="w"> </span><span class="nt">"requirements"</span><span class="p">:</span><span class="w"> </span><span class="s2">"requirements.txt"</span><span class="w"> </span><span class="p">},</span>
+<span class="nt">"run"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"python"</span><span class="p">,</span><span class="w"> </span><span class="s2">"main.py"</span><span class="p">]</span>
+</code></pre></div>
+<ul>
+<li><code>python</code>, <code>python3</code> or <code>python.exe</code> as the program in <code>run</code> becomes that environment's
+  interpreter, on every platform. The Python version defaults to <code>3.12</code>; omit <code>requirements</code>
+  for an environment with no extra packages.</li>
+<li>RustGIS prepares the environment when the plugin is installed: in the background in the desktop
+  app (the Plugin Manager shows how it's going, with a <strong>Prepare</strong> button if it is not ready), and
+  before the command returns in <code>rustgis-cli plugins install</code> and <code>get</code>.
+  <code>rustgis-cli plugins prepare &lt;id&gt;</code> and the <code>plugin.prepare</code> command make it on demand.</li>
+<li>It uses <a href="https://github.com/astral-sh/uv">uv</a>, which RustGIS downloads once (a pinned version,
+  checked against its pinned SHA-256; <code>RUSTGIS_UV</code> names one to use instead, which is then
+  trusted as it is, unchecked). uv installs a standalone Python of the version asked for and
+  the packages in the requirements file, from PyPI. Pythons and uv's cache are shared in
+  <code>tools/</code> in the plugins folder; each plugin's environment is in <code>envs/&lt;id&gt;/</code>. One
+  environment is made at a time per plugin, even across the app and <code>rustgis-cli</code>.</li>
+<li>The environment is made again when the Python version or the requirements change (a plugin
+  update), and removed with the plugin. Until it's ready, the plugin's calls fail with a
+  message saying how to prepare it.</li>
+<li>The first install downloads Python and the packages: tens to hundreds of MB, depending on
+  them. The install prompt says so.</li>
+</ul>
+<h2 id="skills">Skills<a class="headerlink" href="#skills" title="Permanent link">&para;</a></h2>
+<p>A plugin can carry <a href="../user-guide/assistant/#skills">skills</a> for the AI Assistant: instructions
+for a kind of task, which the assistant reads when a request needs them. Put each in
+<code>skills/&lt;name&gt;/SKILL.md</code> in the package and list the names in <code>plugin.json</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">"skills"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"flood-map"</span><span class="p">]</span>
+</code></pre></div>
+<p>A <code>SKILL.md</code> starts with front matter giving the same <code>name</code> and a <code>description</code> that says when
+to use it, then the instructions in Markdown (the
+<a href="https://agentskills.io">Agent Skills</a> format). The assistant knows it as <code>&lt;plugin id&gt;:&lt;name&gt;</code>
+(<code>hello-rustgis:flood-map</code>) while the plugin is enabled. A <code>SKILL.md</code> is at most 64 KB, and a
+plugin has at most 32 skills.</p>
+<p>A package of skills alone, with no code, says <code>"runtime": "skills"</code>. It has no module, commands,
+tools, tab, panel or permissions, and must list at least one skill. Nothing in it runs, and it
+installs from a file in the desktop app, on the command line and in the web app:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"flood-skills"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Flood mapping skills"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.0.0"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"runtime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"skills"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"skills"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"flood-map"</span><span class="p">,</span><span class="w"> </span><span class="s2">"gauge-report"</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="publishing-a-plugin">Publishing a plugin<a class="headerlink" href="#publishing-a-plugin" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Write the plugin in your own repository, starting from the
+   <a href="https://github.com/opengeos/rustgis-plugin-template">Rust WebAssembly</a>,
+   <a href="https://github.com/opengeos/rustgis-rust-process-plugin-template">Rust process</a> or
+   <a href="https://github.com/opengeos/rustgis-python-plugin-template">Python process</a> template. See
+   <a href="https://plugins.rustgis.app/develop/">Write a plugin</a>.</li>
+<li>Release it: the templates' <strong>Release</strong> workflow attaches the <code>.rgplugin</code> and its registry
+   entry to a GitHub release.</li>
+<li>Open a pull request on
+   <a href="https://github.com/opengeos/rustgis-plugins">opengeos/rustgis-plugins</a> adding that entry as
+   <code>registry/&lt;id&gt;.json</code>:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">,</span><span class="w"> </span><span class="nt">"source"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://…/&lt;id&gt;-&lt;version&gt;.rgplugin"</span><span class="p">,</span><span class="w"> </span><span class="nt">"sha256"</span><span class="p">:</span><span class="w"> </span><span class="s2">"…"</span><span class="p">},</span><span class="w"> </span><span class="nt">"categories"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"Analysis"</span><span class="p">]}</span>
+</code></pre></div>
+<p>Every plugin is listed by <code>source</code>; the registry build refuses <code>path</code> entries.
+4. CI downloads the package, checks its hash, validates its manifest and module (or a process
+   plugin's files), and runs it in RustGIS. A maintainer reviews it before merging.
+5. Once merged, the registry lists the plugin and serves its package at
+   <code>https://packages.rustgis.app/&lt;id&gt;/&lt;id&gt;-&lt;version&gt;.rgplugin</code>. Published packages never change,
+   and every version stays available. To update, release a new version and submit a pull
+   request updating the entry's <code>source.url</code> and <code>source.sha256</code>.</p>
+<p>Pull requests get a preview with an <strong>Open in RustGIS</strong> link; process plugins must be tried
+in the desktop app instead. The nightly workflow runs every published plugin in the latest
+RustGIS. See the registry's <a href="https://plugins.rustgis.app/registry/">publishing instructions</a>
+for details.</p>
+<p>The file you submit is only a pointer to the release. The registry build turns it into the
+published <code>registry.json</code> that RustGIS reads, whose entries carry <code>package</code> (the package's address) and
+<code>sha256</code> in place of <code>source</code>. A registry entry contains <code>id</code>, <code>name</code>, <code>version</code>, <code>description</code>, <code>author</code>, <code>homepage</code>,
+<code>license</code>, <code>permissions</code>, <code>minRustgisVersion</code>, <code>i18n</code> (the name and description translated),
+<code>categories</code>, <code>package</code>, lower-case hexadecimal <code>sha256</code>, and <code>size</code> in bytes.
+<code>package</code> is an HTTPS address or a path relative to <code>registry.json</code>;
+plain <code>http://localhost</code> and <code>http://127.0.0.1</code> addresses are accepted for local test
+registries. Entries without a valid id, name, version or SHA-256 are skipped. A process
+plugin's entry also has <code>"runtime": "process"</code> and, when it has a managed Python environment,
+<code>"python": "3.12"</code> (the version); a WebAssembly plugin can omit both. Registries can list
+skills packages with <code>"runtime": "skills"</code>. The Plugin Manager checks the package's hash
+and id before installing; <code>rustgis-cli plugins get</code> also checks its runtime.
+<code>rustgis-cli plugins browse</code> prints <code>runtime</code> for every entry (<code>wasm</code> when the registry leaves
+it out).</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../mcp/" class="md-footer__link md-footer__link--prev" aria-label="Previous: MCP Server">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                MCP Server
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../i18n/" class="md-footer__link md-footer__link--next" aria-label="Next: Languages">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Languages
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Qiusheng Wu
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/opengeos/RustGIS" target="_blank" rel="noopener" title="RustGIS on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/sponsors/giswqs" target="_blank" rel="noopener" title="Sponsor RustGIS on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="m241 87.1 15 20.7 15-20.7C296 52.5 336.2 32 378.9 32 452.4 32 512 91.6 512 165.1v2.6c0 112.2-139.9 242.5-212.9 298.2-12.4 9.4-27.6 14.1-43.1 14.1s-30.8-4.6-43.1-14.1C139.9 410.2 0 279.9 0 167.7v-2.6C0 91.6 59.6 32 133.1 32 175.8 32 216 52.5 241 87.1"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://buymeacoffee.com/giswqs" target="_blank" rel="noopener" title="Buy the maintainer a coffee" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M152-16c-13.3 0-24 10.7-24 24 0 38.9 23.4 59.4 39.1 73.1l1.1 1C184.5 96.4 192 103.9 192 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C183.5 31.7 176 24.1 176 8c0-13.3-10.7-24-24-24M96 192c-17.7 0-32 14.3-32 32v192c0 53 43 96 96 96h192c41.8 0 77.4-26.7 90.5-64h5.5c70.7 0 128-57.3 128-128s-57.3-128-128-128zm352 192V256c35.3 0 64 28.7 64 64s-28.7 64-64 64M288 8c0-13.3-10.7-24-24-24S240-5.3 240 8c0 38.9 23.4 59.4 39.1 73.1l1.1 1C296.5 96.4 304 103.9 304 120c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C295.5 31.7 288 24.1 288 8"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["content.code.copy","navigation.indexes","navigation.footer","navigation.instant","navigation.top","navigation.tracking","search.highlight","search.share"],"redirect":null,"search":"../assets/javascripts/workers/search.c47bb847.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.77dd0ce9.min.js"></script>
+      
+    
+  </body>
+</html>
